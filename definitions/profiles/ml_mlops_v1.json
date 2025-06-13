@@ -1,0 +1,11 @@
+{
+    "site": "top_bar_site_v1.json",
+    "pages":[
+        "summary_page_v1.json",
+        "education_page_v1.json",
+        "experience_page_v1.json",
+        "skills_page_v1.json",
+        "projects_page_v1.json",
+        "control_page_v1.json"
+    ]
+}
