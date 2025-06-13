@@ -1,3 +1,9 @@
 {
-    "profile": "ml_mlops_v1.json"
+    "default_profile": "ml_mlops_t1.json",
+    "profiles": {
+        "ml_mlops": "ml_mlops_t1.json",
+        "frontend_dev": "frontend_dev_t1.json",
+        "fullstack": "fullstack_t1.json",
+        "data_scientist": "data_scientist_t1.json"
+    }
 }
