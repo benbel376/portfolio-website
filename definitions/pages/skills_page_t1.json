@@ -4,7 +4,12 @@
             "id": "skills-main-container",
             "type": "container",
             "component": "vertical/type_1",
-            "parent": null
+            "parent": null,
+            "navigation": {
+                "defaultState": "hidden",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "slide"
+            }
         },
         {
             "id": "skills-page-header",

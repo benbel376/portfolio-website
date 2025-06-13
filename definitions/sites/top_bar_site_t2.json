@@ -1,0 +1,26 @@
+{
+    "type": "top_bar/type_2",
+    "branding": {
+        "title": "Portfolio"
+    },
+    "navigation": {
+        "tabs": [
+            {
+                "label": "About",
+                "target": "summary-main-container",
+                "state": "visible",
+                "parameters": {
+                    "transition": "fade"
+                }
+            },
+            {
+                "label": "Skills",
+                "target": "skills-main-container", 
+                "state": "visible",
+                "parameters": {
+                    "transition": "slide"
+                }
+            }
+        ]
+    }
+} 

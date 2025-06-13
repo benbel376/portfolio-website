@@ -122,6 +122,8 @@ class PortfolioBuilder {
     private function loadContainer($object, $tree) {
         $containerSpec = $object['component']; // e.g., "vertical/type_1"
         $id = $object['id'];
+        $data = $object['data'] ?? [];
+        $navigationConfig = $object['navigation'] ?? [];
         
         // Parse container specification to get container name and version
         $parts = explode('/', $containerSpec);
@@ -159,14 +161,29 @@ class PortfolioBuilder {
         
         $loader = new $loaderClass();
         
-        return $loader->load($id, $childrenHtml);
+        // Check if loader supports navigation configuration
+        $reflection = new ReflectionMethod($loader, 'load');
+        $paramCount = $reflection->getNumberOfParameters();
+        
+        if ($paramCount >= 3) {
+            // Loader supports navigation configuration
+            return $loader->load($id, $childrenHtml, $navigationConfig);
+        } else {
+            // Legacy loader, only pass basic parameters
+            return $loader->load($id, $childrenHtml);
+        }
     }
     
     private function loadSiteBlock($siteConfig, $pageContent) {
-        $siteType = $siteConfig['type']; // e.g., "top_bar"
+        $siteSpec = $siteConfig['type']; // e.g., "top_bar/type_2"
+        
+        // Parse site specification to get site name and version
+        $parts = explode('/', $siteSpec);
+        $siteType = $parts[0]; // e.g., "top_bar"
+        $version = $parts[1] ?? 'type_1'; // e.g., "type_2"
         
         // Determine the site block path
-        $siteBlockPath = $this->blocksPath . '/sites/' . $siteType . '/type_1';
+        $siteBlockPath = $this->blocksPath . '/sites/' . $siteType . '/' . $version;
         
         // Find the loader file dynamically
         $loaderFile = $this->findLoaderFile($siteBlockPath);

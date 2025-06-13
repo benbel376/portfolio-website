@@ -163,6 +163,85 @@ The system provides clear error messages for common issues:
 3. Create loader class with "Loader" in class name (any pattern)
 4. Use full path specification in page definitions: `"{name}/{version}"`
 
+## Navigation System Integration
+
+### Global Function Export
+
+The dynamic loader discovery system now works seamlessly with the navigation system through global function exports:
+
+```javascript
+// Export functions to global scope for the navigation system
+window.handleVerticalContainerNavigation = handleVerticalContainerNavigation;
+window.initializeVerticalContainerNavigation = initializeVerticalContainerNavigation;
+```
+
+### Navigation Configuration Support
+
+Container loaders now support navigation configuration parameters:
+
+```php
+public function load($id, $childrenHtml = [], $navigationConfig = []) {
+    // Process navigation configuration
+    $navConfig = $this->processNavigationConfig($navigationConfig);
+    
+    // Add navigation configuration as data attribute
+    if (!empty($navConfig)) {
+        $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
+        $html = str_replace('data-nav-handler="handleVerticalContainerNavigation"', 
+                          'data-nav-handler="handleVerticalContainerNavigation" data-nav-config="' . $navConfigJson . '"', 
+                          $html);
+    }
+}
+```
+
+### Template Placeholder System
+
+The loader system now properly handles template placeholders for dynamic content injection:
+
+**Site Loaders**:
+- `<!-- NAVIGATION_TABS_PLACEHOLDER -->` - Replaced with generated navigation links
+- `<!-- PAGE_CONTENT_PLACEHOLDER -->` - Replaced with page content
+- `<!-- TITLE_PLACEHOLDER -->` - Replaced with page title
+
+**Container Loaders**:
+- `<!-- CHILDREN_PLACEHOLDER -->` - Replaced with child component HTML
+
+### Script Loading Integration
+
+The system ensures proper script loading order for navigation functionality:
+
+```html
+<!-- Theme Script (loaded first to ensure availability) -->
+<script src="blocks/sites/top_bar/type_2/behaviors/top_bar_site_behavior_theme_t2.js"></script>
+<!-- Global Navigator Script -->
+<script src="assets/behaviors/global_navigator_t1.js" type="module"></script>
+<!-- Vertical Container Navigation -->
+<script src="blocks/containers/vertical/type_1/vertical_container_behavior_t1.js" type="module"></script>
+```
+
+## Recent Bug Fixes and Improvements
+
+### Template Reference Corrections
+
+Fixed incorrect file references in type_2 templates:
+- CSS: `top_bar_stie_style_main_t1.css` → `top_bar_stie_style_main_t2.css`
+- JS: `top_bar_site_behavior_main_t1.js` → `top_bar_site_behavior_main_t2.js`
+
+### Function Availability Issues
+
+Resolved timing issues with global function availability:
+- Theme toggle functions now load before HTML attempts to access them
+- Navigation functions properly exported to global scope
+- Console logging added for debugging function loading
+
+### Navigation State Management
+
+Enhanced container navigation with proper state management:
+- Default state configuration support
+- Transition effect parameters
+- Initialization script generation
+- Error handling for missing containers
+
 ## Future Enhancements
 
 Potential improvements to consider:
@@ -171,4 +250,7 @@ Potential improvements to consider:
 2. **Version-Specific Discovery**: Enhanced version handling and discovery
 3. **Caching**: Cache discovered loader files for performance
 4. **Validation**: Validate loader class interfaces and methods
-5. **Configuration**: Allow custom discovery patterns via configuration 
+5. **Configuration**: Allow custom discovery patterns via configuration
+6. **Navigation Templates**: Standardized navigation template patterns
+7. **Asset Management**: Automatic CSS/JS dependency resolution
+8. **Hot Reloading**: Development mode with automatic reloading 

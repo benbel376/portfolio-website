@@ -4,7 +4,12 @@
             "id": "summary-main-container",
             "type": "container",
             "component": "vertical/type_1",
-            "parent": null
+            "parent": null,
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "fade"
+            }
         },
         {
             "id": "summary-header",
