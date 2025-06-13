@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# Handle profile routing - redirect all requests to index.php unless they're real files/directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Optional: Remove trailing slashes
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ $1 [R=301,L]
+
+# Security: Prevent direct access to sensitive directories (optional)
+<Files "*.json">
+    <RequireAll>
+        Require all denied
+        Require local
+    </RequireAll>
+</Files> 

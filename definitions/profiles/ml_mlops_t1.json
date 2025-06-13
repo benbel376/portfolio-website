@@ -1,11 +1,11 @@
 {
-    "site": "top_bar_site_v1.json",
+    "site": "top_bar_site_t1.json",
     "pages":[
-        "summary_page_v1.json",
-        "education_page_v1.json",
-        "experience_page_v1.json",
-        "skills_page_v1.json",
-        "projects_page_v1.json",
-        "control_page_v1.json"
+        "summary_page_t1.json",
+        "education_page_t1.json",
+        "experience_page_t1.json",
+        "skills_page_t1.json",
+        "projects_page_t1.json",
+        "control_page_t1.json"
     ]
 }
