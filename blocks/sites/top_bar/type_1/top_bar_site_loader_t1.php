@@ -2,7 +2,7 @@
 
 class TopBarSiteLoader {
     
-    public function load($navigationTabs, $title = 'Portfolio') {
+    public function load($navigationTabs, $title = 'Portfolio', $pageContent = '') {
         // Load the HTML structure template
         $htmlTemplate = file_get_contents(__DIR__ . '/top_bar_site_structure_t1.html');
         
@@ -23,8 +23,12 @@ class TopBarSiteLoader {
             $html
         );
         
-        // Leave page content placeholder empty - will be filled by page loaders later
-        // <!-- to be filled dynamically with pages--> remains as is
+        // Insert page content where the pages placeholder is
+        $html = str_replace(
+            '<!-- to be filled dynamically with pages-->',
+            $pageContent,
+            $html
+        );
         
         return $html;
     }
@@ -42,4 +46,4 @@ class TopBarSiteLoader {
     }
 }
 
-?>
+?> 

@@ -21,29 +21,168 @@ class PortfolioBuilder {
         // Step 2: Load site configuration
         $siteConfig = $this->loadJson($this->definitionsPath . '/sites/' . $siteName);
         
-        // Step 3: Extract data for site loader and load the site block
-        return $this->loadSiteBlock($siteConfig, $pages);
+        // Step 3: Build page content by assembling components and containers
+        $pageContent = $this->buildPages($pages);
+        
+        // Step 4: Load site block and insert page content
+        return $this->loadSiteBlock($siteConfig, $pageContent);
     }
     
-    private function loadSiteBlock($siteConfig, $pages) {
-        $siteType = $siteConfig['type']; // e.g., "top_bar"
+    private function buildPages($pages) {
+        $allPageContent = '';
         
-        // Determine the site block path and loader
-        $siteBlockPath = $this->blocksPath . '/sites/' . $siteType . '/type_1';
-        $loaderFile = $siteBlockPath . '/' . $siteType . '_stie_loader_t1.php';
+        foreach ($pages as $pageFile) {
+            $pageConfig = $this->loadJson($this->definitionsPath . '/pages/' . $pageFile);
+            $pageHtml = $this->buildPageFromObjects($pageConfig['objects']);
+            $allPageContent .= $pageHtml . "\n";
+        }
         
-        if (!file_exists($loaderFile)) {
-            throw new Exception("Site loader not found: $loaderFile");
+        return $allPageContent;
+    }
+    
+    private function buildPageFromObjects($objects) {
+        // Step 1: Build dependency tree from flat structure
+        $tree = $this->buildHierarchyTree($objects);
+        
+        // Step 2: Build HTML starting from root objects (parent = null)
+        $pageHtml = '';
+        foreach ($tree['root'] as $rootObject) {
+            $pageHtml .= $this->buildObjectHtml($rootObject, $tree);
+        }
+        
+        return $pageHtml;
+    }
+    
+    private function buildHierarchyTree($objects) {
+        $tree = ['root' => [], 'children' => []];
+        
+        // Organize objects by parent relationship
+        foreach ($objects as $object) {
+            if ($object['parent'] === null) {
+                $tree['root'][] = $object;
+            } else {
+                if (!isset($tree['children'][$object['parent']])) {
+                    $tree['children'][$object['parent']] = [];
+                }
+                $tree['children'][$object['parent']][] = $object;
+            }
+        }
+        
+        return $tree;
+    }
+    
+    private function buildObjectHtml($object, $tree) {
+        if ($object['type'] === 'component') {
+            return $this->loadComponent($object);
+        } elseif ($object['type'] === 'container') {
+            return $this->loadContainer($object, $tree);
+        }
+        
+        return '';
+    }
+    
+    private function loadComponent($object) {
+        $componentSpec = $object['component']; // e.g., "heros/type_1"
+        $id = $object['id'];
+        $data = $object['data'] ?? [];
+        
+        // Parse component specification to get component name and version
+        $parts = explode('/', $componentSpec);
+        $componentType = $parts[0]; // e.g., "heros"
+        $version = $parts[1] ?? 'type_1'; // e.g., "type_1"
+        
+        // Determine component path
+        $componentPath = $this->blocksPath . '/components/' . $componentType . '/' . $version;
+        
+        // Find the loader file dynamically
+        $loaderFile = $this->findLoaderFile($componentPath);
+        
+        if (!$loaderFile) {
+            throw new Exception("Component loader not found in: $componentPath");
         }
         
         // Include the loader
         require_once $loaderFile;
         
-        // Create loader instance based on site type
-        $loaderClass = $this->getLoaderClassName($siteType);
+        // Find the loader class dynamically
+        $loaderClass = $this->findLoaderClass($loaderFile);
         
-        if (!class_exists($loaderClass)) {
-            throw new Exception("Loader class not found: $loaderClass");
+        if (!$loaderClass || !class_exists($loaderClass)) {
+            throw new Exception("Loader class not found in: $loaderFile");
+        }
+        
+        $loader = new $loaderClass();
+        
+        // Extract data for the loader (e.g., title for hero component)
+        $title = $data['title'] ?? 'Default Title';
+        
+        return $loader->load($id, $title);
+    }
+    
+    private function loadContainer($object, $tree) {
+        $containerSpec = $object['component']; // e.g., "vertical/type_1"
+        $id = $object['id'];
+        
+        // Parse container specification to get container name and version
+        $parts = explode('/', $containerSpec);
+        $containerType = $parts[0]; // e.g., "vertical"
+        $version = $parts[1] ?? 'type_1'; // e.g., "type_1"
+        
+        // Get children for this container
+        $children = $tree['children'][$id] ?? [];
+        $childrenHtml = [];
+        
+        // Build all children first
+        foreach ($children as $child) {
+            $childrenHtml[] = $this->buildObjectHtml($child, $tree);
+        }
+        
+        // Determine container path
+        $containerPath = $this->blocksPath . '/containers/' . $containerType . '/' . $version;
+        
+        // Find the loader file dynamically
+        $loaderFile = $this->findLoaderFile($containerPath);
+        
+        if (!$loaderFile) {
+            throw new Exception("Container loader not found in: $containerPath");
+        }
+        
+        // Include the loader
+        require_once $loaderFile;
+        
+        // Find the loader class dynamically
+        $loaderClass = $this->findLoaderClass($loaderFile);
+        
+        if (!$loaderClass || !class_exists($loaderClass)) {
+            throw new Exception("Loader class not found in: $loaderFile");
+        }
+        
+        $loader = new $loaderClass();
+        
+        return $loader->load($id, $childrenHtml);
+    }
+    
+    private function loadSiteBlock($siteConfig, $pageContent) {
+        $siteType = $siteConfig['type']; // e.g., "top_bar"
+        
+        // Determine the site block path
+        $siteBlockPath = $this->blocksPath . '/sites/' . $siteType . '/type_1';
+        
+        // Find the loader file dynamically
+        $loaderFile = $this->findLoaderFile($siteBlockPath);
+        
+        if (!$loaderFile) {
+            throw new Exception("Site loader not found in: $siteBlockPath");
+        }
+        
+        // Include the loader
+        require_once $loaderFile;
+        
+        // Find the loader class dynamically
+        $loaderClass = $this->findLoaderClass($loaderFile);
+        
+        if (!$loaderClass || !class_exists($loaderClass)) {
+            throw new Exception("Loader class not found in: $loaderFile");
         }
         
         $loader = new $loaderClass();
@@ -52,14 +191,36 @@ class PortfolioBuilder {
         $navigationTabs = $siteConfig['navigation']['tabs'];
         $title = isset($siteConfig['branding']['title']) ? $siteConfig['branding']['title'] : 'Portfolio';
         
-        // Use the loader to generate the site with extracted data
-        return $loader->load($navigationTabs, $title);
+        // Load site with navigation and page content
+        return $loader->load($navigationTabs, $title, $pageContent);
     }
     
-    private function getLoaderClassName($siteType) {
-        // Convert site type to class name (e.g., "top_bar" -> "TopBarSiteLoader")
-        $className = str_replace('_', '', ucwords($siteType, '_')) . 'SiteLoader';
-        return $className;
+    private function findLoaderFile($directoryPath) {
+        if (!is_dir($directoryPath)) {
+            return false;
+        }
+        
+        $files = scandir($directoryPath);
+        
+        foreach ($files as $file) {
+            // Check if it's a PHP file and contains "loader" in the name
+            if (pathinfo($file, PATHINFO_EXTENSION) === 'php' && strpos($file, 'loader') !== false) {
+                return $directoryPath . '/' . $file;
+            }
+        }
+        
+        return false;
+    }
+    
+    private function findLoaderClass($filePath) {
+        $content = file_get_contents($filePath);
+        
+        // Use regex to find class definitions that contain "Loader"
+        if (preg_match('/class\s+(\w*Loader\w*)/i', $content, $matches)) {
+            return $matches[1];
+        }
+        
+        return false;
     }
     
     private function loadJson($filepath) {

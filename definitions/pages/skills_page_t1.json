@@ -1,0 +1,37 @@
+{
+    "objects": [
+        {
+            "id": "skills-main-container",
+            "type": "container",
+            "component": "vertical/type_1",
+            "parent": null
+        },
+        {
+            "id": "skills-page-header",
+            "type": "component",
+            "component": "heros/type_1",
+            "parent": "skills-main-container",
+            "data": {
+                "title": "Technical Skills"
+            }
+        },
+        {
+            "id": "skills-frontend-header",
+            "type": "component",
+            "component": "heros/type_1",
+            "parent": "skills-main-container", 
+            "data": {
+                "title": "Frontend Technologies"
+            }
+        },
+        {
+            "id": "skills-backend-header",
+            "type": "component",
+            "component": "heros/type_1",
+            "parent": "skills-main-container",
+            "data": {
+                "title": "Backend Technologies"
+            }
+        }
+    ]
+}

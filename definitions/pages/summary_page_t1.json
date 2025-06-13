@@ -1,0 +1,28 @@
+{
+    "objects": [
+        {
+            "id": "summary-main-container",
+            "type": "container",
+            "component": "vertical/type_1",
+            "parent": null
+        },
+        {
+            "id": "summary-header",
+            "type": "component", 
+            "component": "heros/type_1",
+            "parent": "summary-main-container",
+            "data": {
+                "title": "About Me"
+            }
+        },
+        {
+            "id": "summary-content-header",
+            "type": "component",
+            "component": "heros/type_1", 
+            "parent": "summary-main-container",
+            "data": {
+                "title": "Professional Summary"
+            }
+        }
+    ]
+}

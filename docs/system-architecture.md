@@ -111,11 +111,18 @@ graph TD
 ### **Entry Configuration** (`definitions/entry.json`)
 ```json
 {
-    "profile": "ml_mlops_t1.json"
+    "default_profile": "ml_mlops_t1.json",
+    "profiles": {
+        "ml_mlops": "ml_mlops_t1.json",
+        "frontend_dev": "frontend_dev_t1.json",
+        "fullstack": "fullstack_t1.json",
+        "data_scientist": "data_scientist_t1.json"
+    }
 }
 ```
-- Defines which profile to load
-- Single source of truth for current active profile
+- Defines the default profile for root access
+- Maps URL-friendly profile keys to profile configuration files
+- Enables multi-profile support through URL routing
 
 ### **Profile Configuration** (`definitions/profiles/[profile].json`)
 ```json
@@ -158,6 +165,128 @@ graph TD
 - Defines navigation structure
 - Specifies branding elements
 - Contains only data, no styling information
+
+---
+
+## **Multi-Profile URL Routing**
+
+### **Universal Routing System**
+The system supports **multiple portfolio profiles** accessible via different URLs, designed to work on **any server** without special configuration requirements.
+
+### **Routing Methods**
+
+#### **Method 1: Query Parameters (Universal)**
+Works on **all servers** without any configuration:
+```
+https://yoursite.com/?profile=ml_mlops          # ML/MLOps Portfolio
+https://yoursite.com/?profile=frontend_dev      # Frontend Developer Portfolio
+https://yoursite.com/?profile=fullstack         # Full-Stack Portfolio
+https://yoursite.com/?profile=data_scientist    # Data Scientist Portfolio
+https://yoursite.com/                           # Default Profile
+```
+
+#### **Method 2: Clean URLs (Server-Dependent)**
+Works when server supports URL rewriting:
+```
+https://yoursite.com/ml_mlops                    # ML/MLOps Portfolio
+https://yoursite.com/frontend_dev                # Frontend Developer Portfolio
+https://yoursite.com/fullstack                   # Full-Stack Portfolio
+https://yoursite.com/data_scientist              # Data Scientist Portfolio
+```
+
+### **URL Processing Logic**
+
+#### **Resolution Priority**
+1. **Query Parameter Check**: `?profile=profile_key`
+2. **URL Path Parsing**: `/profile_key`
+3. **Default Fallback**: Uses `default_profile`
+
+#### **Processing Flow**
+```php
+// 1. Check query parameter (works everywhere)
+if (isset($_GET['profile'])) {
+    $profile = $_GET['profile'];
+}
+
+// 2. Parse URL path (works with rewriting)
+else {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $profile = extract_profile_from_path($path);
+}
+
+// 3. Fallback to default
+if (!valid_profile($profile)) {
+    $profile = $entryConfig['default_profile'];
+}
+```
+
+### **Server Compatibility**
+
+#### **✅ Universal Support (No Configuration)**
+- **Apache** (any version, no .htaccess needed)
+- **Nginx** (any configuration)
+- **IIS** (Windows servers)
+- **Shared Hosting** (most providers)
+- **Cloud Platforms** (Heroku, AWS, Google Cloud, etc.)
+- **Local Development** (XAMPP, WAMP, MAMP, PHP dev server)
+
+#### **🎯 Deployment Benefits**
+- **Zero Server Setup**: No web server configuration required
+- **Portable**: Same codebase works everywhere
+- **Fallback Safe**: Always accessible via query parameters
+- **SEO Friendly**: Each profile has its own URL
+- **User Friendly**: Clean URLs when supported, functional URLs always
+
+### **Profile Management**
+
+#### **Adding New Profiles**
+1. **Create Profile Config**: `definitions/profiles/new_profile_t1.json`
+2. **Update Entry Config**: Add to `profiles` object in `entry.json`
+3. **Access URLs**:
+   - Universal: `?profile=new_profile`
+   - Clean: `/new_profile` (if supported)
+
+#### **Profile URL Examples**
+```json
+// entry.json
+{
+    "default_profile": "ml_mlops_t1.json",
+    "profiles": {
+        "portfolio": "personal_t1.json",
+        "developer": "dev_portfolio_t1.json", 
+        "designer": "design_portfolio_t1.json",
+        "consultant": "consulting_t1.json"
+    }
+}
+```
+
+Access URLs:
+- `yoursite.com/?profile=developer`
+- `yoursite.com/?profile=designer`
+- `yoursite.com/?profile=consultant`
+- `yoursite.com/` (default: ML/MLOps)
+
+### **Error Handling & User Guidance**
+
+#### **Automatic Profile Discovery**
+When errors occur, the system provides:
+- **Available Profiles List**: All configured profile options
+- **Working URLs**: Direct links to each profile
+- **Usage Examples**: Both query parameter and clean URL formats
+- **Fallback Information**: Clear guidance on universal access methods
+
+#### **Example Error Response**
+```html
+Available Profiles:
+• ml_mlops
+• frontend_dev  
+• fullstack
+• data_scientist
+
+Usage Examples:
+• Default: index.php
+• Query Parameter: ?profile=ml_mlops
+```
 
 ---
 
@@ -291,6 +420,8 @@ public function build($profileName) {
 - Modular CSS and JavaScript system
 - Proper asset path resolution
 - Clean separation of concerns
+- **Multi-profile URL routing system**
+- **Universal server compatibility**
 
 ### **🚧 Ready for Implementation**
 - Individual page loaders
@@ -303,6 +434,8 @@ public function build($profileName) {
 - **Maintainable**: Clear separation of concerns and modular design
 - **Flexible**: Multiple portfolio variations from single codebase
 - **Configurable**: Content updates through JSON without code changes
+- **Portable**: Works on any PHP-capable server without configuration
+- **Multi-tenant**: Support multiple portfolio profiles with clean URLs
 
 ---
 

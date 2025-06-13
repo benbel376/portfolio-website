@@ -1,11 +1,7 @@
 {
     "site": "top_bar_site_t1.json",
-    "pages":[
+    "pages": [
         "summary_page_t1.json",
-        "education_page_t1.json",
-        "experience_page_t1.json",
-        "skills_page_t1.json",
-        "projects_page_t1.json",
-        "control_page_t1.json"
+        "skills_page_t1.json"
     ]
 }
