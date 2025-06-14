@@ -5,7 +5,8 @@
  */
 class GlobalNavigator {
     constructor() {
-        this.currentState = {};
+        this.currentState = new Map();
+        this.previousState = new Map(); // Track previous state
         this.registeredHandlers = new Map();
         this.defaultStates = new Map();
         this.isInitialized = false;
@@ -87,21 +88,31 @@ class GlobalNavigator {
         const hash = window.location.hash.substring(1); // Remove #
         
         if (!hash) {
-            // No hash, show default states
-            this.showDefaultStates();
+            // No hash, restore all to default states
+            this.restoreAllToDefaults();
+            this.updateTabHighlighting(null);
             return;
         }
         
-        const navigationState = this.parseHash(hash);
+        const { navigationState, activeTab } = this.parseHash(hash);
         this.executeNavigation(navigationState);
+        this.updateTabHighlighting(activeTab);
     }
     
     /**
      * Parse hash URL into navigation state
-     * Format: #elementId1/state1/param1=value1&param2=value2|elementId2/state2
+     * Format: #elementId1/state1/param1=value1&param2=value2|elementId2/state2.tabId
      */
     parseHash(hash) {
         const navigationState = new Map();
+        let activeTab = null;
+        
+        // Check for tab highlighting signal at the end (after final .)
+        const tabSplit = hash.split('.');
+        if (tabSplit.length > 1) {
+            activeTab = tabSplit.pop(); // Get the tab ID
+            hash = tabSplit.join('.'); // Rejoin in case there were other dots
+        }
         
         // Split by | for multiple element states
         const elementStates = hash.split('|');
@@ -133,35 +144,50 @@ class GlobalNavigator {
             }
         });
         
-        return navigationState;
+        return { navigationState, activeTab };
     }
     
     /**
      * Execute navigation based on parsed state
      */
     executeNavigation(navigationState) {
-        // First, turn off all current states (except those being explicitly set)
-        this.turnOffCurrentStates(navigationState);
+        // Step 1: Save current state as previous state
+        this.previousState = new Map(this.currentState);
         
-        // Then, turn on new states
+        // Step 2: Restore all previously active elements to their default states
+        this.restorePreviousElementsToDefaults();
+        
+        // Step 3: Apply new navigation states
         navigationState.forEach((config, elementId) => {
             this.setElementState(elementId, config.state, config.parameters);
         });
         
-        // Update current state
+        // Step 4: Update current state
         this.currentState = navigationState;
     }
     
     /**
-     * Turn off current states for elements not in new navigation state
+     * Restore all previously active elements to their default states
      */
-    turnOffCurrentStates(newNavigationState) {
-        this.registeredHandlers.forEach((handlerName, elementId) => {
-            if (!newNavigationState.has(elementId)) {
-                // Element not in new state, hide it
-                this.setElementState(elementId, 'hidden');
-            }
+    restorePreviousElementsToDefaults() {
+        this.previousState.forEach((config, elementId) => {
+            const defaultState = this.defaultStates.get(elementId) || 'visible';
+            this.setElementState(elementId, defaultState);
+            console.log(`Restored ${elementId} to default state: ${defaultState}`);
         });
+    }
+    
+    /**
+     * Restore all registered elements to their default states
+     */
+    restoreAllToDefaults() {
+        this.registeredHandlers.forEach((handlerName, elementId) => {
+            const defaultState = this.defaultStates.get(elementId) || 'visible';
+            this.setElementState(elementId, defaultState);
+        });
+        
+        this.currentState = new Map();
+        this.previousState = new Map();
     }
     
     /**
@@ -183,8 +209,12 @@ class GlobalNavigator {
         }
         
         try {
-            const result = handlerFunction(elementId, state, parameters);
-            console.log(`Navigation: ${elementId} -> ${state}`, parameters);
+            // Get additional parameters from site configuration if available
+            const siteParameters = this.getSiteParametersForElement(elementId, state);
+            const combinedParameters = { ...siteParameters, ...parameters };
+            
+            const result = handlerFunction(elementId, state, combinedParameters);
+            console.log(`Navigation: ${elementId} -> ${state}`, combinedParameters);
             return result;
         } catch (error) {
             console.error(`Error calling handler ${handlerName} for ${elementId}:`, error);
@@ -193,33 +223,31 @@ class GlobalNavigator {
     }
     
     /**
-     * Show default states for all registered elements
+     * Get site configuration parameters for an element
      */
-    showDefaultStates() {
-        this.registeredHandlers.forEach((handlerName, elementId) => {
-            const defaultState = this.defaultStates.get(elementId) || 'visible';
-            this.setElementState(elementId, defaultState);
-        });
-        
-        this.currentState = new Map();
+    getSiteParametersForElement(elementId, state) {
+        // This would ideally get parameters from the site configuration
+        // For now, return empty object - this can be enhanced later
+        // to read from a global site config or navigation tab config
+        return {};
     }
     
     /**
      * Navigate to a specific state (programmatic navigation)
      */
-    navigate(elementId, state, parameters = {}) {
+    navigate(elementId, state, parameters = {}, activeTab = null) {
         const newState = new Map(this.currentState);
         newState.set(elementId, { state, parameters });
         
         // Update hash
-        const hashString = this.buildHashFromState(newState);
+        const hashString = this.buildHashFromState(newState, activeTab);
         window.location.hash = hashString;
     }
     
     /**
      * Navigate to multiple states at once
      */
-    navigateMultiple(stateMap) {
+    navigateMultiple(stateMap, activeTab = null) {
         const newState = new Map();
         
         // Convert object to Map if needed
@@ -234,14 +262,14 @@ class GlobalNavigator {
         }
         
         // Update hash
-        const hashString = this.buildHashFromState(newState);
+        const hashString = this.buildHashFromState(newState, activeTab);
         window.location.hash = hashString;
     }
     
     /**
      * Build hash string from navigation state
      */
-    buildHashFromState(navigationState) {
+    buildHashFromState(navigationState, activeTab = null) {
         const elementStates = [];
         
         navigationState.forEach((config, elementId) => {
@@ -257,7 +285,14 @@ class GlobalNavigator {
             elementStates.push(stateString);
         });
         
-        return elementStates.join('|');
+        let hashString = elementStates.join('|');
+        
+        // Add tab highlighting signal if specified
+        if (activeTab) {
+            hashString += `.${activeTab}`;
+        }
+        
+        return hashString;
     }
     
     /**
@@ -273,6 +308,41 @@ class GlobalNavigator {
     isElementInState(elementId, state) {
         const currentConfig = this.currentState.get(elementId);
         return currentConfig && currentConfig.state === state;
+    }
+    
+    /**
+     * Update tab highlighting based on active tab signal
+     */
+    updateTabHighlighting(activeTab) {
+        // Find the main navigation handler and update tab highlighting
+        if (window.topBarNavigation && typeof window.topBarNavigation.updateTabHighlighting === 'function') {
+            window.topBarNavigation.updateTabHighlighting(activeTab);
+        } else {
+            // Fallback: directly update tab highlighting if topBarNavigation is not available
+            this.directUpdateTabHighlighting(activeTab);
+        }
+    }
+    
+    /**
+     * Direct tab highlighting update as fallback
+     */
+    directUpdateTabHighlighting(activeTab) {
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // Clear all active states first
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Highlight the specified tab if provided
+        if (activeTab) {
+            navLinks.forEach(link => {
+                const tabId = link.getAttribute('data-tab-id') || link.getAttribute('data-target');
+                if (tabId === activeTab) {
+                    link.classList.add('active');
+                }
+            });
+        }
     }
 }
 

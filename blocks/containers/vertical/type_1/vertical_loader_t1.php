@@ -15,8 +15,10 @@ class VerticalLoader {
         // Replace placeholder with children content
         $html = str_replace('<!-- CHILDREN_PLACEHOLDER -->', $childrenContent, $htmlTemplate);
         
-        // Add the unique ID to the container
-        $html = str_replace('<div class="vertical-container"', '<div class="vertical-container" id="' . htmlspecialchars($id) . '"', $html);
+        // Add the unique ID to the container while preserving existing attributes
+        $html = str_replace('<div class="vertical-container" data-nav-handler="handleVerticalContainerNavigation">', 
+                          '<div class="vertical-container" id="' . htmlspecialchars($id) . '" data-nav-handler="handleVerticalContainerNavigation">', 
+                          $html);
         
         // Handle navigation configuration
         $navConfig = $this->processNavigationConfig($navigationConfig);
@@ -37,9 +39,10 @@ class VerticalLoader {
             $html = str_replace('class="vertical-container"', 'class="vertical-container nav-visible"', $html);
         }
         
-        // Add initialization script
+        // Add the container's own script import and initialization script
+        $scriptImport = $this->generateScriptImport();
         $initScript = $this->generateInitializationScript($id, $navConfig);
-        $html .= $initScript;
+        $html .= $scriptImport . $initScript;
         
         return $html;
     }

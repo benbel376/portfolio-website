@@ -85,6 +85,7 @@ class PortfolioBuilder {
         $componentSpec = $object['component']; // e.g., "heros/type_1"
         $id = $object['id'];
         $data = $object['data'] ?? [];
+        $navigationConfig = $object['navigation'] ?? [];
         
         // Parse component specification to get component name and version
         $parts = explode('/', $componentSpec);
@@ -116,7 +117,17 @@ class PortfolioBuilder {
         // Extract data for the loader (e.g., title for hero component)
         $title = $data['title'] ?? 'Default Title';
         
-        return $loader->load($id, $title);
+        // Check if loader supports navigation configuration
+        $reflection = new ReflectionMethod($loader, 'load');
+        $paramCount = $reflection->getNumberOfParameters();
+        
+        if ($paramCount >= 3) {
+            // Loader supports navigation configuration
+            return $loader->load($id, $title, $navigationConfig);
+        } else {
+            // Legacy loader, only pass basic parameters
+            return $loader->load($id, $title);
+        }
     }
     
     private function loadContainer($object, $tree) {
@@ -206,10 +217,11 @@ class PortfolioBuilder {
         
         // Extract specific data for the loader
         $navigationTabs = $siteConfig['navigation']['tabs'];
+        $defaultNavigation = $siteConfig['navigation']['defaultNavigation'] ?? null;
         $title = isset($siteConfig['branding']['title']) ? $siteConfig['branding']['title'] : 'Portfolio';
         
         // Load site with navigation and page content
-        return $loader->load($navigationTabs, $title, $pageContent);
+        return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation);
     }
     
     private function findLoaderFile($directoryPath) {

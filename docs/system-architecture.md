@@ -290,6 +290,105 @@ Usage Examples:
 
 ---
 
+## **Navigation System**
+
+### **Hash-Based Navigation Architecture**
+
+The system implements a sophisticated hash-based navigation system that provides:
+- **State-based routing**: URL hash controls element visibility and states
+- **Tab highlighting**: Active tab indication with CSS styling
+- **Auto-navigation**: Default navigation on first load
+- **Memory management**: Proper state restoration and cleanup
+
+### **Hash URL Format**
+```
+#elementId/state.tabId                           # Single element with tab highlighting
+#element1/state1|element2/state2.tabId          # Multiple elements
+#elementId/state/param1=value1&param2=value2    # With parameters
+```
+
+**Examples**:
+- `#summary-main-container/visible.about` - Show summary container, highlight "about" tab
+- `#skills-main-container/visible.skills` - Show skills container, highlight "skills" tab
+- `#hero-section/hidden|content-section/visible.portfolio` - Hide hero, show content, highlight "portfolio"
+
+### **Global Navigator System**
+
+**Core Class**: `GlobalNavigator` in `assets/behaviors/global_navigator_t1.js`
+
+**Key Features**:
+- **Handler Discovery**: Automatically finds elements with `data-nav-handler` attributes
+- **State Memory**: Tracks `currentState` and `previousState` using Maps
+- **Hash Parsing**: Converts hash URLs into navigation commands
+- **State Restoration**: Restores previous elements to default states before applying new ones
+- **Tab Highlighting**: Manages active tab styling across the interface
+
+**Initialization Flow**:
+```javascript
+// 1. Discover navigation handlers
+this.discoverNavigationHandlers();
+
+// 2. Set up hash change listener
+window.addEventListener('hashchange', this.handleHashChange);
+
+// 3. Handle initial hash on page load
+this.handleHashChange();
+```
+
+### **Local Navigation Handlers**
+
+**Handler Registration**:
+Components register navigation handlers via HTML attributes:
+```html
+<div id="summary-main-container" 
+     data-nav-handler="handleVerticalContainerNavigation"
+     data-nav-config='{"defaultState":"hidden","allowedStates":["visible","hidden"]}'>
+```
+
+**Available Handlers**:
+- `handleVerticalContainerNavigation`: Container visibility management
+- `handleHeroNavigation`: Hero component state management
+- `updateTabHighlighting`: Tab active state management
+
+### **Navigation Flow**
+
+1. **User Action**: Click navigation link or manual hash change
+2. **Hash Change**: Browser triggers `hashchange` event
+3. **Global Navigator**: Parses hash and extracts navigation state
+4. **State Management**: Saves current state, restores previous elements to defaults
+5. **Handler Execution**: Calls appropriate local navigation handlers
+6. **Tab Highlighting**: Updates active tab styling
+7. **State Update**: Updates current state tracking
+
+### **Auto-Navigation System**
+
+**Configuration**: Site JSON includes default navigation:
+```json
+{
+  "defaultNavigation": {
+    "hash": "summary-main-container/visible.about",
+    "description": "Default navigation on first load"
+  }
+}
+```
+
+**Implementation**: `top_bar_site_behavior_auto_navigation_t2.js`
+- Reads configuration from `data-default-navigation` attribute
+- Executes only on first load (not on subsequent hash changes)
+- Sets hash to trigger normal navigation flow
+
+### **Tab Highlighting System**
+
+**Primary Method**: Global navigator calls `window.topBarNavigation.updateTabHighlighting()`
+**Fallback Method**: Direct DOM manipulation when topBarNavigation unavailable
+
+**CSS Integration**:
+- `.nav-link.active` class for highlighted tabs
+- Comprehensive styling for light/dark themes
+- Mobile responsive active states
+
+---
+
 ## **Component System**
 
 ### **Site Blocks**
@@ -297,6 +396,7 @@ Located in `blocks/sites/[type]/type_1/`
 - **Purpose**: Define overall site layout and navigation
 - **Example**: `top_bar` site type with horizontal navigation
 - **Components**: Structure, Loader, Styles, Behaviors
+- **Navigation**: Integrated hash-based navigation system
 
 ### **Component Blocks**
 Located in `blocks/components/[type]/type_1/`
@@ -422,6 +522,13 @@ public function build($profileName) {
 - Clean separation of concerns
 - **Multi-profile URL routing system**
 - **Universal server compatibility**
+- **Hash-based navigation system**
+- **Global navigator with state management**
+- **Tab highlighting with fallback mechanism**
+- **Auto-navigation on first load**
+- **Local navigation handlers for components**
+- **Mobile responsive navigation**
+- **Theme switching integration**
 
 ### **🚧 Ready for Implementation**
 - Individual page loaders

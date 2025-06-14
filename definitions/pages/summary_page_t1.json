@@ -6,7 +6,7 @@
             "component": "vertical/type_1",
             "parent": null,
             "navigation": {
-                "defaultState": "visible",
+                "defaultState": "hidden",
                 "allowedStates": ["visible", "hidden", "toggle"],
                 "transitions": "fade"
             }
@@ -18,6 +18,11 @@
             "parent": "summary-main-container",
             "data": {
                 "title": "About Me"
+            },
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "fade"
             }
         },
         {
@@ -27,6 +32,11 @@
             "parent": "summary-main-container",
             "data": {
                 "title": "Professional Summary"
+            },
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "fade"
             }
         }
     ]

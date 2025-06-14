@@ -4,10 +4,15 @@
         "title": "Portfolio"
     },
     "navigation": {
+        "defaultNavigation": {
+            "hash": "summary-main-container/visible.about",
+            "description": "Default navigation on first load"
+        },
         "tabs": [
             {
                 "label": "About",
                 "target": "summary-main-container",
+                "tabId": "about",
                 "state": "visible",
                 "parameters": {
                     "transition": "fade"
@@ -15,7 +20,8 @@
             },
             {
                 "label": "Skills",
-                "target": "skills-main-container", 
+                "target": "skills-main-container",
+                "tabId": "skills", 
                 "state": "visible",
                 "parameters": {
                     "transition": "slide"

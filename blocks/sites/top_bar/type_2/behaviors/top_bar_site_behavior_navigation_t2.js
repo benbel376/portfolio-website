@@ -24,17 +24,22 @@ function initializeNavigation() {
 
 /**
  * Set up navigation link click handlers
+ * Navigation links should only modify the hash - global navigator handles the rest
  */
 function setupNavigationLinks() {
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Let the browser handle the hash navigation
-            // The global navigator will pick it up via hashchange event
+            // Only modify the hash - global navigator will handle everything else
+            // The hash format includes the tab ID for highlighting: #elementId/state.tabId
+            const targetId = this.getAttribute('data-target');
+            const tabId = this.getAttribute('data-tab-id') || targetId;
             
-            // Update active state immediately for better UX
-            updateActiveTab(this);
+            if (targetId) {
+                // Build hash with tab highlighting signal
+                window.location.hash = `${targetId}/visible.${tabId}`;
+            }
         });
     });
 }
@@ -80,47 +85,37 @@ function setupMobileMenu() {
 
 /**
  * Set up integration with global navigator
+ * This component acts as a local navigator for tab highlighting
  */
 function setupGlobalNavigatorIntegration() {
-    // Listen for navigation events from global navigator
-    window.addEventListener('globalNavigator:stateChanged', function(e) {
-        const { elementId, state, parameters } = e.detail;
-        updateNavigationForState(elementId, state);
-    });
-    
-    // Listen for hash changes to update active tab
-    window.addEventListener('hashchange', function() {
-        updateActiveTabFromHash();
-    });
-    
-    // Initial update
-    updateActiveTabFromHash();
+    // No need to listen to hashchange - global navigator handles that
+    // This component will receive tab highlighting updates via updateTabHighlighting()
 }
 
 /**
- * Update active tab based on current hash
+ * Update tab highlighting - called by global navigator
+ * This is the local navigator function for tab highlighting
  */
-function updateActiveTabFromHash() {
-    const hash = window.location.hash.substring(1); // Remove #
-    
-    if (!hash) {
-        // No hash, clear active states
-        clearActiveStates();
-        return;
-    }
-    
-    // Parse hash to get target element
-    const parts = hash.split('/');
-    const targetId = parts[0];
-    
-    // Find and activate corresponding nav link
+function updateTabHighlighting(activeTabId) {
     const navLinks = document.querySelectorAll('.nav-link');
+    
+    // Clear all active states first
     navLinks.forEach(link => {
-        const linkTarget = link.getAttribute('data-target');
-        if (linkTarget === targetId) {
-            updateActiveTab(link);
-        }
+        link.classList.remove('active');
     });
+    
+    // Highlight the specified tab if provided
+    if (activeTabId) {
+        navLinks.forEach(link => {
+            const tabId = link.getAttribute('data-tab-id') || link.getAttribute('data-target');
+            if (tabId === activeTabId) {
+                link.classList.add('active');
+                currentActiveTab = link;
+            }
+        });
+    } else {
+        currentActiveTab = null;
+    }
 }
 
 /**
@@ -200,5 +195,6 @@ window.topBarNavigation = {
     navigateToTab,
     getCurrentActiveTab,
     updateActiveTab,
-    clearActiveStates
+    clearActiveStates,
+    updateTabHighlighting
 }; 

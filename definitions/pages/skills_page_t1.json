@@ -18,6 +18,11 @@
             "parent": "skills-main-container",
             "data": {
                 "title": "Technical Skills"
+            },
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "fade"
             }
         },
         {
@@ -27,6 +32,11 @@
             "parent": "skills-main-container", 
             "data": {
                 "title": "Frontend Technologies"
+            },
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "fade"
             }
         },
         {
@@ -36,6 +46,11 @@
             "parent": "skills-main-container",
             "data": {
                 "title": "Backend Technologies"
+            },
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden", "toggle"],
+                "transitions": "fade"
             }
         }
     ]
