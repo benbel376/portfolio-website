@@ -5,14 +5,47 @@ class PortfolioBuilder {
     private $basePath;
     private $definitionsPath;
     private $blocksPath;
+    private $parameters;
     
     public function __construct($basePath = '.') {
         $this->basePath = $basePath;  
         $this->definitionsPath = $basePath . '/definitions';
         $this->blocksPath = $basePath . '/blocks';
+        $this->parameters = [];
+    }
+    
+    /**
+     * Set builder parameters from entry configuration
+     */
+    public function setParameters($parameters) {
+        $this->parameters = $parameters;
+    }
+    
+    /**
+     * Get a specific parameter value
+     */
+    public function getParameter($key, $default = null) {
+        return $this->parameters[$key] ?? $default;
+    }
+    
+    /**
+     * Get all parameters
+     */
+    public function getParameters() {
+        return $this->parameters;
     }
     
     public function build($profileName) {
+        $debugMode = $this->getParameter('debug', false);
+        
+        if ($debugMode) {
+            $debugInfo = "<!-- Builder Debug Info:\n";
+            $debugInfo .= "Profile: $profileName\n";
+            $debugInfo .= "Parameters: " . json_encode($this->parameters, JSON_PRETTY_PRINT) . "\n";
+            $debugInfo .= "Build Time: " . date('Y-m-d H:i:s') . "\n";
+            $debugInfo .= "-->\n";
+        }
+        
         // Step 1: Load profile configuration using the provided profile name
         $profileConfig = $this->loadJson($this->definitionsPath . '/profiles/' . $profileName);
         $siteName = $profileConfig['site'];
@@ -21,11 +54,21 @@ class PortfolioBuilder {
         // Step 2: Load site configuration
         $siteConfig = $this->loadJson($this->definitionsPath . '/sites/' . $siteName);
         
+        // Add builder parameters to site config for loaders to access
+        $siteConfig['builderParameters'] = $this->parameters;
+        
         // Step 3: Build page content by assembling components and containers
         $pageContent = $this->buildPages($pages);
         
         // Step 4: Load site block and insert page content
-        return $this->loadSiteBlock($siteConfig, $pageContent);
+        $result = $this->loadSiteBlock($siteConfig, $pageContent);
+        
+        // Add debug info if enabled
+        if ($debugMode) {
+            $result = $debugInfo . $result;
+        }
+        
+        return $result;
     }
     
     private function buildPages($pages) {

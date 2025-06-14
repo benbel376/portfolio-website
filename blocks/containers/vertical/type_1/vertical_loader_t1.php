@@ -66,6 +66,12 @@ class VerticalLoader {
         return $config;
     }
     
+    private function generateScriptImport() {
+        return '
+<!-- Container Navigation Scripts -->
+<script src="blocks/containers/vertical/type_1/vertical_container_behavior_t1.js" type="module"></script>';
+    }
+    
     private function generateInitializationScript($containerId, $navConfig) {
         $configJson = json_encode($navConfig);
         

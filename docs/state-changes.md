@@ -194,6 +194,112 @@ This document tracks significant changes and updates made to the portfolio syste
 
 ---
 
+### 2024 - Enhanced Entry Configuration with Builder Parameters
+
+**Date**: Current Session  
+**Type**: Major Enhancement  
+**Status**: Completed
+
+**Problem Addressed**:
+- Need for flexible builder selection per profile
+- Requirement for profile-specific build parameters
+- Need for debugging capabilities in development profiles
+- Desire for theme and optimization customization per portfolio type
+- Lack of builder registry and capability documentation
+
+**Solution Implemented**:
+
+**Enhanced Entry Configuration Structure**:
+- Upgraded from simple string-based profile mapping to object-based configuration
+- Added builder specification per profile with fallback to default builder
+- Implemented builder parameter system for customizable build processes
+- Added builder registry for documentation and capability tracking
+
+**New entry.json Structure**:
+```json
+{
+    "default_profile": "ml_mlops",           // Profile key (not filename)
+    "default_builder": "builder_t1.php",    // Default builder file
+    "profiles": {
+        "profile_key": {
+            "profile": "profile_file.json",  // Profile JSON file
+            "builder": "builder_file.php",   // Builder PHP file (optional)
+            "parameters": {                  // Custom parameters
+                "theme": "professional",
+                "optimization": "performance",
+                "debug": false
+            }
+        }
+    },
+    "builders": {                           // Builder registry
+        "builder_t1.php": {
+            "description": "Standard portfolio builder",
+            "version": "1.0",
+            "capabilities": ["components", "containers", "sites"]
+        }
+    }
+}
+```
+
+**Builder Parameter System**:
+- Added `setParameters()`, `getParameter()`, and `getParameters()` methods to builder
+- Parameters passed from entry configuration to builder instance
+- Builder parameters available to site loaders via `$siteConfig['builderParameters']`
+- Debug mode adds HTML comments with build information when enabled
+
+**Profile-Specific Configurations**:
+- **ml_mlops**: Professional theme, performance optimization, debug disabled
+- **frontend_dev**: Creative theme, development optimization, debug enabled
+- **fullstack**: Technical theme, balanced optimization, debug disabled
+- **data_scientist**: Analytical theme, data-heavy optimization, analytics enabled
+
+**Backward Compatibility**:
+- System supports both old string format and new object format
+- Graceful fallback for missing builder or parameter specifications
+- Enhanced error handling with builder and parameter information
+
+**Files Modified**:
+- `definitions/entry.json`: Complete restructure with builder parameters
+- `index.php`: Enhanced profile resolution and builder parameter handling
+- `builders/builder_t1.php`: Added parameter system and debug capabilities
+
+**Key Features**:
+- **Flexible Builder Selection**: Different profiles can use different builders
+- **Customizable Build Process**: Parameters control builder behavior per profile
+- **Debug Support**: Development profiles can enable detailed debugging
+- **Theme Integration**: Builders can access theme parameters for customization
+- **Performance Optimization**: Different optimization strategies per profile type
+- **Builder Registry**: Documentation of available builders and capabilities
+- **Parameter Inheritance**: Site loaders receive builder parameters for customization
+
+**Impact**:
+- Enhanced flexibility for different portfolio types
+- Better development experience with debug mode
+- Cleaner separation between profile content and build configuration
+- Foundation for future builder extensions and customizations
+- Improved error reporting with builder and parameter context
+
+**Usage Examples**:
+```bash
+# Development profile with debugging
+?profile=frontend_dev
+
+# Production profile with performance optimization
+?profile=ml_mlops
+
+# Analytics-enabled profile
+?profile=data_scientist
+```
+
+**Verification**:
+- All existing profiles continue to work with backward compatibility
+- New parameter system functional with debug mode
+- Builder registry provides clear capability documentation
+- Enhanced error pages show builder and parameter information
+- Profile-specific optimizations and themes configurable
+
+---
+
 ## Future State Changes
 
 *New changes will be documented above this line* 

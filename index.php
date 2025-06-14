@@ -29,7 +29,9 @@ try {
         $requestedProfile = $_GET['profile'];
         if (isset($entryConfig['profiles'][$requestedProfile])) {
             $profileKey = $requestedProfile;
-            $profileName = $entryConfig['profiles'][$requestedProfile];
+            $profileConfig = $entryConfig['profiles'][$requestedProfile];
+            // Handle both old string format and new object format
+            $profileName = is_string($profileConfig) ? $profileConfig : $profileConfig['profile'];
         }
     }
     
@@ -62,15 +64,23 @@ try {
             
             if (isset($entryConfig['profiles'][$requestedProfile])) {
                 $profileKey = $requestedProfile;
-                $profileName = $entryConfig['profiles'][$requestedProfile];
+                $profileConfig = $entryConfig['profiles'][$requestedProfile];
+                // Handle both old string format and new object format
+                $profileName = is_string($profileConfig) ? $profileConfig : $profileConfig['profile'];
             }
         }
     }
     
     // Fallback to default profile
     if (empty($profileName)) {
-        $profileName = $entryConfig['default_profile'];
-        $profileKey = 'default';
+        $defaultProfileKey = $entryConfig['default_profile'];
+        if (isset($entryConfig['profiles'][$defaultProfileKey])) {
+            $profileKey = $defaultProfileKey;
+            $profileConfig = $entryConfig['profiles'][$defaultProfileKey];
+            $profileName = is_string($profileConfig) ? $profileConfig : $profileConfig['profile'];
+        } else {
+            throw new Exception("Default profile '$defaultProfileKey' not found in profiles configuration");
+        }
     }
     
     // Validate that the profile file exists
@@ -79,8 +89,39 @@ try {
         throw new Exception("Profile file not found: $profilePath");
     }
     
-    // Create builder and build the site with the determined profile
+    // Get builder configuration and parameters
+    $builderFile = $entryConfig['default_builder']; // Default builder
+    $builderParameters = [];
+    
+    // Override with profile-specific builder and parameters if available
+    if (isset($profileConfig) && is_array($profileConfig)) {
+        if (isset($profileConfig['builder'])) {
+            $builderFile = $profileConfig['builder'];
+        }
+        if (isset($profileConfig['parameters'])) {
+            $builderParameters = $profileConfig['parameters'];
+        }
+    }
+    
+    // Validate builder file exists
+    $builderPath = 'builders/' . $builderFile;
+    if (!file_exists($builderPath)) {
+        throw new Exception("Builder file not found: $builderPath");
+    }
+    
+    // Include the specified builder file (if different from default)
+    if ($builderFile !== 'builder_t1.php') {
+        require_once $builderPath;
+    }
+    
+    // Create builder and build the site with the determined profile and parameters
     $builder = new PortfolioBuilder();
+    
+    // Pass builder parameters if available
+    if (!empty($builderParameters)) {
+        $builder->setParameters($builderParameters);
+    }
+    
     echo $builder->build($profileName);
     
 } catch (Exception $e) {
@@ -90,8 +131,10 @@ try {
     // Get available profiles for the error page
     $availableProfiles = '';
     if (isset($entryConfig['profiles'])) {
-        foreach ($entryConfig['profiles'] as $key => $file) {
-            $availableProfiles .= "<li><a href='?profile=$key'>$key</a></li>";
+        foreach ($entryConfig['profiles'] as $key => $config) {
+            $profileFile = is_string($config) ? $config : $config['profile'];
+            $builderFile = is_array($config) && isset($config['builder']) ? $config['builder'] : $entryConfig['default_builder'];
+            $availableProfiles .= "<li><a href='?profile=$key'>$key</a> (Profile: $profileFile, Builder: $builderFile)</li>";
         }
     }
     

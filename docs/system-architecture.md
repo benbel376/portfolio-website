@@ -76,16 +76,19 @@ blocks/[type]/[component]/type_1/
 
 ### **Request Flow**
 ```
-User Request → index.php → entry.json → profile.json → site.json → builder → loader → HTML
+User Request → index.php → entry.json → builder selection → profile.json → site.json → builder → loader → HTML
 ```
 
 ### **Detailed Flow**
 1. **`index.php`** reads `definitions/entry.json`
-2. **Entry config** specifies which profile to load (`ml_mlops_t1.json`)
-3. **Profile config** specifies site type and pages
-4. **Builder** loads site configuration and extracts relevant data
-5. **Site loader** receives data and fills HTML template placeholders
-6. **Final HTML** returned to browser with all assets properly linked
+2. **Entry config** determines profile configuration and builder selection
+3. **Builder parameters** extracted from profile configuration
+4. **Specified builder** loaded with custom parameters
+5. **Profile config** specifies site type and pages
+6. **Builder** loads site configuration and extracts relevant data
+7. **Builder parameters** passed to site loaders for customization
+8. **Site loader** receives data and parameters, fills HTML template placeholders
+9. **Final HTML** returned to browser with profile-specific optimizations
 
 ### **Component Interaction**
 ```mermaid
@@ -111,18 +114,43 @@ graph TD
 ### **Entry Configuration** (`definitions/entry.json`)
 ```json
 {
-    "default_profile": "ml_mlops_t1.json",
+    "default_profile": "ml_mlops",
+    "default_builder": "builder_t1.php",
     "profiles": {
-        "ml_mlops": "ml_mlops_t1.json",
-        "frontend_dev": "frontend_dev_t1.json",
-        "fullstack": "fullstack_t1.json",
-        "data_scientist": "data_scientist_t1.json"
+        "ml_mlops": {
+            "profile": "ml_mlops_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "professional",
+                "optimization": "performance",
+                "debug": false
+            }
+        },
+        "frontend_dev": {
+            "profile": "frontend_dev_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "creative",
+                "optimization": "development",
+                "debug": true
+            }
+        }
+    },
+    "builders": {
+        "builder_t1.php": {
+            "description": "Standard portfolio builder with full feature set",
+            "version": "1.0",
+            "capabilities": ["components", "containers", "sites", "navigation", "themes"]
+        }
     }
 }
 ```
-- Defines the default profile for root access
-- Maps URL-friendly profile keys to profile configuration files
-- Enables multi-profile support through URL routing
+- **Enhanced Structure**: Object-based profile configuration with builder parameters
+- **Builder Selection**: Each profile can specify its own builder file
+- **Parameter System**: Custom parameters passed to builder for profile-specific behavior
+- **Builder Registry**: Documentation of available builders and their capabilities
+- **Backward Compatibility**: Supports both old string format and new object format
+- **Debug Support**: Development profiles can enable debugging features
 
 ### **Profile Configuration** (`definitions/profiles/[profile].json`)
 ```json
@@ -447,24 +475,53 @@ class [Component]Loader {
 
 ### **Builder Responsibilities**
 1. **Configuration Management**: Load and parse JSON configs
-2. **Data Extraction**: Pull relevant data for each component
-3. **Component Orchestration**: Instantiate and call appropriate loaders
-4. **HTML Assembly**: Combine processed components into final output
+2. **Parameter Processing**: Handle profile-specific build parameters
+3. **Data Extraction**: Pull relevant data for each component
+4. **Component Orchestration**: Instantiate and call appropriate loaders
+5. **HTML Assembly**: Combine processed components into final output
+6. **Debug Integration**: Add debugging information when enabled
 
-### **Builder Flow**
+### **Builder Parameter System**
+```php
+class PortfolioBuilder {
+    private $parameters;
+    
+    public function setParameters($parameters) {
+        $this->parameters = $parameters;
+    }
+    
+    public function getParameter($key, $default = null) {
+        return $this->parameters[$key] ?? $default;
+    }
+}
+```
+
+### **Enhanced Builder Flow**
 ```php
 public function build($profileName) {
+    $debugMode = $this->getParameter('debug', false);
+    
+    // Add debug info if enabled
+    if ($debugMode) {
+        $debugInfo = "<!-- Builder Debug Info: ... -->";
+    }
+    
     // Load configurations
     $profile = $this->loadJson($profileName);
     $site = $this->loadJson($profile['site']);
+    
+    // Add builder parameters to site config for loaders
+    $site['builderParameters'] = $this->parameters;
     
     // Extract data for loaders
     $navigationData = $site['navigation']['tabs'];
     $brandingData = $site['branding']['title'];
     
-    // Load site block
+    // Load site block with parameters
     $loader = new SiteLoader();
-    return $loader->load($navigationData, $brandingData);
+    $result = $loader->load($navigationData, $brandingData, $this->parameters);
+    
+    return $debugMode ? $debugInfo . $result : $result;
 }
 ```
 
@@ -529,6 +586,11 @@ public function build($profileName) {
 - **Local navigation handlers for components**
 - **Mobile responsive navigation**
 - **Theme switching integration**
+- **Enhanced entry configuration with builder parameters**
+- **Flexible builder selection per profile**
+- **Debug mode and development features**
+- **Profile-specific build optimizations**
+- **Builder registry and capability documentation**
 
 ### **🚧 Ready for Implementation**
 - Individual page loaders

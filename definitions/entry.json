@@ -1,9 +1,50 @@
 {
-    "default_profile": "ml_mlops_t1.json",
+    "default_profile": "ml_mlops",
+    "default_builder": "builder_t1.php",
     "profiles": {
-        "ml_mlops": "ml_mlops_t1.json",
-        "frontend_dev": "frontend_dev_t1.json",
-        "fullstack": "fullstack_t1.json",
-        "data_scientist": "data_scientist_t1.json"
+        "ml_mlops": {
+            "profile": "ml_mlops_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "professional",
+                "optimization": "performance",
+                "debug": false
+            }
+        },
+        "frontend_dev": {
+            "profile": "frontend_dev_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "creative",
+                "optimization": "development",
+                "debug": true
+            }
+        },
+        "fullstack": {
+            "profile": "fullstack_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "technical",
+                "optimization": "balanced",
+                "debug": false
+            }
+        },
+        "data_scientist": {
+            "profile": "data_scientist_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "analytical",
+                "optimization": "data-heavy",
+                "debug": false,
+                "analytics": true
+            }
+        }
+    },
+    "builders": {
+        "builder_t1.php": {
+            "description": "Standard portfolio builder with full feature set",
+            "version": "1.0",
+            "capabilities": ["components", "containers", "sites", "navigation", "themes"]
+        }
     }
 }

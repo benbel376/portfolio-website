@@ -35,7 +35,17 @@ class HeroLoader {
                               $html);
         }
         
+        // Add the component's own script import
+        $scriptImport = $this->generateScriptImport();
+        $html .= $scriptImport;
+        
         return $html;
+    }
+    
+    private function generateScriptImport() {
+        return '
+<!-- Component Navigation Scripts -->
+<script src="blocks/components/heros/type_1/hero_behavior_t1.js" type="module"></script>';
     }
     
     private function processNavigationConfig($navigationConfig) {
