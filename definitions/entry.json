@@ -11,6 +11,15 @@
                 "debug": false
             }
         },
+        "dynamic_test": {
+            "profile": "dynamic_test_t1.json",
+            "builder": "builder_t1.php",
+            "parameters": {
+                "theme": "development",
+                "optimization": "debug",
+                "debug": true
+            }
+        },
         "frontend_dev": {
             "profile": "frontend_dev_t1.json",
             "builder": "builder_t1.php",

@@ -1,0 +1,58 @@
+/* Blog Page Header Styles */
+
+.blog-page-header {
+    background-color: transparent;
+    padding: var(--blog-header-padding) 0;
+    margin-bottom: var(--blog-header-margin-bottom);
+}
+
+.blog-page-header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Light Theme Styles (Default) */
+
+.blog-page-header__title {
+    font-size: var(--fs-h2);
+    color: var(--onyx);
+    font-weight: 600;
+    position: relative;
+    margin: 0;
+    padding-bottom: var(--blog-header-title-padding-bottom);
+}
+
+.blog-page-header__title-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--blog-header-underline-width);
+    height: var(--blog-header-underline-height);
+    background-color: var(--primary);
+    border: var(--blog-header-underline-border-width) solid var(--onyx);
+    border-radius: var(--blog-header-underline-border-radius);
+}
+
+
+/* Dark Theme Styles */
+
+.theme-dark .blog-page-header__title {
+    color: var(--white-1);
+}
+
+.theme-dark .blog-page-header__title-underline {
+    background-color: var(--orange-yellow-crayola);
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 600px) {
+    .blog-page-header__container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--blog-header-mobile-gap);
+    }
+}

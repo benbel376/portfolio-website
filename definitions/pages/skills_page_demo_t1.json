@@ -1,0 +1,133 @@
+{
+	"objects": [
+		{
+			"type": "container",
+			"component": "vertical/type_1",
+			"id": "skills-main-container",
+			"dynamic": false,
+			"navigation": {
+				"defaultState": "visible",
+				"allowedStates": ["visible", "hidden", "scrollTo"],
+				"protected": false
+			},
+			"objects": [
+				{
+					"type": "component",
+					"component": "competencies/type_1",
+					"id": "my-competencies",
+					"dynamic": false,
+					"data": {
+						"main": {
+							"title": "My Competencies",
+							"subtitle": "Core skills and expertise I bring to every project, from AI/ML development to scalable infrastructure deployment",
+							"categories": [
+								{
+									"title": "AI & Machine Learning",
+									"icon": "brain-outline",
+									"skills": [
+										{
+											"title": "Model Development",
+											"description": "End-to-end ML model creation from data preprocessing to production deployment",
+											"icon": "analytics-outline",
+											"type": "ml"
+										},
+										{
+											"title": "MLOps Implementation",
+											"description": "Automated ML pipelines, model versioning, and continuous integration for ML systems",
+											"icon": "git-branch-outline",
+											"type": "ops"
+										},
+										{
+											"title": "Deep Learning",
+											"description": "Neural networks, computer vision, NLP using TensorFlow, PyTorch, and Keras",
+											"icon": "layers-outline",
+											"type": "ml"
+										}
+									]
+								},
+								{
+									"title": "Cloud & Infrastructure",
+									"icon": "cloud-outline",
+									"skills": [
+										{
+											"title": "AWS/Azure Architecture",
+											"description": "Scalable cloud solutions with EC2, S3, Lambda, AKS, and Azure ML services",
+											"icon": "cloud-done-outline",
+											"type": "cloud"
+										},
+										{
+											"title": "Kubernetes & Docker",
+											"description": "Container orchestration, microservices deployment, and cluster management",
+											"icon": "cube-outline",
+											"type": "ops"
+										},
+										{
+											"title": "Infrastructure as Code",
+											"description": "Terraform, CloudFormation, and automated infrastructure provisioning",
+											"icon": "code-working-outline",
+											"type": "ops"
+										}
+									]
+								},
+								{
+									"title": "Data Engineering",
+									"icon": "server-outline",
+									"skills": [
+										{
+											"title": "ETL Pipeline Design",
+											"description": "Scalable data processing workflows using Apache Spark, Airflow, and cloud services",
+											"icon": "shuffle-outline",
+											"type": "data"
+										},
+										{
+											"title": "Data Architecture",
+											"description": "Data lakes, warehouses, and real-time streaming solutions with Kafka and Redis",
+											"icon": "library-outline",
+											"type": "data"
+										},
+										{
+											"title": "API Development",
+											"description": "RESTful APIs, GraphQL, and microservices using Python, Node.js, and FastAPI",
+											"icon": "link-outline",
+											"type": "data"
+										}
+									]
+								},
+								{
+									"title": "Analytics & Insights",
+									"icon": "stats-chart-outline",
+									"skills": [
+										{
+											"title": "Business Intelligence",
+											"description": "Data visualization, dashboards, and KPI tracking using Tableau, Power BI, and custom solutions",
+											"icon": "bar-chart-outline",
+											"type": "analysis"
+										},
+										{
+											"title": "Statistical Analysis",
+											"description": "Hypothesis testing, A/B testing, and predictive analytics for data-driven decisions",
+											"icon": "calculator-outline",
+											"type": "analysis"
+										},
+										{
+											"title": "Performance Monitoring",
+											"description": "Real-time system monitoring, alerting, and optimization using Prometheus and Grafana",
+											"icon": "pulse-outline",
+											"type": "analysis"
+										}
+									]
+								}
+							]
+						}
+					},
+					"variant": "main",
+					"navigation": {
+						"defaultState": "visible",
+						"allowedStates": ["visible", "hidden", "scrollTo"],
+						"protected": false
+					}
+				}
+			]
+		}
+	]
+}

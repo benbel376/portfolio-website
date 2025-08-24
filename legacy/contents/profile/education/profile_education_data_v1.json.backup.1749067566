@@ -1,0 +1,90 @@
+[{
+        "institutionName": "Stanford University",
+        "degree": "Master of Science in Computer Science",
+        "field": "Machine Learning & Artificial Intelligence",
+        "dates": "Sep 2015 - Jun 2017",
+        "location": "Stanford, CA",
+        "gpa": "3.9/4.0",
+        "achievements": [
+            "Thesis: 'Deep Reinforcement Learning for Autonomous Systems' - Published in ICML 2017",
+            "Teaching Assistant for CS229 (Machine Learning) for 3 semesters",
+            "Stanford AI Lab Research Assistant working on computer vision projects",
+            "Dean's List for academic excellence (4 consecutive semesters)",
+            "Co-founded Stanford ML Study Group with 200+ active members",
+            "Completed advanced coursework in Neural Networks and Deep Learning",
+            "Presented research at International Conference on Machine Learning (ICML)"
+        ],
+        "tags": [
+            "Machine Learning",
+            "Deep Learning",
+            "Computer Vision",
+            "Python",
+            "TensorFlow",
+            "PyTorch",
+            "Reinforcement Learning",
+            "Neural Networks",
+            "Research",
+            "Algorithm Design"
+        ],
+        "logoIcon": "school-outline",
+        "type": "degree"
+    },
+    {
+        "institutionName": "University of California, Berkeley",
+        "degree": "Bachelor of Science in Electrical Engineering",
+        "field": "Computer Science Focus",
+        "dates": "Sep 2011 - May 2015",
+        "location": "Berkeley, CA",
+        "gpa": "3.8/4.0",
+        "achievements": [
+            "Magna Cum Laude graduate with honors in Computer Science",
+            "Senior Capstone: Smart Grid Optimization using Machine Learning algorithms",
+            "President of IEEE Student Branch (2014-2015)",
+            "Undergraduate Research in Berkeley AI Research Lab (BAIR)",
+            "Awarded Berkeley Engineering Excellence Scholarship (2013-2015)"
+        ],
+        "tags": [
+            "Electrical Engineering",
+            "Computer Science",
+            "C++",
+            "Java",
+            "MATLAB",
+            "Circuit Design",
+            "Signal Processing",
+            "Embedded Systems",
+            "Leadership",
+            "Research"
+        ],
+        "logoIcon": "library-outline",
+        "type": "degree"
+    },
+    {
+        "institutionName": "Lambda School",
+        "degree": "Full Stack Web Development Bootcamp",
+        "field": "Computer Science & Software Engineering",
+        "dates": "Jan 2019 - Sep 2019",
+        "location": "San Francisco, CA (Remote)",
+        "achievements": [
+            "Intensive 9-month program covering full-stack development",
+            "Built 10+ production-ready applications using React, Node.js, and Python",
+            "Collaborated on team projects using Agile methodologies",
+            "Mentored junior students in JavaScript and React fundamentals",
+            "Graduated with distinction in the top 10% of cohort"
+        ],
+        "tags": [
+            "JavaScript",
+            "React",
+            "Node.js",
+            "Python",
+            "HTML/CSS",
+            "REST APIs",
+            "Git",
+            "Agile",
+            "MongoDB",
+            "Express.js",
+            "Full Stack Development"
+        ],
+        "logoIcon": "code-outline",
+        "type": "bootcamp"
+    }
+]

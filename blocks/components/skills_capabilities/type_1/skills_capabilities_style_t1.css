@@ -1,0 +1,59 @@
+/* Skills Capabilities Component */
+
+/* Variables (inherits site theme where possible) */
+.skills-capabilities {
+	--cap-card-radius: 16px;
+	--cap-gap-lg: 1.25rem;
+	--cap-gap-md: 0.75rem;
+	--cap-accent: var(--orange-yellow-crayola, #FFDB70);
+	--cap-bg: #FFFFFF;
+	--cap-bg-subtle: #FAFAFA;
+	--cap-text-strong: #212121;
+	--cap-text: #262626;
+	--cap-border: #E0E0E0;
+	--cap-shadow-1: 0 8px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.theme-dark .skills-capabilities {
+	--cap-bg: #212121;
+	--cap-bg-subtle: #2A2A2A;
+	--cap-text-strong: #FAFAFA;
+	--cap-text: #CCCCCC;
+	--cap-border: #444444;
+}
+
+.skills-capabilities { width: 100%; padding: 0 24px; margin: 24px 0; }
+.skills-capabilities__header { margin: 0 0 1.25rem 0; display: flex; align-items: center; gap: .75rem; position: relative; }
+.skills-capabilities__header::before { content: ''; position: absolute; inset: -8px -8px; background: linear-gradient(135deg, var(--cap-bg) 0%, var(--cap-bg-subtle) 100%); border: 1px solid var(--cap-border); border-radius: 24px; box-shadow: var(--cap-shadow-1); z-index: -1; }
+.skills-capabilities__icon { flex-shrink: 0; width: 72px; height: 72px; border-radius: 20px; display: grid; place-items: center; background: color-mix(in srgb, var(--cap-accent) 18%, transparent); border: 1px solid color-mix(in srgb, var(--cap-accent) 30%, transparent); }
+.skills-capabilities__icon ion-icon { font-size: 1.8rem; color: var(--cap-accent); }
+.skills-capabilities__titlewrap { display: flex; flex-direction: column; }
+.skills-capabilities__title { color: var(--cap-text-strong); margin: 0; font-weight: 800; font-size: 1.35rem; }
+.skills-capabilities__subtitle { color: var(--cap-text); opacity: .9; margin: .1rem 0 0; font-size: 1rem; }
+
+.skills-capabilities__list { list-style: none; padding-left: 0; margin: .5rem 0 0 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); column-gap: 2.5rem; row-gap: .6rem; }
+.skills-capabilities__item { position: relative; padding: .45rem .6rem .45rem 1.35rem; cursor: pointer; color: var(--cap-text-strong); border-radius: 10px; }
+.skills-capabilities__item::before { content: ''; position: absolute; left: .5rem; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--cap-accent); }
+.skills-capabilities__item:hover, .skills-capabilities__item:focus-within { background: color-mix(in srgb, var(--cap-accent) 9%, transparent); outline: none; }
+.skills-capabilities__item:focus-visible { outline: 2px solid color-mix(in srgb, var(--cap-accent) 40%, transparent); outline-offset: 2px; }
+
+/* One-line ellipsis for longer items */
+.skills-capabilities__item .cap__label { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+@media (max-width: 576px) {
+	.skills-capabilities { padding: 0 .75rem; }
+	.skills-capabilities__list { grid-template-columns: 1fr; row-gap: .75rem; }
+}
+
+/* Modal */
+.cap-modal[hidden] { display: none !important; }
+.cap-modal { position: fixed; inset: 0; z-index: 999; }
+.cap-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
+.cap-modal__dialog { position: relative; margin: 10vh auto; max-width: 640px; background: var(--cap-bg); border: 1px solid var(--cap-border); border-radius: 16px; box-shadow: var(--cap-shadow-1); padding: 1rem 1.25rem; z-index: 1; }
+.cap-modal__close { position: absolute; top: .5rem; right: .5rem; background: transparent; border: 1px solid var(--cap-border); border-radius: 8px; color: var(--cap-text-strong); font-size: 1.25rem; line-height: 1; padding: .25rem .5rem; cursor: pointer; }
+.cap-modal__title { margin: 0 0 .25rem; color: var(--cap-text-strong); font-weight: 800; }
+.cap-modal__description { margin: 0 0 .75rem; color: var(--cap-text); }
+.cap-modal__link { display: inline-block; text-decoration: none; border: 1px solid var(--cap-border); border-radius: 8px; padding: .35rem .6rem; color: var(--cap-text-strong); }
+.cap-modal__link:hover { border-color: var(--cap-accent); text-decoration: underline; }
+
+

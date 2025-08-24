@@ -26,6 +26,31 @@
                 "parameters": {
                     "transition": "slide"
                 }
+            },
+            {
+                "label": "Projects",
+                "target": "projects-main-container",
+                "tabId": "projects",
+                "state": "visible"
+            },
+            {
+                "label": "Experience",
+                "target": "experience-main-container",
+                "tabId": "experience",
+                "state": "visible"
+            },
+            {
+                "label": "Education",
+                "target": "education-main-container",
+                "tabId": "education",
+                "state": "visible"
+            },
+            {
+                "label": "Admin",
+                "target": "admin-main-container",
+                "tabId": "admin",
+                "state": "visible",
+                "protected": true
             }
         ]
     }

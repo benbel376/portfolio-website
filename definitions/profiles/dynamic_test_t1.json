@@ -1,0 +1,30 @@
+{
+    "site": {
+        "type": "site",
+        "site": "top_bar/type_2",
+        "title": "Dynamic Loading Test",
+        "navigationTabs": [
+            {
+                "label": "Dynamic Test",
+                "target": "dynamic-test-container",
+                "state": "visible",
+                "tabId": "dynamic-test"
+            },
+            {
+                "label": "Secondary",
+                "target": "secondary-container",
+                "state": "visible",
+                "tabId": "secondary"
+            },
+            {
+                "label": "Hide All",
+                "target": "dynamic-test-container",
+                "state": "hidden",
+                "tabId": "hide-all"
+            }
+        ]
+    },
+    "pages": [
+        "dynamic_test_page_t1.json"
+    ]
+} 

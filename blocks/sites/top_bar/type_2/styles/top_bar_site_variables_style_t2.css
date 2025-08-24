@@ -107,8 +107,8 @@
     --hero-avatar-mobile-width: 220px;
     --hero-avatar-tablet-width: 250px;
     /* Hero Background Images */
-    --hero-backdrop-light: url(../../../images/profile/hero/profile_hero_backdrop_light_v3.png);
-    --hero-backdrop-dark: url(../../../images/profile/hero/profile_hero_backdrop_dark_v3.png);
+    --hero-backdrop-light: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_light_v3.png);
+    --hero-backdrop-dark: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_dark_v3.png);
     /* Summary Component Variables */
     --summary-component-padding: 1em;
     --summary-highlight-card-border-radius: 16px;
@@ -820,7 +820,7 @@
     /* Body Background Image - Light Theme */
     --body-bg-image: url(../../images/general/general_background_light_v1.png);
     --hero-name-text-color: var(--primary);
-    --avatar-image-light: url(../../../images/profile/hero/profile_hero_avatar_v1.png);
+    --avatar-image-light: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png);
     /* Responsive Layout Spacing */
     --padding-container-tablet: 0.75rem;
     --padding-site-container-tablet: 1.5em;
@@ -892,5 +892,5 @@
     --body-bg-image: url(../../images/general/general_background_dark_v1.png);
     --hero-name-text-color: var(--orange-yellow-crayola);
     /* Hero name specifically yellow in dark mode */
-    --avatar-image-dark: url(../../../images/profile/hero/profile_hero_avatar_v1.png);
+    --avatar-image-dark: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png);
 }

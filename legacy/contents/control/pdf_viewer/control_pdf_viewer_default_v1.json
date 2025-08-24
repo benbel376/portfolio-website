@@ -1,0 +1,71 @@
+{
+    "viewer_config": {
+        "title": "PDF Article Viewer",
+        "description": "View blog articles in native PDF format",
+        "default_pdf": "sample_article_v1",
+        "enable_search": true,
+        "enable_zoom": true,
+        "enable_fullscreen": true,
+        "native_styling": true
+    },
+    "available_pdfs": [{
+            "id": "sample_article_v1",
+            "title": "Getting Started with Modern Web Development",
+            "author": "Portfolio Author",
+            "category": "Tutorial",
+            "file_path": "/assets/pdfs/articles/sample_article_v1.pdf",
+            "thumbnail": "/assets/images/pdf_viewer/thumbnails/sample_article_v1.jpg",
+            "pages": 12,
+            "file_size": "2.4 MB",
+            "date_created": "2024-01-15",
+            "description": "A comprehensive guide to modern web development practices and tools."
+        },
+        {
+            "id": "react_fundamentals_v1",
+            "title": "React Fundamentals: Building Your First App",
+            "author": "Portfolio Author",
+            "category": "Tutorial",
+            "file_path": "/assets/pdfs/articles/react_fundamentals_v1.pdf",
+            "thumbnail": "/assets/images/pdf_viewer/thumbnails/react_fundamentals_v1.jpg",
+            "pages": 18,
+            "file_size": "3.1 MB",
+            "date_created": "2024-01-20",
+            "description": "Learn React basics and build your first interactive application."
+        },
+        {
+            "id": "php_best_practices_v1",
+            "title": "PHP Best Practices for Scalable Applications",
+            "author": "Portfolio Author",
+            "category": "Best Practices",
+            "file_path": "/assets/pdfs/articles/php_best_practices_v1.pdf",
+            "thumbnail": "/assets/images/pdf_viewer/thumbnails/php_best_practices_v1.jpg",
+            "pages": 24,
+            "file_size": "4.2 MB",
+            "date_created": "2024-01-25",
+            "description": "Essential PHP practices for building maintainable and scalable web applications."
+        }
+    ],
+    "categories": [
+        "Tutorial",
+        "Best Practices",
+        "Case Study",
+        "Opinion",
+        "Technical Deep-Dive"
+    ],
+    "view_modes": [{
+            "id": "native",
+            "name": "Native Article View",
+            "description": "Clean, article-style presentation without PDF chrome"
+        },
+        {
+            "id": "magazine",
+            "name": "Magazine Layout",
+            "description": "Magazine-style multi-column layout"
+        },
+        {
+            "id": "minimal",
+            "name": "Minimal Reader",
+            "description": "Distraction-free reading experience"
+        }
+    ]
+}

@@ -15,21 +15,23 @@ class VerticalLoader {
         // Replace placeholder with children content
         $html = str_replace('<!-- CHILDREN_PLACEHOLDER -->', $childrenContent, $htmlTemplate);
         
-        // Add the unique ID to the container while preserving existing attributes
-        $html = str_replace('<div class="vertical-container" data-nav-handler="handleVerticalContainerNavigation">', 
-                          '<div class="vertical-container" id="' . htmlspecialchars($id) . '" data-nav-handler="handleVerticalContainerNavigation">', 
-                          $html);
-        
         // Handle navigation configuration
         $navConfig = $this->processNavigationConfig($navigationConfig);
-        
-        // Add navigation configuration as data attribute
+
+        // Build attribute string for nav handler, id, optional protected and nav-config in one pass
+        $attributes = 'data-nav-handler="handleVerticalContainerNavigation"';
+        if (!empty($navConfig['protected'])) {
+            $attributes .= ' data-protected="true"';
+        }
         if (!empty($navConfig)) {
             $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
-            $html = str_replace('data-nav-handler="handleVerticalContainerNavigation"', 
-                              'data-nav-handler="handleVerticalContainerNavigation" data-nav-config="' . $navConfigJson . '"', 
-                              $html);
+            $attributes .= ' data-nav-config="' . $navConfigJson . '"';
         }
+
+        // Add the unique ID and combined attributes
+        $html = str_replace('<div class="vertical-container" data-nav-handler="handleVerticalContainerNavigation">',
+            '<div class="vertical-container" id="' . htmlspecialchars($id) . '" ' . $attributes . '>',
+            $html);
         
         // Apply default state styling if specified
         $defaultState = $navConfig['defaultState'] ?? 'visible';
@@ -38,6 +40,8 @@ class VerticalLoader {
         } else {
             $html = str_replace('class="vertical-container"', 'class="vertical-container nav-visible"', $html);
         }
+
+        // (attributes already include data-protected when configured)
         
         // Add the container's own script import and initialization script
         $scriptImport = $this->generateScriptImport();

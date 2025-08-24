@@ -1,15 +1,14 @@
 /* Vertical Container Base Styles */
 .vertical-container {
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
     width: 100%;
     min-height: 200px;
+    align-items: stretch;
 }
 
 /* Navigation State Classes */
 .vertical-container.nav-visible {
-    display: flex;
+    display: block;
 }
 
 .vertical-container.nav-hidden {
@@ -31,6 +30,26 @@
         gap: 0.5rem;
         min-height: 150px;
     }
+}
+
+/* Ensure direct children occupy full width and clear any unexpected layout modes */
+.vertical-container > * {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ignore non-visual resources as flex items */
+.vertical-container > link,
+.vertical-container > script {
+    display: none !important;
+    flex: 0 0 auto;
+}
+
+/* Ensure known component roots take full width */
+.vertical-container > .hero-wrapper,
+.vertical-container > .summary-component {
+    width: 100%;
+    max-width: 100%;
 }
 
 /* Debug Mode - Optional for development */

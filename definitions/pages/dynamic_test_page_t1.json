@@ -1,0 +1,80 @@
+{
+    "objects": [
+        {
+            "type": "container",
+            "container": "vertical/type_1",
+            "id": "dynamic-test-container",
+            "navigation": {
+                "defaultState": "visible",
+                "allowedStates": ["visible", "hidden"],
+                "transitions": true
+            },
+            "objects": [
+                {
+                    "type": "component",
+                    "component": "heros/type_1",
+                    "id": "dynamic-hero-1",
+                    "dynamic": true,
+                    "data": {
+                        "title": "Dynamic Hero Component 1"
+                    },
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden"]
+                    }
+                },
+                {
+                    "type": "component",
+                    "component": "heros/type_1",
+                    "id": "static-hero-1",
+                    "dynamic": false,
+                    "data": {
+                        "title": "Static Hero Component 1"
+                    },
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden"]
+                    }
+                },
+                {
+                    "type": "component",
+                    "component": "heros/type_1",
+                    "id": "dynamic-hero-2",
+                    "dynamic": true,
+                    "data": {
+                        "title": "Dynamic Hero Component 2"
+                    },
+                    "navigation": {
+                        "defaultState": "hidden",
+                        "allowedStates": ["visible", "hidden"]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "container",
+            "container": "vertical/type_1",
+            "id": "secondary-container",
+            "navigation": {
+                "defaultState": "hidden",
+                "allowedStates": ["visible", "hidden"],
+                "transitions": true
+            },
+            "objects": [
+                {
+                    "type": "component",
+                    "component": "heros/type_1",
+                    "id": "dynamic-hero-3",
+                    "dynamic": true,
+                    "data": {
+                        "title": "Dynamic Hero Component 3 (Secondary Container)"
+                    },
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden"]
+                    }
+                }
+            ]
+        }
+    ]
+} 

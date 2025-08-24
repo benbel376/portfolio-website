@@ -1,43 +1,76 @@
 {
-    "objects": [
-        {
-            "id": "summary-main-container",
-            "type": "container",
-            "component": "vertical/type_1",
-            "parent": null,
-            "navigation": {
-                "defaultState": "hidden",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "fade"
-            }
-        },
-        {
-            "id": "summary-header",
-            "type": "component", 
-            "component": "heros/type_1",
-            "parent": "summary-main-container",
-            "data": {
-                "title": "About Me"
-            },
-            "navigation": {
-                "defaultState": "visible",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "fade"
-            }
-        },
-        {
-            "id": "summary-content-header",
-            "type": "component",
-            "component": "heros/type_1", 
-            "parent": "summary-main-container",
-            "data": {
-                "title": "Professional Summary"
-            },
-            "navigation": {
-                "defaultState": "visible",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "fade"
-            }
-        }
-    ]
+	"objects": [
+		{
+			"type": "container",
+			"component": "vertical/type_1",
+			"id": "summary-main-container",
+			"dynamic": false,
+			"navigation": {
+				"defaultState": "hidden",
+				"allowedStates": ["visible", "hidden", "scrollTo"],
+				"protected": false
+			},
+			"objects": [
+				
+				{
+					"type": "component",
+					"component": "heros/type_1",
+					"id": "profile-hero",
+					"dynamic": false,
+					"data": {
+						"main": {
+							"name": "Biniyam Belayneh",
+							"title": "AI and MLOps Engineer",
+							"description": "Experienced ML Engineer specializing in developing and deploying machine learning solutions. Strong background in data analysis and model optimization.",
+							"image": "assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png",
+							"social": [
+								{ "type": "email", "label": "Email", "href": "mailto:biniyambelayneh376@gmail.com" },
+								{ "type": "phone", "label": "Phone", "href": "tel:+251939890540" },
+								{ "type": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/biniyam-belayneh-demisse-42909617a" },
+								{ "type": "github", "label": "GitHub", "href": "https://github.com/benbel376" }
+							],
+							"cvDownload": {
+								"href": "assets/media/ml_mlops_profile/cv/Biniyam_Belayneh_CV.pdf",
+								"filename": "Biniyam_Belayneh_CV.pdf"
+							}
+						}
+					},
+					"variant": "main",
+					"navigation": {
+						"defaultState": "visible",
+						"allowedStates": ["visible", "hidden", "scrollTo"],
+						"protected": false
+					}
+				},
+				{
+					"type": "component",
+					"component": "summaries/type_1",
+					"id": "profile-summary",
+					"dynamic": false,
+					"data": {
+						"main": {
+							"highlightIcon": "rocket-outline",
+							"highlightTitle": "AI & MLOps Team Lead",
+							"highlightSubtitle": "Building end-to-end machine learning systems from development to deployment with scalability, security, and efficiency at the core.",
+							"paragraphs": [
+								"As the <strong>AI and MLOps team lead</strong> at Adludio, I spearheaded the development of end-to-end machine learning systems, automating data processing, model training, and deployment pipelines. I bring expertise in cloud computing, CI/CD, and scalable architectures, ensuring robust, versioned models that drive reliable production.",
+								"Additionally, I design streamlined UI systems for monitoring real-time performance, security, and cost metrics, empowering teams with actionable insights. From development to deployment, I focus on delivering machine learning solutions that are efficient, secure, and scale-ready."
+							],
+							"expertise": [
+								{ "icon": "server-outline", "title": "ML Infrastructure", "description": "Scalable ML pipelines with end-to-end automation" },
+								{ "icon": "cloud-outline", "title": "Cloud Architecture", "description": "Secure, cost-effective cloud solutions for ML" },
+								{ "icon": "analytics-outline", "title": "Performance Analytics", "description": "Real-time monitoring with actionable insights" }
+							]
+						}
+					},
+					"variant": "main",
+					"navigation": {
+						"defaultState": "visible",
+						"allowedStates": ["visible", "hidden"],
+						"protected": false
+					}
+				}
+			]
+		}
+	]
 }

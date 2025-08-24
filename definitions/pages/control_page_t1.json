@@ -1,0 +1,28 @@
+{
+    "objects": [
+        {
+            "type": "container",
+            "component": "vertical/type_1",
+            "id": "admin-main-container",
+            "navigation": {
+                "defaultState": "hidden",
+                "allowedStates": ["visible", "hidden"],
+                "transitions": "fade",
+                "protected": true
+            },
+            "objects": [
+                {
+                    "type": "component",
+                    "component": "placeholders/type_1",
+                    "id": "admin-placeholder",
+                    "dynamic": false,
+                    "data": { "main": { "title": "Admin Tools" } },
+                    "variant": "main",
+                    "navigation": { "defaultState": "visible", "allowedStates": ["visible","hidden"], "protected": true }
+                }
+            ]
+        }
+    ]
+}
+
+

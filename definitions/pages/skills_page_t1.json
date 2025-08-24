@@ -1,57 +1,286 @@
 {
     "objects": [
         {
-            "id": "skills-main-container",
             "type": "container",
             "component": "vertical/type_1",
-            "parent": null,
+            "id": "skills-main-container",
             "navigation": {
                 "defaultState": "hidden",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "slide"
-            }
-        },
-        {
-            "id": "skills-page-header",
-            "type": "component",
-            "component": "heros/type_1",
-            "parent": "skills-main-container",
-            "data": {
-                "title": "Technical Skills"
+                "allowedStates": ["visible", "hidden", "scrollTo"]
             },
-            "navigation": {
-                "defaultState": "visible",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "fade"
-            }
-        },
-        {
-            "id": "skills-frontend-header",
-            "type": "component",
-            "component": "heros/type_1",
-            "parent": "skills-main-container", 
-            "data": {
-                "title": "Frontend Technologies"
-            },
-            "navigation": {
-                "defaultState": "visible",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "fade"
-            }
-        },
-        {
-            "id": "skills-backend-header",
-            "type": "component",
-            "component": "heros/type_1",
-            "parent": "skills-main-container",
-            "data": {
-                "title": "Backend Technologies"
-            },
-            "navigation": {
-                "defaultState": "visible",
-                "allowedStates": ["visible", "hidden", "toggle"],
-                "transitions": "fade"
-            }
+            "objects": [
+                {
+                    "type": "component",
+                    "component": "competencies/type_1",
+                    "id": "my-competencies",
+                    "dynamic": false,
+                    "data": {
+                        "main": {
+                            "title": "My Competencies",
+                            "slideshow": [
+                                {
+                                    "title": "ML Pipeline Architecture",
+                                    "description": "End-to-end machine learning pipeline with automated training, validation, and deployment",
+                                    "src": "assets/media/placeholders/slides/slide_1.svg",
+                                    "type": "image"
+                                },
+                                {
+                                    "title": "Data Processing Workflow",
+                                    "description": "Real-time data ingestion and processing pipeline using Apache Kafka and Spark",
+                                    "src": "assets/media/placeholders/slides/slide_2.svg",
+                                    "type": "image"
+                                },
+                                {
+                                    "title": "Cloud Infrastructure Setup",
+                                    "description": "Kubernetes-based microservices architecture with auto-scaling and load balancing",
+                                    "src": "assets/media/placeholders/slides/slide_3.svg",
+                                    "type": "image"
+                                }
+                            ],
+                            "categories": [
+                                {
+                                    "title": "AI & Machine Learning",
+                                    "icon": "brain-outline",
+                                    "skills": [
+                                        {
+                                            "title": "Model Development",
+                                            "description": "End-to-end ML model creation from data preprocessing to production deployment",
+                                            "icon": "analytics-outline",
+                                            "type": "ml"
+                                        },
+                                        {
+                                            "title": "MLOps Implementation", 
+                                            "description": "Automated ML pipelines, model versioning, and continuous integration for ML systems",
+                                            "icon": "git-branch-outline",
+                                            "type": "ops"
+                                        },
+                                        {
+                                            "title": "Deep Learning",
+                                            "description": "Neural networks, computer vision, NLP using TensorFlow, PyTorch, and Keras",
+                                            "icon": "layers-outline",
+                                            "type": "ml"
+                                        },
+                                        {
+                                            "title": "Computer Vision",
+                                            "description": "Image classification, object detection, and video analysis using CNN architectures",
+                                            "icon": "eye-outline",
+                                            "type": "ml"
+                                        },
+                                        {
+                                            "title": "Natural Language Processing",
+                                            "description": "Text analysis, sentiment analysis, and language models using transformers",
+                                            "icon": "chatbubbles-outline",
+                                            "type": "ml"
+                                        },
+                                        {
+                                            "title": "AutoML & Hyperparameter Tuning",
+                                            "description": "Automated model selection, optimization, and performance tuning workflows",
+                                            "icon": "settings-outline",
+                                            "type": "ml"
+                                        },
+                                        {
+                                            "title": "Model Deployment",
+                                            "description": "Production-ready model serving with REST APIs, batch processing, and real-time inference",
+                                            "icon": "rocket-outline",
+                                            "type": "ops"
+                                        },
+                                        {
+                                            "title": "Feature Engineering",
+                                            "description": "Data transformation, feature selection, and engineering for optimal model performance",
+                                            "icon": "construct-outline",
+                                            "type": "data"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Cloud & Infrastructure",
+                                    "icon": "cloud-outline", 
+                                    "skills": [
+                                        {
+                                            "title": "AWS Architecture",
+                                            "description": "EC2, S3, Lambda, SageMaker, and comprehensive cloud solution design",
+                                            "icon": "cloud-done-outline",
+                                            "type": "cloud"
+                                        },
+                                        {
+                                            "title": "Azure Services",
+                                            "description": "Azure ML, AKS, Functions, and enterprise cloud implementations",
+                                            "icon": "cloud-upload-outline",
+                                            "type": "cloud"
+                                        },
+                                        {
+                                            "title": "Kubernetes Orchestration",
+                                            "description": "Container orchestration, scaling, and microservices deployment",
+                                            "icon": "cube-outline",
+                                            "type": "ops"
+                                        },
+                                        {
+                                            "title": "Docker Containerization",
+                                            "description": "Application containerization, multi-stage builds, and optimization",
+                                            "icon": "layers-outline",
+                                            "type": "ops"
+                                        },
+                                        {
+                                            "title": "Infrastructure as Code",
+                                            "description": "Terraform, CloudFormation, and automated infrastructure provisioning",
+                                            "icon": "code-working-outline",
+                                            "type": "ops"
+                                        },
+                                        {
+                                            "title": "CI/CD Pipelines",
+                                            "description": "Jenkins, GitHub Actions, and automated deployment workflows",
+                                            "icon": "git-network-outline",
+                                            "type": "ops"
+                                        },
+                                        {
+                                            "title": "Serverless Architecture",
+                                            "description": "Lambda functions, event-driven architectures, and cost-effective solutions",
+                                            "icon": "flash-outline",
+                                            "type": "cloud"
+                                        },
+                                        {
+                                            "title": "Load Balancing & Scaling",
+                                            "description": "Auto-scaling, load distribution, and high-availability system design",
+                                            "icon": "resize-outline",
+                                            "type": "cloud"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Data Engineering",
+                                    "icon": "server-outline",
+                                    "skills": [
+                                        {
+                                            "title": "ETL Pipeline Design",
+                                            "description": "Scalable data processing workflows using Apache Spark, Airflow, and cloud services",
+                                            "icon": "shuffle-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "Data Lakes & Warehouses",
+                                            "description": "Structured and unstructured data storage solutions with optimal querying",
+                                            "icon": "library-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "Stream Processing",
+                                            "description": "Real-time data processing with Kafka, Kinesis, and event streaming",
+                                            "icon": "pulse-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "API Development",
+                                            "description": "RESTful APIs, GraphQL, and microservices using Python, Node.js, and FastAPI",
+                                            "icon": "link-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "Database Management",
+                                            "description": "SQL/NoSQL databases, optimization, and distributed database systems",
+                                            "icon": "server-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "Data Quality & Validation",
+                                            "description": "Data profiling, quality checks, and automated validation frameworks",
+                                            "icon": "checkmark-done-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "Big Data Technologies",
+                                            "description": "Hadoop, Spark, and distributed computing for large-scale data processing",
+                                            "icon": "grid-outline",
+                                            "type": "data"
+                                        },
+                                        {
+                                            "title": "Data Security & Governance",
+                                            "description": "Data privacy, compliance, and secure data handling practices",
+                                            "icon": "shield-checkmark-outline",
+                                            "type": "data"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Analytics & Insights",
+                                    "icon": "stats-chart-outline",
+                                    "skills": [
+                                        {
+                                            "title": "Business Intelligence",
+                                            "description": "Data visualization, dashboards, and KPI tracking using Tableau, Power BI",
+                                            "icon": "bar-chart-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Statistical Analysis",
+                                            "description": "Hypothesis testing, A/B testing, and predictive analytics for data-driven decisions",
+                                            "icon": "calculator-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Performance Monitoring",
+                                            "description": "Real-time system monitoring, alerting, and optimization using Prometheus and Grafana",
+                                            "icon": "pulse-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Data Visualization",
+                                            "description": "Interactive dashboards, charts, and visual storytelling with data",
+                                            "icon": "pie-chart-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Predictive Modeling",
+                                            "description": "Forecasting, trend analysis, and predictive analytics for business insights",
+                                            "icon": "trending-up-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Experimentation & Testing",
+                                            "description": "A/B testing, multivariate testing, and experimental design",
+                                            "icon": "flask-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Reporting & Documentation",
+                                            "description": "Automated reporting, data documentation, and insights communication",
+                                            "icon": "document-text-outline",
+                                            "type": "analysis"
+                                        },
+                                        {
+                                            "title": "Customer Analytics",
+                                            "description": "User behavior analysis, segmentation, and customer lifetime value modeling",
+                                            "icon": "people-outline",
+                                            "type": "analysis"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "variant": "main",
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden", "scrollTo"]
+                    }
+                },
+                {
+                    "type": "component",
+                    "component": "slideshows/type_1",
+                    "id": "skills-slideshow",
+                    "dynamic": false,
+                    "data": {
+                        "main": {
+                            "slides": [
+                                { "type": "image", "src": "assets/media/placeholders/slides/slide_1.svg", "alt": "Workflow schematic 1" },
+                                { "type": "image", "src": "assets/media/placeholders/slides/slide_2.svg", "alt": "Workflow schematic 2" },
+                                { "type": "image", "src": "assets/media/placeholders/slides/slide_3.svg", "alt": "Workflow schematic 3" }
+                            ]
+                        }
+                    },
+                    "variant": "main",
+                    "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"] }
+                }
+            ]
         }
     ]
 }

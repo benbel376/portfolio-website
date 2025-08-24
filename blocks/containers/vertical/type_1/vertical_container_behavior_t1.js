@@ -15,16 +15,16 @@ function handleVerticalContainerNavigation(containerId, state, parameters = {}) 
     switch (state) {
         case 'visible':
         case 'show':
-            showVerticalContainer(container, parameters);
+            showVerticalContainer(container);
             break;
             
         case 'hidden':
         case 'hide':
-            hideVerticalContainer(container, parameters);
+            hideVerticalContainer(container);
             break;
             
-        case 'toggle':
-            toggleVerticalContainer(container, parameters);
+        case 'scrollTo':
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
             break;
             
         default:
@@ -38,105 +38,29 @@ function handleVerticalContainerNavigation(containerId, state, parameters = {}) 
 /**
  * Show the vertical container
  */
-function showVerticalContainer(container, parameters = {}) {
-    container.style.display = 'flex';
+function showVerticalContainer(container) {
+    container.style.display = 'block';
     container.classList.remove('nav-hidden');
     container.classList.add('nav-visible');
     
-    // Apply any transition effects if specified
-    if (parameters.transition) {
-        applyTransition(container, 'show', parameters.transition);
-    }
-    
     // Trigger custom event for other components to listen to
     container.dispatchEvent(new CustomEvent('verticalContainer:shown', {
-        detail: { containerId: container.id, parameters }
+        detail: { containerId: container.id }
     }));
 }
 
 /**
  * Hide the vertical container
  */
-function hideVerticalContainer(container, parameters = {}) {
+function hideVerticalContainer(container) {
     container.classList.remove('nav-visible');
     container.classList.add('nav-hidden');
-    
-    // Apply any transition effects if specified
-    if (parameters.transition) {
-        applyTransition(container, 'hide', parameters.transition);
-    } else {
-        // Default hide behavior
-        container.style.display = 'none';
-    }
+    container.style.display = 'none';
     
     // Trigger custom event for other components to listen to
     container.dispatchEvent(new CustomEvent('verticalContainer:hidden', {
-        detail: { containerId: container.id, parameters }
+        detail: { containerId: container.id }
     }));
-}
-
-/**
- * Toggle the vertical container visibility
- */
-function toggleVerticalContainer(container, parameters = {}) {
-    const isVisible = !container.classList.contains('nav-hidden') && 
-                     container.style.display !== 'none';
-    
-    if (isVisible) {
-        hideVerticalContainer(container, parameters);
-    } else {
-        showVerticalContainer(container, parameters);
-    }
-}
-
-/**
- * Apply transition effects
- */
-function applyTransition(container, action, transitionType) {
-    switch (transitionType) {
-        case 'fade':
-            if (action === 'show') {
-                container.style.opacity = '0';
-                container.style.display = 'flex';
-                setTimeout(() => {
-                    container.style.transition = 'opacity 0.3s ease-in-out';
-                    container.style.opacity = '1';
-                }, 10);
-            } else {
-                container.style.transition = 'opacity 0.3s ease-in-out';
-                container.style.opacity = '0';
-                setTimeout(() => {
-                    container.style.display = 'none';
-                    container.style.transition = '';
-                }, 300);
-            }
-            break;
-            
-        case 'slide':
-            if (action === 'show') {
-                container.style.transform = 'translateY(-20px)';
-                container.style.display = 'flex';
-                setTimeout(() => {
-                    container.style.transition = 'transform 0.3s ease-in-out';
-                    container.style.transform = 'translateY(0)';
-                }, 10);
-            } else {
-                container.style.transition = 'transform 0.3s ease-in-out';
-                container.style.transform = 'translateY(-20px)';
-                setTimeout(() => {
-                    container.style.display = 'none';
-                    container.style.transition = '';
-                    container.style.transform = '';
-                }, 300);
-            }
-            break;
-            
-        default:
-            // No transition, immediate show/hide
-            if (action === 'hide') {
-                container.style.display = 'none';
-            }
-    }
 }
 
 /**

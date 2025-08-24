@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="blocks/components/competencies/type_1/competencies_style_t1.css">
+<section class="competencies" data-nav-handler="handleCompetenciesNavigation">
+  <div class="competencies__container">
+    <div class="competencies__header">
+      <div class="competencies__tabs">
+        <button class="competencies__tab competencies__tab--active" data-tab="list">
+          <ion-icon name="list-outline"></ion-icon>
+          <span>Competencies</span>
+        </button>
+        <button class="competencies__tab" data-tab="slideshow">
+          <ion-icon name="play-outline"></ion-icon>
+          <span>Flowcharts</span>
+        </button>
+      </div>
+      <div class="competencies__dropdown" id="competencies-dropdown">
+        <select class="competencies__select" id="competencies-category-select">
+          <!-- DROPDOWN_OPTIONS_PLACEHOLDER -->
+        </select>
+        <ion-icon name="chevron-down-outline" class="competencies__dropdown-icon"></ion-icon>
+      </div>
+    </div>
+    <div class="competencies__content">
+      <div class="competencies__view competencies__view--list competencies__view--active" id="competencies-list-view">
+        <div class="competencies__list" id="competencies-list">
+          <!-- SKILLS_LIST_PLACEHOLDER -->
+        </div>
+        <div class="competencies__pagination">
+          <div class="competencies__dots" id="competencies-dots">
+            <!-- PAGINATION_DOTS_PLACEHOLDER -->
+          </div>
+        </div>
+      </div>
+      <div class="competencies__view competencies__view--slideshow" id="competencies-slideshow-view">
+        <div class="competencies__slideshow">
+          <div class="competencies__slide-container" id="competencies-slide-container">
+            <!-- SLIDESHOW_CONTENT_PLACEHOLDER -->
+            
+            <!-- Overlay Navigation -->
+            <div class="competencies__slideshow-nav competencies__slideshow-nav--prev" id="competencies-prev-btn">
+              <button class="competencies__slideshow-btn">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+            </div>
+            <div class="competencies__slideshow-nav competencies__slideshow-nav--next" id="competencies-next-btn">
+              <button class="competencies__slideshow-btn">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </button>
+            </div>
+            
+            <!-- Overlay Counter -->
+            <div class="competencies__slide-counter" id="competencies-slide-counter">1 / 1</div>
+            
+            <!-- Overlay Pagination -->
+            <div class="competencies__slideshow-pagination">
+              <div class="competencies__slideshow-dots" id="competencies-slideshow-dots">
+                <!-- SLIDESHOW_DOTS_PLACEHOLDER -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="blocks/components/competencies/type_1/competencies_behavior_t1.js" type="module"></script>

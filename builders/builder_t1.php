@@ -6,6 +6,7 @@ class PortfolioBuilder {
     private $definitionsPath;
     private $blocksPath;
     private $parameters;
+    private $currentPageDefinition;
     
     public function __construct($basePath = '.') {
         $this->basePath = $basePath;  
@@ -48,11 +49,19 @@ class PortfolioBuilder {
         
         // Step 1: Load profile configuration using the provided profile name
         $profileConfig = $this->loadJson($this->definitionsPath . '/profiles/' . $profileName);
-        $siteName = $profileConfig['site'];
-        $pages = $profileConfig['pages'];
         
-        // Step 2: Load site configuration
-        $siteConfig = $this->loadJson($this->definitionsPath . '/sites/' . $siteName);
+        // Extract site configuration - handle both old string format and new object format
+        if (is_string($profileConfig['site'])) {
+            // Legacy format: site is just a string
+            $siteName = $profileConfig['site'];
+            $siteConfig = $this->loadJson($this->definitionsPath . '/sites/' . $siteName);
+        } else {
+            // New format: site is an object with embedded configuration
+            $siteConfig = $profileConfig['site'];
+            $siteName = $siteConfig['site']; // Extract the actual site specification
+        }
+        
+        $pages = $profileConfig['pages'];
         
         // Add builder parameters to site config for loaders to access
         $siteConfig['builderParameters'] = $this->parameters;
@@ -75,15 +84,40 @@ class PortfolioBuilder {
         $allPageContent = '';
         
         foreach ($pages as $pageFile) {
+            // Track current page definition for dynamic loading metadata
+            $this->currentPageDefinition = $pageFile;
+            
             $pageConfig = $this->loadJson($this->definitionsPath . '/pages/' . $pageFile);
             $pageHtml = $this->buildPageFromObjects($pageConfig['objects']);
             $allPageContent .= $pageHtml . "\n";
         }
         
+        // Reset current page definition
+        $this->currentPageDefinition = null;
+        
         return $allPageContent;
     }
     
     private function buildPageFromObjects($objects) {
+        // Check if this is a flat structure (has parent relationships) or nested structure
+        $hasParentRelationships = false;
+        foreach ($objects as $object) {
+            if (isset($object['parent'])) {
+                $hasParentRelationships = true;
+                break;
+            }
+        }
+        
+        if ($hasParentRelationships) {
+            // Handle flat structure with parent relationships
+            return $this->buildFromFlatStructure($objects);
+        } else {
+            // Handle nested structure
+            return $this->buildFromNestedStructure($objects);
+        }
+    }
+    
+    private function buildFromFlatStructure($objects) {
         // Step 1: Build dependency tree from flat structure
         $tree = $this->buildHierarchyTree($objects);
         
@@ -91,6 +125,16 @@ class PortfolioBuilder {
         $pageHtml = '';
         foreach ($tree['root'] as $rootObject) {
             $pageHtml .= $this->buildObjectHtml($rootObject, $tree);
+        }
+        
+        return $pageHtml;
+    }
+    
+    private function buildFromNestedStructure($objects) {
+        // Build HTML from nested object structure
+        $pageHtml = '';
+        foreach ($objects as $object) {
+            $pageHtml .= $this->buildObjectHtml($object);
         }
         
         return $pageHtml;
@@ -114,7 +158,7 @@ class PortfolioBuilder {
         return $tree;
     }
     
-    private function buildObjectHtml($object, $tree) {
+    private function buildObjectHtml($object, $tree = null) {
         if ($object['type'] === 'component') {
             return $this->loadComponent($object);
         } elseif ($object['type'] === 'container') {
@@ -127,8 +171,25 @@ class PortfolioBuilder {
     private function loadComponent($object) {
         $componentSpec = $object['component']; // e.g., "heros/type_1"
         $id = $object['id'];
-        $data = $object['data'] ?? [];
+        // Resolve component data strictly from variant-based data map
+        if (!isset($object['variant'])) {
+            throw new Exception("Missing 'variant' for component: $id");
+        }
+        if (!isset($object['data']) || !is_array($object['data'])) {
+            throw new Exception("Missing or invalid 'data' map for component: $id");
+        }
+        $variantKey = $object['variant'];
+        if (!isset($object['data'][$variantKey]) || !is_array($object['data'][$variantKey])) {
+            throw new Exception("Variant '$variantKey' not found in data for component: $id");
+        }
+        $data = $object['data'][$variantKey];
         $navigationConfig = $object['navigation'] ?? [];
+        $isProtected = isset($navigationConfig['protected']) ? (bool)$navigationConfig['protected'] : false;
+        $isDynamic = $object['dynamic'] ?? false;
+        // Enforce: protected elements must be dynamic (shell + API-gated content)
+        if ($isProtected) {
+            $isDynamic = true;
+        }
         
         // Parse component specification to get component name and version
         $parts = explode('/', $componentSpec);
@@ -156,25 +217,43 @@ class PortfolioBuilder {
         }
         
         $loader = new $loaderClass();
-        
+
         // Extract data for the loader (e.g., title for hero component)
         $title = $data['title'] ?? 'Default Title';
-        
-        // Check if loader supports navigation configuration
+
+        // Determine loading behavior from dynamic only
+        $loadingMode = $isDynamic ? 'shell' : 'full';
+
+        // Prepare component metadata including component data for loader usage
+        $componentMetadata = [
+            'componentSpec' => $componentSpec,
+            'componentId' => $id,
+            'componentData' => $data,
+            'pageDefinition' => $this->currentPageDefinition ?? null,
+            'buildTime' => time()
+        ];
+
+        // Check if loader supports dynamic loading
         $reflection = new ReflectionMethod($loader, 'load');
         $paramCount = $reflection->getNumberOfParameters();
-        
-        if ($paramCount >= 3) {
-            // Loader supports navigation configuration
+
+        if ($paramCount >= 5) {
+            return $loader->load($id, $title, $navigationConfig, $loadingMode, $componentMetadata);
+        } elseif ($paramCount >= 3) {
+            if ($loadingMode !== 'full') {
+                throw new Exception("Component loader does not support dynamic loading: $loaderClass");
+            }
             return $loader->load($id, $title, $navigationConfig);
         } else {
-            // Legacy loader, only pass basic parameters
+            if ($loadingMode !== 'full') {
+                throw new Exception("Legacy component loader does not support dynamic loading: $loaderClass");
+            }
             return $loader->load($id, $title);
         }
     }
     
-    private function loadContainer($object, $tree) {
-        $containerSpec = $object['component']; // e.g., "vertical/type_1"
+    private function loadContainer($object, $tree = null) {
+        $containerSpec = $object['component']; // e.g., "vertical/type_1" - containers also use 'component' key
         $id = $object['id'];
         $data = $object['data'] ?? [];
         $navigationConfig = $object['navigation'] ?? [];
@@ -184,13 +263,21 @@ class PortfolioBuilder {
         $containerType = $parts[0]; // e.g., "vertical"
         $version = $parts[1] ?? 'type_1'; // e.g., "type_1"
         
-        // Get children for this container
-        $children = $tree['children'][$id] ?? [];
+        // Get children for this container - handle both flat and nested structures
         $childrenHtml = [];
         
-        // Build all children first
-        foreach ($children as $child) {
-            $childrenHtml[] = $this->buildObjectHtml($child, $tree);
+        if ($tree !== null) {
+            // Flat structure: get children from tree
+            $children = $tree['children'][$id] ?? [];
+            foreach ($children as $child) {
+                $childrenHtml[] = $this->buildObjectHtml($child, $tree);
+            }
+        } else {
+            // Nested structure: get children from nested objects
+            $children = $object['objects'] ?? [];
+            foreach ($children as $child) {
+                $childrenHtml[] = $this->buildObjectHtml($child);
+            }
         }
         
         // Determine container path
@@ -229,7 +316,7 @@ class PortfolioBuilder {
     }
     
     private function loadSiteBlock($siteConfig, $pageContent) {
-        $siteSpec = $siteConfig['type']; // e.g., "top_bar/type_2"
+        $siteSpec = $siteConfig['site'] ?? $siteConfig['type']; // e.g., "top_bar/type_2"
         
         // Parse site specification to get site name and version
         $parts = explode('/', $siteSpec);
@@ -259,9 +346,9 @@ class PortfolioBuilder {
         $loader = new $loaderClass();
         
         // Extract specific data for the loader
-        $navigationTabs = $siteConfig['navigation']['tabs'];
-        $defaultNavigation = $siteConfig['navigation']['defaultNavigation'] ?? null;
-        $title = isset($siteConfig['branding']['title']) ? $siteConfig['branding']['title'] : 'Portfolio';
+        $navigationTabs = $siteConfig['navigationTabs'] ?? $siteConfig['navigation']['tabs'] ?? [];
+        $defaultNavigation = $siteConfig['defaultNavigation'] ?? $siteConfig['navigation']['defaultNavigation'] ?? null;
+        $title = $siteConfig['title'] ?? $siteConfig['branding']['title'] ?? 'Portfolio';
         
         // Load site with navigation and page content
         return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation);

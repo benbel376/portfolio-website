@@ -1,0 +1,26 @@
+/* Horizontal Container Base Styles */
+.horizontal-container {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	width: 100%;
+	align-items: stretch;
+}
+
+.horizontal-container > * { flex: 1 1 0; min-width: 0; }
+/* Ignore non-visual resources as flex items */
+.horizontal-container > link,
+.horizontal-container > script { display: none !important; flex: 0 0 auto; }
+/* Ensure hero and summary share space evenly when direct children */
+.horizontal-container > .hero-wrapper,
+.horizontal-container > .summary-component { flex: 1 1 50%; min-width: 0; }
+
+/* Nav states */
+.horizontal-container.nav-visible { display: flex; }
+.horizontal-container.nav-hidden { display: none; }
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+	.horizontal-container { flex-direction: column; }
+}
+

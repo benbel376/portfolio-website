@@ -1,3 +1,57 @@
-<header class="header-component" data-nav-handler="handleHeroNavigation">
-    <h1 class="header-title"><!-- TITLE_PLACEHOLDER --></h1>
-</header>
+<link rel="stylesheet" href="blocks/components/heros/type_1/hero_style_t1.css">
+<section class="hero hero-profile" data-nav-handler="handleHeroNavigation">
+  <!-- Floating blobs background -->
+  <div class="hero__blobs">
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+    <div class="hero__blob hero__blob--3"></div>
+    <div class="hero__blob hero__blob--4"></div>
+    <div class="hero__blob hero__blob--5"></div>
+    <div class="hero__blob hero__blob--6"></div>
+    <div class="hero__blob hero__blob--7"></div>
+    <div class="hero__blob hero__blob--8"></div>
+    <div class="hero__blob hero__blob--9"></div>
+  </div>
+  <!-- Floating tech icons -->
+  <div class="hero__floating-icons">
+    <div class="hero__floating-icon hero__floating-icon--docker">
+      <ion-icon name="logo-docker"></ion-icon>
+    </div>
+    <div class="hero__floating-icon hero__floating-icon--analytics">
+      <ion-icon name="analytics-outline"></ion-icon>
+    </div>
+    <div class="hero__floating-icon hero__floating-icon--server">
+      <ion-icon name="server-outline"></ion-icon>
+    </div>
+    <div class="hero__floating-icon hero__floating-icon--cloud">
+      <ion-icon name="cloud-outline"></ion-icon>
+    </div>
+    <div class="hero__floating-icon hero__floating-icon--database">
+      <ion-icon name="layers-outline"></ion-icon>
+    </div>
+  </div>
+  <div class="hero__container">
+    <div class="hero__avatar-section">
+      <figure class="hero__avatar">
+        <img src="<!-- IMAGE_SRC_PLACEHOLDER -->" alt="<!-- NAME_PLACEHOLDER -->" width="300">
+      </figure>
+      <div class="hero__info">
+        <h1 class="hero__name"><!-- NAME_PLACEHOLDER --></h1>
+        <p class="hero__title"><!-- TITLE_PLACEHOLDER --></p>
+      </div>
+    </div>
+    <div class="hero__content">
+      <p class="hero__description"><!-- DESCRIPTION_PLACEHOLDER --></p>
+      <div class="hero__social-links"><!-- SOCIAL_PLACEHOLDER --></div>
+      <div class="hero__actions">
+        <a href="<!-- CV_DOWNLOAD_HREF -->" class="hero__cv-button" download="<!-- CV_DOWNLOAD_FILENAME -->" aria-label="Download CV">
+          <ion-icon name="download-outline"></ion-icon>
+          <span>Download CV</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="blocks/components/heros/type_1/hero_behavior_t1.js" type="module"></script>
+
+

@@ -1,0 +1,896 @@
+/* Unified Variables and Theme Logic */
+
+:root {
+    /* Colors (LIGHT THEME DEFAULT) */
+    --bg: #f5f6fa;
+    /* Light background */
+    --text: #222222;
+    --primary: #ffdb70;
+    --border: #dddddd;
+    --nav-bg: #f0f0f0;
+    /* Light nav background */
+    --site-container-bg: #ffffff78;
+    --card-bg: #ffffff;
+    /* White card background */
+    --card-border: #eeeeee;
+    --error: #dc3545;
+    --success: #28a745;
+    /* Navigation specific colors for Light Theme */
+    --nav-link-color: hsl(0, 0%, 35%);
+    /* Standard text color for nav links */
+    --nav-link-active-text-color: #000000;
+    --nav-link-hover-text-color: #e6b85c;
+    /* Primary color for active nav link */
+    --nav-link-active-bg-color: hsla(0, 0%, 95%, 1);
+    /* Slightly darker for active link bg */
+    --nav-link-bg: hsla(0, 0%, 98%, 1);
+    /* Very light gray for link bg */
+    --theme-toggle-icon-color: hsl(0, 0%, 40%);
+    /* Medium-dark grey for light theme icon */
+    --theme-toggle-icon-hover-color: hsl(0, 0%, 25%);
+    /* Darker grey for light theme icon hover */
+    --nav-border-color: #d0d0d0;
+    /* Slightly darker border for light nav */
+    /* NEW Navigation Pill Styling Variables - Light Theme */
+    --nav-link-pill-radius: 10px;
+    --nav-link-active-pill-bg: hsla(0, 0%, 0%, 0.05);
+    /* Subtle darkenss for light theme active pill */
+    --nav-link-hover-pill-bg: hsla(0, 0%, 0%, 0.03);
+    /* Even more subtle for hover */
+    --nav-main-border-color: hsl(0, 0%, 90%);
+    /* Can be made more subtle if needed */
+    --site-container-bg-image: url(../../images/general/general_background_bubbles_v1.avif);
+    /* Light theme image */
+    /* Spacing Variables */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 40px;
+    --spacing-3xl: 60px;
+    --spacing-4xl: 80px;
+    --spacing-5xl: 100px;
+    /* Size Variables */
+    --size-xs: 20px;
+    --size-sm: 24px;
+    --size-md: 32px;
+    --size-lg: 48px;
+    --size-xl: 64px;
+    --size-2xl: 80px;
+    --size-3xl: 96px;
+    /* Border Radius Variables */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 20px;
+    --radius-3xl: 24px;
+    /* Max Width Variables */
+    --max-width-xs: 320px;
+    --max-width-sm: 640px;
+    --max-width-md: 768px;
+    --max-width-lg: 1024px;
+    --max-width-xl: 1280px;
+    --max-width-2xl: 1536px;
+    /* Text Size Variables */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+    --text-4xl: 36px;
+    /* Hero Specific Variables */
+    --hero-container-max-width: 1200px;
+    --hero-container-padding-x: 80px;
+    --hero-container-gap: 40px;
+    --hero-avatar-max-width: 300px;
+    --hero-avatar-min-height: 200px;
+    --hero-content-flex-basis: 320px;
+    --hero-content-min-width: 260px;
+    --hero-icon-size: 45px;
+    --hero-wrapper-height: 430px;
+    --hero-wrapper-border-radius: 20px;
+    --hero-decorative-dot-size: 8px;
+    --hero-decorative-dot-offset: 24px;
+    --hero-decorative-line-offset: 20px;
+    --hero-decorative-line-side-margin: 50px;
+    --hero-card-padding-bottom: 30px;
+    --hero-backdrop-blur: 10px;
+    --hero-wrapper-padding-top: 1px;
+    --hero-border-width: 1px;
+    --hero-border-width-thick: 1.5px;
+    --hero-transform-hover: -2px;
+    --hero-avatar-mobile-width: 220px;
+    --hero-avatar-tablet-width: 250px;
+    /* Hero Background Images */
+    --hero-backdrop-light: url(../../../images/profile/hero/profile_hero_backdrop_light_v3.png);
+    --hero-backdrop-dark: url(../../../images/profile/hero/profile_hero_backdrop_dark_v3.png);
+    /* Summary Component Variables */
+    --summary-component-padding: 1em;
+    --summary-highlight-card-border-radius: 16px;
+    --summary-highlight-card-padding: 2em;
+    --summary-highlight-card-gap: 1.8em;
+    --summary-highlight-card-margin-bottom: 3em;
+    --summary-icon-wrapper-size: 60px;
+    --summary-icon-wrapper-border-radius: 14px;
+    --summary-icon-font-size: 2em;
+    --summary-icon-box-shadow-offset: 3px;
+    --summary-icon-box-shadow-blur: 10px;
+    --summary-main-content-padding-x: 0.5em;
+    --summary-main-content-margin-bottom: 3.5em;
+    --summary-expertise-grid-gap: 2em;
+    --summary-expertise-grid-padding: 0.25em;
+    --summary-expertise-card-padding: 2em 1.5em;
+    --summary-expertise-accent-width: 50px;
+    --summary-expertise-accent-height: 4px;
+    --summary-expertise-accent-border-radius: 2px;
+    --summary-expertise-accent-margin-bottom: 1.5em;
+    --summary-expertise-icon-size: 68px;
+    --summary-expertise-icon-margin-bottom: 1.2em;
+    --summary-expertise-icon-border-width: 3px;
+    --summary-expertise-icon-ring-width: 4px;
+    --summary-expertise-icon-font-size: 2.1em;
+    --summary-hover-transform-small: -3px;
+    --summary-hover-transform-medium: -5px;
+    /* Summary Component Responsive Variables */
+    --summary-tablet-gap: 1.5em;
+    --summary-tablet-padding: 1.5em;
+    --summary-tablet-icon-margin: 1em;
+    --summary-tablet-card-padding: 1.5em 1.2em;
+    --summary-mobile-padding: 0.5em;
+    --summary-mobile-card-padding: 1.2em;
+    --summary-mobile-gap: 1em;
+    --summary-mobile-margin-bottom: 2em;
+    --summary-mobile-icon-size: 50px;
+    --summary-mobile-icon-font-size: 1.7em;
+    --summary-mobile-content-margin: 2.5em;
+    --summary-mobile-text-margin: 1.2em;
+    --summary-mobile-grid-gap: 1.5em;
+    --summary-mobile-expertise-padding: 1.5em;
+    /* Summary Component Text Spacing */
+    --summary-title-margin-bottom: 0.4em;
+    --summary-text-margin-bottom: 1.6em;
+    --summary-expertise-title-margin-bottom: 0.5em;
+    /* Experience Component Variables */
+    --experience-component-padding: 2.5rem;
+    --experience-component-max-width: 900px;
+    --experience-timeline-padding: 1.5rem;
+    --experience-timeline-line-left: 30px;
+    --experience-timeline-line-width: 2px;
+    --experience-timeline-line-radius: 1px;
+    --experience-timeline-item-margin: 2.5rem;
+    --experience-timeline-item-padding-left: 80px;
+    --experience-timeline-item-transform: 20px;
+    --experience-timeline-node-left: 8px;
+    --experience-timeline-node-top: 15px;
+    --experience-timeline-node-size: 24px;
+    --experience-timeline-node-border-width: 3px;
+    --experience-timeline-node-font-size: 0.8rem;
+    --experience-timeline-node-shadow-ring: 4px;
+    --experience-timeline-node-shadow-offset: 2px;
+    --experience-timeline-node-shadow-blur: 8px;
+    --experience-timeline-node-hover-blur: 12px;
+    --experience-card-hover-transform: 8px;
+    --experience-card-header-margin: 1.2rem;
+    --experience-card-header-padding: 0.8rem;
+    --experience-card-title-font-size: 1.3rem;
+    --experience-card-title-margin: 0.4rem;
+    --experience-card-company-font-size: 1.1rem;
+    --experience-card-company-margin: 0.8rem;
+    --experience-card-meta-gap: 1rem;
+    --experience-card-meta-font-size: 0.875rem;
+    --experience-card-meta-item-gap: 0.4rem;
+    --experience-card-meta-icon-size: 1rem;
+    --experience-card-responsibilities-margin: 1.2rem;
+    --experience-responsibility-padding-left: 1.2rem;
+    --experience-responsibility-margin-bottom: 0.7rem;
+    --experience-responsibility-font-size: 0.9rem;
+    --experience-responsibility-transform: -8px;
+    --experience-responsibility-bullet-top: 0.6rem;
+    --experience-responsibility-bullet-size: 4px;
+    --experience-expand-button-margin: 1.2rem;
+    --experience-expand-button-border-width: 1.5px;
+    --experience-expand-button-padding: 0.5rem 1rem;
+    --experience-expand-button-radius: 6px;
+    --experience-expand-button-font-size: 0.85rem;
+    --experience-expand-button-gap: 0.4rem;
+    --experience-expand-button-hover-transform: -1px;
+    --experience-expand-button-shadow-offset: 2px;
+    --experience-expand-button-shadow-blur: 8px;
+    --experience-expand-button-icon-size: 1rem;
+    --experience-empty-padding: 3rem;
+    --experience-empty-icon-size: 2.5rem;
+    --experience-empty-icon-margin: 1rem;
+    /* Experience Component Colors */
+    --experience-accent-color: #f59e0b;
+    --experience-accent-color-light: rgba(245, 158, 11, 0.25);
+    --experience-accent-color-medium: rgba(245, 158, 11, 0.3);
+    --experience-accent-color-strong: rgba(245, 158, 11, 0.35);
+    --experience-accent-color-dark: rgba(255, 215, 80, 0.25);
+    --experience-accent-color-dark-medium: rgba(255, 215, 80, 0.3);
+    --experience-accent-color-dark-strong: rgba(255, 215, 80, 0.4);
+    /* Education Component Variables (reuses experience variables for timeline) */
+    --education-type-badge-padding: 0.25rem 0.75rem;
+    --education-type-badge-radius: 12px;
+    --education-type-badge-font-size: 0.75rem;
+    --education-type-badge-letter-spacing: 0.5px;
+    --education-type-badge-margin: 0.8rem;
+    --education-type-badge-shadow-offset: 2px;
+    --education-type-badge-shadow-blur: 4px;
+    --education-institution-font-size: 1.1rem;
+    --education-institution-margin: 0.5rem;
+    --education-field-font-size: 0.95rem;
+    --education-field-margin: 0.8rem;
+    --education-achievements-title-font-size: 1rem;
+    --education-achievements-title-margin: 0.8rem;
+    --education-achievements-title-gap: 0.5rem;
+    --education-achievements-title-bullet-size: 4px;
+    /* Education Component Colors */
+    --education-type-badge-gradient-start: #f59e0b;
+    --education-type-badge-gradient-end: #fbbf24;
+    --education-type-badge-gradient-dark-end: #ffd700;
+    /* Education Responsive Variables */
+    --education-mobile-component-padding: 2rem;
+    --education-mobile-timeline-padding-left: 60px;
+    --education-mobile-timeline-margin: 2rem;
+    --education-mobile-timeline-line-left: 22px;
+    --education-mobile-timeline-node-left: 10px;
+    --education-mobile-timeline-node-size: 20px;
+    --education-mobile-timeline-node-font-size: 0.7rem;
+    --education-mobile-title-font-size: 1.2rem;
+    --education-mobile-institution-font-size: 1rem;
+    --education-mobile-meta-gap: 0.5rem;
+    --education-small-mobile-timeline-padding-left: 50px;
+    --education-small-mobile-timeline-line-left: 18px;
+    --education-small-mobile-timeline-node-left: 6px;
+    --education-small-mobile-timeline-node-size: 18px;
+    --education-small-mobile-badge-font-size: 0.7rem;
+    --education-small-mobile-badge-padding: 0.2rem 0.6rem;
+    /* Skills Component Variables */
+    --skills-component-padding: 2rem;
+    --skills-component-max-width: 100%;
+    --skills-controls-margin: 2rem;
+    --skills-controls-max-width: 1400px;
+    --skills-list-max-width: 1400px;
+    /* Skills Control Bar */
+    --skills-simple-bar-gap: 1.5rem;
+    --skills-simple-bar-border-radius: 16px;
+    --skills-simple-bar-padding: 1.25rem 1.5rem;
+    --skills-simple-bar-border-width: 1px;
+    /* Skills Search Section */
+    --skills-search-icon-left: 1rem;
+    --skills-search-icon-size: 1.1rem;
+    --skills-search-input-padding: 0.875rem 1rem 0.875rem 2.75rem;
+    --skills-search-input-border-radius: 12px;
+    --skills-search-input-font-size: 0.95rem;
+    --skills-search-button-right: 0.5rem;
+    --skills-search-button-padding: 0.5rem;
+    --skills-search-button-radius: 8px;
+    --skills-search-focus-shadow-size: 3px;
+    /* Skills Filter Section */
+    --skills-filter-select-padding: 0.875rem 1.25rem;
+    --skills-filter-select-radius: 12px;
+    --skills-filter-select-font-size: 0.9rem;
+    --skills-filter-focus-shadow-size: 2px;
+    /* Skills List */
+    --skills-list-gap: 0.75rem;
+    --skills-list-margin-bottom: 2rem;
+    /* Skills Item Card */
+    --skills-item-border-radius: 10px;
+    --skills-item-padding: 1rem 1.25rem;
+    --skills-item-gap: 1rem;
+    --skills-item-min-height: 64px;
+    --skills-item-max-height: 64px;
+    --skills-item-hover-transform: -1px;
+    /* Skills Icon */
+    --skills-icon-size: 48px;
+    --skills-icon-font-size: 1.8rem;
+    --skills-icon-hover-scale: 1.15;
+    --skills-icon-hover-transform: -2px;
+    /* Skills Content */
+    --skills-name-font-size: 1rem;
+    --skills-name-margin: 0.25rem;
+    --skills-meta-gap: 0.75rem;
+    --skills-meta-font-size: 0.85rem;
+    --skills-type-tag-padding: 0.25rem 0.5rem;
+    --skills-type-tag-radius: 6px;
+    --skills-type-tag-font-size: 0.75rem;
+    --skills-category-font-size: 0.8rem;
+    --skills-arrow-font-size: 1rem;
+    /* Skills Pagination */
+    --skills-pagination-padding: 1.5rem;
+    --skills-pagination-gap: 1rem;
+    --skills-pagination-btn-padding: 0.5rem 1rem;
+    --skills-pagination-btn-radius: 8px;
+    --skills-pagination-btn-font-size: 0.875rem;
+    --skills-pagination-dot-size: 8px;
+    --skills-pagination-dot-margin: 0.25rem;
+    --skills-pagination-info-font-size: 0.875rem;
+    /* Skills Modal */
+    --skills-modal-max-width: 600px;
+    --skills-modal-border-radius: 16px;
+    --skills-modal-padding: 2rem;
+    --skills-modal-close-size: 40px;
+    --skills-modal-close-top: 1rem;
+    --skills-modal-close-right: 1rem;
+    --skills-modal-close-font-size: 1.25rem;
+    --skills-modal-header-padding: 1.5rem;
+    --skills-modal-header-gap: 1rem;
+    --skills-modal-icon-size: 64px;
+    --skills-modal-icon-font-size: 2.5rem;
+    --skills-modal-title-font-size: 1.5rem;
+    --skills-modal-title-margin: 0.5rem;
+    --skills-modal-tags-gap: 0.5rem;
+    --skills-modal-tag-padding: 0.25rem 0.75rem;
+    --skills-modal-tag-radius: 12px;
+    --skills-modal-tag-font-size: 0.75rem;
+    --skills-modal-body-padding: 1.5rem;
+    --skills-modal-section-margin: 1.5rem;
+    --skills-modal-section-title-font-size: 1.1rem;
+    --skills-modal-section-title-margin: 1rem;
+    --skills-modal-description-font-size: 0.95rem;
+    --skills-modal-description-line-height: 1.6;
+    /* Skills Colors */
+    --skills-primary-color: #f59e0b;
+    --skills-border-color: #e5e7eb;
+    --skills-background-color: #ffffff;
+    --skills-input-background: #f9fafb;
+    --skills-text-primary: #111827;
+    --skills-text-secondary: #6b7280;
+    --skills-text-muted: #9ca3af;
+    --skills-type-language: #1d4ed8;
+    --skills-type-language-light: #93c5fd;
+    --skills-type-framework: #047857;
+    --skills-type-framework-light: #6ee7b7;
+    --skills-type-tool: #d97706;
+    --skills-type-tool-light: #fbbf24;
+    --skills-type-database: #7c3aed;
+    --skills-type-database-light: #c4b5fd;
+    --skills-type-platform: #be185d;
+    --skills-type-platform-light: #f9a8d4;
+    --skills-type-runtime: #15803d;
+    --skills-type-runtime-light: #86efac;
+    --skills-type-concept: #7c2d12;
+    --skills-type-concept-light: #d8b4fe;
+    --skills-pagination-dot-default: #d1d5db;
+    /* Skills Responsive Variables */
+    --skills-mobile-simple-bar-gap: 1rem;
+    --skills-mobile-simple-bar-padding: 1rem;
+    --skills-mobile-item-padding: 0.75rem 1rem;
+    --skills-mobile-item-gap: 0.75rem;
+    --skills-mobile-icon-size: 40px;
+    --skills-mobile-icon-font-size: 1.5rem;
+    --skills-mobile-name-font-size: 0.9rem;
+    --skills-mobile-meta-font-size: 0.8rem;
+    --skills-mobile-tag-font-size: 0.7rem;
+    --skills-mobile-category-font-size: 0.75rem;
+    --skills-mobile-modal-padding: 1.5rem;
+    --skills-mobile-modal-header-padding: 1rem;
+    --skills-mobile-modal-body-padding: 1rem;
+    --skills-mobile-pagination-padding: 1rem;
+    --skills-mobile-pagination-btn-padding: 0.375rem 0.75rem;
+    --skills-mobile-pagination-btn-font-size: 0.8rem;
+    --skills-mobile-pagination-info-font-size: 0.8rem;
+    --skills-small-mobile-item-padding: 0.5rem 0.75rem;
+    --skills-small-mobile-item-gap: 0.5rem;
+    --skills-small-mobile-icon-size: 36px;
+    --skills-small-mobile-icon-font-size: 1.3rem;
+    --skills-small-mobile-name-font-size: 0.85rem;
+    --skills-small-mobile-meta-gap: 0.5rem;
+    --skills-small-mobile-tag-font-size: 0.65rem;
+    --skills-small-mobile-category-font-size: 0.7rem;
+    --skills-small-mobile-modal-margin: 1rem;
+    --skills-small-mobile-modal-close-size: 36px;
+    --skills-small-mobile-modal-close-font-size: 1.1rem;
+    --skills-small-mobile-modal-header-padding: 0.75rem;
+    --skills-small-mobile-modal-body-padding: 0.75rem;
+    --skills-small-mobile-modal-icon-size: 48px;
+    --skills-small-mobile-modal-title-font-size: 1.25rem;
+    --skills-small-mobile-pagination-gap: 0.5rem;
+    --skills-small-mobile-pagination-btn-padding: 0.25rem 0.5rem;
+    --skills-small-mobile-pagination-btn-font-size: 0.75rem;
+    --skills-small-mobile-pagination-info-font-size: 0.75rem;
+    /* Testimonials Component Variables */
+    --testimonials-component-padding: 2rem;
+    /* Testimonials Card */
+    --testimonials-card-background: #ffffff;
+    --testimonials-card-border-radius: 16px;
+    --testimonials-card-border-width: 1px;
+    --testimonials-card-border-color: #e5e7eb;
+    --testimonials-card-height: 180px;
+    --testimonials-card-shadow-offset: 4px;
+    --testimonials-card-shadow-blur: 20px;
+    /* Avatar Container */
+    --testimonials-avatar-container-top: -20px;
+    --testimonials-avatar-container-left: 30px;
+    --testimonials-avatar-size: 60px;
+    --testimonials-avatar-border-width: 3px;
+    --testimonials-avatar-font-size: 1.5rem;
+    --testimonials-avatar-margin-bottom: 0.75rem;
+    --testimonials-avatar-shadow-offset: 4px;
+    --testimonials-avatar-shadow-blur: 15px;
+    /* Client Info */
+    --testimonials-client-info-min-width: 120px;
+    --testimonials-client-name-font-size: 0.9rem;
+    --testimonials-client-name-margin: 0 0 0.25rem 0;
+    --testimonials-client-role-font-size: 0.75rem;
+    /* Main Content */
+    --testimonials-main-padding: 2rem 2rem 2rem 10rem;
+    --testimonials-main-gap: 1rem;
+    --testimonials-quote-font-size: 1rem;
+    --testimonials-quote-margin-bottom: 0.5rem;
+    --testimonials-read-more-font-size: 0.875rem;
+    --testimonials-read-more-margin-top: 0.5rem;
+    --testimonials-rating-gap: 0.25rem;
+    --testimonials-star-font-size: 1rem;
+    /* Navigation Controls */
+    --testimonials-controls-gap: 2rem;
+    --testimonials-controls-margin-top: 2rem;
+    --testimonials-nav-btn-size: 50px;
+    --testimonials-nav-btn-font-size: 1.2rem;
+    --testimonials-nav-btn-shadow-offset: 4px;
+    --testimonials-nav-btn-shadow-blur: 15px;
+    --testimonials-nav-btn-hover-transform: -2px;
+    --testimonials-nav-btn-hover-shadow: 6px;
+    --testimonials-nav-btn-hover-blur: 20px;
+    /* Dots */
+    --testimonials-dots-gap: 0.75rem;
+    --testimonials-dot-size: 12px;
+    --testimonials-dot-scale-active: 1.3;
+    --testimonials-dot-scale-hover: 1.1;
+    /* Counter */
+    --testimonials-counter-margin-top: 1rem;
+    --testimonials-counter-font-size: 0.9rem;
+    /* Empty State */
+    --testimonials-empty-padding: 4rem 2rem;
+    --testimonials-empty-icon-size: 4rem;
+    --testimonials-empty-icon-margin: 1rem;
+    /* Testimonials Colors */
+    --testimonials-primary-gradient-start: #4f46e5;
+    --testimonials-primary-gradient-end: #7c3aed;
+    --testimonials-secondary-gradient-end: #f59e0b;
+    --testimonials-text-primary: #1f2937;
+    --testimonials-text-secondary: #6b7280;
+    --testimonials-text-muted: #374151;
+    --testimonials-read-more-color: #4f46e5;
+    --testimonials-read-more-hover: #3730a3;
+    --testimonials-star-color: #fbbf24;
+    --testimonials-star-empty: #e5e7eb;
+    --testimonials-dot-default: #cbd5e1;
+    --testimonials-dot-hover: #94a3b8;
+    /* Testimonials Responsive Variables */
+    --testimonials-mobile-card-height: 160px;
+    --testimonials-mobile-main-padding: 1.5rem 1.5rem 1.5rem 8rem;
+    --testimonials-mobile-avatar-top: -15px;
+    --testimonials-mobile-avatar-left: 20px;
+    --testimonials-mobile-avatar-size: 50px;
+    --testimonials-mobile-avatar-font-size: 1.3rem;
+    --testimonials-mobile-avatar-margin: 0.5rem;
+    --testimonials-mobile-client-min-width: 100px;
+    --testimonials-mobile-client-name-font-size: 0.8rem;
+    --testimonials-mobile-client-role-font-size: 0.7rem;
+    --testimonials-mobile-quote-font-size: 0.9rem;
+    --testimonials-mobile-nav-btn-size: 45px;
+    --testimonials-mobile-nav-btn-font-size: 1.1rem;
+    --testimonials-small-mobile-card-height: 140px;
+    --testimonials-small-mobile-main-padding: 1rem 1rem 1rem 6rem;
+    --testimonials-small-mobile-main-gap: 0.75rem;
+    --testimonials-small-mobile-avatar-top: -12px;
+    --testimonials-small-mobile-avatar-left: 15px;
+    --testimonials-small-mobile-avatar-size: 40px;
+    --testimonials-small-mobile-avatar-font-size: 1.1rem;
+    --testimonials-small-mobile-avatar-margin: 0.5rem;
+    --testimonials-small-mobile-client-min-width: 80px;
+    --testimonials-small-mobile-client-name-font-size: 0.75rem;
+    --testimonials-small-mobile-client-role-font-size: 0.65rem;
+    --testimonials-small-mobile-quote-font-size: 0.85rem;
+    --testimonials-small-mobile-controls-gap: 1rem;
+    --testimonials-small-mobile-nav-btn-size: 40px;
+    --testimonials-small-mobile-nav-btn-font-size: 1rem;
+    --testimonials-small-mobile-dots-margin: 1rem;
+    /* Certifications Component Variables */
+    --certifications-component-padding: 2rem;
+    --certifications-component-max-width: 1000px;
+    /* Certifications Grid */
+    --certifications-grid-gap: 2rem;
+    --certifications-card-width: calc(50% - 1rem);
+    --certifications-card-border-width: 1px;
+    --certifications-card-border-radius: 20px;
+    --certifications-card-padding: 2rem;
+    --certifications-card-hover-transform: -4px;
+    --certifications-card-shadow-offset: 12px;
+    --certifications-card-shadow-blur: 32px;
+    /* Card Header */
+    --certifications-header-gap: 1.5rem;
+    --certifications-header-margin-bottom: 1rem;
+    --certifications-badge-size: 100px;
+    --certifications-badge-border-radius: 16px;
+    --certifications-badge-font-size: 2rem;
+    --certifications-badge-shadow-offset: 8px;
+    --certifications-badge-shadow-blur: 24px;
+    /* Card Content */
+    --certifications-title-font-size: 1.4rem;
+    --certifications-title-margin-bottom: 0.5rem;
+    --certifications-issuer-font-size: 1rem;
+    --certifications-issuer-margin-bottom: 0.5rem;
+    --certifications-status-gap: 0.5rem;
+    --certifications-status-padding: 0.4rem 1rem;
+    --certifications-status-border-radius: 20px;
+    --certifications-status-font-size: 0.8rem;
+    --certifications-status-letter-spacing: 0.5px;
+    --certifications-status-shadow-offset: 2px;
+    --certifications-status-shadow-blur: 8px;
+    --certifications-status-icon-font-size: 1rem;
+    /* Skills Section */
+    --certifications-skills-margin-bottom: 2rem;
+    --certifications-skills-title-font-size: 1rem;
+    --certifications-skills-title-margin-bottom: 1rem;
+    --certifications-skills-tags-gap: 0.5rem;
+    --certifications-skill-tag-padding: 0.4rem 0.8rem;
+    --certifications-skill-tag-border-radius: 20px;
+    --certifications-skill-tag-font-size: 0.8rem;
+    --certifications-skill-tag-border-width: 1px;
+    --certifications-skill-tag-hover-transform: -2px;
+    --certifications-skill-tag-shadow-offset: 4px;
+    --certifications-skill-tag-shadow-blur: 12px;
+    /* Expand Button */
+    --certifications-expand-margin-top: 1rem;
+    --certifications-expand-border-width: 1.5px;
+    --certifications-expand-padding: 0.6rem 1.2rem;
+    --certifications-expand-border-radius: 25px;
+    --certifications-expand-font-size: 0.85rem;
+    --certifications-expand-gap: 0.5rem;
+    --certifications-expand-hover-transform: -2px;
+    --certifications-expand-shadow-offset: 4px;
+    --certifications-expand-shadow-blur: 16px;
+    --certifications-expand-icon-font-size: 1rem;
+    /* Verification Section */
+    --certifications-verification-margin-top: 2rem;
+    --certifications-verification-padding-top: 2rem;
+    --certifications-verification-border-width: 1px;
+    --certifications-verification-link-gap: 0.5rem;
+    --certifications-verification-link-font-size: 0.9rem;
+    --certifications-verification-link-padding: 0.8rem 1.5rem;
+    --certifications-verification-link-border-radius: 25px;
+    --certifications-verification-link-shadow-offset: 4px;
+    --certifications-verification-link-shadow-blur: 16px;
+    --certifications-verification-link-hover-shadow: 8px;
+    --certifications-verification-link-hover-blur: 24px;
+    --certifications-verification-icon-font-size: 1.1rem;
+    /* Pagination */
+    --certifications-pagination-gap: 1rem;
+    --certifications-pagination-margin-top: 2rem;
+    --certifications-pagination-padding: 1rem;
+    --certifications-pagination-button-size: 48px;
+    --certifications-pagination-button-border-width: 2px;
+    --certifications-pagination-button-font-size: 1.2rem;
+    --certifications-pagination-button-scale: 1.1;
+    --certifications-pagination-dots-gap: 0.5rem;
+    --certifications-pagination-dot-size: 8px;
+    --certifications-pagination-dot-scale: 1.5;
+    --certifications-pagination-info-font-size: 0.9rem;
+    /* Empty State */
+    --certifications-empty-padding: 3rem;
+    --certifications-empty-icon-size: 2.5rem;
+    --certifications-empty-icon-margin: 1rem;
+    /* Certifications Colors */
+    --certifications-default-gradient-start: #1e40af;
+    --certifications-default-gradient-end: #3b82f6;
+    --certifications-aws-gradient-start: #ff9900;
+    --certifications-aws-gradient-end: #ffb84d;
+    --certifications-gcp-gradient-start: #4285f4;
+    --certifications-gcp-gradient-end: #34a853;
+    --certifications-kubernetes-gradient-start: #326ce5;
+    --certifications-kubernetes-gradient-end: #4285f4;
+    --certifications-microsoft-gradient-start: #00bcf2;
+    --certifications-microsoft-gradient-end: #0078d4;
+    --certifications-status-gradient-start: #10b981;
+    --certifications-status-gradient-end: #059669;
+    --certifications-primary-color: #8b5cf6;
+    --certifications-primary-hover: #a855f7;
+    --certifications-primary-dark: #a855f7;
+    --certifications-primary-dark-hover: #c084fc;
+    /* Certifications Responsive Variables */
+    --certifications-mobile-component-padding: 1.5rem;
+    --certifications-mobile-grid-gap: 1rem;
+    --certifications-mobile-card-width: calc(50% - 0.5rem);
+    --certifications-mobile-card-padding: 1.5rem;
+    --certifications-mobile-header-gap: 1rem;
+    --certifications-mobile-badge-size: 60px;
+    --certifications-mobile-badge-font-size: 1.5rem;
+    --certifications-mobile-pagination-button-size: 40px;
+    --certifications-mobile-pagination-button-font-size: 1rem;
+    --certifications-small-mobile-grid-gap: 1.5rem;
+    --certifications-small-mobile-card-width: 100%;
+    --certifications-small-mobile-card-padding: 1.25rem;
+    --certifications-small-mobile-title-font-size: 1.2rem;
+    --certifications-small-mobile-badge-size: 50px;
+    --certifications-small-mobile-badge-font-size: 1.3rem;
+    --certifications-small-mobile-verification-font-size: 0.85rem;
+    --certifications-small-mobile-verification-padding: 0.7rem 1.2rem;
+    --certifications-small-mobile-pagination-gap: 0.5rem;
+    --certifications-small-mobile-pagination-button-size: 36px;
+    --certifications-small-mobile-pagination-button-font-size: 0.9rem;
+    /* Projects Header Component Variables */
+    --projects-header-padding: 1.5em;
+    --projects-header-margin-bottom: 1em;
+    --projects-header-title-padding-bottom: 0.3em;
+    --projects-header-underline-width: 40px;
+    --projects-header-underline-height: 5px;
+    --projects-header-underline-border-width: 1px;
+    --projects-header-underline-border-radius: 2px;
+    --projects-header-mobile-gap: 1em;
+    --projects-header-mobile-breakpoint: 600px;
+    /* Blog Header Component Variables */
+    --blog-header-padding: 1.5em;
+    --blog-header-margin-bottom: 1em;
+    --blog-header-title-padding-bottom: 0.3em;
+    --blog-header-underline-width: 40px;
+    --blog-header-underline-height: 5px;
+    --blog-header-underline-border-width: 1px;
+    --blog-header-underline-border-radius: 2px;
+    --blog-header-mobile-gap: 1em;
+    --blog-header-mobile-breakpoint: 600px;
+    /* Blog Component */
+    --blog-component-padding: 2rem;
+    --blog-component-max-width: 100%;
+    /* Blog Controls */
+    --blog-controls-margin: 2rem;
+    --blog-controls-max-width: 100%;
+    /* Blog Control Bar */
+    --blog-unified-bar-gap: 1.5rem;
+    --blog-unified-bar-border-radius: 16px;
+    --blog-unified-bar-padding: 1.25rem 1.5rem;
+    --blog-unified-bar-border-width: 1px;
+    /* Blog Search Section */
+    --blog-search-icon-left: 1rem;
+    --blog-search-icon-size: 1.1rem;
+    --blog-search-input-padding: 0.875rem 1rem 0.875rem 2.75rem;
+    --blog-search-input-border-radius: 12px;
+    --blog-search-input-font-size: 0.95rem;
+    --blog-search-button-right: 0.5rem;
+    --blog-search-button-padding: 0.5rem;
+    --blog-search-button-radius: 8px;
+    --blog-search-focus-shadow-size: 3px;
+    /* Blog Filter Section */
+    --blog-filter-select-padding: 0.875rem 1.25rem;
+    --blog-filter-select-radius: 12px;
+    --blog-filter-select-font-size: 0.9rem;
+    --blog-filter-focus-shadow-size: 2px;
+    /* Blog Grid */
+    --blog-list-max-width: 100%;
+    --blog-list-gap: 1.5rem;
+    --blog-list-margin-bottom: 2rem;
+    /* Blog Card */
+    --blog-card-border-radius: 16px;
+    --blog-card-padding: 1.5rem;
+    --blog-card-gap: 1rem;
+    --blog-card-min-height: 200px;
+    --blog-card-shadow-offset: 4px;
+    --blog-card-shadow-blur: 20px;
+    --blog-card-hover-transform: -4px;
+    --blog-card-featured-badge-padding: 0.5rem 1rem;
+    --blog-card-featured-badge-radius: 20px;
+    --blog-card-featured-badge-top: 1rem;
+    --blog-card-featured-badge-right: 1rem;
+    --blog-card-featured-badge-font-size: 0.75rem;
+    --blog-card-featured-badge-gap: 0.25rem;
+    /* Blog Card Image */
+    --blog-image-height: 100px;
+    --blog-image-border-radius: 12px;
+    --blog-image-placeholder-font-size: 1.5rem;
+    --blog-category-floating-padding: 0.375rem 0.75rem;
+    --blog-category-floating-radius: 16px;
+    --blog-category-floating-bottom: 0.75rem;
+    --blog-category-floating-left: 0.75rem;
+    --blog-category-floating-font-size: 0.75rem;
+    /* Blog Card Content */
+    --blog-title-font-size: 1.1rem;
+    --blog-title-margin: 0.75rem;
+    --blog-excerpt-font-size: 0.9rem;
+    --blog-excerpt-line-height: 1.5;
+    --blog-excerpt-margin: 1rem;
+    --blog-author-info-gap: 0.75rem;
+    --blog-author-info-margin: 1.25rem;
+    --blog-author-avatar-size: 32px;
+    --blog-author-avatar-font-size: 1rem;
+    --blog-author-font-size: 0.9rem;
+    /* Blog Card Footer */
+    --blog-footer-gap: 1rem;
+    --blog-footer-margin-top: 1.5rem;
+    --blog-tags-gap: 0.5rem;
+    --blog-tag-padding: 0.25rem 0.6rem;
+    --blog-tag-radius: 12px;
+    --blog-tag-font-size: 0.7rem;
+    --blog-tag-more-padding: 0.25rem 0.5rem;
+    --blog-stats-gap: 1rem;
+    --blog-stat-gap: 0.4rem;
+    --blog-stat-font-size: 0.8rem;
+    --blog-stat-icon-size: 1rem;
+    /* Blog Pagination */
+    --blog-pagination-padding: 1.5rem;
+    --blog-pagination-gap: 1rem;
+    --blog-pagination-btn-padding: 0.5rem 1rem;
+    --blog-pagination-btn-radius: 8px;
+    --blog-pagination-btn-font-size: 0.875rem;
+    --blog-pagination-dot-size: 8px;
+    --blog-pagination-dot-margin: 0.25rem;
+    --blog-pagination-info-font-size: 0.875rem;
+    /* Blog Read More Button */
+    --blog-read-more-margin-top: 1.5rem;
+    --blog-read-more-padding-top: 1rem;
+    --blog-read-more-btn-padding: 0.75rem 1.5rem;
+    --blog-read-more-btn-font-size: 0.9rem;
+    --blog-read-more-btn-gap: 0.5rem;
+    --blog-read-more-btn-icon-font-size: 1rem;
+    /* Blog Colors */
+    --blog-primary-color: #f59e0b;
+    --blog-border-color: #e5e7eb;
+    --blog-background-color: #ffffff;
+    --blog-input-background: #f9fafb;
+    --blog-text-primary: #111827;
+    --blog-text-secondary: #6b7280;
+    --blog-text-muted: #9ca3af;
+    --blog-featured-gradient-start: #f59e0b;
+    --blog-featured-gradient-end: #d97706;
+    --blog-category-background: rgba(79, 70, 229, 0.1);
+    --blog-category-text: #4f46e5;
+    --blog-tag-background: #f3f4f6;
+    --blog-tag-text: #374151;
+    --blog-stat-color: #6b7280;
+    /* Blog Responsive Variables */
+    --blog-mobile-unified-bar-gap: 1rem;
+    --blog-mobile-unified-bar-padding: 1rem;
+    --blog-mobile-card-padding: 1rem;
+    --blog-mobile-card-gap: 0.75rem;
+    --blog-mobile-image-height: 80px;
+    --blog-mobile-title-font-size: 1rem;
+    --blog-mobile-excerpt-font-size: 0.85rem;
+    --blog-mobile-meta-font-size: 0.75rem;
+    --blog-mobile-author-font-size: 0.8rem;
+    --blog-mobile-tag-font-size: 0.7rem;
+    --blog-mobile-stat-font-size: 0.75rem;
+    --blog-mobile-pagination-padding: 1rem;
+    --blog-mobile-pagination-btn-padding: 0.5rem 0.75rem;
+    --blog-mobile-pagination-btn-font-size: 0.8rem;
+    --blog-mobile-pagination-info-font-size: 0.8rem;
+    --blog-small-mobile-card-min-height: 180px;
+    --blog-small-mobile-card-padding: 0.75rem;
+    --blog-small-mobile-image-height: 70px;
+    --blog-small-mobile-title-font-size: 0.95rem;
+    --blog-small-mobile-excerpt-font-size: 0.8rem;
+    --blog-small-mobile-pagination-gap: 0.5rem;
+    --blog-small-mobile-pagination-btn-padding: 0.375rem 0.5rem;
+    --blog-small-mobile-pagination-btn-font-size: 0.75rem;
+    --blog-small-mobile-pagination-info-font-size: 0.75rem;
+    /* Inspiration gradients and extra colors (less relevant for light theme, but keep for consistency) */
+    --bg-gradient-onyx: linear-gradient( to bottom right, hsl(240, 1%, 25%) 3%, hsl(0, 0%, 19%) 97%);
+    --bg-gradient-jet: linear-gradient( to bottom right, hsla(240, 1%, 18%, 0.251) 0%, hsla(240, 2%, 11%, 0) 100%), hsl(240, 2%, 13%);
+    --bg-gradient-yellow-1: linear-gradient( to bottom right, hsl(45, 100%, 71%) 0%, hsla(36, 100%, 69%, 0) 50%);
+    --bg-gradient-yellow-2: linear-gradient( 135deg, hsla(45, 100%, 71%, 0.251) 0%, hsla(35, 100%, 68%, 0) 59.86%), hsl(240, 2%, 13%);
+    --border-gradient-onyx: linear-gradient( to bottom right, hsl(0, 0%, 25%) 0%, hsla(0, 0%, 25%, 0) 50%);
+    --text-gradient-yellow: linear-gradient( to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
+    --jet: hsl(0, 0%, 22%);
+    --onyx: hsl(240, 1%, 17%);
+    --eerie-black-1: hsl(240, 2%, 13%);
+    --eerie-black-1-transparent: hsla(240, 2%, 13%, 0.5);
+    --eerie-black-2: hsl(240, 2%, 12%);
+    --eerie-black-3: #2b2b2cbf;
+    --smoky-black: hsl(0, 0%, 7%);
+    --white-1: hsl(0, 0%, 100%);
+    --white-2: hsl(0, 0%, 98%);
+    --orange-yellow-crayola: hsl(45, 100%, 72%);
+    --vegas-gold: #e1c223;
+    --light-gray: hsl(0, 0%, 84%);
+    --dark-gray: hsl(0, 0%, 50%);
+    --light-gray-70: hsla(0, 0%, 84%, 0.7);
+    --bittersweet-shimmer: hsl(0, 43%, 51%);
+    /* Typography */
+    --ff-poppins: 'Geist Mono', 'Poppins', 'Sono', 'Noto Sans', sans-serif;
+    --fs-h2: 2rem;
+    --fs-h3: 1.5rem;
+    --fs-h4: 1.1rem;
+    /* 32px, from inspiration for hero name */
+    --fs-1: 28px;
+    --fs-2: 22px;
+    --fs-3: 21px;
+    --fs-4: 20px;
+    --fs-5: 19px;
+    --fs-6: 18px;
+    --fs-7: 17px;
+    --fs-8: 15px;
+    --fw-300: 300;
+    --fw-400: 400;
+    --fw-500: 500;
+    --fw-600: 600;
+    /* Shadows */
+    --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.12);
+    /* Adjusted for lighter theme */
+    --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.25);
+    --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.25);
+    --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.15);
+    --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.25);
+    /* Transitions */
+    --transition-1: 0.25s ease;
+    --transition-2: 0.5s ease-in-out;
+    /* Body Background Image - Light Theme */
+    --body-bg-image: url(../../images/general/general_background_light_v1.png);
+    --hero-name-text-color: var(--primary);
+    --avatar-image-light: url(../../../images/profile/hero/profile_hero_avatar_v1.png);
+    /* Responsive Layout Spacing */
+    --padding-container-tablet: 0.75rem;
+    --padding-site-container-tablet: 1.5em;
+    --radius-site-container-tablet: 16px;
+    --padding-card-tablet: 1.5em;
+    --padding-container-mobile: 5px;
+    --padding-site-container-mobile: 5px;
+    --margin-site-container-mobile-horizontal: 5px;
+    /* More specific name */
+    --radius-site-container-mobile: 10px;
+    --padding-card-mobile: 0.75em;
+    --radius-card-mobile: 10px;
+    --margin-section-mobile-vertical: 1rem;
+    /* Intermediate (Small Tablet) Responsive Layout Spacing */
+    --padding-container-small-tablet: 0.6rem;
+    --padding-site-container-small-tablet: 1em;
+    --radius-site-container-small-tablet: 12px;
+    --padding-card-small-tablet: 1em;
+    --margin-site-container-small-tablet-horizontal: 0.75em;
+    /* Hero Wrapper Responsive Margins */
+    --margin-hero-wrapper-horizontal-desktop: -48px;
+    --margin-hero-wrapper-horizontal-tablet: -24px;
+    --margin-hero-wrapper-horizontal-mobile: 0px;
+    /* Hero Container Responsive Padding */
+    --padding-hero-container-tablet-horizontal: 40px;
+}
+
+.theme-dark {
+    /* Colors (DARK THEME OVERRIDES) */
+    --bg: #181a1b;
+    --text: #e6e6e6;
+    --primary: #4ea1ff;
+    --border: #333333;
+    --nav-bg: var(--eerie-black-3);
+    /* Dark nav background from inspiration, matches card */
+    --site-container-bg: var(--eerie-black-1-transparent);
+    --card-bg: var(--eerie-black-1);
+    --card-border: #333333;
+    --error: #ff6b6b;
+    --success: #51fa7b;
+    /* Navigation specific colors for Dark Theme */
+    --nav-link-color: var(--vegas-gold);
+    /* Golden/kaki for non-active dark theme nav links */
+    --nav-link-active-text-color: var(--orange-yellow-crayola);
+    --nav-link-hover-text-color: var(--orange-yellow-crayola);
+    /* Brighter yellow for active dark theme nav link */
+    --nav-link-active-bg-color: hsl(240, 2%, 20%);
+    /* More prominent bg for active dark link */
+    --nav-link-bg: hsl(240, 2%, 15%);
+    /* Slightly lighter than nav-bg for dark link bg */
+    --theme-toggle-icon-color: hsl(0, 0%, 70%);
+    /* Light grey for dark theme icon */
+    --theme-toggle-icon-hover-color: hsl(0, 0%, 90%);
+    /* Lighter grey for dark theme icon hover */
+    --nav-border-color: #3a3f42;
+    /* Slightly lighter border for dark nav */
+    /* NEW Navigation Pill Styling Variables - Dark Theme */
+    --nav-link-active-pill-bg: hsla(0, 0%, 100%, 0.08);
+    /* Subtle lightness for dark theme active pill */
+    --nav-link-hover-pill-bg: hsla(0, 0%, 100%, 0.05);
+    /* Even more subtle for hover */
+    --nav-main-border-color: var(--nav-border-color);
+    /* Can be made more subtle if needed */
+    --site-container-bg-image: url(../../images/general/general_background_bubbles_dark_v1.jpg);
+    /* Dark theme background with bubbles pattern */
+    /* Shadows for dark theme */
+    --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
+    /* Body Background Image - Dark Theme */
+    --body-bg-image: url(../../images/general/general_background_dark_v1.png);
+    --hero-name-text-color: var(--orange-yellow-crayola);
+    /* Hero name specifically yellow in dark mode */
+    --avatar-image-dark: url(../../../images/profile/hero/profile_hero_avatar_v1.png);
+}

@@ -1,0 +1,39 @@
+{
+    "component": "media_manager",
+    "version": "v1",
+    "title": "Media Manager",
+    "description": "Manage media files across all page components",
+    "settings": {
+        "maxFileSize": "50MB",
+        "allowedTypes": ["jpg", "jpeg", "png", "gif", "webp", "svg", "mp4", "webm", "mov", "avi"],
+        "defaultUploadLocation": "general/uploads",
+        "showFileStats": true,
+        "enablePreview": true,
+        "enableRename": true,
+        "enableDelete": true,
+        "enableDownload": true
+    },
+    "features": {
+        "upload": true,
+        "delete": true,
+        "rename": true,
+        "preview": true,
+        "search": true,
+        "filter": true,
+        "sort": true,
+        "gridView": true,
+        "listView": true,
+        "folderNavigation": true
+    },
+    "permissions": {
+        "requireAuth": true,
+        "allowedRoles": ["admin", "editor"],
+        "securityLevel": "high"
+    },
+    "content": {
+        "welcomeMessage": "Welcome to the Media Manager! Upload, organize, and manage your media files across all page components.",
+        "emptyStateMessage": "No media files found. Upload some files to get started.",
+        "uploadHelpText": "Drag and drop files here or click to browse. Supported formats include images and videos.",
+        "maxSizeText": "Maximum file size: 50MB per file"
+    }
+}

@@ -1,71 +1,93 @@
 <?php
 
-class HeroLoader {
-    
-    public function load($id, $title = 'Default Title', $navigationConfig = []) {
-        // Load the HTML structure template
-        $htmlTemplate = file_get_contents(__DIR__ . '/hero_structure_t1.html');
-        
-        // Handle navigation configuration first
+class HeroLoaderT1 {
+    public function load($id, $title = '', $navigationConfig = [], $loadingMode = 'full', $componentMetadata = []) {
         $navConfig = $this->processNavigationConfig($navigationConfig);
-        
-        // Apply default state styling based on config
+        $data = $componentMetadata['componentData'] ?? [];
+
+        $name = $data['name'] ?? '';
+        $headline = $data['title'] ?? $title;
+        $description = $data['description'] ?? '';
+        $image = $data['image'] ?? 'assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png';
+        $social = $data['social'] ?? [];
+        $cvDownload = $data['cvDownload'] ?? [];
+
+        switch ($loadingMode) {
+            case 'full':
+            default:
+                return $this->generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $social, $cvDownload);
+        }
+    }
+
+    private function generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $social, $cvDownload) {
+        $template = file_get_contents(__DIR__ . '/hero_structure_t1.html');
+        $html = $this->fillTemplate($template, $name, $headline, $description, $image, $social, $cvDownload);
+
+        // Inject ID and nav config/handler
         $defaultState = $navConfig['defaultState'] ?? 'visible';
-        if ($defaultState === 'hidden') {
-            $htmlTemplate = str_replace('class="header-component"', 'class="header-component nav-hidden" style="display: none;"', $htmlTemplate);
-        } else {
-            $htmlTemplate = str_replace('class="header-component"', 'class="header-component nav-visible"', $htmlTemplate);
-        }
-        
-        // Replace placeholders with actual data
-        $html = str_replace('<!-- TITLE_PLACEHOLDER -->', htmlspecialchars($title), $htmlTemplate);
-        
-        // Add the unique ID to the component while preserving existing attributes
-        if ($defaultState === 'hidden') {
-            $html = str_replace('<header class="header-component nav-hidden" data-nav-handler="handleHeroNavigation">', '<header class="header-component nav-hidden" id="' . htmlspecialchars($id) . '" data-nav-handler="handleHeroNavigation">', $html);
-        } else {
-            $html = str_replace('<header class="header-component nav-visible" data-nav-handler="handleHeroNavigation">', '<header class="header-component nav-visible" id="' . htmlspecialchars($id) . '" data-nav-handler="handleHeroNavigation">', $html);
-        }
-        
-        // Add navigation configuration as data attribute
-        if (!empty($navConfig)) {
-            $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
-            $html = str_replace('data-nav-handler="handleHeroNavigation"', 
-                              'data-nav-handler="handleHeroNavigation" data-nav-config="' . $navConfigJson . '"', 
-                              $html);
-        }
-        
-        // Add the component's own script import
-        $scriptImport = $this->generateScriptImport();
-        $html .= $scriptImport;
-        
+        $stateClass = $defaultState === 'hidden' ? 'nav-hidden' : 'nav-visible';
+        $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
+
+        $html = preg_replace(
+            '/<section\\s+class=\\"hero hero-profile\\"\\s+data-nav-handler=\\"handleHeroNavigation\\"\\s*>/i',
+            '<section class="hero hero-profile ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleHeroNavigation" data-nav-config="' . $navConfigJson . '">',
+            $html,
+            1
+        );
+
+        // Provide CSS variables for images on the element style
+        // Set CSS variables on the element so CSS can resolve them from the right base (avoid CSS file relative path issues)
+        $cssVars = '--hero-backdrop-light: url(/website/react/portfolio3/portfolio-website/assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_light_v3.png);'
+                 . ' --hero-backdrop-dark: url(/website/react/portfolio3/portfolio-website/assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_dark_v3.png);'
+                 . ' --avatar-image-light: url(' . htmlspecialchars($image, ENT_QUOTES, 'UTF-8') . ');'
+                 . ' --avatar-image-dark: url(' . htmlspecialchars($image, ENT_QUOTES, 'UTF-8') . ');';
+        $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);
+
         return $html;
     }
-    
-    private function generateScriptImport() {
-        return '
-<!-- Component Navigation Scripts -->
-<script src="blocks/components/heros/type_1/hero_behavior_t1.js" type="module"></script>';
+
+    private function fillTemplate($template, $name, $headline, $description, $image, $social, $cvDownload) {
+        $html = str_replace('<!-- NAME_PLACEHOLDER -->', htmlspecialchars($name), $template);
+        $html = str_replace('<!-- TITLE_PLACEHOLDER -->', htmlspecialchars($headline), $html);
+        $html = str_replace('<!-- DESCRIPTION_PLACEHOLDER -->', nl2br(htmlspecialchars($description)), $html);
+        $html = str_replace('<!-- IMAGE_SRC_PLACEHOLDER -->', htmlspecialchars($image), $html);
+        $html = str_replace('<!-- SOCIAL_PLACEHOLDER -->', $this->renderSocial($social), $html);
+        $html = str_replace('<!-- CV_DOWNLOAD_HREF -->', htmlspecialchars($cvDownload['href'] ?? '#'), $html);
+        $html = str_replace('<!-- CV_DOWNLOAD_FILENAME -->', htmlspecialchars($cvDownload['filename'] ?? 'CV.pdf'), $html);
+        return $html;
     }
-    
-    private function processNavigationConfig($navigationConfig) {
-        $defaultConfig = [
-            'defaultState' => 'visible',
-            'allowedStates' => ['visible', 'hidden', 'toggle'],
-            'transitions' => false,
-            'initialParameters' => []
+
+    private function renderSocial($social) {
+        if (!is_array($social) || empty($social)) return '';
+        $iconMap = [
+            'email' => 'mail-outline',
+            'phone' => 'phone-portrait-outline',
+            'linkedin' => 'logo-linkedin',
+            'github' => 'logo-github'
         ];
-        
-        // Merge with provided config
-        $config = array_merge($defaultConfig, $navigationConfig);
-        
-        // Validate allowed states
-        if (!in_array($config['defaultState'], $config['allowedStates'])) {
-            $config['defaultState'] = 'visible';
+        $out = '';
+        foreach ($social as $item) {
+            $type = isset($item['type']) ? (string)$item['type'] : '';
+            $iconName = isset($iconMap[$type]) ? $iconMap[$type] : 'alert-circle-outline';
+            $label = htmlspecialchars($item['label'] ?? '');
+            $href = htmlspecialchars($item['href'] ?? '#');
+            $target = ($type === 'email' || $type === 'phone') ? '_self' : '_blank';
+            $out .= '<a href="' . $href . '" class="hero__icon" target="' . $target . '" aria-label="' . $label . '">'
+                 . '<ion-icon name="' . htmlspecialchars($iconName) . '"></ion-icon>'
+                 . '<span class="visually-hidden">' . $label . '</span>'
+                 . '</a>';
         }
-        
+        return $out;
+    }
+
+    private function processNavigationConfig($navigationConfig) {
+        $defaultConfig = [ 'defaultState' => 'visible', 'allowedStates' => ['visible','hidden'] ];
+        $config = array_merge($defaultConfig, $navigationConfig);
+        if (!in_array($config['defaultState'], $config['allowedStates'])) $config['defaultState'] = 'visible';
         return $config;
     }
 }
 
-?> 
+?>
+
+

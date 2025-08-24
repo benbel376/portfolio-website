@@ -1,0 +1,30 @@
+
+{
+	"objects": [
+		{
+			"type": "container",
+			"component": "vertical/type_1",
+			"id": "projects-main-container",
+			"navigation": {
+				"defaultState": "hidden",
+				"allowedStates": ["visible", "hidden", "scrollTo"]
+			},
+			"objects": [
+				{
+					"type": "component",
+					"component": "placeholders/type_1",
+					"id": "projects-placeholder",
+					"dynamic": false,
+					"data": { "main": { "title": "Projects" } },
+					"variant": "main",
+					"navigation": {
+						"defaultState": "visible",
+						"allowedStates": ["visible", "hidden", "scrollTo"]
+					}
+				}
+			]
+		}
+	]
+}
+
+

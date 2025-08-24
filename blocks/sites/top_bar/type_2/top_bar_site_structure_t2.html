@@ -42,10 +42,18 @@
   
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <!-- Dynamic Loading Styles -->
+  <link rel="stylesheet" href="assets/styles/dynamic_loading_styles.css">
+  
+  <!-- Auth Manager -->
+  <script src="assets/behaviors/auth_t1.js"></script>
+  <!-- Test Helper (temporary) -->
+  <script src="assets/behaviors/test_helper_t1.js"></script>
 </head>
 <body>
 <div class="site-container">
-<nav class="main-nav card">
+<nav class="main-nav card" style="margin: 16px;">
   <button id="mobileMenuToggleBtn" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
     <ion-icon name="menu-outline"></ion-icon>
   </button>
@@ -64,8 +72,44 @@
 
 <!-- PAGE_CONTENT_PLACEHOLDER -->
 
+<!-- Login Modal Markup -->
+<div id="siteLoginModal" class="site-login-modal" aria-hidden="true">
+  <div class="site-login-modal-backdrop"></div>
+  <div class="site-login-modal-content">
+    <button id="siteLoginModalClose" class="site-login-modal-close" aria-label="Close login">✕</button>
+    <div class="site-login-modal-header">
+      <h3 class="site-login-modal-title">Sign in</h3>
+      <p class="site-login-modal-subtitle">Use demo credentials: admin / admin</p>
+    </div>
+    <form id="siteLoginForm" class="site-login-form">
+      <div class="site-form-group">
+        <label class="site-form-label">Username</label>
+        <input class="site-form-input" type="text" name="username" autocomplete="username" required />
+      </div>
+      <div class="site-form-group">
+        <label class="site-form-label">Password</label>
+        <input class="site-form-input" type="password" name="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="site-login-submit">
+        <span class="site-loading-spinner"></span>
+        <span class="site-button-text">Sign in</span>
+      </button>
+      <div class="site-error-message"></div>
+    </form>
+  </div>
+  
+</div>
+
 <!-- Theme Script (loaded first to ensure availability) -->
 <script src="blocks/sites/top_bar/type_2/behaviors/top_bar_site_behavior_theme_t2.js"></script>
+<!-- Cache Manager Script -->
+<script src="assets/behaviors/cache_manager_t1.js" type="module"></script>
+<!-- Dynamic Content Loader Script -->
+<script src="assets/behaviors/dynamic_content_loader_t1.js" type="module"></script>
+<!-- Site-Specific Dynamic Content Behavior -->
+<script src="blocks/sites/top_bar/type_2/behaviors/top_bar_site_behavior_dynamic_content_t2.js" type="module"></script>
+<!-- Dynamic Loading Debug Utility (for development) -->
+<script src="assets/behaviors/dynamic_loading_debug_t1.js" type="module"></script>
 <!-- Global Navigator Script -->
 <script src="assets/behaviors/global_navigator_t1.js" type="module"></script>
 <!-- Site Navigation Scripts -->

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test</title>
+</head>
+
+<body>
+    <h1>Media Manager API Test</h1>
+    <button onclick="testAPI()">Test API Connection</button>
+    <button onclick="testAuth()">Test Authentication</button>
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        function log(message) {
+            resultsDiv.innerHTML += '<p>' + message + '</p>';
+            console.log(message);
+        }
+
+        async function testAPI() {
+            resultsDiv.innerHTML = '<h3>Testing API Connection...</h3>';
+
+            try {
+                log('Window location: ' + window.location.href);
+                log('Protocol: ' + window.location.protocol);
+                log('Hostname: ' + window.location.hostname);
+                log('Port: ' + window.location.port);
+
+                const apiUrl = `${window.location.protocol}//${window.location.hostname}:8000/api.php?endpoint=info`;
+                log('API URL: ' + apiUrl);
+
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                log('Response status: ' + response.status);
+                log('Response headers: ' + JSON.stringify([...response.headers.entries()]));
+
+                const data = await response.json();
+                log('Response data: ' + JSON.stringify(data, null, 2));
+
+            } catch (error) {
+                log('Error: ' + error.message);
+            }
+        }
+
+        async function testAuth() {
+            resultsDiv.innerHTML = '<h3>Testing Authentication...</h3>';
+
+            try {
+                // First test if we need to authenticate
+                const apiUrl = `${window.location.protocol}//${window.location.hostname}:8000/api.php?endpoint=media_manager&action=list`;
+                log('Testing Media Manager API: ' + apiUrl);
+
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                log('Response status: ' + response.status);
+
+                const data = await response.json();
+                log('Response data: ' + JSON.stringify(data, null, 2));
+
+                if (response.status === 401) {
+                    log('Authentication required. Please login first.');
+                } else if (data.success) {
+                    log('Successfully connected to Media Manager API!');
+                }
+
+            } catch (error) {
+                log('Error: ' + error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>

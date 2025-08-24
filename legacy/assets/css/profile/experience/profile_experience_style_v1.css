@@ -1,0 +1,685 @@
+/* Professional Experience Component - Full Width Design */
+
+.experience-component {
+    padding: 3em 0;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    margin: 0 1.6rem;
+}
+
+
+/* Experience Timeline Container - Full Width */
+
+.experience-timeline {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    counter-reset: experience-counter;
+}
+
+
+/* Timeline Item */
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3em;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.8s ease-out forwards;
+    counter-increment: experience-counter;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Experience Content */
+
+.experience-card {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Title Row - Title and Company */
+
+.experience-card__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 0.3em;
+    position: relative;
+}
+
+
+/* Title Group - No Number */
+
+.experience-card__title-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    flex: 1;
+}
+
+
+/* Title and Company Stack */
+
+.experience-card__title-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+}
+
+
+/* Job Title - Top of Stack */
+
+.experience-card__title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2c2c2c;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.theme-dark .experience-card__title {
+    color: #FAFAFA;
+}
+
+
+/* Company Name - Under Title with Icon */
+
+.experience-card__company {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.theme-dark .experience-card__company {
+    color: #B0B0B0;
+}
+
+.experience-card__company ion-icon {
+    font-size: 1em;
+    color: #FF8F00;
+    opacity: 0.8;
+}
+
+.theme-dark .experience-card__company ion-icon {
+    color: #FFB74D;
+}
+
+
+/* Card Header - Below Title Row */
+
+.experience-card__header {
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(255, 143, 0, 0.5);
+}
+
+.theme-dark .experience-card__header {
+    border-bottom-color: rgba(255, 143, 0, 0.6);
+}
+
+
+/* Meta Information - Below Title with Years and Icons */
+
+.experience-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5em;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.theme-dark .experience-card__meta {
+    color: #B0B0B0;
+}
+
+.experience-card__meta-left {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    flex: 1;
+}
+
+.experience-card__meta-item {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap: 0.5em;
+}
+
+.experience-card__meta-item ion-icon {
+    font-size: 1em;
+    color: #FF8F00;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.theme-dark .experience-card__meta-item ion-icon {
+    color: #FFB74D;
+}
+
+.experience-card__dates {
+    color: #FF8F00;
+    font-weight: 600;
+}
+
+.experience-card__location {
+    color: #666;
+    font-weight: 500;
+}
+
+.theme-dark .experience-card__location {
+    color: #B0B0B0;
+}
+
+
+/* Years Experience - In Meta Section */
+
+.experience-card__years {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #FF8F00;
+    flex-shrink: 0;
+}
+
+.theme-dark .experience-card__years {
+    color: #FFB74D;
+}
+
+
+/* Responsibilities Section - Below Header */
+
+.experience-card__responsibilities {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+}
+
+.experience-responsibilities-title {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.8em;
+    margin-top: -10px;
+}
+
+.theme-dark .experience-responsibilities-title {
+    color: #B0B0B0;
+}
+
+
+/* Bullet List */
+
+.responsibilities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.responsibility-item {
+    position: relative;
+    color: #444;
+    line-height: 1.6;
+    font-size: 1em;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 0.6s ease-out forwards;
+    transition: all 0.3s ease;
+    padding-left: 1.5em;
+    margin-bottom: -15px
+}
+
+.theme-dark .responsibility-item {
+    color: #E0E0E0;
+}
+
+
+/* Custom Bullet Points */
+
+.responsibility-item::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #FF8F00;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.responsibility-item:hover {
+    color: #2c2c2c;
+}
+
+.theme-dark .responsibility-item:hover {
+    color: #FAFAFA;
+}
+
+.responsibility-item:hover::before {
+    color: #FFB74D;
+    transform: scale(1.1);
+}
+
+
+/* Tags Section */
+
+.experience-card__tags {
+    margin-top: 1.5em;
+}
+
+.experience-tags-title {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.8em;
+}
+
+.theme-dark .experience-tags-title {
+    color: #B0B0B0;
+}
+
+.experience-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.experience-tag {
+    background: rgba(255, 143, 0, 0.1);
+    color: #FF8F00;
+    padding: 0.3em 0.8em;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 500;
+    border: 1px solid rgba(255, 143, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.theme-dark .experience-tag {
+    background: rgba(255, 143, 0, 0.15);
+    border-color: rgba(255, 143, 0, 0.3);
+}
+
+.experience-tag:hover {
+    background: rgba(255, 143, 0, 0.15);
+    border-color: rgba(255, 143, 0, 0.4);
+}
+
+.theme-dark .experience-tag:hover {
+    background: rgba(255, 143, 0, 0.2);
+}
+
+
+/* Hidden responsibilities animation */
+
+.responsibility-item.hidden {
+    display: none;
+}
+
+.responsibility-item.show-more {
+    animation: fadeInSlide 0.6s ease-out forwards;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+        max-height: 0;
+        margin-bottom: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        max-height: 100px;
+        margin-bottom: 1em;
+    }
+}
+
+
+/* Expand Button - Awesome Design */
+
+.experience-component .expand-button {
+    margin-top: 2em;
+    background: linear-gradient(135deg, #FF8F00 0%, #FFB74D 100%);
+    border: 2px solid transparent;
+    color: white;
+    padding: 0.4em 0.8em;
+    border-radius: 8px;
+    font-size: 0.75em;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.4em;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(255, 143, 0, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.experience-component .expand-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.experience-component .expand-button:hover {
+    box-shadow: 0 4px 12px rgba(255, 143, 0, 0.35);
+    background: linear-gradient(135deg, #FFB74D 0%, #FF8F00 100%);
+}
+
+.experience-component .expand-button:hover::before {
+    left: 100%;
+}
+
+.experience-component .expand-button:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 1px 6px rgba(255, 143, 0, 0.25);
+}
+
+.experience-component .expand-button ion-icon {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.9em;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.experience-component .expand-button[data-expanded="true"] ion-icon {
+    transform: rotate(180deg) scale(1.1);
+}
+
+.experience-component .expand-button:hover ion-icon {
+    transform: scale(1.2);
+}
+
+.experience-component .expand-button[data-expanded="true"]:hover ion-icon {
+    transform: rotate(180deg) scale(1.2);
+}
+
+
+/* Dark theme version */
+
+.theme-dark .experience-component .expand-button {
+    background: linear-gradient(135deg, #FF8F00 0%, #F57C00 100%);
+    box-shadow: 0 4px 15px rgba(255, 143, 0, 0.2);
+}
+
+.theme-dark .experience-component .expand-button:hover {
+    background: linear-gradient(135deg, #FFB74D 0%, #FF8F00 100%);
+    box-shadow: 0 8px 25px rgba(255, 143, 0, 0.3);
+}
+
+
+/* Button text handling with better animations */
+
+.experience-component .expand-button[data-expanded="true"] .btn-text {
+    display: none;
+}
+
+.experience-component .expand-button[data-expanded="true"]::after {
+    content: 'Show Less';
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.experience-component .expand-button[data-expanded="false"] .btn-text,
+.experience-component .expand-button:not([data-expanded]) .btn-text {
+    display: inline;
+}
+
+
+/* Remove unused positioning */
+
+.experience-card__title-row::before {
+    display: none;
+}
+
+.timeline-item::before {
+    display: none;
+}
+
+
+/* Animations */
+
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Animation Delays */
+
+.timeline-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.timeline-item:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.timeline-item:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.timeline-item:nth-child(4) {
+    animation-delay: 0.7s;
+}
+
+.responsibility-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.responsibility-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.responsibility-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.responsibility-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.responsibility-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.responsibility-item:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+
+/* Loading State */
+
+.experience-component.loading .timeline-item {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(0.3);
+}
+
+
+/* Empty State */
+
+.experience-empty {
+    text-align: center;
+    padding: 4em 2em;
+    color: #666;
+    font-style: italic;
+}
+
+.theme-dark .experience-empty {
+    color: #999;
+}
+
+.experience-empty ion-icon {
+    font-size: 4em;
+    margin-bottom: 1em;
+    opacity: 0.4;
+    color: rgba(255, 143, 0, 0.6);
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .experience-card__title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .experience-card__title-group {
+        gap: 12px;
+        width: 100%;
+    }
+    .experience-card__title-content {
+        gap: 3px;
+    }
+    .experience-card__title {
+        font-size: 1.2em;
+    }
+    .experience-card__company {
+        font-size: 0.95em;
+    }
+    .experience-card__meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8em;
+    }
+    .experience-card__meta-left {
+        gap: 0.8em;
+    }
+    .experience-card__years {
+        align-self: flex-end;
+        font-size: 1.1em;
+    }
+    .responsibility-item {
+        font-size: 0.95em;
+    }
+    .experience-tags-list {
+        gap: 0.4em;
+    }
+    .experience-tag {
+        font-size: 0.75em;
+        padding: 0.25em 0.6em;
+    }
+}
+
+@media (max-width: 576px) {
+    .experience-card__title-group {
+        gap: 10px;
+    }
+    .experience-card__title {
+        font-size: 1.3em;
+    }
+    .experience-card__company {
+        font-size: 0.9em;
+    }
+    .experience-card__meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5em;
+    }
+    .experience-card__years {
+        font-size: 1em;
+    }
+    .responsibility-item {
+        font-size: 0.9em;
+    }
+}
+
+
+/* Company Logo - Right Side */
+
+.experience-card__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(255, 143, 0, 0.1), rgba(255, 183, 77, 0.1));
+    border: 2px solid rgba(255, 143, 0, 0.2);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.theme-dark .experience-card__logo {
+    background: linear-gradient(135deg, rgba(255, 143, 0, 0.15), rgba(255, 183, 77, 0.15));
+    border-color: rgba(255, 143, 0, 0.3);
+}
+
+.experience-card__logo ion-icon {
+    font-size: 1.8em;
+    color: #FF8F00;
+    transition: all 0.3s ease;
+}
+
+.theme-dark .experience-card__logo ion-icon {
+    color: #FFB74D;
+}
+
+.experience-card__logo:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 143, 0, 0.4);
+    background: linear-gradient(135deg, rgba(255, 143, 0, 0.15), rgba(255, 183, 77, 0.15));
+}
+
+.theme-dark .experience-card__logo:hover {
+    border-color: rgba(255, 143, 0, 0.5);
+    background: linear-gradient(135deg, rgba(255, 143, 0, 0.2), rgba(255, 183, 77, 0.2));
+}
+
+.experience-card__logo:hover ion-icon {
+    transform: scale(1.1);
+    color: #FF8F00;
+}
+
+.theme-dark .experience-card__logo:hover ion-icon {
+    color: #FFB74D;
+}

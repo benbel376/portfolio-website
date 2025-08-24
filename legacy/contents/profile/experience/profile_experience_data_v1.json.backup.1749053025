@@ -1,0 +1,51 @@
+[{
+        "companyName": "Adludio",
+        "jobTitle": "AI & MLOps Team Lead",
+        "dates": "Jan 2022 - Present",
+        "startDate": "2022-01-01",
+        "endDate": null,
+        "location": "London, UK (Remote)",
+        "responsibilities": [
+            "Spearheaded the development of end-to-end machine learning systems, automating data processing, model training, and deployment pipelines.",
+            "Managed a team of 3 ML engineers, fostering a collaborative and innovative environment.",
+            "Designed and implemented scalable cloud architectures for ML workloads on AWS and GCP.",
+            "Championed MLOps best practices, including CI/CD for ML, version control for models and data, and automated monitoring.",
+            "Developed streamlined UI systems for monitoring real-time performance, security, and cost metrics.",
+            "Worked on the bid optimization project, which led to a 15% improvement in KPI returns by refining the bidding algorithms to maximize ad performance while optimizing costs.",
+            "Established comprehensive data governance frameworks and privacy compliance protocols for sensitive customer data handling.",
+            "Led cross-functional initiatives to integrate AI capabilities into existing products, resulting in 25% increased user engagement."
+        ],
+        "tags": ["Python", "AWS", "GCP", "MLOps", "Docker", "Kubernetes", "TensorFlow", "PyTorch", "CI/CD", "Machine Learning"],
+        "logoIcon": "rocket-outline"
+    },
+    {
+        "companyName": "Tech Solutions Inc.",
+        "jobTitle": "Senior Machine Learning Engineer",
+        "dates": "Jun 2019 - Dec 2021",
+        "startDate": "2019-06-01",
+        "endDate": "2021-12-31",
+        "location": "San Francisco, CA (Remote)",
+        "responsibilities": [
+            "Developed and deployed machine learning models for predictive analytics and recommendation systems.",
+            "Optimized model performance and scalability, resulting in a 20% improvement in prediction accuracy.",
+            "Collaborated with cross-functional teams to integrate ML solutions into existing products."
+        ],
+        "tags": ["Python", "Scikit-learn", "TensorFlow", "SQL", "Apache Spark", "Recommendation Systems", "Predictive Analytics"],
+        "logoIcon": "analytics-outline"
+    },
+    {
+        "companyName": "Innovatech Corp.",
+        "jobTitle": "Machine Learning Engineer",
+        "dates": "Jul 2017 - May 2019",
+        "startDate": "2017-07-01",
+        "endDate": "2019-05-31",
+        "location": "Boston, MA",
+        "responsibilities": [
+            "Researched and implemented novel machine learning algorithms for NLP tasks.",
+            "Contributed to the development of a sentiment analysis tool used by major clients.",
+            "Performed data preprocessing, feature engineering, and model evaluation."
+        ],
+        "tags": ["Python", "NLP", "NLTK", "spaCy", "Sentiment Analysis", "Feature Engineering", "Data Preprocessing"],
+        "logoIcon": "bulb-outline"
+    }
+]

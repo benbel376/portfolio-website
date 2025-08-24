@@ -1,0 +1,77 @@
+[{
+        "issuer": "Amazon Web Services",
+        "certificationName": "AWS Certified Solutions Architect",
+        "level": "Professional",
+        "dates": "Mar 2023",
+        "expiryDate": "Mar 2026",
+        "credentialId": "AWS-SAP-2023-001234",
+        "skills": [
+            "Cloud Computing",
+            "AWS",
+            "Cloud Security",
+            "Cost Management",
+            "Infrastructure as Code",
+            "Auto Scaling",
+            "Load Balancing"
+        ],
+        "logoIcon": "cloud-outline",
+        "verificationUrl": "https://aws.amazon.com/verification"
+    },
+    {
+        "issuer": "Google Cloud",
+        "certificationName": "Professional Machine Learning Engineer",
+        "level": "Professional",
+        "dates": "Jan 2023",
+        "expiryDate": "Jan 2025",
+        "credentialId": "GCP-PMLE-2023-005678",
+        "skills": [
+            "Machine Learning",
+            "MLOps",
+            "TensorFlow",
+            "Vertex AI",
+            "Data Engineering",
+            "Model Deployment",
+            "Python"
+        ],
+        "logoIcon": "analytics-outline",
+        "verificationUrl": "https://cloud.google.com/certification/verification"
+    },
+    {
+        "issuer": "Kubernetes",
+        "certificationName": "Certified Kubernetes Administrator (CKA)",
+        "level": "Professional",
+        "dates": "Nov 2022",
+        "expiryDate": "Nov 2025",
+        "credentialId": "CKA-2022-009876",
+        "skills": [
+            "Kubernetes",
+            "Container Orchestration",
+            "Docker",
+            "kubectl",
+            "YAML Configuration",
+            "Cluster Management",
+            "Security"
+        ],
+        "logoIcon": "server-outline",
+        "verificationUrl": "https://training.linuxfoundation.org/certification/verify"
+    },
+    {
+        "issuer": "Microsoft",
+        "certificationName": "Azure DevOps Engineer Expert",
+        "level": "Expert",
+        "dates": "Aug 2022",
+        "expiryDate": "Aug 2024",
+        "credentialId": "AZ-400-2022-112233",
+        "skills": [
+            "Azure",
+            "DevOps",
+            "CI/CD",
+            "Infrastructure as Code",
+            "Terraform",
+            "Azure Monitor",
+            "Agile"
+        ],
+        "logoIcon": "git-branch-outline",
+        "verificationUrl": "https://docs.microsoft.com/en-us/learn/certifications/"
+    }
+]
