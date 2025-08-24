@@ -265,20 +265,575 @@
                 },
                 {
                     "type": "component",
-                    "component": "slideshows/type_1",
-                    "id": "skills-slideshow",
+                    "component": "tools/type_1",
+                    "id": "my-tools",
                     "dynamic": false,
                     "data": {
                         "main": {
-                            "slides": [
-                                { "type": "image", "src": "assets/media/placeholders/slides/slide_1.svg", "alt": "Workflow schematic 1" },
-                                { "type": "image", "src": "assets/media/placeholders/slides/slide_2.svg", "alt": "Workflow schematic 2" },
-                                { "type": "image", "src": "assets/media/placeholders/slides/slide_3.svg", "alt": "Workflow schematic 3" }
+                            "title": "Toolkits",
+                            "categories": [
+                                {
+                                    "title": "Programming Languages",
+                                    "tools": [
+                                        {
+                                            "name": "Python",
+                                            "description": "Primary language for data science, machine learning, and backend development",
+                                            "icon": "logo-python",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "ML Pipeline Automation",
+                                                    "description": "Built automated ML training pipelines using Python, Scikit-learn, and TensorFlow"
+                                                },
+                                                {
+                                                    "name": "Data Processing Framework",
+                                                    "description": "Created scalable data processing system with Python, Pandas, and Apache Spark"
+                                                },
+                                                {
+                                                    "name": "API Development",
+                                                    "description": "Developed RESTful APIs using FastAPI and Flask for ML model serving"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "JavaScript",
+                                            "description": "Frontend and backend development with modern frameworks",
+                                            "icon": "logo-javascript",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Real-time Dashboard",
+                                                    "description": "Built interactive ML monitoring dashboard with React and D3.js"
+                                                },
+                                                {
+                                                    "name": "Node.js Microservices",
+                                                    "description": "Developed microservices architecture using Node.js and Express"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "SQL",
+                                            "description": "Database design, optimization, and complex query development",
+                                            "icon": "server-outline",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Data Warehouse Design",
+                                                    "description": "Designed and optimized data warehouse schema for analytics workloads"
+                                                },
+                                                {
+                                                    "name": "Query Optimization",
+                                                    "description": "Improved query performance by 80% through indexing and optimization"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "R",
+                                            "description": "Statistical analysis and data visualization",
+                                            "icon": "stats-chart-outline",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Statistical Modeling",
+                                                    "description": "Built predictive models for customer behavior analysis"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Scala",
+                                            "description": "Big data processing with Apache Spark",
+                                            "icon": "code-outline",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Spark ETL Pipeline",
+                                                    "description": "Developed large-scale data processing pipeline using Scala and Spark"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Java",
+                                            "description": "Enterprise applications and microservices",
+                                            "icon": "logo-java",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Spring Boot Services",
+                                                    "description": "Built enterprise microservices using Spring Boot and Spring Cloud"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Go",
+                                            "description": "High-performance backend services and CLI tools",
+                                            "icon": "code-working-outline",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Container Orchestration",
+                                                    "description": "Built Kubernetes operators and CLI tools in Go"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Bash/Shell",
+                                            "description": "System automation and deployment scripts",
+                                            "icon": "terminal-outline",
+                                            "category": "programming",
+                                            "projects": [
+                                                {
+                                                    "name": "Deployment Automation",
+                                                    "description": "Created automated deployment scripts for multi-environment releases"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "ML & Data Science",
+                                    "tools": [
+                                        {
+                                            "name": "TensorFlow",
+                                            "description": "Deep learning model development and deployment",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Computer Vision Pipeline",
+                                                    "description": "Built CNN models for image classification with 95% accuracy"
+                                                },
+                                                {
+                                                    "name": "NLP Sentiment Analysis",
+                                                    "description": "Developed transformer models for real-time sentiment analysis"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "PyTorch",
+                                            "description": "Research-oriented deep learning and model experimentation",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Research Prototypes",
+                                                    "description": "Implemented cutting-edge research papers in computer vision"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Scikit-learn",
+                                            "description": "Traditional machine learning algorithms and preprocessing",
+                                            "icon": "analytics-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Predictive Analytics",
+                                                    "description": "Built ensemble models for customer churn prediction"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Apache Spark",
+                                            "description": "Large-scale data processing and ML at scale",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Big Data ML Pipeline",
+                                                    "description": "Processed 10TB+ datasets for ML model training"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Pandas",
+                                            "description": "Data manipulation and analysis",
+                                            "icon": "grid-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Data Analysis Platform",
+                                                    "description": "Built automated data analysis and reporting system"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "NumPy",
+                                            "description": "Numerical computing and array operations",
+                                            "icon": "calculator-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Mathematical Modeling",
+                                                    "description": "Implemented custom algorithms for financial modeling"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Jupyter",
+                                            "description": "Interactive data science and model development",
+                                            "icon": "document-text-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Research Notebooks",
+                                                    "description": "Created reproducible research workflows and model experiments"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "MLflow",
+                                            "description": "ML experiment tracking and model lifecycle management",
+                                            "icon": "git-branch-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Model Registry",
+                                                    "description": "Implemented centralized model versioning and deployment system"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Cloud & Infrastructure",
+                                    "tools": [
+                                        {
+                                            "name": "AWS",
+                                            "description": "Comprehensive cloud services and infrastructure management",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Serverless ML Pipeline",
+                                                    "description": "Built end-to-end ML pipeline using Lambda, SageMaker, and S3"
+                                                },
+                                                {
+                                                    "name": "Auto-scaling Infrastructure",
+                                                    "description": "Designed cost-optimized infrastructure with auto-scaling groups"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Docker",
+                                            "description": "Containerization and application packaging",
+                                            "icon": "logo-docker",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Microservices Architecture",
+                                                    "description": "Containerized 15+ microservices with optimized Docker images"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Kubernetes",
+                                            "description": "Container orchestration and cluster management",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Production Clusters",
+                                                    "description": "Managed multi-environment Kubernetes clusters with 99.9% uptime"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Terraform",
+                                            "description": "Infrastructure as Code and resource management",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Multi-Cloud Infrastructure",
+                                                    "description": "Automated infrastructure deployment across AWS and Azure"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Jenkins",
+                                            "description": "CI/CD pipeline automation and deployment",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Automated Deployments",
+                                                    "description": "Built CI/CD pipelines reducing deployment time by 70%"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "GitHub Actions",
+                                            "description": "Modern CI/CD workflows and automation",
+                                            "icon": "logo-github",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Workflow Automation",
+                                                    "description": "Implemented automated testing and deployment workflows"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Prometheus",
+                                            "description": "Monitoring and alerting system",
+                                            "icon": "pulse-outline",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Observability Stack",
+                                                    "description": "Set up comprehensive monitoring with Prometheus and Grafana"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Grafana",
+                                            "description": "Visualization and dashboarding platform",
+                                            "icon": "bar-chart-outline",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Executive Dashboards",
+                                                    "description": "Created real-time business and technical metrics dashboards"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Databases & Storage",
+                                    "tools": [
+                                        {
+                                            "name": "PostgreSQL",
+                                            "description": "Advanced relational database with complex queries",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Analytics Database",
+                                                    "description": "Designed high-performance OLAP database for business intelligence"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "MongoDB",
+                                            "description": "Document-based NoSQL database for flexible schemas",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Content Management",
+                                                    "description": "Built scalable content management system with MongoDB"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Redis",
+                                            "description": "In-memory caching and session management",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Caching Layer",
+                                                    "description": "Implemented distributed caching reducing response times by 60%"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Elasticsearch",
+                                            "description": "Search engine and analytics for large datasets",
+                                            "icon": "search-outline",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Log Analytics",
+                                                    "description": "Built centralized logging system processing 1M+ events/day"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Apache Kafka",
+                                            "description": "Distributed streaming platform for real-time data",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Event Streaming",
+                                                    "description": "Implemented real-time data streaming architecture"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "MySQL",
+                                            "description": "Reliable relational database for web applications",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "E-commerce Platform",
+                                                    "description": "Optimized MySQL database for high-traffic e-commerce site"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Amazon S3",
+                                            "description": "Scalable object storage for data lakes and backups",
+                                            "icon": "cloud-outline",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Data Lake Architecture",
+                                                    "description": "Built petabyte-scale data lake on S3 with lifecycle management"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Snowflake",
+                                            "description": "Cloud data warehouse for analytics workloads",
+                                            "icon": "snow-outline",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Data Warehouse Migration",
+                                                    "description": "Migrated legacy data warehouse to Snowflake with 50% cost reduction"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     },
                     "variant": "main",
-                    "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"] }
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden", "scrollTo"]
+                    }
+                },
+                {
+                    "type": "component",
+                    "component": "workflow/type_1",
+                    "id": "my-workflow",
+                    "dynamic": false,
+                    "data": {
+                        "main": {
+                            "title": "How I Work",
+                            "scenarios": [
+                                {
+                                    "title": "ML/AI Projects",
+                                    "description": "End-to-end machine learning workflow from problem definition to production deployment and monitoring.",
+                                    "steps": [
+                                        {
+                                            "title": "Problem Definition",
+                                            "description": "Understanding business objectives, defining success metrics, and identifying data requirements.",
+                                            "icon": "analytics-outline",
+                                            "tools": ["Jira", "Confluence", "Jupyter", "Miro"]
+                                        },
+                                        {
+                                            "title": "Data Engineering",
+                                            "description": "Data collection, preprocessing, feature engineering, and pipeline creation.",
+                                            "icon": "server-outline",
+                                            "tools": ["Python", "Pandas", "Apache Spark", "SQL"]
+                                        },
+                                        {
+                                            "title": "Model Development",
+                                            "description": "Algorithm selection, model training, hyperparameter tuning, and validation.",
+                                            "icon": "brain-outline",
+                                            "tools": ["TensorFlow", "PyTorch", "Scikit-learn", "MLflow"]
+                                        },
+                                        {
+                                            "title": "Model Deployment",
+                                            "description": "Production deployment, API creation, monitoring, and scaling infrastructure.",
+                                            "icon": "rocket-outline",
+                                            "tools": ["Docker", "Kubernetes", "AWS", "FastAPI"]
+                                        },
+                                        {
+                                            "title": "Monitoring & Optimization",
+                                            "description": "Performance tracking, model retraining, A/B testing, and continuous improvement.",
+                                            "icon": "pulse-outline",
+                                            "tools": ["Prometheus", "Grafana", "MLflow", "A/B Testing"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Full-Stack Development",
+                                    "description": "Complete web application development lifecycle from planning and design to deployment and maintenance.",
+                                    "steps": [
+                                        {
+                                            "title": "Requirements Analysis",
+                                            "description": "Understanding user needs, defining features, and creating technical specifications.",
+                                            "icon": "document-text-outline",
+                                            "tools": ["Jira", "Figma", "Confluence", "User Stories"]
+                                        },
+                                        {
+                                            "title": "System Architecture",
+                                            "description": "Database design, API architecture, technology stack selection, and security planning.",
+                                            "icon": "construct-outline",
+                                            "tools": ["Draw.io", "PostgreSQL", "MongoDB", "Redis"]
+                                        },
+                                        {
+                                            "title": "Development",
+                                            "description": "Frontend and backend development with version control and code reviews.",
+                                            "icon": "code-working-outline",
+                                            "tools": ["React", "Node.js", "Python", "GitHub"]
+                                        },
+                                        {
+                                            "title": "Testing & QA",
+                                            "description": "Unit testing, integration testing, automated testing, and quality assurance.",
+                                            "icon": "checkmark-done-outline",
+                                            "tools": ["Jest", "Cypress", "Postman", "Jenkins"]
+                                        },
+                                        {
+                                            "title": "Deployment & Maintenance",
+                                            "description": "CI/CD setup, production deployment, monitoring, and ongoing maintenance.",
+                                            "icon": "cloud-upload-outline",
+                                            "tools": ["AWS", "Docker", "GitHub Actions", "Monitoring"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Data Analytics Projects",
+                                    "description": "Data-driven insights generation from raw data collection to actionable business recommendations.",
+                                    "steps": [
+                                        {
+                                            "title": "Business Understanding",
+                                            "description": "Stakeholder interviews, KPI definition, and analytics requirements gathering.",
+                                            "icon": "people-outline",
+                                            "tools": ["Slack", "Confluence", "Business KPIs", "Interviews"]
+                                        },
+                                        {
+                                            "title": "Data Collection",
+                                            "description": "Data source identification, extraction, validation, and quality assessment.",
+                                            "icon": "download-outline",
+                                            "tools": ["SQL", "APIs", "Web Scraping", "Data Validation"]
+                                        },
+                                        {
+                                            "title": "Analysis & Modeling",
+                                            "description": "Statistical analysis, trend identification, predictive modeling, and insights generation.",
+                                            "icon": "stats-chart-outline",
+                                            "tools": ["Python", "R", "Jupyter", "Statistical Tests"]
+                                        },
+                                        {
+                                            "title": "Visualization",
+                                            "description": "Dashboard creation, report generation, and interactive visualization development.",
+                                            "icon": "bar-chart-outline",
+                                            "tools": ["Tableau", "Power BI", "D3.js", "Plotly"]
+                                        },
+                                        {
+                                            "title": "Implementation",
+                                            "description": "Automated reporting, stakeholder training, and ongoing analytics support.",
+                                            "icon": "settings-outline",
+                                            "tools": ["Automation", "Training", "Documentation", "Support"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "variant": "main",
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden", "scrollTo"]
+                    }
                 }
             ]
         }

@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="blocks/components/tools/type_1/tools_style_t1.css">
+<section class="tools" data-nav-handler="handleToolsNavigation">
+  <div class="tools__container">
+    <div class="tools__header">
+      <div class="tools__tabs">
+        <div class="tools__tab tools__tab--active">
+          <ion-icon name="construct-outline"></ion-icon>
+          <span><!-- TITLE_PLACEHOLDER --></span>
+        </div>
+      </div>
+      <div class="tools__dropdown" id="tools-dropdown">
+        <select class="tools__select" id="tools-category-select">
+          <!-- DROPDOWN_OPTIONS_PLACEHOLDER -->
+        </select>
+        <ion-icon name="chevron-down-outline" class="tools__dropdown-icon"></ion-icon>
+      </div>
+    </div>
+    <div class="tools__content">
+      <div class="tools__grid" id="tools-grid">
+        <!-- TOOLS_GRID_PLACEHOLDER -->
+      </div>
+      <div class="tools__pagination">
+        <div class="tools__dots" id="tools-dots">
+          <!-- PAGINATION_DOTS_PLACEHOLDER -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Details Modal -->
+  <div class="tools__modal" id="tools-modal">
+    <div class="tools__modal-backdrop" id="tools-modal-backdrop"></div>
+    <div class="tools__modal-content">
+      <div class="tools__modal-header">
+        <div class="tools__modal-icon" id="tools-modal-icon">
+          <!-- Modal tool icon will be inserted here -->
+        </div>
+        <h3 class="tools__modal-title" id="tools-modal-title">Tool Name</h3>
+        <button class="tools__modal-close" id="tools-modal-close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="tools__modal-body">
+        <div class="tools__modal-description" id="tools-modal-description">
+          Tool description will appear here.
+        </div>
+        <div class="tools__modal-projects">
+          <h4 class="tools__modal-projects-title">Projects Using This Tool</h4>
+          <div class="tools__modal-projects-list" id="tools-modal-projects-list">
+            <!-- Project list will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="blocks/components/tools/type_1/tools_behavior_t1.js" type="module"></script>
