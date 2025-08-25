@@ -711,7 +711,7 @@
                 },
                 {
                     "type": "component",
-                    "component": "workflow/type_1",
+                    "component": "workflow/type_2",
                     "id": "my-workflow",
                     "dynamic": false,
                     "data": {
