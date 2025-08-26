@@ -11,10 +11,15 @@
 			"objects": [
 				{
 					"type": "component",
-					"component": "placeholders/type_1",
-					"id": "experience-placeholder",
+					"component": "experience/type_1",
+					"id": "my-experience",
 					"dynamic": false,
-					"data": { "main": { "title": "Experience" } },
+					"data": {
+						"main": {
+							"title": "Professional Experience",
+							"description": "My journey through various roles in machine learning and software development"
+						}
+					},
 					"variant": "main",
 					"navigation": {
 						"defaultState": "visible",

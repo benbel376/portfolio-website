@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="blocks/components/projects_grid/type_1/projects_grid_style_t1.css">
+<div class="projects-grid-component">
+    <!-- Header Section -->
+    <div class="projects-grid__header">
+        <div class="projects-grid__title-section">
+            <div class="projects-grid__icon-wrapper">
+                <ion-icon name="code-working-outline"></ion-icon>
+            </div>
+            <div class="projects-grid__title-content">
+                <h2 class="projects-grid__title">Projects Portfolio</h2>
+                <p class="projects-grid__subtitle">A showcase of my development work and technical projects</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="projects-grid__controls">
+        <!-- Search Bar -->
+        <div class="projects-grid__search">
+            <div class="projects-grid__search-wrapper">
+                <ion-icon name="search-outline"></ion-icon>
+                <input type="text" 
+                       class="projects-grid__search-input" 
+                       id="projects-search" 
+                       placeholder="Search projects...">
+            </div>
+        </div>
+
+        <!-- Filter Dropdown -->
+        <div class="projects-grid__filter">
+            <select class="projects-grid__filter-select" id="projects-filter">
+                <option value="all">All Categories</option>
+                <!-- Options will be dynamically loaded -->
+            </select>
+        </div>
+
+
+    </div>
+
+    <!-- Results Info -->
+    <div class="projects-grid__results-info">
+        <span class="projects-grid__results-count" id="projects-results-count">Loading...</span>
+        <button class="projects-grid__clear-filters" id="projects-clear-filters" style="display: none;">
+            <ion-icon name="close-outline"></ion-icon>
+            Clear Filters
+        </button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid__container">
+        <div class="projects-grid__grid" id="projects-grid">
+            <!-- Project items will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="projects-grid__pagination-container" id="projects-pagination-container" style="display: none;">
+        <div class="projects-grid__pagination">
+            <button class="projects-grid__pagination-btn projects-grid__pagination-prev" id="projects-pagination-prev" disabled>
+                <ion-icon name="chevron-back-outline"></ion-icon>
+                Previous
+            </button>
+            <div class="projects-grid__pagination-info">
+                <span id="projects-pagination-info">Page 1 of 1</span>
+            </div>
+            <button class="projects-grid__pagination-btn projects-grid__pagination-next" id="projects-pagination-next" disabled>
+                Next
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="projects-grid__pagination-dots" id="projects-pagination-dots">
+            <!-- Pagination dots will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="projects-grid__empty" id="projects-empty" style="display: none;">
+        <ion-icon name="folder-open-outline" aria-hidden="true"></ion-icon>
+        <h3>No projects found</h3>
+        <p>Try adjusting your search or filter criteria.</p>
+    </div>
+</div>
+<script src="blocks/components/projects_grid/type_1/projects_grid_behavior_t1.js"></script>

@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="blocks/components/certifications/type_1/certifications_style_t1.css">
+<div class="certifications-component">
+    <!-- Header Section -->
+    <div class="certifications__header">
+        <div class="certifications__title-section">
+            <div class="certifications__icon-wrapper">
+                <ion-icon name="ribbon-outline"></ion-icon>
+            </div>
+            <div class="certifications__title-content">
+                <h2 class="certifications__title">Professional Certifications</h2>
+                <p class="certifications__subtitle">Industry-recognized credentials and achievements</p>
+            </div>
+            <div class="certifications__header-navigation">
+                <button class="certifications__header-nav-button certifications__nav-prev" id="certifications-prev">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+                <button class="certifications__header-nav-button certifications__nav-next" id="certifications-next">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slideshow Container -->
+    <div class="certifications__slideshow">
+        <div class="certifications__slide-container" id="certifications-slide-container">
+            <!-- Certification slides will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="certifications__pagination-container">
+        <div class="certifications__pagination" id="certifications-pagination">
+            <!-- Pagination dots will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="certifications__empty" id="certifications-empty" style="display: none;">
+        <ion-icon name="ribbon-outline" aria-hidden="true"></ion-icon>
+        <p>No certifications available to display.</p>
+    </div>
+</div>
+<script src="blocks/components/certifications/type_1/certifications_behavior_t1.js"></script>

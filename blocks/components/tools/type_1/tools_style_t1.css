@@ -166,8 +166,8 @@
   padding: 30px 50px;
   padding-top: 50px;
   margin-bottom: 50px;
-  border: 1px dotted;
   border-radius: 20px;
+  background: linear-gradient(to bottom, #f0f0f0, #ffffff);
 }
 
 .tools__tool {

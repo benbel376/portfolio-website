@@ -12,10 +12,15 @@
 			"objects": [
 				{
 					"type": "component",
-					"component": "placeholders/type_1",
-					"id": "projects-placeholder",
+					"component": "projects_grid/type_1",
+					"id": "my-projects-grid",
 					"dynamic": false,
-					"data": { "main": { "title": "Projects" } },
+					"data": {
+						"main": {
+							"title": "Projects Portfolio",
+							"description": "A showcase of my development work and technical projects"
+						}
+					},
 					"variant": "main",
 					"navigation": {
 						"defaultState": "visible",

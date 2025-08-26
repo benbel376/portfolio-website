@@ -11,10 +11,32 @@
 			"objects": [
 				{
 					"type": "component",
-					"component": "placeholders/type_1",
-					"id": "education-placeholder",
+					"component": "certifications/type_1",
+					"id": "my-certifications",
 					"dynamic": false,
-					"data": { "main": { "title": "Education" } },
+					"data": {
+						"main": {
+							"title": "Professional Certifications",
+							"description": "Industry-recognized credentials and achievements"
+						}
+					},
+					"variant": "main",
+					"navigation": {
+						"defaultState": "visible",
+						"allowedStates": ["visible", "hidden", "scrollTo"]
+					}
+				},
+				{
+					"type": "component",
+					"component": "education_history/type_1",
+					"id": "my-education-history",
+					"dynamic": false,
+					"data": {
+						"main": {
+							"title": "Education History",
+							"description": "Academic background and qualifications"
+						}
+					},
 					"variant": "main",
 					"navigation": {
 						"defaultState": "visible",
