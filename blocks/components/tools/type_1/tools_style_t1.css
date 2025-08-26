@@ -16,12 +16,21 @@
 .tools__main-header {
   margin-bottom: 3rem;
   margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .tools__title-section {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex: 1;
+}
+
+.tools__dropdown {
+  flex-shrink: 0;
 }
 
 .tools__icon-wrapper {
@@ -85,72 +94,7 @@
   color: #D0D0D0;
 }
 
-/* Controls Header */
 
-.tools__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  gap: 24px;
-  position: relative;
-  flex-wrap: wrap;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.theme-dark .tools__header {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-.tools__tabs {
-  display: flex;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.theme-dark .tools__tabs {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.tools__tab {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  border: none;
-  background: transparent;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.7);
-  white-space: nowrap;
-}
-
-.theme-dark .tools__tab {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.tools__tab--active {
-  background: rgba(255, 255, 255, 0.9);
-  color: #212121;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.theme-dark .tools__tab--active {
-  background: rgba(255, 255, 255, 0.15);
-  color: #FAFAFA;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.tools__tab ion-icon {
-  font-size: 1rem;
-}
 
 .tools__dropdown {
   position: relative;
@@ -656,10 +600,11 @@
     padding: 0 16px;
   }
   
-  .tools__header {
+  .tools__main-header {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 1.5rem;
+    text-align: center;
   }
   
   .tools__title {
@@ -685,6 +630,11 @@
     grid-template-rows: repeat(4, 1fr);
     gap: 18px;
     min-height: 560px;
+  }
+  
+  .tools__tool {
+    padding: 16px;
+    border-radius: 16px;
   }
   
   .tools__tool-icon {
@@ -721,6 +671,11 @@
     grid-template-rows: repeat(6, 1fr);
     gap: 16px;
     min-height: auto;
+  }
+  
+  .tools__tool {
+    padding: 14px;
+    border-radius: 14px;
   }
   
   .tools__tool-icon {
