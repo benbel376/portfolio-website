@@ -39,7 +39,7 @@
     /* Even more subtle for hover */
     --nav-main-border-color: hsl(0, 0%, 90%);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(../../images/general/general_background_bubbles_v1.avif);
+    --site-container-bg-image: url(../../../../../../assets/media/ml_mlops_profile/general/general_background_bubbles_v1.avif);
     /* Light theme image */
     /* Spacing Variables */
     --spacing-xs: 4px;
@@ -884,7 +884,7 @@
     /* Even more subtle for hover */
     --nav-main-border-color: var(--nav-border-color);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(../../images/general/general_background_bubbles_dark_v1.jpg);
+    --site-container-bg-image: url(../../../../../../assets/media/ml_mlops_profile/general/general_background_bubbles_dark_v1.jpg);
     /* Dark theme background with bubbles pattern */
     /* Shadows for dark theme */
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);

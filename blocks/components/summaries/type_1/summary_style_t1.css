@@ -50,7 +50,7 @@
 /* Highlight Card */
 
 .summary-component__highlight-card {
-	margin-top: 1em;
+	margin-top: 2em;
 	background: linear-gradient(135deg, var(--summary-bg-start) 0%, var(--summary-bg-end) 100%);
 	border-radius: var(--summary-card-radius);
 	padding: 2.5em;
