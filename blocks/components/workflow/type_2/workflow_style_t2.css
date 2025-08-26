@@ -277,7 +277,7 @@
   position: relative;
 }
 
-.workflow__steps-list::before {
+/* .workflow__steps-list::before {
   content: '';
   position: absolute;
   left: -6px;
@@ -287,9 +287,9 @@
   background: linear-gradient(135deg, #FF9800, #F57C00);
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
-}
+} */
 
-.workflow__steps-list::after {
+/* .workflow__steps-list::after {
   content: '';
   position: absolute;
   left: -6px;
@@ -299,7 +299,7 @@
   background: linear-gradient(135deg, #FF9800, #F57C00);
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
-}
+} */
 
 .theme-dark .workflow__steps-list {
   background: transparent;
