@@ -69,6 +69,8 @@
 
 .education-history__summary {
     margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px dashed #ddd;
 }
 
 .education-history__summary p {
@@ -77,6 +79,7 @@
     color: #666;
     margin: 0;
     text-align: justify;
+    margin: 0 20px;
 }
 
 .theme-dark .education-history__summary p {

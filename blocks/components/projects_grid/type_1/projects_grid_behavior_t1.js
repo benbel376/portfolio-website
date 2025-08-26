@@ -286,13 +286,55 @@ function createProjectCard(project, index) {
         </div>
     `;
     
-    // Add click event for future project details modal
+    // Add click event to navigate to project details
     card.addEventListener('click', () => {
         console.log('Project clicked:', project.name);
-        // TODO: Implement project details modal
+        navigateToProjectDetails(project, index);
     });
     
     return card;
+}
+
+/**
+ * Navigate to project details page
+ */
+function navigateToProjectDetails(project, index) {
+    console.log('Projects Grid: Navigating to project details for:', project.name);
+    
+    // Prepare project data for details page
+    const projectDetailsData = {
+        title: project.name || 'Untitled Project',
+        description: project.description || 'No description available.',
+        bannerImage: project.image || 'assets/media/placeholders/project_banner_placeholder.svg',
+        category: project.category || 'Uncategorized',
+        technologies: project.technologies || [],
+        status: project.status || 'Unknown',
+        duration: project.duration || 'Not specified',
+        year: project.year || new Date().getFullYear().toString()
+    };
+    
+    // Store data globally and set it
+    window.projectDetailsData = projectDetailsData;
+    
+    if (window.setProjectDetailsData) {
+        window.setProjectDetailsData(projectDetailsData);
+    }
+    
+    // Navigate using the framework's navigation system
+    if (window.handleVerticalContainerNavigation) {
+        window.handleVerticalContainerNavigation('projects-main-container', 'hide');
+        window.handleVerticalContainerNavigation('project-details-main-container', 'show');
+    }
+    
+    // Update URL hash with parent tab ID to keep "Projects" tab highlighted
+    window.location.hash = '#project-details-main-container/visible.projects';
+    
+    // Ensure data is set after navigation completes
+    setTimeout(() => {
+        if (window.setProjectDetailsData) {
+            window.setProjectDetailsData(projectDetailsData);
+        }
+    }, 100);
 }
 
 /**

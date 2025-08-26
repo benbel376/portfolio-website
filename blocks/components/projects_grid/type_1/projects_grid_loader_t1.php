@@ -76,9 +76,14 @@ class ProjectsGridLoaderT1 {
         $projectsData = [
             [
                 'name' => 'AI-Powered Customer Analytics Platform',
-                'description' => 'A comprehensive machine learning platform that analyzes customer behavior patterns and provides actionable insights for business growth.',
+                'description' => 'A comprehensive machine learning platform that analyzes customer behavior patterns and provides actionable insights for business growth. This platform integrates multiple data sources to create detailed customer profiles and predict future behaviors.',
                 'category' => 'machine-learning',
-                'date' => '2023-11-15'
+                'date' => '2023-11-15',
+                'technologies' => ['Python', 'TensorFlow', 'Apache Spark', 'PostgreSQL', 'Docker', 'Kubernetes'],
+                'status' => 'Completed',
+                'duration' => '6 months',
+                'year' => '2023',
+                'image' => 'assets/media/placeholders/project_banner_placeholder.svg'
             ],
             [
                 'name' => 'E-Commerce Mobile Application',

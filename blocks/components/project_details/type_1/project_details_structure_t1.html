@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="blocks/components/project_details/type_1/project_details_style_t1.css">
+<section class="project-details" data-nav-handler="handleProjectDetailsNavigation">
+  <div class="project-details__container">
+    <!-- Banner Section -->
+    <div class="project-details__banner">
+      <img class="project-details__banner-image" id="project-banner-image" src="" alt="Project Banner" />
+      <div class="project-details__banner-overlay">
+        <div class="project-details__banner-content">
+          <h1 class="project-details__title" id="project-title">Project Title</h1>
+          <div class="project-details__meta">
+            <span class="project-details__category" id="project-category">Category</span>
+            <span class="project-details__status" id="project-status">Status</span>
+            <span class="project-details__year" id="project-year">Year</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="project-details__content">
+      <!-- Main Description -->
+      <div class="project-details__section">
+        <h2 class="project-details__section-title">Project Overview</h2>
+        <div class="project-details__description" id="project-description">
+          <p>Project description will be loaded here dynamically...</p>
+        </div>
+      </div>
+
+      <!-- Technologies Section -->
+      <div class="project-details__section">
+        <h2 class="project-details__section-title">Technologies Used</h2>
+        <div class="project-details__technologies" id="project-technologies">
+          <!-- Technology tags will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Project Info -->
+      <div class="project-details__section">
+        <h2 class="project-details__section-title">Project Information</h2>
+        <div class="project-details__info-grid">
+          <div class="project-details__info-item">
+            <span class="project-details__info-label">Duration:</span>
+            <span class="project-details__info-value" id="project-duration">Duration</span>
+          </div>
+          <div class="project-details__info-item">
+            <span class="project-details__info-label">Status:</span>
+            <span class="project-details__info-value" id="project-info-status">Status</span>
+          </div>
+          <div class="project-details__info-item">
+            <span class="project-details__info-label">Category:</span>
+            <span class="project-details__info-value" id="project-info-category">Category</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="project-details__actions">
+      <button class="project-details__back-btn" id="project-back-btn">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>Back to Projects</span>
+      </button>
+    </div>
+  </div>
+</section>
+<script src="blocks/components/project_details/type_1/project_details_behavior_t1.js" type="module"></script>

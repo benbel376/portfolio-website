@@ -1,0 +1,41 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-details-main-container",
+      "dynamic": false,
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "project-details-main",
+          "dynamic": true,
+          "data": {
+            "main": {
+              "title": "Sample Project Title",
+              "description": "This is a sample project description that will be dynamically loaded based on the selected project. The component supports rich content including banner images, detailed descriptions, technology stacks, features, and more.",
+              "bannerImage": "assets/media/placeholders/project_banner_placeholder.svg",
+              "category": "Web Development",
+              "technologies": ["React", "Node.js", "MongoDB"],
+              "status": "Completed",
+              "duration": "3 months",
+              "year": "2024"
+            }
+          },
+          "variant": "main",
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}
