@@ -1,0 +1,46 @@
+<div class="testimonials-component" data-nav-handler="handleTestimonialsNavigation">
+  <!-- Header Section -->
+  <div class="testimonials__header">
+    <div class="testimonials__title-section">
+      <div class="testimonials__icon-wrapper">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+      </div>
+      <div class="testimonials__title-content">
+        <h2 class="testimonials__title">Client Testimonials</h2>
+        <p class="testimonials__subtitle">What colleagues and clients say about working with me</p>
+      </div>
+    </div>
+    <div class="testimonials__header-controls">
+      <button class="testimonials__nav-btn testimonials__prev" id="testimonials-prev" aria-label="Previous testimonial">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+      <button class="testimonials__nav-btn testimonials__next" id="testimonials-next" aria-label="Next testimonial">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Testimonials Slideshow -->
+  <div class="testimonials__slideshow">
+    <div class="testimonials__slides-container" id="testimonials-slides">
+      <!-- Testimonial slides will be dynamically loaded here -->
+    </div>
+    
+    <!-- Indicators Only -->
+    <div class="testimonials__controls">
+      <div class="testimonials__indicators" id="testimonials-indicators">
+        <!-- Indicators will be dynamically generated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="testimonials__empty" id="testimonials-empty" style="display: none;">
+    <ion-icon name="chatbubbles-outline"></ion-icon>
+    <p>No testimonials available</p>
+  </div>
+</div>
+
+<!-- Include CSS and JavaScript -->
+<link rel="stylesheet" href="blocks/components/testimonials/type_1/testimonials_style_t1.css">
+<script src="blocks/components/testimonials/type_1/testimonials_behavior_t1.js"></script>

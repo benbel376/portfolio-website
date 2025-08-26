@@ -69,6 +69,50 @@
 						"allowedStates": ["visible", "hidden"],
 						"protected": false
 					}
+				},
+				{
+					"type": "component",
+					"component": "testimonials/type_1",
+					"id": "profile-testimonials",
+					"dynamic": false,
+					"data": {
+						"main": [
+							{
+								"name": "Sarah Johnson",
+								"title": "Senior Data Scientist",
+								"company": "TechCorp Solutions",
+								"quote": "Working with Biniyam was exceptional. His expertise in MLOps and ability to streamline complex machine learning workflows significantly improved our deployment efficiency. He delivered scalable solutions that exceeded our expectations.",
+								"avatar": "https://via.placeholder.com/80x80/4CAF50/FFFFFF?text=SJ"
+							},
+							{
+								"name": "Michael Chen",
+								"title": "Engineering Manager",
+								"company": "DataFlow Systems",
+								"quote": "Biniyam's technical leadership and deep understanding of cloud architecture transformed our ML infrastructure. His attention to detail and commitment to best practices made our collaboration highly successful.",
+								"avatar": "https://via.placeholder.com/80x80/2196F3/FFFFFF?text=MC"
+							},
+							{
+								"name": "Dr. Emily Rodriguez",
+								"title": "Head of AI Research",
+								"company": "Innovation Labs",
+								"quote": "Biniyam demonstrated remarkable problem-solving skills and innovative thinking. His ability to bridge the gap between research and production deployment is truly impressive. A valuable team member.",
+								"avatar": "https://via.placeholder.com/80x80/FF9800/FFFFFF?text=ER"
+							},
+							{
+								"name": "Alex Thompson",
+								"title": "CTO",
+								"company": "StartupTech Inc",
+								"quote": "The ML pipeline architecture that Biniyam designed for us has been running flawlessly for months. His expertise in automation and monitoring saved us countless hours and significantly reduced our operational costs.",
+								"avatar": "https://via.placeholder.com/80x80/9C27B0/FFFFFF?text=AT"
+							}
+						]
+					},
+					"variant": "main",
+					"navigation": {
+						"defaultState": "visible",
+						"allowedStates": ["visible", "hidden", "scrollTo"],
+						"protected": false
+					}
 				}
 			]
 		}

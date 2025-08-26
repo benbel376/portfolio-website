@@ -64,10 +64,7 @@
     max-width: 980px;
     margin: 0 auto;
     background-color: var(--site-container-bg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url(../../../../../../images/general/general_background_bubbles_v1.avif);
+    position: relative;
     border-radius: 22px;
     box-shadow: var(--shadow-1);
     padding: 0;
@@ -90,7 +87,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.4;
+    opacity: 0.5;
     border-radius: inherit;
     z-index: -1;
 }

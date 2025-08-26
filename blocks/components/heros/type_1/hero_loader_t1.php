@@ -21,7 +21,14 @@ class HeroLoaderT1 {
 
     private function generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $social, $cvDownload) {
         $template = file_get_contents(__DIR__ . '/hero_structure_t1.html');
-        $html = $this->fillTemplate($template, $name, $headline, $description, $image, $social, $cvDownload);
+        
+        // Process image path once for both HTML and CSS usage
+        $imagePath = $image;
+        if (strpos($imagePath, '/') !== 0 && strpos($imagePath, 'http') !== 0) {
+            $imagePath = '/website/react/portfolio3/portfolio-website/' . $imagePath;
+        }
+        
+        $html = $this->fillTemplate($template, $name, $headline, $description, $imagePath, $social, $cvDownload);
 
         // Inject ID and nav config/handler
         $defaultState = $navConfig['defaultState'] ?? 'visible';
@@ -39,8 +46,8 @@ class HeroLoaderT1 {
         // Set CSS variables on the element so CSS can resolve them from the right base (avoid CSS file relative path issues)
         $cssVars = '--hero-backdrop-light: url(/website/react/portfolio3/portfolio-website/assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_light_v3.png);'
                  . ' --hero-backdrop-dark: url(/website/react/portfolio3/portfolio-website/assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_dark_v3.png);'
-                 . ' --avatar-image-light: url(' . htmlspecialchars($image, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --avatar-image-dark: url(' . htmlspecialchars($image, ENT_QUOTES, 'UTF-8') . ');';
+                 . ' --avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
+                 . ' --avatar-image-dark: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');';
         $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);
 
         return $html;
