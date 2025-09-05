@@ -39,7 +39,7 @@
     /* Even more subtle for hover */
     --nav-main-border-color: hsl(0, 0%, 90%);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(../../../../../assets/media/ml_mlops_profile/general/general_background_bubbles_v1.avif);
+    --site-container-bg-image: url(../assets/media/general_background_bubbles_v1.avif);
     /* Light theme image */
     /* Spacing Variables */
     --spacing-xs: 4px;
@@ -107,8 +107,7 @@
     --hero-avatar-mobile-width: 220px;
     --hero-avatar-tablet-width: 250px;
     /* Hero Background Images */
-    --hero-backdrop-light: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_light_v3.png);
-    --hero-backdrop-dark: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_dark_v3.png);
+    /* Hero backdrop images are now handled by the hero component itself */
     /* Summary Component Variables */
     --summary-component-padding: 1em;
     --summary-highlight-card-border-radius: 16px;
@@ -820,7 +819,7 @@
     /* Body Background Image - Light Theme */
     --body-bg-image: url(../../images/general/general_background_light_v1.png);
     --hero-name-text-color: var(--primary);
-    --avatar-image-light: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png);
+    /* Avatar image is now handled by the hero component itself */
     /* Responsive Layout Spacing */
     --padding-container-tablet: 0.75rem;
     --padding-site-container-tablet: 1.5em;
@@ -884,7 +883,7 @@
     /* Even more subtle for hover */
     --nav-main-border-color: var(--nav-border-color);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(../../../../../assets/media/ml_mlops_profile/general/general_background_bubbles_dark_v1.jpg);
+    --site-container-bg-image: url(../assets/media/general_background_bubbles_dark_v1.jpg);
     /* Dark theme background with bubbles pattern */
     /* Shadows for dark theme */
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
@@ -892,5 +891,5 @@
     --body-bg-image: url(../../images/general/general_background_dark_v1.png);
     --hero-name-text-color: var(--orange-yellow-crayola);
     /* Hero name specifically yellow in dark mode */
-    --avatar-image-dark: url(../../../../../assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png);
+    /* Avatar image is now handled by the hero component itself */
 }

@@ -12,16 +12,19 @@ class EducationHistoryLoaderT1 {
                 return $this->generateContent($componentData);
             case 'full':
             default:
-                return $this->generateFullComponent($id, $componentData, $navConfig);
+                return $this->generateFullComponent($id, $componentData, $navConfig, $componentMetadata);
         }
     }
     
-    private function generateFullComponent($id, $data, $navConfig) {
-        // Load education history data
-        $educationHistoryData = $this->loadEducationHistoryData();
+    private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
+        // Load data from JSON file if dataSource is specified
+        $educationHistoryData = $this->loadDataFromSource($componentMetadata);
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/education_history_structure_t1.html');
+        
+        // Replace placeholders with data
+        $html = $this->replacePlaceholders($template, $data);
         
         // Inject ID and navigation config
         $defaultState = $navConfig['defaultState'] ?? 'visible';
@@ -31,7 +34,7 @@ class EducationHistoryLoaderT1 {
         
         $html = str_replace('<div class="education-history-component">',
             '<div class="education-history-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleEducationHistoryNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
-            $template);
+            $html);
         
         // Inject JavaScript data
         $html .= $this->injectDataScript($educationHistoryData);
@@ -62,63 +65,36 @@ class EducationHistoryLoaderT1 {
     }
     
     /**
-     * Load education history data from various sources
+     * Load data from JSON file specified in dataSource
      */
-    private function loadEducationHistoryData() {
-        // Try to get data from profile configuration
-        global $profileData;
+    private function loadDataFromSource($componentMetadata) {
+        $dataSource = $componentMetadata['dataSource'] ?? null;
         
-        if (isset($profileData['education']) && is_array($profileData['education'])) {
-            return $profileData['education'];
+        if ($dataSource && file_exists($dataSource)) {
+            $jsonContent = file_get_contents($dataSource);
+            $data = json_decode($jsonContent, true);
+            
+            if (json_last_error() === JSON_ERROR_NONE && isset($data['education'])) {
+                return $data['education'];
+            }
         }
         
-        // Create default education history data
-        $educationHistoryData = [
-            [
-                'institution' => 'University of Technology',
-                'degree' => 'Master of Science in Computer Science',
-                'field' => 'Machine Learning & Data Science',
-                'startDate' => '2020-09-01',
-                'endDate' => '2022-06-30',
-                'description' => 'Specialized in machine learning algorithms, data mining, and artificial intelligence. Completed thesis on deep learning applications in natural language processing.',
-                'highlights' => [
-                    'Graduated Magna Cum Laude with GPA 3.8/4.0',
-                    'Published research paper on neural network optimization',
-                    'Teaching Assistant for Data Structures and Algorithms',
-                    'President of Computer Science Graduate Association'
-                ]
-            ],
-            [
-                'institution' => 'State University',
-                'degree' => 'Bachelor of Science in Computer Engineering',
-                'field' => 'Software Engineering',
-                'startDate' => '2016-09-01',
-                'endDate' => '2020-05-15',
-                'description' => 'Comprehensive program covering software development, computer systems, and engineering principles. Strong foundation in mathematics, programming, and system design.',
-                'highlights' => [
-                    'Graduated Summa Cum Laude with GPA 3.9/4.0',
-                    'Dean\'s List for 6 consecutive semesters',
-                    'Lead developer for senior capstone project',
-                    'Member of IEEE Computer Society'
-                ]
-            ],
-            [
-                'institution' => 'Community College of Technology',
-                'degree' => 'Associate of Science in Computer Information Systems',
-                'field' => 'Information Technology',
-                'startDate' => '2014-09-01',
-                'endDate' => '2016-05-20',
-                'description' => 'Foundation coursework in computer systems, programming fundamentals, and information technology. Prepared for transfer to four-year university program.',
-                'highlights' => [
-                    'Graduated with High Honors, GPA 3.95/4.0',
-                    'Phi Theta Kappa Honor Society member',
-                    'Student tutor for programming courses',
-                    'Outstanding Student in Computer Science Award'
-                ]
-            ]
-        ];
+        // Return empty array if no data source or invalid data
+        return [];
+    }
+    
+    /**
+     * Replace placeholders in HTML template with data
+     */
+    private function replacePlaceholders($template, $data) {
+        // Replace simple placeholders
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $template = str_replace('{{' . $key . '}}', htmlspecialchars($value), $template);
+            }
+        }
         
-        return $educationHistoryData;
+        return $template;
     }
     
     /**
@@ -126,7 +102,7 @@ class EducationHistoryLoaderT1 {
      */
     private function injectDataScript($educationHistoryData) {
         $script = '<script>';
-        $script .= 'console.log("Education History PHP: Attempting to set education data");';
+        $script .= 'console.log("Education History PHP: Attempting to set education history data");';
         
         // Check if behavior is ready
         $script .= 'if (typeof setEducationHistoryData === "function") {';
@@ -135,7 +111,7 @@ class EducationHistoryLoaderT1 {
         $script .= '} else {';
         $script .= '    console.log("Education History PHP: Behavior not ready, waiting...");';
         $script .= '    setTimeout(function() {';
-        $script .= '        console.log("Education History PHP: Setting education data from PHP (delayed)");';
+        $script .= '        console.log("Education History PHP: Setting education history data from PHP (delayed)");';
         $script .= '        if (typeof setEducationHistoryData === "function") {';
         $script .= '            setEducationHistoryData(' . json_encode($educationHistoryData) . ');';
         $script .= '        } else {';

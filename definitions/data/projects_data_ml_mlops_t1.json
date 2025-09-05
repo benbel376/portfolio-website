@@ -1,0 +1,93 @@
+{
+    "projects": [
+        {
+            "name": "AI-Powered Customer Analytics Platform",
+            "description": "A comprehensive machine learning platform that analyzes customer behavior patterns and provides actionable insights for business growth. This platform integrates multiple data sources to create detailed customer profiles and predict future behaviors.",
+            "category": "machine-learning",
+            "date": "2023-11-15",
+            "technologies": ["Python", "TensorFlow", "Apache Spark", "PostgreSQL", "Docker", "Kubernetes"],
+            "status": "Completed",
+            "duration": "6 months",
+            "year": "2023",
+            "image": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+            "detailUrl": "#project-details-main-container/visible.projects?project=AI-Powered%20Customer%20Analytics%20Platform"
+        },
+        {
+            "name": "E-Commerce Mobile Application",
+            "description": "Full-featured mobile e-commerce application with user authentication, product catalog, shopping cart, and payment integration.",
+            "category": "mobile-development",
+            "date": "2023-09-22",
+            "detailUrl": "#project-details-main-container/visible.projects?project=E-Commerce%20Mobile%20Application"
+        },
+        {
+            "name": "Real-Time Chat Application",
+            "description": "Scalable real-time messaging application supporting group chats, file sharing, and emoji reactions with end-to-end encryption.",
+            "category": "web-development",
+            "date": "2023-08-10",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Real-Time%20Chat%20Application"
+        },
+        {
+            "name": "Blockchain Voting System",
+            "description": "Secure and transparent voting system built on blockchain technology ensuring vote integrity and immutability.",
+            "category": "blockchain",
+            "date": "2023-07-05",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Blockchain%20Voting%20System"
+        },
+        {
+            "name": "IoT Smart Home Dashboard",
+            "description": "Comprehensive IoT dashboard for smart home management with lighting, temperature, and security system controls.",
+            "category": "iot",
+            "date": "2023-06-18",
+            "detailUrl": "#project-details-main-container/visible.projects?project=IoT%20Smart%20Home%20Dashboard"
+        },
+        {
+            "name": "Machine Learning Stock Predictor",
+            "description": "Advanced stock price prediction system using LSTM neural networks with 85% accuracy rate for trading signals.",
+            "category": "machine-learning",
+            "date": "2023-05-12",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Machine%20Learning%20Stock%20Predictor"
+        },
+        {
+            "name": "Cloud Infrastructure Automation",
+            "description": "DevOps automation suite for cloud infrastructure management with CI/CD pipelines and auto-scaling capabilities.",
+            "category": "devops",
+            "date": "2023-04-08",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Cloud%20Infrastructure%20Automation"
+        },
+        {
+            "name": "Augmented Reality Shopping App",
+            "description": "AR-powered shopping experience allowing customers to visualize products in their space before purchase.",
+            "category": "mobile-development",
+            "date": "2023-03-25",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Augmented%20Reality%20Shopping%20App"
+        },
+        {
+            "name": "Microservices API Gateway",
+            "description": "High-performance API gateway for microservices architecture handling 10k+ requests per second with load balancing.",
+            "category": "backend-development",
+            "date": "2023-02-14",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Microservices%20API%20Gateway"
+        },
+        {
+            "name": "Data Visualization Dashboard",
+            "description": "Interactive business intelligence dashboard with real-time data visualization and automated report generation.",
+            "category": "data-science",
+            "date": "2023-01-30",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Data%20Visualization%20Dashboard"
+        },
+        {
+            "name": "Cybersecurity Threat Detection",
+            "description": "AI-powered cybersecurity system for threat detection and response using machine learning to identify anomalies.",
+            "category": "cybersecurity",
+            "date": "2022-12-20",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Cybersecurity%20Threat%20Detection"
+        },
+        {
+            "name": "Progressive Web Application",
+            "description": "High-performance PWA with offline capabilities, push notifications, and native app-like experience.",
+            "category": "web-development",
+            "date": "2022-11-15",
+            "detailUrl": "#project-details-main-container/visible.projects?project=Progressive%20Web%20Application"
+        }
+    ]
+}

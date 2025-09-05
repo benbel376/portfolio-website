@@ -269,7 +269,7 @@ function createProjectCard(project, index) {
     card.setAttribute('data-project-index', index);
     
     // Use placeholder image if no image provided
-    const imageSrc = project.image || 'assets/media/placeholders/project-placeholder.svg';
+    const imageSrc = project.image || 'blocks/components/projects_grid/type_1/assets/media/project-placeholder.svg';
     
     card.innerHTML = `
         <img class="project-card__image" 
@@ -301,40 +301,15 @@ function createProjectCard(project, index) {
 function navigateToProjectDetails(project, index) {
     console.log('Projects Grid: Navigating to project details for:', project.name);
     
-    // Prepare project data for details page
-    const projectDetailsData = {
-        title: project.name || 'Untitled Project',
-        description: project.description || 'No description available.',
-        bannerImage: project.image || 'assets/media/placeholders/project_banner_placeholder.svg',
-        category: project.category || 'Uncategorized',
-        technologies: project.technologies || [],
-        status: project.status || 'Unknown',
-        duration: project.duration || 'Not specified',
-        year: project.year || new Date().getFullYear().toString()
-    };
-    
-    // Store data globally and set it
-    window.projectDetailsData = projectDetailsData;
-    
-    if (window.setProjectDetailsData) {
-        window.setProjectDetailsData(projectDetailsData);
-    }
-    
-    // Navigate using the framework's navigation system
+    // Navigate using the framework's navigation system (no data passing)
     if (window.handleVerticalContainerNavigation) {
         window.handleVerticalContainerNavigation('projects-main-container', 'hide');
         window.handleVerticalContainerNavigation('project-details-main-container', 'show');
     }
     
-    // Update URL hash with parent tab ID to keep "Projects" tab highlighted
-    window.location.hash = '#project-details-main-container/visible.projects';
-    
-    // Ensure data is set after navigation completes
-    setTimeout(() => {
-        if (window.setProjectDetailsData) {
-            window.setProjectDetailsData(projectDetailsData);
-        }
-    }, 100);
+    // Use the detailUrl from the project data, or fallback to constructed URL
+    const detailUrl = project.detailUrl || `#project-details-main-container/visible.projects?project=${encodeURIComponent(project.name)}`;
+    window.location.hash = detailUrl;
 }
 
 /**

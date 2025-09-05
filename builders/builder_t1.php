@@ -229,6 +229,7 @@ class PortfolioBuilder {
             'componentSpec' => $componentSpec,
             'componentId' => $id,
             'componentData' => $data,
+            'dataSource' => $object['dataSource'] ?? null,
             'pageDefinition' => $this->currentPageDefinition ?? null,
             'buildTime' => time()
         ];

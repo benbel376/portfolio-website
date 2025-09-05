@@ -21,6 +21,7 @@
 							"description": "A showcase of my development work and technical projects"
 						}
 					},
+					"dataSource": "definitions/data/projects_data_ml_mlops_t1.json",
 					"variant": "main",
 					"navigation": {
 						"defaultState": "visible",

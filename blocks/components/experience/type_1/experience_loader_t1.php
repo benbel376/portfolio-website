@@ -17,8 +17,8 @@ class ExperienceLoaderT1 {
     }
     
     private function generateFullComponent($id, $data, $navConfig) {
-        // Load experience data
-        $experienceData = $this->loadExperienceData();
+        // Use experience data from component configuration
+        $experienceData = $data['experiences'] ?? [];
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/experience_structure_t1.html');

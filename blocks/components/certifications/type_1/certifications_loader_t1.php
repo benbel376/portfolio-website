@@ -12,16 +12,19 @@ class CertificationsLoaderT1 {
                 return $this->generateContent($componentData);
             case 'full':
             default:
-                return $this->generateFullComponent($id, $componentData, $navConfig);
+                return $this->generateFullComponent($id, $componentData, $navConfig, $componentMetadata);
         }
     }
     
-    private function generateFullComponent($id, $data, $navConfig) {
-        // Load certifications data
-        $certificationsData = $this->loadCertificationsData();
+    private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
+        // Load data from JSON file if dataSource is specified
+        $certificationsData = $this->loadDataFromSource($componentMetadata);
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/certifications_structure_t1.html');
+        
+        // Replace placeholders with data
+        $html = $this->replacePlaceholders($template, $data);
         
         // Inject ID and navigation config
         $defaultState = $navConfig['defaultState'] ?? 'visible';
@@ -31,7 +34,7 @@ class CertificationsLoaderT1 {
         
         $html = str_replace('<div class="certifications-component">',
             '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
-            $template);
+            $html);
         
         // Inject JavaScript data
         $html .= $this->injectDataScript($certificationsData);
@@ -62,63 +65,36 @@ class CertificationsLoaderT1 {
     }
     
     /**
-     * Load certifications data from various sources
+     * Load data from JSON file specified in dataSource
      */
-    private function loadCertificationsData() {
-        // Try to get data from profile configuration
-        global $profileData;
+    private function loadDataFromSource($componentMetadata) {
+        $dataSource = $componentMetadata['dataSource'] ?? null;
         
-        if (isset($profileData['certifications']) && is_array($profileData['certifications'])) {
-            return $profileData['certifications'];
+        if ($dataSource && file_exists($dataSource)) {
+            $jsonContent = file_get_contents($dataSource);
+            $data = json_decode($jsonContent, true);
+            
+            if (json_last_error() === JSON_ERROR_NONE && isset($data['certifications'])) {
+                return $data['certifications'];
+            }
         }
         
-        // Create default certifications data based on available images
-        $certificationsData = [
-            [
-                'name' => 'AWS Cloud Practitioner',
-                'issuer' => 'Amazon Web Services',
-                'image' => 'assets/media/ml_mlops_profile/education_page_media/certification/profile_certification_aws_practitioner.png',
-                'description' => 'Foundational understanding of AWS Cloud concepts, services, security, architecture, pricing, and support. Demonstrates ability to define what the AWS Cloud is and the basic global infrastructure.',
-                'link' => 'https://aws.amazon.com/certification/certified-cloud-practitioner/'
-            ],
-            [
-                'name' => 'AWS Solutions Architect Associate',
-                'issuer' => 'Amazon Web Services',
-                'image' => 'assets/media/ml_mlops_profile/education_page_media/certification/profile_certification_aws_solutions_architect.png',
-                'description' => 'Demonstrates ability to design distributed systems on AWS. Validates technical expertise in designing and deploying scalable, highly available, and fault-tolerant systems on AWS.',
-                'link' => 'https://aws.amazon.com/certification/certified-solutions-architect-associate/'
-            ],
-            [
-                'name' => 'Microsoft Azure Fundamentals',
-                'issuer' => 'Microsoft',
-                'image' => 'assets/media/ml_mlops_profile/education_page_media/certification/profile_certification_azure_fundamentals.png',
-                'description' => 'Foundational knowledge of cloud services and how those services are provided with Microsoft Azure. Covers cloud concepts, Azure services, security, privacy, compliance, and trust.',
-                'link' => 'https://docs.microsoft.com/en-us/learn/certifications/azure-fundamentals/'
-            ],
-            [
-                'name' => 'Google Data Analytics Certificate',
-                'issuer' => 'Google',
-                'image' => 'assets/media/ml_mlops_profile/education_page_media/certification/profile_certification_google_data_analytics.png',
-                'description' => 'Comprehensive program covering data analysis fundamentals, including data cleaning, analysis, and visualization using tools like R, SQL, Tableau, and spreadsheets.',
-                'link' => 'https://www.coursera.org/professional-certificates/google-data-analytics'
-            ],
-            [
-                'name' => 'Fortinet Network Security Expert',
-                'issuer' => 'Fortinet',
-                'image' => 'assets/media/ml_mlops_profile/education_page_media/certification/profile_certification_fortinet_intro.png',
-                'description' => 'Introduction to network security concepts and Fortinet security solutions. Covers fundamental security concepts, threat landscape, and basic security technologies.',
-                'link' => 'https://www.fortinet.com/training/cybersecurity-professionals'
-            ],
-            [
-                'name' => 'ISC2 Security Fundamentals',
-                'issuer' => 'ISC2',
-                'image' => 'assets/media/ml_mlops_profile/education_page_media/certification/profile_certification_isc2.png',
-                'description' => 'Foundation-level cybersecurity knowledge covering security principles, business continuity, access controls, network security, and security assessment and testing.',
-                'link' => 'https://www.isc2.org/Certifications'
-            ]
-        ];
+        // Return empty array if no data source or invalid data
+        return [];
+    }
+    
+    /**
+     * Replace placeholders in HTML template with data
+     */
+    private function replacePlaceholders($template, $data) {
+        // Replace simple placeholders
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $template = str_replace('{{' . $key . '}}', htmlspecialchars($value), $template);
+            }
+        }
         
-        return $certificationsData;
+        return $template;
     }
     
     /**

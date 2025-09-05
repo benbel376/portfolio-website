@@ -20,6 +20,7 @@
 							"description": "Industry-recognized credentials and achievements"
 						}
 					},
+					"dataSource": "definitions/data/certifications_data_ml_mlops_t1.json",
 					"variant": "main",
 					"navigation": {
 						"defaultState": "visible",
@@ -37,6 +38,7 @@
 							"description": "Academic background and qualifications"
 						}
 					},
+					"dataSource": "definitions/data/education_data_ml_mlops_t1.json",
 					"variant": "main",
 					"navigation": {
 						"defaultState": "visible",

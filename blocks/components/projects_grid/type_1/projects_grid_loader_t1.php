@@ -12,16 +12,19 @@ class ProjectsGridLoaderT1 {
                 return $this->generateContent($componentData);
             case 'full':
             default:
-                return $this->generateFullComponent($id, $componentData, $navConfig);
+                return $this->generateFullComponent($id, $componentData, $navConfig, $componentMetadata);
         }
     }
     
-    private function generateFullComponent($id, $data, $navConfig) {
-        // Load projects data
-        $projectsData = $this->loadProjectsData();
+    private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
+        // Load data from JSON file if dataSource is specified
+        $projectsData = $this->loadDataFromSource($componentMetadata);
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/projects_grid_structure_t1.html');
+        
+        // Replace placeholders with data
+        $html = $this->replacePlaceholders($template, $data);
         
         // Inject ID and navigation config
         $defaultState = $navConfig['defaultState'] ?? 'visible';
@@ -31,7 +34,7 @@ class ProjectsGridLoaderT1 {
         
         $html = str_replace('<div class="projects-grid-component">',
             '<div class="projects-grid-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectsGridNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
-            $template);
+            $html);
         
         // Inject JavaScript data
         $html .= $this->injectDataScript($projectsData);
@@ -62,98 +65,36 @@ class ProjectsGridLoaderT1 {
     }
     
     /**
-     * Load projects data from various sources
+     * Load data from JSON file specified in dataSource
      */
-    private function loadProjectsData() {
-        // Try to get data from profile configuration
-        global $profileData;
+    private function loadDataFromSource($componentMetadata) {
+        $dataSource = $componentMetadata['dataSource'] ?? null;
         
-        if (isset($profileData['projects']) && is_array($profileData['projects'])) {
-            return $profileData['projects'];
+        if ($dataSource && file_exists($dataSource)) {
+            $jsonContent = file_get_contents($dataSource);
+            $data = json_decode($jsonContent, true);
+            
+            if (json_last_error() === JSON_ERROR_NONE && isset($data['projects'])) {
+                return $data['projects'];
+            }
         }
         
-        // Create default projects data
-        $projectsData = [
-            [
-                'name' => 'AI-Powered Customer Analytics Platform',
-                'description' => 'A comprehensive machine learning platform that analyzes customer behavior patterns and provides actionable insights for business growth. This platform integrates multiple data sources to create detailed customer profiles and predict future behaviors.',
-                'category' => 'machine-learning',
-                'date' => '2023-11-15',
-                'technologies' => ['Python', 'TensorFlow', 'Apache Spark', 'PostgreSQL', 'Docker', 'Kubernetes'],
-                'status' => 'Completed',
-                'duration' => '6 months',
-                'year' => '2023',
-                'image' => 'assets/media/placeholders/project_banner_placeholder.svg'
-            ],
-            [
-                'name' => 'E-Commerce Mobile Application',
-                'description' => 'Full-featured mobile e-commerce application with user authentication, product catalog, shopping cart, and payment integration.',
-                'category' => 'mobile-development',
-                'date' => '2023-09-22'
-            ],
-            [
-                'name' => 'Real-Time Chat Application',
-                'description' => 'Scalable real-time messaging application supporting group chats, file sharing, and emoji reactions with end-to-end encryption.',
-                'category' => 'web-development',
-                'date' => '2023-08-10'
-            ],
-            [
-                'name' => 'Blockchain Voting System',
-                'description' => 'Secure and transparent voting system built on blockchain technology ensuring vote integrity and immutability.',
-                'category' => 'blockchain',
-                'date' => '2023-07-05'
-            ],
-            [
-                'name' => 'IoT Smart Home Dashboard',
-                'description' => 'Comprehensive IoT dashboard for smart home management with lighting, temperature, and security system controls.',
-                'category' => 'iot',
-                'date' => '2023-06-18'
-            ],
-            [
-                'name' => 'Machine Learning Stock Predictor',
-                'description' => 'Advanced stock price prediction system using LSTM neural networks with 85% accuracy rate for trading signals.',
-                'category' => 'machine-learning',
-                'date' => '2023-05-12'
-            ],
-            [
-                'name' => 'Cloud Infrastructure Automation',
-                'description' => 'DevOps automation suite for cloud infrastructure management with CI/CD pipelines and auto-scaling capabilities.',
-                'category' => 'devops',
-                'date' => '2023-04-08'
-            ],
-            [
-                'name' => 'Augmented Reality Shopping App',
-                'description' => 'AR-powered shopping experience allowing customers to visualize products in their space before purchase.',
-                'category' => 'mobile-development',
-                'date' => '2023-03-25'
-            ],
-            [
-                'name' => 'Microservices API Gateway',
-                'description' => 'High-performance API gateway for microservices architecture handling 10k+ requests per second with load balancing.',
-                'category' => 'backend-development',
-                'date' => '2023-02-14'
-            ],
-            [
-                'name' => 'Data Visualization Dashboard',
-                'description' => 'Interactive business intelligence dashboard with real-time data visualization and automated report generation.',
-                'category' => 'data-science',
-                'date' => '2023-01-30'
-            ],
-            [
-                'name' => 'Cybersecurity Threat Detection',
-                'description' => 'AI-powered cybersecurity system for threat detection and response using machine learning to identify anomalies.',
-                'category' => 'cybersecurity',
-                'date' => '2022-12-20'
-            ],
-            [
-                'name' => 'Progressive Web Application',
-                'description' => 'High-performance PWA with offline capabilities, push notifications, and native app-like experience.',
-                'category' => 'web-development',
-                'date' => '2022-11-15'
-            ]
-        ];
+        // Return empty array if no data source or invalid data
+        return [];
+    }
+    
+    /**
+     * Replace placeholders in HTML template with data
+     */
+    private function replacePlaceholders($template, $data) {
+        // Replace simple placeholders
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $template = str_replace('{{' . $key . '}}', htmlspecialchars($value), $template);
+            }
+        }
         
-        return $projectsData;
+        return $template;
     }
     
     /**

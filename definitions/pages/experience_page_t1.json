@@ -17,7 +17,63 @@
 					"data": {
 						"main": {
 							"title": "Professional Experience",
-							"description": "My journey through various roles in machine learning and software development"
+							"description": "My journey through various roles in machine learning and software development",
+							"experiences": [
+								{
+									"jobTitle": "Senior ML Engineer",
+									"companyName": "TechCorp Solutions",
+									"location": "San Francisco, CA",
+									"dates": "2022 - Present",
+									"startDate": "2022-01-01",
+									"endDate": null,
+									"type": "Full-time",
+									"description": "Lead machine learning initiatives for enterprise clients, focusing on predictive analytics and automated decision systems. Built and deployed ML pipelines serving millions of users daily.",
+									"responsibilities": [
+										"Designed and implemented ML infrastructure serving 10M+ daily requests",
+										"Reduced model inference latency by 60% through optimization techniques",
+										"Led a team of 5 engineers in developing real-time recommendation systems",
+										"Established MLOps practices reducing deployment time from weeks to hours"
+									],
+									"tags": ["Python", "TensorFlow", "Kubernetes", "AWS", "Docker", "Apache Kafka"],
+									"logoIcon": "code-working-outline"
+								},
+								{
+									"jobTitle": "ML Engineer",
+									"companyName": "DataFlow Analytics",
+									"location": "Remote",
+									"dates": "2020 - 2022",
+									"startDate": "2020-03-01",
+									"endDate": "2022-01-01",
+									"type": "Full-time",
+									"description": "Developed machine learning models for customer behavior analysis and fraud detection. Collaborated with cross-functional teams to integrate ML solutions into production systems.",
+									"responsibilities": [
+										"Built fraud detection system reducing false positives by 40%",
+										"Implemented A/B testing framework for ML model evaluation",
+										"Created data pipeline processing 1TB+ daily transaction data",
+										"Improved customer segmentation accuracy by 35% using ensemble methods"
+									],
+									"tags": ["Python", "Scikit-learn", "PostgreSQL", "Apache Spark", "Jenkins", "Git"],
+									"logoIcon": "analytics-outline"
+								},
+								{
+									"jobTitle": "Data Scientist",
+									"companyName": "StartupXYZ",
+									"location": "New York, NY",
+									"dates": "2018 - 2020",
+									"startDate": "2018-06-01",
+									"endDate": "2020-03-01",
+									"type": "Full-time",
+									"description": "Analyzed large datasets to derive business insights and built predictive models for customer acquisition and retention. Worked closely with product teams to implement data-driven features.",
+									"responsibilities": [
+										"Developed customer lifetime value prediction model improving retention by 25%",
+										"Created automated reporting system saving 20 hours/week of manual work",
+										"Built recommendation engine increasing user engagement by 30%",
+										"Established data governance practices and documentation standards"
+									],
+									"tags": ["Python", "R", "SQL", "Tableau", "AWS", "Pandas", "NumPy"],
+									"logoIcon": "bar-chart-outline"
+								}
+							]
 						}
 					},
 					"variant": "main",

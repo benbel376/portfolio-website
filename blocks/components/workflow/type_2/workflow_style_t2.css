@@ -136,13 +136,14 @@
   margin-top: 1em;
   background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
   border-radius: 24px;
-  padding: 2.5em;
+  padding: 1.5em;
+  padding-left: 2em;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 2em;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  /*box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);*/
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -171,16 +172,16 @@
 
 .workflow__scenario-icon-wrapper {
   flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+  width: var(--spacing-12, 50px);
+  height: var(--spacing-12, 50px);
+  border-radius: var(--border-radius-xl, 12px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 152, 0, 0.15);
-  color: #FF9800;
-  font-size: 2.5em;
-  border: 2px solid rgba(255, 152, 0, 0.2);
+  background: rgba(255, 143, 0, 0.15);
+  color: var(--color-primary, #FF8F00);
+  font-size: var(--font-size-2xl, 1.5rem);
+  border: 2px solid rgba(255, 143, 0, 0.2);
   transition: all 0.3s ease;
   position: relative;
 }
@@ -217,11 +218,12 @@
 }
 
 .workflow__scenario-title {
-  font-size: 1.4em;
-  color: var(--text-primary);
-  font-weight: 700;
-  margin-bottom: 0.5em;
-  line-height: 1.2;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl, 1.2rem);
+  color: var(--color-text-primary, #2C2C2C);
+  font-weight: var(--font-weight-semibold, 600);
+  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  line-height: var(--line-height-tight, 1.3);
   position: relative;
 }
 
@@ -242,11 +244,11 @@
 }
 
 .workflow__scenario-description {
-  font-size: 1.1em;
-  color: var(--text-secondary);
-  opacity: 0.9;
-  line-height: 1.6;
-  font-weight: 500;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-secondary, #666);
+  line-height: var(--line-height-normal, 1.5);
+  font-weight: var(--font-weight-normal, 400);
   margin: 0;
 }
 
@@ -264,16 +266,13 @@
 /* Content Styles - New Simple Layout */
 .workflow__content {
   position: relative;
-  margin-top: 32px;
+  margin-top: 15px;
   padding: 0 15px;
 }
 
 .workflow__steps-list {
   background: transparent;
   padding: 20px 0;
-  border-left: 2px solid rgba(255, 152, 0, 0.2);
-  margin-left: 20px;
-  padding-left: 24px;
   position: relative;
 }
 
@@ -309,17 +308,20 @@
 /* Enhanced Step List */
 .workflow__step-item {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px 0;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInUp 0.4s ease forwards;
+  align-items: flex-start;
+  gap: var(--spacing-3, 0.75rem);
+  padding: 0;
+  margin-bottom: var(--spacing-1, 0.25rem);
+  opacity: 1;
+  transform: translateY(0);
   transition: all 0.3s ease;
   border-radius: 8px;
-  margin: 0 -12px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.workflow__step-item:last-child {
+  margin-bottom: 0;
 }
 
 .workflow__step-item:hover {
@@ -334,11 +336,11 @@
 /* Enhanced Bullet Point */
 .workflow__step-bullet {
   flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(135deg, #FF9800, #F57C00);
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary, #FF8F00);
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+  margin-top: var(--spacing-2, 0.5rem);
   transition: all 0.3s ease;
 }
 
@@ -349,16 +351,17 @@
 
 /* Enhanced Step Description */
 .workflow__step-description {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-secondary, #666);
+  line-height: var(--line-height-normal, 1.5);
   margin: 0;
-  font-weight: 500;
+  font-weight: var(--font-weight-normal, 400);
   transition: color 0.3s ease;
 }
 
 .theme-dark .workflow__step-description {
-  color: #E0E0E0;
+  color: var(--color-text-secondary, #B0B0B0);
 }
 
 .workflow__step-item:hover .workflow__step-description {
@@ -415,18 +418,18 @@
   }
 
   .workflow__scenario-icon-wrapper {
-    width: 65px;
-    height: 65px;
-    font-size: 2em;
+    width: var(--spacing-10, 40px);
+    height: var(--spacing-10, 40px);
+    font-size: var(--font-size-xl, 1.25rem);
   }
 
   .workflow__scenario-title {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
+    font-size: var(--font-size-lg, 1.125rem);
+    margin-bottom: var(--spacing-1, 0.25rem);
   }
 
   .workflow__scenario-description {
-    font-size: 1em;
+    font-size: var(--font-size-sm, 0.9rem);
   }
 
   .workflow__scenario-info:hover {
@@ -450,7 +453,7 @@
   }
 
   .workflow__step-description {
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm, 0.95rem);
   }
 }
 
@@ -465,6 +468,6 @@
   }
 
   .workflow__step-description {
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm, 0.9rem);
   }
 }

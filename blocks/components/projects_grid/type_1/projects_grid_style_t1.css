@@ -324,7 +324,7 @@
     font-size: 0.8rem;
     font-weight: 500;
     margin-bottom: 0.75rem;
-    text-transform: capitalize;
+    text-transform: var(--text-transform-capitalize, capitalize);
 }
 
 .theme-dark .project-card__title {

@@ -312,7 +312,7 @@
 	z-index: 15;
 }
 
-/* Outer ring - sized relative to avatar */
+/* Outer ring - sized relative to avatar 
 .hero__avatar-section::before {
 	width: 340px;
 	height: 360px;
@@ -343,7 +343,7 @@
 	animation: sketchyRotate3 40s linear infinite;
 }
 
-/* Inner ring - sized relative to avatar */
+Inner ring - sized relative to avatar
 .hero__avatar-section::after {
 	width: 370px;
 	height: 390px;
@@ -373,7 +373,7 @@
 	mask: radial-gradient(ellipse, transparent 44%, black 47%, black 52%, transparent 55%);
 	-webkit-mask: radial-gradient(ellipse, transparent 44%, black 47%, black 52%, transparent 55%);
 	animation: sketchyRotate4 35s linear infinite reverse;
-}
+} */
 
 /* Ring rotation animations from legacy */
 @keyframes sketchyRotate3 {

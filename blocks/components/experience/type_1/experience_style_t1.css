@@ -1,43 +1,42 @@
 /* Professional Experience Component - Full Width Design */
 
 .experience-component {
-    padding: 0px 50px;
-    max-width: 1200px;
+    padding: 0px var(--spacing-12, 50px);
+    max-width: var(--max-width-lg, 1200px);
     margin: 0 auto;
     position: relative;
+    font-family: var(--font-family-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
 }
 
 /* Header Section */
 
 .experience__header {
-    margin-bottom: 3rem;
-    margin-top: 3rem;
+    margin-bottom: var(--spacing-12, 3rem);
+    margin-top: var(--spacing-12, 3rem);
 }
 
 .experience__title-section {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-4, 1rem);
 }
 
 .experience__icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #FF8F00, #FFB74D);
-    border-radius: 12px;
-    color: white;
+    width: var(--spacing-12, 50px);
+    height: var(--spacing-12, 50px);
+    background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
+    border-radius: var(--border-radius-xl, 12px);
+    color: var(--color-text-inverse, white);
     flex-shrink: 0;
     position: relative;
     z-index: 3;
 }
 
-
-
 .experience__icon-wrapper ion-icon {
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl, 1.5rem);
 }
 
 .experience__title-content {
@@ -45,802 +44,815 @@
 }
 
 .experience__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #2C2C2C;
-    margin: 0 0 0.25rem 0;
-    line-height: 1.2;
+    font-size: var(--font-size-2xl, 1.5rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--color-text-primary, #2C2C2C);
+    margin: 0 0 var(--spacing-1, 0.25rem) 0;
+    line-height: var(--line-height-tight, 1.2);
 }
 
 .experience__subtitle {
-    font-size: 1rem;
-    color: #666;
+    font-size: var(--font-size-base, 1rem);
+    color: var(--color-text-secondary, #666);
     margin: 0;
-    line-height: 1.4;
+    line-height: var(--line-height-normal, 1.4);
 }
 
 .theme-dark .experience__title {
-    color: #FAFAFA;
+    color: var(--color-text-primary, #FAFAFA);
 }
 
 .theme-dark .experience__subtitle {
-    color: #D0D0D0;
+    color: var(--color-text-secondary, #D0D0D0);
 }
 
 /* Professional Summary */
 
 .experience__summary {
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px dashed #ddd;
+  margin-bottom: var(--spacing-12, 3rem);
+  padding-bottom: var(--spacing-8, 2rem);
+  border-bottom: 2px dashed var(--color-text-tertiary, #999);
 }
 
 .experience__summary p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #666;
-  margin: 0;
+  font-size: var(--font-size-base, 1rem);
+  line-height: var(--line-height-relaxed, 1.6);
+  color: var(--color-text-secondary, #666);
+  margin: 0 var(--spacing-8, 30px);
   text-align: justify;
-  margin: 0 20px;
 }
 
 .theme-dark .experience__summary {
-  border-bottom: 2px dashed #444;
+  border-bottom-color: var(--color-border-light, rgba(255, 255, 255, 0.1));
 }
 
 .theme-dark .experience__summary p {
-  color: #D0D0D0;
+  color: var(--color-text-secondary, #D0D0D0);
 }
 
+/* Experience List */
 
-/* Experience Timeline Container - Full Width */
-
-.experience-timeline {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    counter-reset: experience-counter;
-    position: relative;
-    margin-bottom: 3rem;
+.experience__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12, 3rem);
 }
 
-
-
-
-/* Timeline Item */
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: slideInUp 0.8s ease-out forwards;
-    counter-increment: experience-counter;
-}
-
-.timeline-item:last-child {
-    margin-bottom: 0;
-}
-
-
-
-
-/* Experience Content */
+/* Experience Card */
 
 .experience-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 60px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    position: relative;
+  background: var(--color-surface-secondary, rgba(255, 255, 255, 0.7));
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius-2xl, 16px);
+  padding: var(--spacing-12, 50px);
+  border: var(--border-width-1, 1px) solid var(--color-surface-tertiary, rgba(255, 255, 255, 0.2));
+  box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.05));
+  transition: var(--transition-all-normal, all 0.3s ease);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--spacing-12, 3rem);
 }
 
 .experience-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover, 0 6px 24px rgba(0, 0, 0, 0.08));
 }
 
 .theme-dark .experience-card {
-    background: rgba(40, 40, 40, 0.7);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  background: var(--color-surface-secondary, rgba(40, 40, 40, 0.7));
+  border-color: var(--color-border-light, rgba(255, 255, 255, 0.1));
+  box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.2));
 }
 
 .theme-dark .experience-card:hover {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-card-hover, 0 6px 24px rgba(0, 0, 0, 0.3));
 }
 
-
-/* Title Row - Title and Company */
-
-.experience-card__title-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 0.3em;
-    position: relative;
+/* Map HTML classes to existing styles */
+.experience-card__title-row { 
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-6, 1.5rem);
+  gap: var(--spacing-4, 1rem);
 }
 
+.experience-card__title-group { flex: 1; }
+.experience-card__title-content { flex: 1; }
 
-/* Title Group - No Number */
-
-.experience-card__title-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    flex: 1;
-}
-
-
-/* Title and Company Stack */
-
-.experience-card__title-content {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    flex: 1;
-}
-
-
-/* Job Title - Top of Stack */
-
+/* Use same styling as original job title */
 .experience-card__title {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #2c2c2c;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    margin: 0;
+  font-family: inherit;
+  font-size: var(--font-size-2xl, 1.4rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #2C2C2C);
+  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  line-height: var(--line-height-tight, 1.3);
 }
 
-.theme-dark .experience-card__title {
-    color: #FAFAFA;
-}
-
-
-/* Company Name - Under Title with Icon */
-
+/* Use same styling as original company */
 .experience-card__company {
-    font-size: 1.1em;
-    font-weight: 500;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-}
-
-.theme-dark .experience-card__company {
-    color: #B0B0B0;
+  font-family: inherit;
+  font-size: var(--font-size-lg, 1.1rem);
+  color: var(--color-primary, #FF8F00);
+  font-weight: var(--font-weight-semibold, 600);
+  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  line-height: var(--line-height-normal, 1.3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
 }
 
 .experience-card__company ion-icon {
-    font-size: 1em;
-    color: #FF8F00;
-    opacity: 0.8;
+  font-size: var(--font-size-base, 1rem);
 }
 
-.theme-dark .experience-card__company ion-icon {
-    color: #FFB74D;
+.experience-card__logo {
+  width: var(--spacing-12, 50px);
+  height: var(--spacing-12, 50px);
+  border-radius: var(--border-radius-xl, 12px);
+  background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-inverse, white);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.1));
 }
 
-
-/* Card Header - Below Title Row */
-
-.experience-card__header {
-    margin-bottom: 1.5em;
-    padding-bottom: 1em;
-    border-bottom: 1px solid rgba(255, 143, 0, 0.5);
+.experience-card__logo ion-icon {
+  font-size: var(--font-size-xl, 1.25rem);
 }
 
-.theme-dark .experience-card__header {
-    border-bottom-color: rgba(255, 143, 0, 0.6);
+.experience-card__header,
+.experience-card__meta {
+  margin-bottom: var(--spacing-4, 1rem);
 }
-
-
-/* Meta Information - Below Title with Years and Icons */
 
 .experience-card__meta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1.5em;
-    font-size: 0.9em;
-    color: #666;
-}
-
-.theme-dark .experience-card__meta {
-    color: #B0B0B0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .experience-card__meta-left {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5em;
-    flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-4, 1rem);
 }
 
 .experience-card__meta-item {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    gap: 0.5em;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-secondary, #666);
 }
 
 .experience-card__meta-item ion-icon {
-    font-size: 1em;
-    color: #FF8F00;
-    opacity: 0.8;
-    flex-shrink: 0;
+  font-size: var(--font-size-base, 1rem);
 }
 
-.theme-dark .experience-card__meta-item ion-icon {
-    color: #FFB74D;
-}
-
+/* Use same styling as original dates */
 .experience-card__dates {
-    color: #FF8F00;
-    font-weight: 600;
+  font-family: inherit;
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #2c2c2c);
 }
 
 .experience-card__location {
-    color: #666;
-    font-weight: 500;
+  font-family: inherit;
+  color: var(--color-text-secondary, #666);
 }
-
-.theme-dark .experience-card__location {
-    color: #B0B0B0;
-}
-
-
-/* Years Experience - In Meta Section */
 
 .experience-card__years {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: #FF8F00;
-    flex-shrink: 0;
+  font-family: inherit;
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-secondary, #666);
+  font-weight: var(--font-weight-medium, 500);
 }
 
-.theme-dark .experience-card__years {
-    color: #FFB74D;
-}
-
-
-/* Responsibilities Section - Below Header */
-
+/* Map to existing responsibilities styling */
 .experience-card__responsibilities {
-    margin-top: 0;
-    margin-bottom: 1.5em;
+  margin-bottom: var(--spacing-6, 1.5rem);
 }
 
 .experience-responsibilities-title {
-    font-size: 0.9em;
-    font-weight: 600;
-    color: #666;
-    margin-bottom: 0.8em;
-    margin-top: -10px;
+  font-family: inherit;
+  font-size: var(--font-size-sm, 0.9rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-secondary, #666);
+  margin: 0 0 var(--spacing-2, 0.5rem) 0;
+  text-transform: var(--text-transform-uppercase, uppercase);
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
 }
 
-.theme-dark .experience-responsibilities-title {
-    color: #B0B0B0;
-}
-
-
-/* Bullet List */
-
+/* Use same as original responsibilities list */
 .responsibilities-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .responsibility-item {
-    position: relative;
-    color: #444;
-    line-height: 1.6;
-    font-size: 1em;
-    font-weight: 400;
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: slideInLeft 0.6s ease-out forwards;
-    transition: all 0.3s ease;
-    padding-left: 1.5em;
-    margin-bottom: -15px
+  font-family: inherit;
+  position: relative;
+  padding-left: var(--spacing-4, 1rem);
+  margin-bottom: var(--spacing-1, 0.25rem);
+  font-size: var(--font-size-base, 1rem);
+  line-height: var(--line-height-normal, 1.5);
+  color: var(--color-text-secondary, #666);
 }
 
-.theme-dark .responsibility-item {
-    color: #E0E0E0;
+.responsibility-item:last-child {
+  margin-bottom: 0;
 }
-
-
-/* Custom Bullet Points */
 
 .responsibility-item::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #FF8F00;
-    font-size: 1.2em;
-    font-weight: bold;
-    transition: all 0.3s ease;
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary, #FF8F00);
+  font-weight: var(--font-weight-bold, bold);
 }
 
-.responsibility-item:hover {
-    color: #2c2c2c;
+.responsibility-item.hidden {
+  display: none;
 }
 
-.theme-dark .responsibility-item:hover {
-    color: #FAFAFA;
+/* Styled expand button like hero download button */
+.expand-button {
+  font-family: inherit;
+  background: linear-gradient(135deg, #FF8F00 0%, #F57C00 100%);
+  border: none;
+  border-radius: var(--border-radius-xl, 12px);
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  font-size: var(--font-size-xs, 0.85rem);
+  font-weight: var(--font-weight-medium, 500);
+  margin-top: var(--spacing-4, 1rem);
+  padding: var(--spacing-2, 8px) var(--spacing-4, 16px);
+  transition: var(--transition-all-fast, all 0.2s ease);
+  height: 32px;
+  box-shadow: 0 2px 8px rgba(255, 143, 0, 0.2);
 }
 
-.responsibility-item:hover::before {
-    color: #FFB74D;
-    transform: scale(1.1);
+.expand-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 143, 0, 0.3);
+  background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
 }
 
+.expand-button ion-icon {
+  font-size: var(--font-size-base, 1rem);
+  transition: var(--transition-transform-fast, transform 0.2s ease);
+}
 
-/* Tags Section */
+.expand-button[data-expanded="true"] ion-icon {
+  transform: rotate(180deg);
+}
 
+/* Map to existing tech list styling */
 .experience-card__tags {
-    margin-top: 1.5em;
+  margin-top: var(--spacing-6, 1.5rem);
 }
 
 .experience-tags-title {
-    font-size: 0.9em;
-    font-weight: 600;
-    color: #666;
-    margin-bottom: 0.8em;
-}
-
-.theme-dark .experience-tags-title {
-    color: #B0B0B0;
+  font-family: inherit;
+  font-size: var(--font-size-sm, 0.9rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-secondary, #666);
+  margin: 0 0 var(--spacing-2, 0.5rem) 0;
+  text-transform: var(--text-transform-uppercase, uppercase);
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
 }
 
 .experience-tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6em;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2, 0.5rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+/* Use same as original tech items */
 .experience-tag {
-    background: rgba(255, 143, 0, 0.1);
-    color: #FF8F00;
-    padding: 0.3em 0.8em;
-    border-radius: 15px;
-    font-size: 0.8em;
-    font-weight: 500;
-    border: 1px solid rgba(255, 143, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.theme-dark .experience-tag {
-    background: rgba(255, 143, 0, 0.15);
-    border-color: rgba(255, 143, 0, 0.3);
+  font-family: inherit;
+  padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
+  background: var(--color-primary-alpha-10, rgba(255, 143, 0, 0.1));
+  border: var(--border-width-1, 1px) solid var(--color-primary-alpha-30, rgba(255, 143, 0, 0.3));
+  border-radius: var(--border-radius-lg, 8px);
+  font-size: var(--font-size-sm, 0.85rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-primary, #FF8F00);
+  transition: var(--transition-all-fast, all 0.2s ease);
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .experience-tag:hover {
-    background: rgba(255, 143, 0, 0.15);
-    border-color: rgba(255, 143, 0, 0.4);
+  background: var(--gradient-primary-alpha-10, rgba(255, 143, 0, 0.1));
+  border-color: var(--gradient-primary-alpha-30, rgba(255, 143, 0, 0.3));
+  color: var(--color-primary, #FF8F00);
+  transform: translateY(-1px);
+}
+
+/* Dark theme mappings */
+.theme-dark .experience-card__title {
+  color: var(--color-text-primary, #FAFAFA);
+}
+
+.theme-dark .experience-card__company {
+  color: var(--color-primary-light, #FFB74D);
+}
+
+.theme-dark .experience-card__dates {
+  color: var(--color-text-primary, #FAFAFA);
+}
+
+.theme-dark .experience-card__location {
+  color: var(--color-text-secondary, #B0B0B0);
+}
+
+.theme-dark .experience-card__years {
+  color: var(--color-text-secondary, #B0B0B0);
+}
+
+.theme-dark .experience-responsibilities-title,
+.theme-dark .experience-tags-title {
+  color: var(--color-text-primary, #FAFAFA);
+}
+
+.theme-dark .responsibility-item {
+  color: var(--color-text-tertiary, #C0C0C0);
+}
+
+.theme-dark .responsibility-item::before {
+  color: var(--color-primary-light, #FFB74D);
+}
+
+.theme-dark .experience-tag {
+  background: var(--color-primary-alpha-10, rgba(255, 183, 77, 0.1));
+  border-color: var(--color-primary-alpha-30, rgba(255, 183, 77, 0.3));
+  color: var(--color-primary-light, #FFB74D);
 }
 
 .theme-dark .experience-tag:hover {
-    background: rgba(255, 143, 0, 0.2);
+  background: var(--color-primary-alpha-20, rgba(255, 183, 77, 0.2));
+  border-color: var(--color-primary-alpha-50, rgba(255, 183, 77, 0.5));
+  color: var(--color-primary, #FF8F00);
+}
+
+.theme-dark .expand-button {
+  background: var(--color-primary-alpha-10, rgba(255, 183, 77, 0.1));
+  border-color: var(--color-primary-alpha-30, rgba(255, 183, 77, 0.3));
+  color: var(--color-primary-light, #FFB74D);
+}
+
+.theme-dark .expand-button:hover {
+  background: var(--color-primary-alpha-20, rgba(255, 183, 77, 0.2));
+  border-color: var(--color-primary-alpha-50, rgba(255, 183, 77, 0.5));
+  color: var(--color-primary, #FF8F00);
 }
 
 
-/* Hidden responsibilities animation */
+/* Card Header */
 
-.responsibility-item.hidden {
-    display: none;
+.experience-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-6, 1.5rem);
+  gap: var(--spacing-4, 1rem);
 }
 
-.responsibility-item.show-more {
-    animation: fadeInSlide 0.6s ease-out forwards;
+.experience__job-info {
+  flex: 1;
 }
 
-@keyframes fadeInSlide {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-        max-height: 0;
-        margin-bottom: 0;
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-        max-height: 100px;
-        margin-bottom: 1em;
-    }
+.experience__job-title {
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #2c2c2c);
+  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  line-height: var(--line-height-tight, 1.2);
 }
 
-
-/* Expand Button - Awesome Design */
-
-.experience-component .expand-button {
-    margin-top: 2em;
-    background: linear-gradient(135deg, #FF8F00 0%, #FFB74D 100%);
-    border: 2px solid transparent;
-    color: white;
-    padding: 0.4em 0.8em;
-    border-radius: 8px;
-    font-size: 0.75em;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex !important;
-    align-items: center;
-    gap: 0.4em;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
-    opacity: 1;
-    visibility: visible;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(255, 143, 0, 0.25);
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+.experience__company {
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-primary, #FF8F00);
+  font-weight: var(--font-weight-semibold, 600);
+  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  line-height: var(--line-height-normal, 1.3);
 }
 
-.experience-component .expand-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
+.experience__location {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666);
+  margin: 0;
+  line-height: var(--line-height-normal, 1.4);
 }
 
-.experience-component .expand-button:hover {
-    box-shadow: 0 4px 12px rgba(255, 143, 0, 0.35);
-    background: linear-gradient(135deg, #FFB74D 0%, #FF8F00 100%);
+.theme-dark .experience__job-title {
+  color: var(--color-text-primary, #FAFAFA);
 }
 
-.experience-component .expand-button:hover::before {
-    left: 100%;
+.theme-dark .experience__company {
+  color: var(--color-primary-light, #FFB74D);
 }
 
-.experience-component .expand-button:active {
-    transform: translateY(0) scale(0.98);
-    box-shadow: 0 1px 6px rgba(255, 143, 0, 0.25);
+.theme-dark .experience__location {
+  color: var(--color-text-secondary, #B0B0B0);
 }
 
-.experience-component .expand-button ion-icon {
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 0.9em;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+/* Date Range */
+
+.experience__dates {
+  text-align: right;
+  flex-shrink: 0;
 }
 
-.experience-component .expand-button[data-expanded="true"] ion-icon {
-    transform: rotate(180deg) scale(1.1);
+.experience__date-range {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #2c2c2c);
+  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  line-height: var(--line-height-normal, 1.3);
 }
 
-.experience-component .expand-button:hover ion-icon {
-    transform: scale(1.2);
+.experience__duration {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--color-text-secondary, #666);
+  margin: 0;
+  line-height: var(--line-height-normal, 1.4);
 }
 
-.experience-component .expand-button[data-expanded="true"]:hover ion-icon {
-    transform: rotate(180deg) scale(1.2);
+.theme-dark .experience__date-range {
+  color: var(--color-text-primary, #FAFAFA);
 }
 
-
-/* Dark theme version */
-
-.theme-dark .experience-component .expand-button {
-    background: linear-gradient(135deg, #FF8F00 0%, #F57C00 100%);
-    box-shadow: 0 4px 15px rgba(255, 143, 0, 0.2);
+.theme-dark .experience__duration {
+  color: var(--color-text-secondary, #B0B0B0);
 }
 
-.theme-dark .experience-component .expand-button:hover {
-    background: linear-gradient(135deg, #FFB74D 0%, #FF8F00 100%);
-    box-shadow: 0 8px 25px rgba(255, 143, 0, 0.3);
+/* Job Type Badge */
+
+.experience__job-type {
+  position: absolute;
+  top: var(--spacing-4, 1rem);
+  right: var(--spacing-4, 1rem);
+  padding: var(--spacing-1, 0.25rem) var(--spacing-3, 0.75rem);
+  background: var(--gradient-primary-alpha-20, rgba(255, 143, 0, 0.15));
+  color: var(--color-primary, #FF8F00);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-semibold, 600);
+  border-radius: var(--border-radius-full, 50px);
+  text-transform: var(--text-transform-uppercase, uppercase);
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
+  border: var(--border-width-1, 1px) solid var(--gradient-primary-alpha-30, rgba(255, 143, 0, 0.3));
 }
 
-
-/* Button text handling with better animations */
-
-.experience-component .expand-button[data-expanded="true"] .btn-text {
-    display: none;
+.theme-dark .experience__job-type {
+  background: var(--gradient-primary-alpha-20, rgba(255, 183, 77, 0.15));
+  color: var(--color-primary-light, #FFB74D);
+  border-color: var(--gradient-primary-alpha-30, rgba(255, 183, 77, 0.3));
 }
 
-.experience-component .expand-button[data-expanded="true"]::after {
-    content: 'Show Less';
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+/* Description */
+
+.experience__description {
+  font-size: var(--font-size-sm, 0.95rem);
+  line-height: var(--line-height-relaxed, 1.6);
+  color: var(--color-text-tertiary, #555);
+  margin: 0 0 var(--spacing-6, 1.5rem) 0;
 }
 
-.experience-component .expand-button[data-expanded="false"] .btn-text,
-.experience-component .expand-button:not([data-expanded]) .btn-text {
-    display: inline;
+.theme-dark .experience__description {
+  color: var(--color-text-secondary, #D0D0D0);
 }
 
+/* Responsibilities */
 
-/* Remove unused positioning */
-
-.experience-card__title-row::before {
-    display: none;
+.experience__responsibilities {
+  margin-bottom: var(--spacing-6, 1.5rem);
 }
 
-
-
-
-/* Animations */
-
-@keyframes slideInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.experience__responsibilities-title {
+  font-size: var(--font-size-sm, 0.9rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #2c2c2c);
+  margin: 0 0 var(--spacing-3, 0.75rem) 0;
+  text-transform: var(--text-transform-uppercase, uppercase);
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
 }
 
-@keyframes slideInLeft {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.experience__responsibilities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-2, 0.5rem);
 }
 
-
-/* Animation Delays */
-
-.timeline-item:nth-child(1) {
-    animation-delay: 0.1s;
+.experience__responsibility-item {
+  position: relative;
+  padding-left: var(--spacing-4, 1rem);
+  font-size: var(--font-size-sm, 0.9rem);
+  line-height: var(--line-height-normal, 1.5);
+  color: var(--color-text-secondary, #666);
 }
 
-.timeline-item:nth-child(2) {
-    animation-delay: 0.3s;
+.experience__responsibility-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary, #FF8F00);
+  font-weight: var(--font-weight-bold, bold);
+  font-size: var(--font-size-base, 1rem);
 }
 
-.timeline-item:nth-child(3) {
-    animation-delay: 0.5s;
+.theme-dark .experience__responsibilities-title {
+  color: var(--color-text-primary, #FAFAFA);
 }
 
-.timeline-item:nth-child(4) {
-    animation-delay: 0.7s;
+.theme-dark .experience__responsibility-item {
+  color: var(--color-text-tertiary, #C0C0C0);
 }
 
-.responsibility-item:nth-child(1) {
-    animation-delay: 0.1s;
+.theme-dark .experience__responsibility-item::before {
+  color: var(--color-primary-light, #FFB74D);
 }
 
-.responsibility-item:nth-child(2) {
-    animation-delay: 0.2s;
+/* Technologies/Skills */
+
+.experience__technologies {
+  margin-top: var(--spacing-6, 1.5rem);
 }
 
-.responsibility-item:nth-child(3) {
-    animation-delay: 0.3s;
+.experience__technologies-title {
+  font-size: var(--font-size-sm, 0.9rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #2c2c2c);
+  margin: 0 0 var(--spacing-3, 0.75rem) 0;
+  text-transform: var(--text-transform-uppercase, uppercase);
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
 }
 
-.responsibility-item:nth-child(4) {
-    animation-delay: 0.4s;
+.experience__tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2, 0.5rem);
 }
 
-.responsibility-item:nth-child(5) {
-    animation-delay: 0.5s;
+.experience__tech-item {
+  padding: var(--spacing-1, 0.25rem) var(--spacing-3, 0.75rem);
+  background: var(--color-surface, rgba(255, 255, 255, 0.6));
+  border: var(--border-width-1, 1px) solid var(--color-surface-tertiary, rgba(255, 255, 255, 0.3));
+  border-radius: var(--border-radius-full, 50px);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary, #666);
+  transition: var(--transition-all-fast, all 0.2s ease);
 }
 
-.responsibility-item:nth-child(6) {
-    animation-delay: 0.6s;
+.experience__tech-item:hover {
+  background: var(--gradient-primary-alpha-10, rgba(255, 143, 0, 0.1));
+  border-color: var(--gradient-primary-alpha-30, rgba(255, 143, 0, 0.3));
+  color: var(--color-primary, #FF8F00);
+  transform: translateY(-1px);
 }
 
-
-/* Loading State */
-
-.experience-component.loading .timeline-item {
-    opacity: 0.4;
-    pointer-events: none;
-    filter: grayscale(0.3);
+.theme-dark .experience__technologies-title {
+  color: var(--color-text-primary, #FAFAFA);
 }
 
+.theme-dark .experience__tech-item {
+  background: var(--color-white-alpha-5, rgba(255, 255, 255, 0.05));
+  border-color: var(--color-border-light, rgba(255, 255, 255, 0.1));
+  color: var(--color-text-tertiary, #CCCCCC);
+}
+
+.theme-dark .experience__tech-item:hover {
+  background: var(--gradient-primary-alpha-10, rgba(255, 183, 77, 0.1));
+  border-color: var(--gradient-primary-alpha-30, rgba(255, 183, 77, 0.3));
+  color: var(--color-primary-light, #FFB74D);
+}
+
+/* Company Logo */
+
+.experience__company-logo {
+  position: absolute;
+  bottom: var(--spacing-4, 1rem);
+  right: var(--spacing-4, 1rem);
+  width: var(--spacing-10, 40px);
+  height: var(--spacing-10, 40px);
+  opacity: 0.1;
+  transition: var(--transition-all-normal, all 0.3s ease);
+}
+
+.experience-card:hover .experience__company-logo {
+  opacity: 0.2;
+  transform: scale(1.1);
+}
+
+.experience__company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+
+.theme-dark .experience__company-logo img {
+  filter: grayscale(100%) invert(1);
+}
 
 /* Empty State */
 
-.experience-empty {
-    text-align: center;
-    padding: 4em 2em;
-    color: #666;
-    font-style: italic;
+.experience__empty {
+  text-align: center;
+  padding: var(--spacing-12, 3rem) var(--spacing-4, 1rem);
+  color: var(--color-text-secondary, #666);
 }
 
-.theme-dark .experience-empty {
-    color: #999;
+.experience__empty ion-icon {
+  font-size: var(--font-size-6xl, 3rem);
+  color: var(--color-text-tertiary, #DDD);
+  margin-bottom: var(--spacing-4, 1rem);
+  display: block;
 }
 
-.experience-empty ion-icon {
-    font-size: 4em;
-    margin-bottom: 1em;
-    opacity: 0.4;
-    color: rgba(255, 143, 0, 0.6);
+.experience__empty p {
+  font-size: var(--font-size-base, 1rem);
+  margin: 0;
+  line-height: var(--line-height-normal, 1.5);
 }
 
+.theme-dark .experience__empty {
+  color: var(--color-text-secondary, #B0B0B0);
+}
+
+.theme-dark .experience__empty ion-icon {
+  color: var(--color-text-tertiary, #555);
+}
 
 /* Responsive Design */
 
 @media (max-width: 768px) {
-    .experience-component {
-        padding: 0px 20px;
-    }
-    
-    .experience__header {
-        margin-bottom: 2rem;
-    }
-    
-    .experience__title-section {
-        gap: 0.75rem;
-    }
-    
-    .experience__icon-wrapper {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .experience__icon-wrapper ion-icon {
-        font-size: 1.3rem;
-    }
-    
-    .experience__title {
-        font-size: 1.5rem;
-    }
-    
-    .experience__subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .experience__summary {
-        margin-bottom: 2rem;
-    }
-    
-    .experience__summary p {
-        font-size: 0.95rem;
-    }
-    
-    .experience-card {
-        padding: 1.25rem;
-    }
-
-    .experience-card__title-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .experience-card__title-group {
-        gap: 12px;
-        width: 100%;
-    }
-    .experience-card__title-content {
-        gap: 3px;
-    }
-    .experience-card__title {
-        font-size: 1.2em;
-    }
-    .experience-card__company {
-        font-size: 0.95em;
-    }
-    .experience-card__meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.8em;
-    }
-    .experience-card__meta-left {
-        gap: 0.8em;
-    }
-    .experience-card__years {
-        align-self: flex-end;
-        font-size: 1.1em;
-    }
-    .responsibility-item {
-        font-size: 0.95em;
-    }
-    .experience-tags-list {
-        gap: 0.4em;
-    }
-    .experience-tag {
-        font-size: 0.75em;
-        padding: 0.25em 0.6em;
-    }
+  .experience-component {
+    padding: 0px var(--spacing-5, 20px);
+  }
+  
+  .experience__header {
+    margin-bottom: var(--spacing-8, 2rem);
+    margin-top: var(--spacing-8, 2rem);
+  }
+  
+  .experience__title-section {
+    gap: var(--spacing-3, 0.75rem);
+  }
+  
+  .experience__icon-wrapper {
+    width: var(--spacing-11, 45px);
+    height: var(--spacing-11, 45px);
+  }
+  
+  .experience__icon-wrapper ion-icon {
+    font-size: var(--font-size-xl, 1.3rem);
+  }
+  
+  .experience__title {
+    font-size: var(--font-size-2xl, 1.5rem);
+  }
+  
+  .experience__subtitle {
+    font-size: var(--font-size-sm, 0.9rem);
+  }
+  
+  .experience__summary {
+    margin-bottom: var(--spacing-8, 2rem);
+  }
+  
+  .experience__summary p {
+    font-size: var(--font-size-sm, 0.95rem);
+    margin: 0 var(--spacing-4, 1rem);
+  }
+  
+  .experience-card {
+    padding: var(--spacing-6, 1.5rem);
+  }
+  
+  .experience-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2, 0.5rem);
+  }
+  
+  .experience__dates {
+    text-align: left;
+  }
+  
+  .experience__job-type {
+    position: static;
+    align-self: flex-start;
+    margin-top: var(--spacing-2, 0.5rem);
+  }
+  
+  .experience__list {
+    gap: var(--spacing-8, 2rem);
+  }
+  
+  .experience__job-title {
+    font-size: var(--font-size-lg, 1.125rem);
+  }
+  
+  .experience__company {
+    font-size: var(--font-size-sm, 0.875rem);
+  }
+  
+  .experience__tech-list {
+    gap: var(--spacing-1, 0.25rem);
+  }
+  
+  .experience__company-logo {
+    width: var(--spacing-8, 32px);
+    height: var(--spacing-8, 32px);
+  }
 }
 
-@media (max-width: 576px) {
-    .experience-component {
-        padding: 0px 15px;
-    }
-    
-    .experience__summary {
-        margin-bottom: 1.5rem;
-    }
-    
-    .experience__summary p {
-        font-size: 0.9rem;
-    }
-    
-    .experience-card {
-        padding: 1rem;
-    }
-    .experience-card__title-group {
-        gap: 10px;
-    }
-    .experience-card__title {
-        font-size: 1.3em;
-    }
-    .experience-card__company {
-        font-size: 0.9em;
-    }
-    .experience-card__meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5em;
-    }
-    .experience-card__years {
-        font-size: 1em;
-    }
-    .responsibility-item {
-        font-size: 0.9em;
-    }
+@media (max-width: 480px) {
+  .experience-component {
+    padding: 0px var(--spacing-4, 15px);
+  }
+  
+  .experience-card {
+    padding: var(--spacing-4, 1rem);
+  }
+  
+  .experience__summary p {
+    font-size: var(--font-size-sm, 0.9rem);
+    margin: 0;
+  }
+  
+  .experience__job-title {
+    font-size: var(--font-size-base, 1rem);
+  }
+  
+  .experience__company {
+    font-size: var(--font-size-xs, 0.75rem);
+  }
+  
+  .experience__date-range {
+    font-size: var(--font-size-xs, 0.75rem);
+  }
+  
+  .experience__duration {
+    font-size: var(--font-size-2xs, 0.625rem);
+  }
+  
+  .experience__company-logo {
+    display: none;
+  }
 }
 
+/* Animation Enhancements */
 
-/* Company Logo - Right Side */
-
-.experience-card__logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(255, 143, 0, 0.1), rgba(255, 183, 77, 0.1));
-    border: 2px solid rgba(255, 143, 0, 0.2);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
+@keyframes experienceCardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-5, 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.theme-dark .experience-card__logo {
-    background: linear-gradient(135deg, rgba(255, 143, 0, 0.15), rgba(255, 183, 77, 0.15));
-    border-color: rgba(255, 143, 0, 0.3);
+.experience-card {
+  animation: experienceCardSlideIn var(--transition-duration-normal, 0.3s) var(--transition-timing-ease-out, ease-out);
 }
 
-.experience-card__logo ion-icon {
-    font-size: 1.8em;
-    color: #FF8F00;
-    transition: all 0.3s ease;
+/* Focus States for Accessibility */
+
+.experience-card:focus,
+.experience__tech-item:focus {
+  outline: 2px solid var(--color-focus, #2196F3);
+  outline-offset: 2px;
 }
 
-.theme-dark .experience-card__logo ion-icon {
-    color: #FFB74D;
-}
+/* Reduced Motion Support */
 
-.experience-card__logo:hover {
-    transform: scale(1.05);
-    border-color: rgba(255, 143, 0, 0.4);
-    background: linear-gradient(135deg, rgba(255, 143, 0, 0.15), rgba(255, 183, 77, 0.15));
-}
-
-.theme-dark .experience-card__logo:hover {
-    border-color: rgba(255, 143, 0, 0.5);
-    background: linear-gradient(135deg, rgba(255, 143, 0, 0.2), rgba(255, 183, 77, 0.2));
-}
-
-.experience-card__logo:hover ion-icon {
-    transform: scale(1.1);
-    color: #FF8F00;
-}
-
-.theme-dark .experience-card__logo:hover ion-icon {
-    color: #FFB74D;
+@media (prefers-reduced-motion: reduce) {
+  .experience-card,
+  .experience__tech-item,
+  .experience__company-logo {
+    animation: none;
+    transition: none;
+  }
 }

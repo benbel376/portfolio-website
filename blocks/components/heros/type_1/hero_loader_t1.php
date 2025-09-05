@@ -8,7 +8,7 @@ class HeroLoaderT1 {
         $name = $data['name'] ?? '';
         $headline = $data['title'] ?? $title;
         $description = $data['description'] ?? '';
-        $image = $data['image'] ?? 'assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png';
+        $image = $data['image'] ?? 'blocks/components/heros/type_1/assets/media/profile_hero_avatar_v1.png';
         $social = $data['social'] ?? [];
         $cvDownload = $data['cvDownload'] ?? [];
 
@@ -44,8 +44,8 @@ class HeroLoaderT1 {
 
         // Provide CSS variables for images on the element style
         // Set CSS variables on the element so CSS can resolve them from the right base (avoid CSS file relative path issues)
-        $cssVars = '--hero-backdrop-light: url(/website/react/portfolio3/portfolio-website/assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_light_v3.png);'
-                 . ' --hero-backdrop-dark: url(/website/react/portfolio3/portfolio-website/assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_backdrop_dark_v3.png);'
+        $cssVars = '--hero-backdrop-light: url(/website/react/portfolio3/portfolio-website/blocks/components/heros/type_1/assets/media/profile_hero_backdrop_light_v3.png);'
+                 . ' --hero-backdrop-dark: url(/website/react/portfolio3/portfolio-website/blocks/components/heros/type_1/assets/media/profile_hero_backdrop_dark_v3.png);'
                  . ' --avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
                  . ' --avatar-image-dark: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');';
         $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);

@@ -22,7 +22,7 @@
 							"name": "Biniyam Belayneh",
 							"title": "AI and MLOps Engineer",
 							"description": "Experienced ML Engineer specializing in developing and deploying machine learning solutions. Strong background in data analysis and model optimization.",
-							"image": "assets/media/ml_mlops_profile/summary_page_media/hero/profile_hero_avatar_v1.png",
+							"image": "blocks/components/heros/type_1/assets/media/profile_hero_avatar_v1.png",
 							"social": [
 								{ "type": "email", "label": "Email", "href": "mailto:biniyambelayneh376@gmail.com" },
 								{ "type": "phone", "label": "Phone", "href": "tel:+251939890540" },
@@ -30,7 +30,7 @@
 								{ "type": "github", "label": "GitHub", "href": "https://github.com/benbel376" }
 							],
 							"cvDownload": {
-								"href": "assets/media/ml_mlops_profile/cv/Biniyam_Belayneh_CV.pdf",
+								"href": "blocks/components/heros/type_1/assets/media/Biniyam_Belayneh_CV.pdf",
 								"filename": "Biniyam_Belayneh_CV.pdf"
 							}
 						}
