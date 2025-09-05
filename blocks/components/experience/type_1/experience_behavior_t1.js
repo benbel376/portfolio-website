@@ -107,32 +107,28 @@ function createExperienceItem(experience, index) {
                             <ion-icon name="business-outline" aria-hidden="true"></ion-icon>
                             ${escapeHtml(experience.companyName || 'N/A')}
                         </div>
+                        <div class="experience-card__meta-left">
+                            <div class="experience-card__meta-item">
+                                <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+                                <span class="experience-card__dates">
+                                    ${escapeHtml(experience.dates || 'N/A')}
+                                    ${yearsText ? ` <span class="experience-card__years-inline">(${yearsText})</span>` : ''}
+                                </span>
+                            </div>
+                            ${experience.location ? `
+                                <div class="experience-card__meta-item">
+                                    <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+                                    <span class="experience-card__location">${escapeHtml(experience.location)}</span>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                 </div>
-                ${experience.logoIcon ? `
-                    <div class="experience-card__logo">
-                        <ion-icon name="${escapeHtml(experience.logoIcon)}" aria-hidden="true"></ion-icon>
-                    </div>
-                ` : ''}
-            </div>
-
-            <!-- Card Header -->
-            <div class="experience-card__header">
-                <div class="experience-card__meta">
-                    <div class="experience-card__meta-left">
-                        <div class="experience-card__meta-item">
-                            <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
-                            <span class="experience-card__dates">${escapeHtml(experience.dates || 'N/A')}</span>
+                <div class="experience-card__right-section">
+                    ${experience.logoIcon ? `
+                        <div class="experience-card__logo">
+                            <ion-icon name="${escapeHtml(experience.logoIcon)}" aria-hidden="true"></ion-icon>
                         </div>
-                        ${experience.location ? `
-                            <div class="experience-card__meta-item">
-                                <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
-                                <span class="experience-card__location">${escapeHtml(experience.location)}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                    ${yearsText ? `
-                        <div class="experience-card__years">${yearsText}</div>
                     ` : ''}
                 </div>
             </div>

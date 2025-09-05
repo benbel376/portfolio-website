@@ -104,7 +104,6 @@
   background: var(--color-surface-secondary, rgba(255, 255, 255, 0.7));
   backdrop-filter: blur(10px);
   border-radius: var(--border-radius-2xl, 16px);
-  padding: var(--spacing-12, 50px);
   border: var(--border-width-1, 1px) solid var(--color-surface-tertiary, rgba(255, 255, 255, 0.2));
   box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.05));
   transition: var(--transition-all-normal, all 0.3s ease);
@@ -128,17 +127,39 @@
   box-shadow: var(--shadow-card-hover, 0 6px 24px rgba(0, 0, 0, 0.3));
 }
 
-/* Map HTML classes to existing styles */
+/* Card Header Section */
 .experience-card__title-row { 
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-6, 1.5rem);
   gap: var(--spacing-4, 1rem);
+  background: rgba(0, 0, 0, 0.03);
+  padding: var(--spacing-12, 3rem);
+  padding-bottom: var(--spacing-8, 2rem);
+  margin-bottom: var(--spacing-6, 1.5rem);
+  border-radius: var(--border-radius-xl, 12px) var(--border-radius-xl, 12px) 0 0;
 }
 
-.experience-card__title-group { flex: 1; }
-.experience-card__title-content { flex: 1; }
+.theme-dark .experience-card__title-row {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.experience-card__title-group { 
+  flex: 1; 
+}
+
+.experience-card__title-content { 
+  flex: 1; 
+}
+
+.experience-card__right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--spacing-2, 0.5rem);
+  flex-shrink: 0;
+}
 
 /* Use same styling as original job title */
 .experience-card__title {
@@ -156,7 +177,7 @@
   font-size: var(--font-size-lg, 1.1rem);
   color: var(--color-primary, #FF8F00);
   font-weight: var(--font-weight-semibold, 600);
-  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  margin: 0 0 var(--spacing-3, 0.75rem) 0;
   line-height: var(--line-height-normal, 1.3);
   display: flex;
   align-items: center;
@@ -177,6 +198,7 @@
   justify-content: center;
   color: var(--color-text-inverse, white);
   flex-shrink: 0;
+  margin: auto;
   box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.1));
 }
 
@@ -219,24 +241,31 @@
 .experience-card__dates {
   font-family: inherit;
   font-weight: var(--font-weight-semibold, 600);
-  color: var(--color-text-primary, #2c2c2c);
+  color: var(--color-text-tertiary, #999);
 }
 
 .experience-card__location {
   font-family: inherit;
-  color: var(--color-text-secondary, #666);
+  color: var(--color-text-tertiary, #999);
 }
 
-.experience-card__years {
+.experience-card__years-inline {
   font-family: inherit;
-  font-size: var(--font-size-base, 1rem);
-  color: var(--color-text-secondary, #666);
-  font-weight: var(--font-weight-medium, 500);
+  font-size: var(--font-size-sm, 0.85rem);
+  color: var(--color-text-tertiary, #999);
+  font-weight: var(--font-weight-normal, 400);
 }
+
+.theme-dark .experience-card__years-inline {
+  color: var(--color-text-tertiary, #999);
+}
+
+/* Removed standalone years styling - now inline with dates */
 
 /* Map to existing responsibilities styling */
 .experience-card__responsibilities {
   margin-bottom: var(--spacing-6, 1.5rem);
+  padding: 0 var(--spacing-16, 4rem);
 }
 
 .experience-responsibilities-title {
@@ -320,6 +349,7 @@
 /* Map to existing tech list styling */
 .experience-card__tags {
   margin-top: var(--spacing-6, 1.5rem);
+  padding: 0 var(--spacing-16, 4rem) var(--spacing-8, 2rem) var(--spacing-16, 4rem);
 }
 
 .experience-tags-title {

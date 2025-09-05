@@ -115,12 +115,16 @@ function createEducationItem(education, index) {
     item.innerHTML = `
         <div class="education-history__dot"></div>
         <div class="education-history__content">
-            <div class="education-history__degree-icon" data-degree-type="${degreeInfo.type}">
-                <ion-icon name="${degreeInfo.icon}"></ion-icon>
+            <div class="education-history__header-section">
+                <div class="education-history__header-content">
+                    <h3 class="education-history__institution">${escapeHtml(education.institution || 'Institution')}</h3>
+                    <p class="education-history__degree">${escapeHtml(education.degree || 'Degree')}</p>
+                    <p class="education-history__period">${period}</p>
+                </div>
+                <div class="education-history__degree-icon" data-degree-type="${degreeInfo.type}">
+                    <ion-icon name="${degreeInfo.icon}"></ion-icon>
+                </div>
             </div>
-            <h3 class="education-history__institution">${escapeHtml(education.institution || 'Institution')}</h3>
-            <p class="education-history__degree">${escapeHtml(education.degree || 'Degree')}</p>
-            <p class="education-history__period">${period}</p>
             ${education.description ? `
                 <p class="education-history__description">${escapeHtml(education.description)}</p>
             ` : ''}

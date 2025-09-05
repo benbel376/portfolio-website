@@ -118,12 +118,11 @@
     background: var(--color-surface-secondary, rgba(255, 255, 255, 0.7));
     backdrop-filter: blur(10px);
     border-radius: var(--border-radius-2xl, 16px);
-    padding: var(--spacing-12, 50px);
-    padding-left: var(--spacing-15, 60px);
     border: var(--border-width-1, 1px) solid var(--color-surface-tertiary, rgba(255, 255, 255, 0.2));
     box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.05));
     transition: var(--transition-all-normal, all 0.3s ease);
     position: relative;
+    overflow: hidden;
 }
 
 .education-history__content:hover {
@@ -145,8 +144,8 @@
 
 .education-history__degree-icon {
     position: absolute;
-    top: var(--spacing-5, 20px);
-    right: var(--spacing-5, 20px);
+    top: var(--spacing-12, 40px);
+    right: var(--spacing-12, 40px);
     width: var(--spacing-12, 50px);
     height: var(--spacing-12, 50px);
     border-radius: var(--border-radius-full, 50%);
@@ -255,6 +254,26 @@
     box-shadow: 0 6px 16px var(--color-degree-default-alpha-50, rgba(96, 125, 139, 0.5));
 }
 
+/* Card Header Section */
+.education-history__header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4, 1rem);
+    background: rgba(0, 0, 0, 0.03);
+    padding: var(--spacing-12, 3rem);
+    padding-bottom: var(--spacing-8, 2rem);
+    border-radius: var(--border-radius-xl, 12px) var(--border-radius-xl, 12px) 0 0;
+}
+
+.theme-dark .education-history__header-section {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.education-history__header-content {
+    flex: 1;
+}
+
 /* Institution and Degree */
 
 .education-history__institution {
@@ -278,8 +297,8 @@
 .education-history__period {
     font-family: inherit;
     font-size: var(--font-size-base, 1rem);
-    color: var(--color-text-secondary, #666);
-    margin: 0 0 var(--spacing-4, 1rem) 0;
+    color: var(--color-text-tertiary, #999);
+    margin: 0;
     font-weight: var(--font-weight-normal, 400);
 }
 
@@ -292,7 +311,7 @@
 }
 
 .theme-dark .education-history__period {
-    color: var(--color-text-secondary, #B0B0B0);
+    color: var(--color-text-tertiary, #999);
 }
 
 /* Description */
@@ -303,6 +322,7 @@
     line-height: var(--line-height-relaxed, 1.6);
     color: var(--color-text-tertiary, #555);
     margin: 0;
+    padding: var(--spacing-5, 1.25rem) var(--spacing-16, 4rem) var(--spacing-4, 1rem) var(--spacing-16, 4rem);
 }
 
 .theme-dark .education-history__description {
@@ -313,6 +333,7 @@
 
 .education-history__highlights {
     margin-top: var(--spacing-4, 1rem);
+    padding: 0 var(--spacing-16, 4rem) var(--spacing-8, 2rem) var(--spacing-16, 4rem);
 }
 
 .education-history__highlights-title {
