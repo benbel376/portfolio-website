@@ -5,6 +5,186 @@
 
 require_once 'builders/builder_t1.php';
 
+/**
+ * Assemble dictionary from profile, site, and page definitions
+ * Applies security-first rule: protected = dynamic
+ */
+function assembleDictionary($profileName, $profileKey, $debugMode = false) {
+    if ($debugMode) {
+        error_log("INDEX DEBUG: Starting dictionary assembly for profile '$profileKey'");
+    }
+    
+    // Step 1: Load profile configuration
+    $profilePath = 'definitions/profiles/' . $profileName;
+    $profileConfig = loadJsonFile($profilePath, $debugMode);
+    
+    // Step 2: Load site configuration
+    $siteName = $profileConfig['site'];
+    $sitePath = 'definitions/sites/' . $siteName;
+    $siteConfig = loadJsonFile($sitePath, $debugMode);
+    
+    // Step 3: Load and flatten all page objects
+    $allObjects = [];
+    $pages = $profileConfig['pages'];
+    
+    if ($debugMode) {
+        error_log("INDEX DEBUG: Processing " . count($pages) . " pages");
+    }
+    
+    foreach ($pages as $pageFile) {
+        if ($debugMode) {
+            error_log("INDEX DEBUG: Loading page: $pageFile");
+        }
+        
+        $pagePath = 'definitions/pages/' . $pageFile;
+        $pageConfig = loadJsonFile($pagePath, $debugMode);
+        $pageObjects = $pageConfig['objects'] ?? [];
+        
+        // Add page definition metadata to each object
+        foreach ($pageObjects as &$object) {
+            $object['_pageSource'] = $pageFile;
+        }
+        
+        // Flatten objects (handles both nested and flat structures)
+        $flattenedObjects = flattenObjects($pageObjects, $pageFile, $debugMode);
+        $allObjects = array_merge($allObjects, $flattenedObjects);
+        
+        if ($debugMode) {
+            error_log("INDEX DEBUG: Page $pageFile contributed " . count($flattenedObjects) . " objects");
+        }
+    }
+    
+    // Step 4: Apply security enforcement (CRITICAL: protected = dynamic)
+    $allObjects = enforceSecurityRules($allObjects, $debugMode);
+    
+    // Step 5: Assemble final dictionary
+    $dictionary = [
+        'site' => $siteConfig,
+        'objects' => $allObjects,
+        'pageDefinition' => 'assembled_from_' . $profileKey . '_profile'
+    ];
+    
+    if ($debugMode) {
+        error_log("INDEX DEBUG: Dictionary assembly complete");
+        error_log("INDEX DEBUG: Final object count: " . count($allObjects));
+    }
+    
+    return $dictionary;
+}
+
+/**
+ * Load and parse JSON file with error handling
+ */
+function loadJsonFile($filepath, $debugMode = false) {
+    if (!file_exists($filepath)) {
+        throw new Exception("Configuration file not found: $filepath");
+    }
+    
+    $content = file_get_contents($filepath);
+    $json = json_decode($content, true);
+    
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        throw new Exception("Invalid JSON in file: $filepath");
+    }
+    
+    if ($debugMode) {
+        error_log("INDEX DEBUG: Loaded JSON file: $filepath");
+    }
+    
+    return $json;
+}
+
+/**
+ * Extract top-level objects only (preserve nested structure)
+ * Prevents duplication: containers handle their own children
+ * Propagates _pageSource to nested objects
+ */
+function flattenObjects($objects, $pageFile, $debugMode = false) {
+    $flattened = [];
+    
+    foreach ($objects as $object) {
+        // Ensure _pageSource is set for this object
+        if (!isset($object['_pageSource'])) {
+            $object['_pageSource'] = $pageFile;
+        }
+        
+        // Recursively propagate _pageSource to nested objects
+        if (isset($object['objects']) && is_array($object['objects'])) {
+            foreach ($object['objects'] as &$nestedObject) {
+                propagatePageSource($nestedObject, $pageFile);
+            }
+        }
+        
+        // Add only the top-level object
+        // Containers will handle their nested children internally
+        $flattened[] = $object;
+        
+        // DO NOT flatten nested objects - this was causing duplicates!
+        // The builder's nested structure logic will handle children properly
+    }
+    
+    if ($debugMode) {
+        error_log("INDEX DEBUG: Extracted " . count($flattened) . " top-level objects from $pageFile");
+    }
+    
+    return $flattened;
+}
+
+/**
+ * Recursively propagate _pageSource to nested objects
+ */
+function propagatePageSource(&$object, $pageFile) {
+    if (!isset($object['_pageSource'])) {
+        $object['_pageSource'] = $pageFile;
+    }
+    
+    if (isset($object['objects']) && is_array($object['objects'])) {
+        foreach ($object['objects'] as &$nestedObject) {
+            propagatePageSource($nestedObject, $pageFile);
+        }
+    }
+}
+
+/**
+ * Enforce security-first rules on objects
+ * CRITICAL: Any protected object must be dynamic (shells on initial load)
+ */
+function enforceSecurityRules($objects, $debugMode = false) {
+    $modifiedCount = 0;
+    
+    foreach ($objects as &$object) {
+        $isProtected = false;
+        
+        // Check protection in navigation config
+        if (isset($object['navigation']['protected'])) {
+            $isProtected = (bool)$object['navigation']['protected'];
+        }
+        
+        // Also check direct protected flag (backup)
+        if (isset($object['protected'])) {
+            $isProtected = $isProtected || (bool)$object['protected'];
+        }
+        
+        // SECURITY RULE: Protected content must be dynamic
+        if ($isProtected) {
+            $wasDynamic = $object['dynamic'] ?? false;
+            $object['dynamic'] = true;
+            
+            if ($debugMode && !$wasDynamic) {
+                $objectId = $object['id'] ?? 'no-id';
+                error_log("INDEX DEBUG: SECURITY ENFORCEMENT - Object '$objectId' is protected, forcing dynamic=true");
+                $modifiedCount++;
+            }
+        }
+    }
+    
+    if ($debugMode && $modifiedCount > 0) {
+        error_log("INDEX DEBUG: Security enforcement applied to $modifiedCount objects");
+    }
+    
+    return $objects;
+}
+
 try {
     // Read entry configuration to get available profiles
     $entryPath = 'definitions/entry.json';
@@ -89,19 +269,11 @@ try {
         throw new Exception("Profile file not found: $profilePath");
     }
     
-    // Get builder configuration and parameters
-    $builderFile = $entryConfig['default_builder']; // Default builder
-    $builderParameters = [];
-    
-    // Override with profile-specific builder and parameters if available
-    if (isset($profileConfig) && is_array($profileConfig)) {
-        if (isset($profileConfig['builder'])) {
-            $builderFile = $profileConfig['builder'];
-        }
-        if (isset($profileConfig['parameters'])) {
-            $builderParameters = $profileConfig['parameters'];
-        }
+    // Get builder configuration from profile
+    if (!isset($profileConfig['builder'])) {
+        throw new Exception("Builder not specified for profile '$profileKey'");
     }
+    $builderFile = $profileConfig['builder'];
     
     // Validate builder file exists
     $builderPath = 'builders/' . $builderFile;
@@ -114,15 +286,22 @@ try {
         require_once $builderPath;
     }
     
-    // Create builder and build the site with the determined profile and parameters
-    $builder = new PortfolioBuilder();
+    // Enable debug mode for development (could be set from profile config in future)
+    $debugMode = false;
     
-    // Pass builder parameters if available
-    if (!empty($builderParameters)) {
-        $builder->setParameters($builderParameters);
+    // Create builder with debug mode
+    $builder = new PortfolioBuilder('.', $debugMode);
+    
+    // Assemble dictionary from profile, site, and page definitions
+    $dictionary = assembleDictionary($profileName, $profileKey, $debugMode);
+    
+    if ($debugMode) {
+        error_log("INDEX DEBUG: Dictionary assembled for profile '$profileKey'");
+        error_log("INDEX DEBUG: Dictionary has " . count($dictionary['objects']) . " total objects");
+        error_log("INDEX DEBUG: Has site config: " . (isset($dictionary['site']) ? 'yes' : 'no'));
     }
     
-    echo $builder->build($profileName);
+    echo $builder->build($dictionary);
     
 } catch (Exception $e) {
     // Error handling with user-friendly message and available profiles
@@ -133,7 +312,7 @@ try {
     if (isset($entryConfig['profiles'])) {
         foreach ($entryConfig['profiles'] as $key => $config) {
             $profileFile = is_string($config) ? $config : $config['profile'];
-            $builderFile = is_array($config) && isset($config['builder']) ? $config['builder'] : $entryConfig['default_builder'];
+            $builderFile = is_array($config) && isset($config['builder']) ? $config['builder'] : 'not specified';
             $availableProfiles .= "<li><a href='?profile=$key'>$key</a> (Profile: $profileFile, Builder: $builderFile)</li>";
         }
     }

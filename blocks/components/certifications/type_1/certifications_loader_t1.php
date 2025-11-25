@@ -17,8 +17,12 @@ class CertificationsLoaderT1 {
     }
     
     private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
-        // Load data from JSON file if dataSource is specified
-        $certificationsData = $this->loadDataFromSource($componentMetadata);
+        // Get certifications data from the component data (not external file)
+        $certificationsData = $data['certifications'] ?? [];
+        
+        // Debug logging
+        error_log("Certifications Loader DEBUG: Full data structure: " . print_r($data, true));
+        error_log("Certifications Loader DEBUG: Certifications data: " . print_r($certificationsData, true));
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/certifications_structure_t1.html');
@@ -33,11 +37,15 @@ class CertificationsLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $html = str_replace('<div class="certifications-component">',
-            '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+            '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '" data-init-hook="initializeCertifications"' . $styleAttr . '>',
             $html);
         
-        // Inject JavaScript data
-        $html .= $this->injectDataScript($certificationsData);
+        // Inject JavaScript data INSIDE the component container, before the last closing tag
+        $dataScript = $this->injectDataScript($certificationsData);
+        $lastDivPos = strrpos($html, '</div>');
+        if ($lastDivPos !== false) {
+            $html = substr_replace($html, $dataScript . '</div>', $lastDivPos, 6);
+        }
         
         return $html;
     }
@@ -53,35 +61,18 @@ class CertificationsLoaderT1 {
         $template = file_get_contents(__DIR__ . '/certifications_structure_t1.html');
         
         $html = str_replace('<div class="certifications-component">',
-            '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . $protectedAttr . ' data-metadata="' . $metadataJson . '">',
+            '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '" data-init-hook="initializeCertifications"' . $styleAttr . $protectedAttr . ' data-dynamic="true" data-load-state="not-loaded" data-component-metadata="' . $metadataJson . '">',
             $template);
         
         return $html;
     }
     
     private function generateContent($data) {
-        // For content-only mode, just return the grid structure
-        return '<div class="certifications__grid" id="certifications-grid"></div><div class="certifications__empty" id="certifications-empty" style="display: none;"><ion-icon name="ribbon-outline" aria-hidden="true"></ion-icon><p>No certifications available to display.</p></div>';
+        // For content-only mode, this method is not used in the new architecture
+        // The builder will call generateFullComponent with dynamic=false for content mode
+        return '';
     }
     
-    /**
-     * Load data from JSON file specified in dataSource
-     */
-    private function loadDataFromSource($componentMetadata) {
-        $dataSource = $componentMetadata['dataSource'] ?? null;
-        
-        if ($dataSource && file_exists($dataSource)) {
-            $jsonContent = file_get_contents($dataSource);
-            $data = json_decode($jsonContent, true);
-            
-            if (json_last_error() === JSON_ERROR_NONE && isset($data['certifications'])) {
-                return $data['certifications'];
-            }
-        }
-        
-        // Return empty array if no data source or invalid data
-        return [];
-    }
     
     /**
      * Replace placeholders in HTML template with data
@@ -101,23 +92,18 @@ class CertificationsLoaderT1 {
      * Inject certifications data into JavaScript
      */
     private function injectDataScript($certificationsData) {
-        $script = '<script>';
-        $script .= 'console.log("Certifications PHP: Attempting to set certifications data");';
+        // Debug logging
+        error_log("Certifications Loader DEBUG: Injecting data script with " . count($certificationsData) . " certifications");
         
-        // Check if behavior is ready
-        $script .= 'if (typeof setCertificationsData === "function") {';
-        $script .= '    console.log("Certifications PHP: Setting data immediately");';
-        $script .= '    setCertificationsData(' . json_encode($certificationsData) . ');';
+        $script = '<script>';
+        $script .= 'console.log("Certifications PHP: Attempting to set certifications data", ' . json_encode($certificationsData) . ');';
+        $script .= 'console.log("Certifications PHP: window.setCertificationsData function exists?", typeof window.setCertificationsData);';
+        
+        // The behavior script should already be loaded globally, so just call the function
+        $script .= 'if (typeof window.setCertificationsData === "function") {';
+        $script .= '    window.setCertificationsData(' . json_encode($certificationsData) . ');';
         $script .= '} else {';
-        $script .= '    console.log("Certifications PHP: Behavior not ready, waiting...");';
-        $script .= '    setTimeout(function() {';
-        $script .= '        console.log("Certifications PHP: Setting certifications data from PHP (delayed)");';
-        $script .= '        if (typeof setCertificationsData === "function") {';
-        $script .= '            setCertificationsData(' . json_encode($certificationsData) . ');';
-        $script .= '        } else {';
-        $script .= '            console.error("Certifications PHP: setCertificationsData function not found after delay");';
-        $script .= '        }';
-        $script .= '    }, 100);';
+        $script .= '    console.error("Certifications PHP: window.setCertificationsData function not found - behavior script not loaded");';
         $script .= '}';
         $script .= '</script>';
         

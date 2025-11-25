@@ -4,12 +4,14 @@
     /* Colors (LIGHT THEME DEFAULT) */
     --bg: #f5f6fa;
     /* Light background */
-    --text: #222222;
+    --text: #1a1a1a;
+    /* Darker text for better contrast */
     --primary: #ffdb70;
     --border: #dddddd;
     --nav-bg: #f0f0f0;
     /* Light nav background */
-    --site-container-bg: #ffffff78;
+    --site-container-bg: #ffffffee;
+    /* More opaque for better text visibility */
     --card-bg: #ffffff;
     /* White card background */
     --card-border: #eeeeee;
@@ -817,7 +819,7 @@
     --transition-1: 0.25s ease;
     --transition-2: 0.5s ease-in-out;
     /* Body Background Image - Light Theme */
-    --body-bg-image: url(../../images/general/general_background_light_v1.png);
+    --body-bg-image: url(../assets/media/general_background_light_v1.png);
     --hero-name-text-color: var(--primary);
     /* Avatar image is now handled by the hero component itself */
     /* Responsive Layout Spacing */
@@ -888,7 +890,7 @@
     /* Shadows for dark theme */
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
     /* Body Background Image - Dark Theme */
-    --body-bg-image: url(../../images/general/general_background_dark_v1.png);
+    --body-bg-image: url(../assets/media/general_background_dark_v1.png);
     --hero-name-text-color: var(--orange-yellow-crayola);
     /* Hero name specifically yellow in dark mode */
     /* Avatar image is now handled by the hero component itself */

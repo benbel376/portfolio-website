@@ -3,102 +3,68 @@
 class PortfolioBuilder {
     
     private $basePath;
-    private $definitionsPath;
     private $blocksPath;
-    private $parameters;
-    private $currentPageDefinition;
+    private $debugMode;
     
-    public function __construct($basePath = '.') {
+    public function __construct($basePath = '.', $debugMode = false) {
         $this->basePath = $basePath;  
-        $this->definitionsPath = $basePath . '/definitions';
         $this->blocksPath = $basePath . '/blocks';
-        $this->parameters = [];
+        $this->debugMode = $debugMode;
+    }
+    
+    
+    /**
+     * Build HTML from a dictionary structure
+     * Dictionary format: {
+     *   "site": { site_config } | null,
+     *   "objects": [ array_of_objects ],
+     *   "pageDefinition": "source_page.json"
+     * }
+     */
+    public function build($dictionary) {
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Starting build with dictionary");
+            error_log("BUILDER DEBUG: Dictionary keys: " . implode(', ', array_keys($dictionary)));
+            error_log("BUILDER DEBUG: Objects count: " . count($dictionary['objects'] ?? []));
+        }
+        
+        $siteConfig = $dictionary['site'] ?? null;
+        $objects = $dictionary['objects'] ?? [];
+        $pageDefinition = $dictionary['pageDefinition'] ?? 'unknown';
+        
+        // Build content from objects
+        $content = $this->buildObjects($objects, $pageDefinition);
+        
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Content built, length: " . strlen($content));
+            error_log("BUILDER DEBUG: Has site config: " . ($siteConfig ? 'yes' : 'no'));
+        }
+        
+        // If site config provided, wrap in site template
+        if ($siteConfig) {
+            $result = $this->loadSiteBlock($siteConfig, $content);
+            if ($this->debugMode) {
+                error_log("BUILDER DEBUG: Site template applied, final length: " . strlen($result));
+            }
+            return $result;
+        }
+        
+        // Otherwise return content only (for dynamic loading)
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Returning content only (no site template)");
+        }
+        return $content;
     }
     
     /**
-     * Set builder parameters from entry configuration
+     * Build HTML content from array of objects
      */
-    public function setParameters($parameters) {
-        $this->parameters = $parameters;
-    }
-    
-    /**
-     * Get a specific parameter value
-     */
-    public function getParameter($key, $default = null) {
-        return $this->parameters[$key] ?? $default;
-    }
-    
-    /**
-     * Get all parameters
-     */
-    public function getParameters() {
-        return $this->parameters;
-    }
-    
-    public function build($profileName) {
-        $debugMode = $this->getParameter('debug', false);
-        
-        if ($debugMode) {
-            $debugInfo = "<!-- Builder Debug Info:\n";
-            $debugInfo .= "Profile: $profileName\n";
-            $debugInfo .= "Parameters: " . json_encode($this->parameters, JSON_PRETTY_PRINT) . "\n";
-            $debugInfo .= "Build Time: " . date('Y-m-d H:i:s') . "\n";
-            $debugInfo .= "-->\n";
+    private function buildObjects($objects, $pageDefinition = 'unknown') {
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Building objects from page: $pageDefinition");
+            error_log("BUILDER DEBUG: Processing " . count($objects) . " objects");
         }
         
-        // Step 1: Load profile configuration using the provided profile name
-        $profileConfig = $this->loadJson($this->definitionsPath . '/profiles/' . $profileName);
-        
-        // Extract site configuration - handle both old string format and new object format
-        if (is_string($profileConfig['site'])) {
-            // Legacy format: site is just a string
-            $siteName = $profileConfig['site'];
-            $siteConfig = $this->loadJson($this->definitionsPath . '/sites/' . $siteName);
-        } else {
-            // New format: site is an object with embedded configuration
-            $siteConfig = $profileConfig['site'];
-            $siteName = $siteConfig['site']; // Extract the actual site specification
-        }
-        
-        $pages = $profileConfig['pages'];
-        
-        // Add builder parameters to site config for loaders to access
-        $siteConfig['builderParameters'] = $this->parameters;
-        
-        // Step 3: Build page content by assembling components and containers
-        $pageContent = $this->buildPages($pages);
-        
-        // Step 4: Load site block and insert page content
-        $result = $this->loadSiteBlock($siteConfig, $pageContent);
-        
-        // Add debug info if enabled
-        if ($debugMode) {
-            $result = $debugInfo . $result;
-        }
-        
-        return $result;
-    }
-    
-    private function buildPages($pages) {
-        $allPageContent = '';
-        
-        foreach ($pages as $pageFile) {
-            // Track current page definition for dynamic loading metadata
-            $this->currentPageDefinition = $pageFile;
-            
-            $pageConfig = $this->loadJson($this->definitionsPath . '/pages/' . $pageFile);
-            $pageHtml = $this->buildPageFromObjects($pageConfig['objects']);
-            $allPageContent .= $pageHtml . "\n";
-        }
-        
-        // Reset current page definition
-        $this->currentPageDefinition = null;
-        
-        return $allPageContent;
-    }
-    
-    private function buildPageFromObjects($objects) {
         // Check if this is a flat structure (has parent relationships) or nested structure
         $hasParentRelationships = false;
         foreach ($objects as $object) {
@@ -108,33 +74,46 @@ class PortfolioBuilder {
             }
         }
         
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Structure type: " . ($hasParentRelationships ? 'flat' : 'nested'));
+        }
+        
         if ($hasParentRelationships) {
             // Handle flat structure with parent relationships
-            return $this->buildFromFlatStructure($objects);
+            return $this->buildFromFlatStructure($objects, $pageDefinition);
         } else {
             // Handle nested structure
-            return $this->buildFromNestedStructure($objects);
+            return $this->buildFromNestedStructure($objects, $pageDefinition);
         }
     }
     
-    private function buildFromFlatStructure($objects) {
+    
+    private function buildFromFlatStructure($objects, $pageDefinition) {
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Building flat structure");
+        }
+        
         // Step 1: Build dependency tree from flat structure
         $tree = $this->buildHierarchyTree($objects);
         
         // Step 2: Build HTML starting from root objects (parent = null)
         $pageHtml = '';
         foreach ($tree['root'] as $rootObject) {
-            $pageHtml .= $this->buildObjectHtml($rootObject, $tree);
+            $pageHtml .= $this->buildObjectHtml($rootObject, $tree, $pageDefinition);
         }
         
         return $pageHtml;
     }
     
-    private function buildFromNestedStructure($objects) {
+    private function buildFromNestedStructure($objects, $pageDefinition) {
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Building nested structure");
+        }
+        
         // Build HTML from nested object structure
         $pageHtml = '';
         foreach ($objects as $object) {
-            $pageHtml .= $this->buildObjectHtml($object);
+            $pageHtml .= $this->buildObjectHtml($object, null, $pageDefinition);
         }
         
         return $pageHtml;
@@ -158,19 +137,28 @@ class PortfolioBuilder {
         return $tree;
     }
     
-    private function buildObjectHtml($object, $tree = null) {
+    private function buildObjectHtml($object, $tree = null, $pageDefinition = 'unknown') {
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Building object: " . ($object['id'] ?? 'no-id') . " (type: " . ($object['type'] ?? 'unknown') . ")");
+        }
+        
         if ($object['type'] === 'component') {
-            return $this->loadComponent($object);
+            return $this->loadComponent($object, $pageDefinition);
         } elseif ($object['type'] === 'container') {
-            return $this->loadContainer($object, $tree);
+            return $this->loadContainer($object, $tree, $pageDefinition);
         }
         
         return '';
     }
     
-    private function loadComponent($object) {
+    private function loadComponent($object, $pageDefinition = 'unknown') {
         $componentSpec = $object['component']; // e.g., "heros/type_1"
         $id = $object['id'];
+        
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Loading component $id ($componentSpec)");
+        }
+        
         // Resolve component data strictly from variant-based data map
         if (!isset($object['variant'])) {
             throw new Exception("Missing 'variant' for component: $id");
@@ -184,11 +172,13 @@ class PortfolioBuilder {
         }
         $data = $object['data'][$variantKey];
         $navigationConfig = $object['navigation'] ?? [];
-        $isProtected = isset($navigationConfig['protected']) ? (bool)$navigationConfig['protected'] : false;
+        
+        // IMPORTANT: Use dynamic flag as-is (should be enforced by index.php for protected content)
         $isDynamic = $object['dynamic'] ?? false;
-        // Enforce: protected elements must be dynamic (shell + API-gated content)
-        if ($isProtected) {
-            $isDynamic = true;
+        
+        if ($this->debugMode) {
+            $isProtected = isset($navigationConfig['protected']) ? (bool)$navigationConfig['protected'] : false;
+            error_log("BUILDER DEBUG: Component $id - Dynamic: " . ($isDynamic ? 'yes' : 'no') . ", Protected: " . ($isProtected ? 'yes' : 'no'));
         }
         
         // Parse component specification to get component name and version
@@ -230,34 +220,73 @@ class PortfolioBuilder {
             'componentId' => $id,
             'componentData' => $data,
             'dataSource' => $object['dataSource'] ?? null,
-            'pageDefinition' => $this->currentPageDefinition ?? null,
+            'pageDefinition' => $object['_pageSource'] ?? $pageDefinition,
             'buildTime' => time()
         ];
+        
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Component $id metadata prepared");
+        }
+
+        // Find and instantiate the loader
+        $loaderFile = $this->findLoaderFile($componentPath);
+        
+        if (!$loaderFile) {
+            throw new Exception("Component loader not found in: $componentPath");
+        }
+        
+        // Include the loader
+        require_once $loaderFile;
+        
+        // Find the loader class dynamically
+        $loaderClass = $this->findLoaderClass($loaderFile);
+        
+        if (!$loaderClass || !class_exists($loaderClass)) {
+            throw new Exception("Loader class not found in: $loaderFile");
+        }
+        
+        $loader = new $loaderClass();
 
         // Check if loader supports dynamic loading
         $reflection = new ReflectionMethod($loader, 'load');
         $paramCount = $reflection->getNumberOfParameters();
 
         if ($paramCount >= 5) {
-            return $loader->load($id, $title, $navigationConfig, $loadingMode, $componentMetadata);
+            $result = $loader->load($id, $title, $navigationConfig, $loadingMode, $componentMetadata);
+            if ($this->debugMode) {
+                error_log("BUILDER DEBUG: Component $id loaded successfully, result length: " . strlen($result));
+            }
+            return $result;
         } elseif ($paramCount >= 3) {
             if ($loadingMode !== 'full') {
                 throw new Exception("Component loader does not support dynamic loading: $loaderClass");
             }
-            return $loader->load($id, $title, $navigationConfig);
+            $result = $loader->load($id, $title, $navigationConfig);
+            if ($this->debugMode) {
+                error_log("BUILDER DEBUG: Component $id loaded (nav-aware), result length: " . strlen($result));
+            }
+            return $result;
         } else {
             if ($loadingMode !== 'full') {
                 throw new Exception("Legacy component loader does not support dynamic loading: $loaderClass");
             }
-            return $loader->load($id, $title);
+            $result = $loader->load($id, $title);
+            if ($this->debugMode) {
+                error_log("BUILDER DEBUG: Component $id loaded (legacy), result length: " . strlen($result));
+            }
+            return $result;
         }
     }
     
-    private function loadContainer($object, $tree = null) {
+    private function loadContainer($object, $tree = null, $pageDefinition = 'unknown') {
         $containerSpec = $object['component']; // e.g., "vertical/type_1" - containers also use 'component' key
         $id = $object['id'];
         $data = $object['data'] ?? [];
         $navigationConfig = $object['navigation'] ?? [];
+        
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Loading container $id ($containerSpec)");
+        }
         
         // Parse container specification to get container name and version
         $parts = explode('/', $containerSpec);
@@ -271,14 +300,18 @@ class PortfolioBuilder {
             // Flat structure: get children from tree
             $children = $tree['children'][$id] ?? [];
             foreach ($children as $child) {
-                $childrenHtml[] = $this->buildObjectHtml($child, $tree);
+                $childrenHtml[] = $this->buildObjectHtml($child, $tree, $pageDefinition);
             }
         } else {
             // Nested structure: get children from nested objects
             $children = $object['objects'] ?? [];
             foreach ($children as $child) {
-                $childrenHtml[] = $this->buildObjectHtml($child);
+                $childrenHtml[] = $this->buildObjectHtml($child, null, $pageDefinition);
             }
+        }
+        
+        if ($this->debugMode) {
+            error_log("BUILDER DEBUG: Container $id has " . count($childrenHtml) . " children");
         }
         
         // Determine container path
@@ -309,10 +342,18 @@ class PortfolioBuilder {
         
         if ($paramCount >= 3) {
             // Loader supports navigation configuration
-            return $loader->load($id, $childrenHtml, $navigationConfig);
+            $result = $loader->load($id, $childrenHtml, $navigationConfig);
+            if ($this->debugMode) {
+                error_log("BUILDER DEBUG: Container $id loaded (nav-aware), result length: " . strlen($result));
+            }
+            return $result;
         } else {
             // Legacy loader, only pass basic parameters
-            return $loader->load($id, $childrenHtml);
+            $result = $loader->load($id, $childrenHtml);
+            if ($this->debugMode) {
+                error_log("BUILDER DEBUG: Container $id loaded (legacy), result length: " . strlen($result));
+            }
+            return $result;
         }
     }
     
@@ -383,20 +424,7 @@ class PortfolioBuilder {
         return false;
     }
     
-    private function loadJson($filepath) {
-        if (!file_exists($filepath)) {
-            throw new Exception("Configuration file not found: $filepath");
-        }
-        
-        $content = file_get_contents($filepath);
-        $json = json_decode($content, true);
-        
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception("Invalid JSON in file: $filepath");
-        }
-        
-        return $json;
-    }
 }
 
 ?>
+

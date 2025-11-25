@@ -77,9 +77,10 @@ class ProjectDetailsLoader {
 
         // Add component metadata and dynamic marker for dynamic loading
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
+        
         $html = str_replace(
             'data-nav-handler="handleProjectDetailsNavigation"',
-            'data-nav-handler="handleProjectDetailsNavigation" data-dynamic="true" data-component-metadata="' . $metadataJson . '"',
+            'data-nav-handler="handleProjectDetailsNavigation" data-dynamic="true" data-init-hook="initializeProjectDetailsComponent" data-component-metadata="' . $metadataJson . '"',
             $html
         );
 

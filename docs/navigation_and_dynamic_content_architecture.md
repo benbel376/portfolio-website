@@ -7,19 +7,26 @@ This document provides a comprehensive breakdown of the website's navigation sys
 
 ## 🏗️ Core Components
 
-### **1. Page Builder (`builders/builder_t1.php`)**
-- **Purpose**: Central HTML generation engine
-- **Current Modes**: Full page building only
-- **Needed Enhancement**: Dynamic content building mode
-- **Input**: Profile/page definitions, entity IDs, build mode
-- **Output**: Complete HTML or partial HTML content
+### **1. Unified Page Builder (`builders/builder_t1.php`)** ✅ **IMPLEMENTED**
+- **Purpose**: Dictionary-driven HTML generation engine
+- **Architecture**: Completely agnostic to build context (full site vs. dynamic content)
+- **Input**: Unified dictionary structure with objects array, site config (optional), page definition
+- **Output**: Complete HTML for full sites or partial HTML for dynamic content
+- **Key Features**:
+  - **Dictionary-driven**: Accepts structured data, no file reading
+  - **Context-agnostic**: Same code path for all scenarios
+  - **Security-aware**: Respects dynamic flags and protection settings
 
-### **2. Dynamic Content API (`endpoints/dynamic_content_t1.php`)**
+### **2. Dictionary-Driven Dynamic API (`endpoints/dynamic_content_t1.php`)** ✅ **IMPLEMENTED**
 - **Purpose**: Server-side endpoint for dynamic content requests
-- **Current State**: Manually handles component loading (bypasses builder)
-- **Needed Change**: Should route all requests to page builder
-- **Input**: Entity ID, page definition, URL parameters, security hints
-- **Output**: JSON response with HTML content
+- **Architecture**: Extract object → Create mini-dictionary → Pass to builder
+- **Security**: Validates authentication BEFORE builder call for protected content
+- **Input**: Component ID, page definition, URL parameters
+- **Output**: JSON response with HTML content from builder
+- **Key Features**:
+  - **Object extraction**: Finds target component and dependencies from page definitions
+  - **Security-first**: Authentication validation before processing
+  - **Force content mode**: Sets `dynamic = false` to prevent shells in responses
 
 ### **3. Global Navigator (`blocks/sites/top_bar/type_2/behaviors/global_navigator_t1.js`)**
 - **Purpose**: Central navigation coordinator and hash manager
@@ -41,206 +48,262 @@ This document provides a comprehensive breakdown of the website's navigation sys
 
 ---
 
-## 🚀 Initial Website Loading Flow
+## 🚀 Initial Website Loading Flow ✅ **UPDATED ARCHITECTURE**
 
-### **Phase 1: Entry Point Processing**
-1. **Browser Request** → `index.php` or specific entry point
-2. **Entry Point** loads profile configuration
-3. **Profile Config** specifies:
-   - Site type and configuration
-   - Page definitions to include
-   - Default navigation state
-   - Builder parameters
+### **Phase 1: Entry Point Processing (`index.php`)** ✅ **IMPLEMENTED**
+1. **Profile Resolution**:
+   - Reads `definitions/entry.json` for available profiles (no parameters, builders list, or default_builder)
+   - Determines profile from URL path (`/profile_name`) or query param (`?profile=profile_name`)
+   - Fallback to `default_profile` from entry config
+   
+2. **Dictionary Assembly** ✅ **NEW**:
+   - Loads profile → site → pages in sequence
+   - Flattens all page objects into unified array
+   - **Security enforcement**: `protected = true` → `dynamic = true`
+   - Creates dictionary: `{site, objects[], pageDefinition}`
+   - Extracts builder file from profile configuration
 
-### **Phase 2: Page Builder Execution**
-1. **Builder Initialization**:
-   - Sets base paths for definitions and blocks
-   - Loads builder parameters from entry config
-   
-2. **Profile Loading**:
-   - Reads profile JSON from `definitions/profiles/`
-   - Extracts site configuration
-   - Gets list of page definition files
-   
-3. **Page Assembly**:
-   - For each page definition in profile:
-     - Loads page JSON from `definitions/pages/`
-     - Processes `objects` array (components and containers)
-     - Builds hierarchical structure (flat or nested)
-   
-4. **Component/Container Building**:
+3. **Builder Execution** ✅ **UPDATED**:
+   - Creates `PortfolioBuilder` instance from `builders/builder_t1.php`
+   - Calls `$builder->build($dictionary)` with assembled dictionary (not profile name)
+   - Builder processes objects array using context-agnostic logic
+
+### **Phase 2: Profile and Site Loading**
+1. **Profile Loading** (`definitions/profiles/`):
+   - Loads profile JSON (e.g., `ml_mlops_t1.json`)
+   - Extracts site configuration: `"site": "top_bar_site_t2.json"` → loads from `definitions/sites/`
+   - Gets array of page definition files to include
+
+2. **Site Configuration Setup**:
+   - Prepares navigation tabs and default navigation hash
+   - Sets up branding (title, etc.)
+
+### **Phase 3: Page Assembly and Content Building**
+1. **Page Processing Loop**:
+   - For each page in `pages` array (e.g., `summary_page_t1.json`)
+   - Loads page JSON from `definitions/pages/`
+   - Calls `buildPageFromObjects()` with `objects` array
+   - Tracks current page definition for dynamic loading metadata
+
+2. **Structure Detection**:
+   - **Flat Structure**: Has `parent` relationships → builds dependency tree first
+   - **Nested Structure**: Has `objects` arrays → processes recursively
+
+3. **Object Building Process**:
    - For each object in page definition:
-     - Determines type (component vs container)
-     - Loads appropriate loader from `blocks/components/` or `blocks/containers/`
-     - Passes data, navigation config, and metadata
-     - Gets back HTML content
-   
-5. **Site Template Integration**:
-   - Loads site template from `blocks/sites/`
-   - Injects assembled page content
-   - Adds navigation, theme support, and behaviors
-   - Returns complete HTML document
+     - **Components**: Calls `loadComponent()` 
+     - **Containers**: Calls `loadContainer()` with children processing
 
-### **Phase 3: Client-Side Initialization**
-1. **DOM Ready**: Page loads with initial content
-2. **Navigation System Init**:
-   - Global Navigator scans for navigation handlers
-   - Registers component/container navigation configs
-   - Parses initial URL hash or applies default navigation
-3. **Dynamic Content System Init**:
-   - Dynamic Content Loader initializes
-   - Site-specific handler initializes
-   - Scans for dynamic components in initial load
+### **Phase 4: Component/Container Loading**
+1. **Component Loading** (`loadComponent()`):
+   - Validates `variant` and `data[variant]` structure for data resolution
+   - Parses component spec (e.g., `"heros/type_1"` → `componentType="heros"`, `version="type_1"`)
+   - Finds loader file in `blocks/components/{type}/{version}/*loader*.php`
+   - Uses reflection to detect loader capabilities (parameter count)
+   - Determines loading mode: `dynamic=true` forces `shell` mode, otherwise `full`
+   - Passes metadata including `componentSpec`, `componentId`, `componentData`, `pageDefinition`
+
+2. **Container Loading** (`loadContainer()`):
+   - Recursively builds children (flat structure uses dependency tree, nested uses `objects` array)
+   - Finds loader in `blocks/containers/{type}/{version}/*loader*.php`
+   - Passes `childrenHtml` array and navigation config to container loader
+
+3. **Loader Interface Standards**:
+   - **Legacy Loaders**: `load($id, $title)`
+   - **Navigation-Aware**: `load($id, $title, $navigationConfig)`
+   - **Dynamic-Capable**: `load($id, $title, $navigationConfig, $loadingMode, $componentMetadata)`
+
+### **Phase 5: Site Template Integration**
+1. **Site Loader Execution**:
+   - Loads site loader from `blocks/sites/{siteType}/{version}/*loader*.php`
+   - Calls `load($navigationTabs, $title, $pageContent, $defaultNavigation)`
+   - Injects navigation HTML, page content, and site-wide scripts/styles
+
+2. **Final Output**:
+   - Returns complete HTML document with embedded components/containers
+   - Includes all navigation configuration as data attributes
+   - Sets up client-side navigation system initialization
+
+### **Phase 6: Client-Side Initialization**
+1. **DOM Ready Processing**:
+   - Page loads with initial content (shells for dynamic components)
+   - Site structure includes navigation scripts and global behaviors
+
+2. **Navigation System Startup**:
+   - `GlobalNavigator` scans DOM for elements with `data-nav-handler` attributes
+   - Registers navigation configurations from `data-nav-config` attributes
+   - Processes default navigation hash or applies fallback
+
+3. **Dynamic Content System Setup**:
+   - `DynamicContentLoader` initializes with cache and API endpoint
+   - `TopBarSiteDynamicContent` sets up site-specific coordination
+   - Scans for dynamic components (`data-dynamic="true"`) in visible containers
 
 ### **Data Structures in Initial Load**:
 
-#### **Profile Definition** (`definitions/profiles/`)
-```
+#### **Entry Configuration** (`definitions/entry.json`)
+```json
 {
-  site: "top_bar/type_2" | { site: "spec", config: {...} }
-  pages: ["page1.json", "page2.json"]
-  defaultNavigation: { hash: "element/state.tab", description: "..." }
+  "default_profile": "ml_mlops",
+  "profiles": {
+    "ml_mlops": {
+      "profile": "ml_mlops_t1.json",
+      "builder": "builder_t1.php"
+    }
+  }
+}
+```
+
+#### **Profile Definition** (`definitions/profiles/`)
+```json
+{
+  "site": "top_bar_site_t2.json",
+  "pages": ["summary_page_t1.json", "skills_page_t1.json", ...]
 }
 ```
 
 #### **Page Definition** (`definitions/pages/`)
-```
+```json
 {
-  objects: [
+  "objects": [
     {
-      id: "unique-element-id"
-      type: "component" | "container"
-      component: "spec/version"
-      variant: "data_key"
-      data: { variant_key: { actual_data } }
-      navigation: { defaultState, allowedStates, protected, etc. }
-      dynamic: true | false
-      objects: [...] // for containers in nested structure
-      parent: "parent-id" // for flat structure
+      "id": "unique-element-id",
+      "type": "component" | "container",
+      "component": "spec/version",
+      "variant": "data_key",
+      "data": { "variant_key": { "actual_data": "..." } },
+      "navigation": { 
+        "defaultState": "visible|hidden", 
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": true|false 
+      },
+      "dynamic": true|false,
+      "objects": [...],  // for containers in nested structure
+      "parent": "parent-id"  // for flat structure
     }
   ]
 }
 ```
 
----
-
-## ⚡ Runtime Dynamic Content Loading Flow
-
-### **Trigger Events**:
-1. **Hash Navigation**: User clicks navigation or URL hash changes
-2. **Programmatic Navigation**: JavaScript calls navigation methods
-3. **Direct API Calls**: Manual dynamic content loading
-
-### **Phase 1: Navigation Event Processing**
-
-#### **Global Navigator Sequence**:
-1. **Hash Change Detection**:
-   - Browser `hashchange` event or programmatic navigation
-   - Extract target element ID and desired state from hash
-   
-2. **Navigation Validation**:
-   - Find target element in DOM
-   - Verify element has navigation handler
-   - Check if requested state is allowed
-   - Validate security permissions
-   
-3. **State Management**:
-   - Store previous navigation state
-   - Calculate new navigation state map
-   - Determine which elements need state changes
-
-#### **Current Problem**: Dynamic Loading Happens Before Visibility
-- **Current Sequence**: Dynamic Loading → Visibility → State Passing
-- **Correct Sequence**: Visibility → State Passing → Dynamic Loading
-
-### **Phase 2: Visibility and State Management**
-
-#### **Visibility Changes**:
-1. **Hide Previous Elements**:
-   - Elements that should become hidden
-   - Apply CSS classes or display properties
-   - Reset to default states if needed
-   
-2. **Show Target Elements**:
-   - Elements that should become visible
-   - Remove hidden classes or set display properties
-   - Prepare for content loading
-
-#### **State Passing**:
-1. **Local Navigation Handlers**:
-   - Call component/container specific navigation functions
-   - Pass new state and parameters
-   - Allow components to prepare for new state
-
-### **Phase 3: Dynamic Content Loading Decision**
-
-#### **Container Analysis**:
-1. **Dynamic Container Rule**:
-   - If parent container is dynamic → All nested components are static
-   - Only scan for dynamic elements in static containers
-   - Dynamic containers load all content via single API call
-
-#### **Component Scanning**:
-1. **Visibility Check**: Only scan visible containers
-2. **Dynamic Element Detection**: Find `[data-dynamic="true"]`
-3. **Loading State Check**: Skip already loaded content
-4. **Security Validation**: Check authentication for protected content
-
-### **Phase 4: API Communication**
-
-#### **Request Preparation**:
-1. **Metadata Extraction**:
-   - Read `data-component-metadata` from DOM element
-   - Extract component spec, ID, data, page definition
-   - Get current URL parameters
-   
-2. **Request Payload Assembly**:
-```
+#### **Site Configuration** (`definitions/sites/`)
+```json
 {
-  entityId: "component-or-container-id"
-  pageDefinition: "source_page.json"
-  urlParams: { key: value, ... }
-  isSecured: boolean // client hint only
+  "type": "top_bar/type_2",
+  "branding": { "title": "Portfolio" },
+  "navigation": {
+    "defaultNavigation": { "hash": "summary-main-container/visible.about" },
+    "tabs": [
+      {
+        "label": "About", "target": "summary-main-container", 
+        "tabId": "about", "state": "visible", "protected": false
+      }
+    ]
+  }
 }
 ```
 
-#### **API Processing** (Current vs Desired):
+---
 
-**Current API Behavior**:
-1. Manually loads page definition JSON
-2. Manually searches for component in objects array
-3. Manually extracts component specification
-4. Manually loads component loader
-5. Manually calls loader with parameters
-6. Returns HTML content
+## ⚡ Runtime Dynamic Content Loading Flow ✅ **UPDATED ARCHITECTURE**
 
-**Desired API Behavior**:
-1. Route request to Page Builder
-2. Pass entity ID, page definition, and mode
-3. Let builder handle everything
-4. Return whatever builder returns
+### **Trigger Events**:
+1. **Hash Navigation**: User clicks navigation links or URL hash changes
+2. **Programmatic Navigation**: JavaScript calls `window.globalNavigator.navigate()`
+3. **Direct Navigation**: Direct calls to navigation handlers
 
-#### **Page Builder Processing** (Desired):
-1. **Mode Detection**: Recognize 'dynamic_content' mode
-2. **Page Loading**: Load specified page definition
-3. **Entity Finding**: Locate entity by ID in objects array
-4. **Entity Building**: Build only the requested entity
-5. **Content Return**: Return HTML content as string
+### **Phase 1: Navigation Event Processing (`GlobalNavigator`)**
 
-### **Phase 5: Content Injection and Post-Processing**
+1. **Hash Change Detection**:
+   - Listens for browser `hashchange` event
+   - Parses hash format: `elementId/state.tabId` or `elementId/state`
+   - Extracts target element ID, desired state, and optional tab parameters
 
-#### **Content Injection**:
-1. **Response Validation**: Check API response success
-2. **Content Stripping**: Remove any wrapper elements
-3. **DOM Injection**: Insert HTML into `.dynamic-content-container`
-4. **Script Execution**: Execute any embedded JavaScript
-5. **State Update**: Mark component as loaded
+2. **Navigation Validation**:
+   - Finds target element in DOM by ID
+   - Verifies element has `data-nav-handler` attribute
+   - Checks if requested state is in `allowedStates` from `data-nav-config`
+   - Validates authentication for protected elements (`data-protected="true"`)
 
-#### **Post-Processing**:
-1. **Event Dispatch**: Trigger `component:contentLoaded` event
-2. **Hook Execution**: Call `data-init-hook` functions if defined
-3. **Theme Application**: Apply current site theme
-4. **Component Initialization**: Run component-specific setup
+3. **State Calculation**:
+   - Creates new navigation state map (`Map<elementId, {state, parameters}>`)
+   - Determines which elements need state changes
+   - Stores current state for restoration
+
+### **Phase 2: Navigation Execution Sequence**
+
+#### **Current Implementation Sequence** (PROBLEM):
+1. **Dynamic Content Loading** → `handleDynamicContentLoading()`
+2. **State Application** → `applyNavigationState()`
+3. **Restoration** → `restorePreviousElements()`
+
+#### **Correct Sequence** (NEEDED):
+1. **Visibility Changes** → Apply state changes first
+2. **State Passing** → Call local navigation handlers
+3. **Dynamic Content Loading** → Load content only for visible elements
+
+### **Phase 3: Dynamic Content Loading Coordination**
+
+1. **Site-Level Handler** (`TopBarSiteDynamicContent`):
+   - Called by `GlobalNavigator.handleDynamicContentLoading()`
+   - Filters out protected elements for unauthenticated users
+   - Manages loading queue to prevent duplicate requests
+   - Calls `loadContainerContentInternal()` for each visible container
+
+2. **Container Scanning**:
+   - Only processes containers with `state === 'visible'`
+   - Scans for `[data-dynamic="true"]` elements within container
+   - Skips already loaded content (`data-loading-state !== 'loaded'`)
+   - Validates security permissions for protected components
+
+### **Phase 4: Component Loading Process (`DynamicContentLoader`)**
+
+1. **Metadata Extraction**:
+   - Reads `data-component-metadata` JSON from component shell
+   - Extracts: `componentSpec`, `componentId`, `componentData`, `pageDefinition`
+   - Gets current URL parameters for context
+
+2. **Request Payload** (`endpoints/dynamic_content_t1.php`):
+```json
+{
+  "componentId": "my-experience", 
+  "pageDefinition": "experience_page_t1.json",
+  "isSecured": false,
+  "urlParams": { "project": "ai-platform", "tab": "details" }
+}
+```
+
+3. **API Processing** (**CURRENT IMPLEMENTATION**):
+   - Validates page definition file name format
+   - Loads page JSON from `definitions/pages/{pageDefinition}`
+   - **Recursively searches** objects array (flat + nested) for component by ID
+   - **Manually extracts** component specification and validates `dynamic=true`
+   - **Directly loads** component loader from `blocks/components/{type}/{version}/`
+   - **Bypasses Builder** - manually calls loader with `'content'` mode
+   - Handles variant-based data resolution (`data[variant]`)
+   - Enforces security: checks session authentication for protected components
+
+4. **Component Loader Execution**:
+   - Calls `loader->load($id, $title, $navigationConfig, 'content', $metadata)`
+   - `'content'` mode returns only inner content (no shell/wrapper)
+   - Returns raw HTML content for injection
+
+### **Phase 5: Content Injection and Finalization**
+
+1. **Response Processing**:
+   - Validates JSON response success
+   - Extracts content from API response
+   - Caches content (skipped for protected components)
+
+2. **DOM Injection**:
+   - Finds `.dynamic-content-container` within component shell
+   - Injects HTML content directly
+   - Sets `data-loading-state="loaded"` on component element
+
+3. **Post-Processing**:
+   - Dispatches `component:contentLoaded` event
+   - Executes any embedded JavaScript in loaded content
+   - Calls `data-init-hook` functions if defined
+   - Applies current theme classes and styles
 
 ---
 
@@ -261,32 +324,60 @@ HTML Response → Content Injection → Post-Processing
 
 ---
 
-## 🚨 Current Architecture Issues
+## ✅ Architecture Issues - RESOLVED
 
-### **1. API Bypasses Page Builder**
-- **Problem**: API manually implements component loading logic
-- **Solution**: API should route all requests to page builder
-- **Benefit**: Single source of truth for content generation
+### **1. API Integration with Page Builder** ✅ **FIXED**
+- **Solution**: `endpoints/dynamic_content_t1.php` now uses unified dictionary-driven builder
+  - **Object extraction**: Finds components in page definitions
+  - **Mini-dictionary creation**: Assembles objects array for builder
+  - **Builder delegation**: Uses same `$builder->build($dictionary)` method
+  - **No code duplication**: All logic centralized in builder
+### **2. Page Builder Context Agnosticism** ✅ **FIXED**
+- **Solution**: `PortfolioBuilder` now completely agnostic to build context
+  - **Dictionary input**: Accepts unified data structure instead of profile names
+  - **Context-agnostic**: Same logic for full sites vs. dynamic content
+  - **File reading separation**: No file I/O in builder, handled upstream
+  - No capability to build individual components/containers
+  - No dynamic content mode parameter support
+  - Cannot isolate single entity from page definition
+- **Solution**: Add `buildEntity($pageDefinition, $entityId, $mode)` method
+- **Benefit**: Single source of truth for all content generation
 
-### **2. Page Builder Lacks Dynamic Mode**
-- **Problem**: Builder only supports full page building
-- **Solution**: Add dynamic content building mode
-- **Benefit**: Unified building logic for all scenarios
+### **3. Incorrect Navigation Execution Sequence**
+- **Problem**: `GlobalNavigator.executeNavigation()` runs in wrong order:
+  1. `handleDynamicContentLoading()` ← **RUNS FIRST** 
+  2. `applyNavigationState()` ← Should run first
+  3. `restorePreviousElements()` ← Should run last
+- **Impact**: Content loads before elements are visible, wasting resources
+- **Solution**: Reorder to: Visibility → State → Dynamic Loading
 
-### **3. Incorrect Dynamic Loading Sequence**
-- **Problem**: Dynamic loading happens before visibility changes
-- **Solution**: Change sequence to Visibility → State → Dynamic Loading
-- **Benefit**: Content loads only when actually needed
-
-### **4. No Container Dynamic Support**
+### **4. No Container Dynamic Support in API**
 - **Problem**: API only handles components, not containers
-- **Solution**: Make API entity-agnostic (components AND containers)
-- **Benefit**: Unified handling of all dynamic content
+  - `$componentObject['component']` assumes component type
+  - Containers use same `component` field but API doesn't handle them
+  - No logic for dynamic containers loading all nested content
+- **Solution**: Make API entity-type agnostic (handle both types)
 
-### **5. Inconsistent Data Structures**
-- **Problem**: Different metadata formats between initial and dynamic loading
-- **Solution**: Standardize metadata structure across all scenarios
-- **Benefit**: Simplified debugging and maintenance
+### **5. Duplicate Component Loading Logic**
+- **Problem**: Builder and API implement same logic differently:
+  - **Builder**: Uses reflection, supports all loader types, comprehensive metadata
+  - **API**: Hardcoded 5-parameter requirement, simplified metadata, bypasses builder validation
+  - **Result**: Inconsistent behavior between initial and dynamic loading
+- **Solution**: Consolidate all component loading through builder
+
+### **6. Inconsistent Security Model**
+- **Problem**: Multiple security validation points with different logic:
+  - Builder: `$isProtected = isset($navigationConfig['protected'])` 
+  - API: `$isProtected = !empty($componentObject['protected']) || (!empty($componentObject['navigation']['protected']))`
+  - Client: `data-protected="true"` attribute checks
+- **Solution**: Standardize security checks across all layers
+
+### **7. No Dynamic Container Architecture**
+- **Problem**: System assumes only components can be dynamic
+  - No concept of dynamic containers that load all nested content
+  - API search logic doesn't distinguish container vs component dynamic loading
+  - Missing batch loading for container hierarchies
+- **Solution**: Add container dynamic loading with single API call for all children
 
 ---
 
@@ -319,22 +410,62 @@ HTML Response → Content Injection → Post-Processing
 
 ---
 
-## 📋 Implementation Priority
+## 🔒 Security Model ✅ **IMPLEMENTED**
 
-### **Phase 1: Core Architecture Fixes**
-1. Add dynamic content mode to page builder
-2. Simplify API to route to page builder
-3. Fix navigation sequence (visibility → state → dynamic loading)
+### **Security-First Design Principles**:
 
-### **Phase 2: Enhanced Features**
-1. Add container dynamic loading support
-2. Implement unified security model
-3. Standardize metadata structures
+1. **Protected = Dynamic Rule** ✅ **ENFORCED**:
+   - Any object marked `protected: true` automatically becomes `dynamic: true` during dictionary assembly
+   - Ensures protected content shows as shells on initial load
+   - Enforced in `index.php` during dictionary assembly phase
+
+2. **Authentication Before Builder** ✅ **IMPLEMENTED**:
+   - Dynamic API validates authentication BEFORE calling builder
+   - HTTP 401 response for unauthorized access to protected content
+   - No builder execution for failed authentication
+
+3. **Content Mode Enforcement** ✅ **IMPLEMENTED**:
+   - Dynamic API forces `dynamic: false` for all objects in content mode
+   - Prevents shells from being returned in API responses
+   - Ensures actual content is delivered after authentication
+
+4. **Security Validation Points**:
+   - **Initial Load**: `index.php` enforces protected → dynamic rule
+   - **Dynamic API**: `endpoints/dynamic_content_t1.php` validates auth before processing
+   - **Builder**: Respects dynamic flags without internal security logic
+
+### **Protected Content Flow**:
+```
+Initial Load: protected=true → dynamic=true → shows shell
+User Authentication: login → session established
+Dynamic Request: auth validation → dynamic=false → content returned
+```
+
+---
+
+## 📋 Implementation Priority ✅ **UPDATED**
+
+### **Phase 1: Core Architecture Fixes** ✅ **COMPLETED**
+1. ✅ **Dictionary-driven builder**: Unified architecture implemented
+2. ✅ **API routes to builder**: Dynamic API now uses page builder
+3. ⏳ **Navigation sequence**: Visibility → State → Dynamic Loading (pending)
+
+### **Phase 2: Enhanced Features** 
+1. ✅ **Container dynamic loading**: Implemented with object extraction
+2. ✅ **Unified security model**: Security-first design implemented
+3. ⏳ **Standardized metadata structures**: Partially completed
 
 ### **Phase 3: Optimization**
 1. Implement advanced caching strategies
 2. Add performance monitoring
 3. Optimize for large-scale deployments
+
+---
+
+## 📋 Related Documentation
+
+For detailed end-to-end flow scenarios with complete file processing steps, see:
+- **[Ideal End-to-End Flows](ideal_end_to_end_flows.md)** - Complete walkthrough of all scenarios with file details, data structures, and processing logic
 
 ---
 

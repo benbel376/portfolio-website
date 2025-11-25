@@ -1,7 +1,8 @@
 <?php
 /**
  * Dynamic Content Loading Endpoint
- * Handles requests for dynamic component content loading
+ * Dictionary-driven approach: Extract object → Create mini-dictionary → Pass to builder
+ * Validates authentication BEFORE builder call for protected content
  */
 
 header('Content-Type: application/json');
@@ -15,7 +16,94 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
+// Include builder and helper functions
+require_once __DIR__ . '/../builders/builder_t1.php';
+
+/**
+ * Load and parse JSON file with error handling (shared with index.php)
+ */
+function loadJsonFile($filepath, $debugMode = false) {
+    if (!file_exists($filepath)) {
+        throw new Exception("Configuration file not found: $filepath");
+    }
+    
+    $content = file_get_contents($filepath);
+    $json = json_decode($content, true);
+    
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        throw new Exception("Invalid JSON in file: $filepath");
+    }
+    
+    if ($debugMode) {
+        error_log("DYNAMIC API DEBUG: Loaded JSON file: $filepath");
+    }
+    
+    return $json;
+}
+
+/**
+ * Extract single object and its dependencies from page definition
+ * Returns flattened array of objects needed for the requested component/container
+ */
+function extractObjectAndDependencies($pageObjects, $targetId, $debugMode = false) {
+    $found = [];
+    
+    $searchFunc = function($objects, $depth = 0) use (&$searchFunc, $targetId, &$found, $debugMode) {
+        if (!is_array($objects)) return false;
+        
+        foreach ($objects as $obj) {
+            if (($obj['id'] ?? null) === $targetId) {
+                // Found target - include it and all its nested objects
+                $found[] = $obj;
+                
+                if (isset($obj['objects']) && is_array($obj['objects'])) {
+                    // Recursively add all nested objects
+                    $nestedObjects = flattenObjects($obj['objects'], $debugMode);
+                    $found = array_merge($found, $nestedObjects);
+                }
+                
+                if ($debugMode) {
+                    error_log("DYNAMIC API DEBUG: Found target object '$targetId' with " . count($found) . " total objects");
+                }
+                return true;
+            }
+            
+            // Search in nested objects
+            if (isset($obj['objects']) && is_array($obj['objects'])) {
+                if ($searchFunc($obj['objects'], $depth + 1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    
+    $searchFunc($pageObjects);
+    return $found;
+}
+
+/**
+ * Flatten object hierarchy into single array (shared with index.php)
+ */
+function flattenObjects($objects, $debugMode = false) {
+    $flattened = [];
+    
+    foreach ($objects as $object) {
+        $flattened[] = $object;
+        
+        if (isset($object['objects']) && is_array($object['objects'])) {
+            $nestedFlattened = flattenObjects($object['objects'], $debugMode);
+            $flattened = array_merge($flattened, $nestedFlattened);
+        }
+    }
+    
+    return $flattened;
+}
+
 try {
+    // Enable debug mode for development
+    $debugMode = false;
+    
     // Only allow POST requests for content loading
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception('Only POST requests are allowed');
@@ -23,6 +111,15 @@ try {
     
     // Get request data
     $input = file_get_contents('php://input');
+    
+    // For testing: allow fallback to global test input
+    if (empty($input) && isset($GLOBALS['_test_input'])) {
+        $input = $GLOBALS['_test_input'];
+        if ($debugMode) {
+            error_log("DYNAMIC API DEBUG: Using test input data");
+        }
+    }
+    
     $requestData = json_decode($input, true);
     
     if (json_last_error() !== JSON_ERROR_NONE) {
@@ -30,206 +127,238 @@ try {
     }
     
     // Validate required parameters
-    $requiredParams = ['componentId', 'pageDefinition'];
-    foreach ($requiredParams as $param) {
-        if (!isset($requestData[$param])) {
-            throw new Exception("Missing required parameter: $param");
-        }
+    if (!isset($requestData['pageDefinition'])) {
+        throw new Exception("Missing required parameter: pageDefinition");
     }
     
-    $componentId = $requestData['componentId'];
     $pageDefinition = $requestData['pageDefinition'];
-    $isSecuredHint = $requestData['isSecured'] ?? false; // Client hint, not trusted
+    $componentId = $requestData['componentId'] ?? null; // Optional - for component-specific loading
+    $containerId = $requestData['containerId'] ?? null; // Optional - for page-level loading
     $urlParams = $requestData['urlParams'] ?? []; // URL parameters from client
+    
+    // Determine request type
+    $requestType = 'unknown';
+    if ($componentId) {
+        $requestType = 'component';
+    } elseif ($containerId) {
+        $requestType = 'page-container';
+    } else {
+        $requestType = 'full-page';
+    }
     
     // Security: Validate page definition file name
     if (!preg_match('/^[a-zA-Z0-9_\-]+\.json$/', $pageDefinition)) {
         throw new Exception('Invalid page definition format');
     }
     
-    // Component spec will be extracted from the page definition
-    
-    // Load the page definition to verify the component exists
-    $pageDefinitionPath = '../definitions/pages/' . $pageDefinition;
-    if (!file_exists($pageDefinitionPath)) {
-        throw new Exception('Page definition not found');
+    if ($debugMode) {
+        error_log("DYNAMIC API DEBUG: $requestType request - componentId='$componentId', containerId='$containerId', page='$pageDefinition'");
     }
     
-    $pageConfig = json_decode(file_get_contents($pageDefinitionPath), true);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        throw new Exception('Invalid JSON in page definition');
-    }
-    
-    // Find the specific component in the page definition (support flat and nested)
-    $componentFound = false;
-    $componentObject = null;
-
-    $searchFunc = function($objects) use (&$searchFunc, $componentId, &$componentFound, &$componentObject) {
-        if (!is_array($objects)) return;
-        foreach ($objects as $obj) {
-            if (($obj['id'] ?? null) === $componentId) {
-                $componentFound = true;
-                $componentObject = $obj;
-                return;
-            }
-            if (!empty($obj['objects'])) {
-                $searchFunc($obj['objects']);
-                if ($componentFound) return;
-            }
-        }
-    };
-
-    $searchFunc($pageConfig['objects'] ?? []);
-    
-    if (!$componentFound) {
-        throw new Exception('Component not found in page definition');
-    }
-    
-    // Extract component specification from the found component
-    $componentSpec = $componentObject['component'] ?? null;
-    if (!$componentSpec) {
-        throw new Exception('Component specification not found');
-    }
-    
-    // Security: Validate component spec format
-    if (!preg_match('/^[a-zA-Z0-9_\-]+\/[a-zA-Z0-9_\-]+$/', $componentSpec)) {
-        throw new Exception('Invalid component specification format');
-    }
-    
-    // Verify the component is marked as dynamic
-    if (!isset($componentObject['dynamic']) || !$componentObject['dynamic']) {
-        throw new Exception('Component is not configured for dynamic loading');
-    }
-
-    // Enforce protection: require authenticated session for protected components
-    $isProtected = !empty($componentObject['protected']) || (!empty($componentObject['navigation']['protected']));
-    if ($isProtected) {
-        session_start();
-        $authed = !empty($_SESSION['auth']) && $_SESSION['auth'] === true;
-        if (!$authed) {
-            http_response_code(401);
-            echo json_encode([
-                'success' => false,
-                'error' => 'Unauthorized',
-                'timestamp' => time()
-            ]);
-            exit();
-        }
-    }
-    
-    // Include the builder to access component loading functionality
-    require_once '../builders/builder_t1.php';
-    
-    // Parse component specification
-    $parts = explode('/', $componentSpec);
-    $componentType = $parts[0];
-    $version = $parts[1] ?? 'type_1';
-    
-    // Determine component path
-    $componentPath = '../blocks/components/' . $componentType . '/' . $version;
-    
-    // Find and include the loader
-    $loaderFiles = glob($componentPath . '/*loader*.php');
-    if (empty($loaderFiles)) {
-        throw new Exception('Component loader not found');
-    }
-    
-    $loaderFile = $loaderFiles[0];
-    require_once $loaderFile;
-    
-    // Find the loader class
-    $loaderClasses = get_declared_classes();
-    $loaderClass = null;
-    
-    foreach ($loaderClasses as $class) {
-        if (stripos($class, 'loader') !== false) {
-            $loaderClass = $class;
-            break;
-        }
-    }
-    
-    if (!$loaderClass || !class_exists($loaderClass)) {
-        throw new Exception('Loader class not found');
-    }
-    
-    // Create loader instance
-    $loader = new $loaderClass();
-    
-    // Check if loader supports content mode
-    $reflection = new ReflectionMethod($loader, 'load');
-    $paramCount = $reflection->getNumberOfParameters();
-    
-    if ($paramCount < 5) {
-        throw new Exception('Component loader does not support dynamic content loading');
-    }
-    
-    // Set URL parameters for the PHP loader
+    // Set URL parameters for loaders that need them
     if (!empty($urlParams)) {
         foreach ($urlParams as $key => $value) {
             $_GET[$key] = $value;
         }
+        if ($debugMode) {
+            error_log("DYNAMIC API DEBUG: Set URL params: " . json_encode($urlParams));
+        }
     }
-
-    // Extract navigation config first
-    $navigationConfig = $componentObject['navigation'] ?? [];
     
-    // Support variant-based data map: data[variant]
-    if (!isset($componentObject['variant'])) {
-        throw new Exception("Missing 'variant' for component: $componentId");
-    }
-    if (!isset($componentObject['data']) || !is_array($componentObject['data'])) {
-        throw new Exception("Missing or invalid 'data' map for component: $componentId");
-    }
-    $variantKey = $componentObject['variant'];
-    if (!isset($componentObject['data'][$variantKey]) || !is_array($componentObject['data'][$variantKey])) {
-        throw new Exception("Variant '$variantKey' not found in data for component: $componentId");
-    }
-    $componentData = $componentObject['data'][$variantKey];
-    $title = $componentData['title'] ?? 'Default Title';
-
-    // Generate content using the loader, passing component data via metadata for rich components
-    $content = $loader->load($componentId, $title, $navigationConfig, 'content', [
-        'componentSpec' => $componentSpec,
-        'componentId' => $componentId,
-        'componentData' => $componentData,
-        'pageDefinition' => $pageDefinition,
-        'buildTime' => time()
-    ]);
+    // STEP 1: Load page definition
+    $pageDefinitionPath = __DIR__ . '/../definitions/pages/' . $pageDefinition;
+    $pageConfig = loadJsonFile($pageDefinitionPath, $debugMode);
     
-    // Parse wrapper to check security status
-    $finalContent = $content;
-    if (preg_match('/<div\s+data-component-wrapper="true"\s+data-secured="([^"]+)"\s+data-component-id="[^"]*"[^>]*>(.*?)<\/div>/s', $content, $matches)) {
-        $actualSecurityStatus = $matches[1] === 'true';
-        $wrappedContent = $matches[2];
+    // STEP 2: Extract objects based on request type
+    $targetObject = null;
+    
+    if ($requestType === 'component') {
+        // Component-specific request: extract single component and dependencies
+        if ($debugMode) {
+            error_log("DYNAMIC API DEBUG: Component-specific request for '$componentId'");
+        }
         
-        // Final security check - validate against actual component security
-        if ($actualSecurityStatus) {
-            // This is a secured component, check authentication
-            session_start();
-            $authed = !empty($_SESSION['auth']) && $_SESSION['auth'] === true;
-            if (!$authed) {
+        $objects = extractObjectAndDependencies($pageConfig['objects'] ?? [], $componentId, $debugMode);
+        
+        if (empty($objects)) {
+            throw new Exception("Component '$componentId' not found in page definition");
+        }
+        
+        // Get the main target object (first one is always the target)
+        $targetObject = $objects[0];
+        
+        // Verify component is configured for dynamic loading
+        if (!isset($targetObject['dynamic']) || !$targetObject['dynamic']) {
+            throw new Exception("Component '$componentId' is not configured for dynamic loading");
+        }
+        
+    } elseif ($requestType === 'page-container') {
+        // Page-level request for specific container: load entire page but focus on container
+        if ($debugMode) {
+            error_log("DYNAMIC API DEBUG: Page-level request for container '$containerId' from page '$pageDefinition'");
+        }
+        
+        $objects = flattenObjects($pageConfig['objects'] ?? [], $debugMode);
+        
+        // Find the target container in the objects
+        foreach ($objects as $object) {
+            if ($object['id'] === $containerId) {
+                $targetObject = $object;
+                break;
+            }
+        }
+        
+        if (!$targetObject) {
+            throw new Exception("Container '$containerId' not found in page definition");
+        }
+        
+    } else {
+        // Full page request: load entire page
+        if ($debugMode) {
+            error_log("DYNAMIC API DEBUG: Full page request for '$pageDefinition'");
+        }
+        
+        $objects = flattenObjects($pageConfig['objects'] ?? [], $debugMode);
+        // No specific target for full page requests
+    }
+    
+    // STEP 3: Security validation BEFORE builder call
+    session_start();
+    $authed = !empty($_SESSION['auth']) && $_SESSION['auth'] === true;
+    
+    // Security validation for specific targets (component or container)
+    if ($targetObject) {
+        $isProtected = false;
+        
+        // Check protection in navigation config
+        if (isset($targetObject['navigation']['protected'])) {
+            $isProtected = (bool)$targetObject['navigation']['protected'];
+        }
+        
+        // Also check direct protected flag (backup)
+        if (isset($targetObject['protected'])) {
+            $isProtected = $isProtected || (bool)$targetObject['protected'];
+        }
+        
+        // CRITICAL: Enforce authentication for protected content
+        if ($isProtected && !$authed) {
+            $targetId = $componentId ?? $containerId ?? 'unknown';
+            if ($debugMode) {
+                error_log("DYNAMIC API DEBUG: Authentication failed for protected $requestType '$targetId'");
+            }
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Unauthorized access to protected content',
+                'timestamp' => time()
+            ]);
+            exit();
+        }
+        
+        if ($debugMode && $isProtected) {
+            $targetId = $componentId ?? $containerId ?? 'unknown';
+            error_log("DYNAMIC API DEBUG: Authentication successful for protected $requestType '$targetId'");
+        }
+    }
+    
+    // For full page requests, check if any objects are protected
+    if ($requestType === 'full-page') {
+        foreach ($objects as $object) {
+            $isObjectProtected = false;
+            
+            if (isset($object['navigation']['protected'])) {
+                $isObjectProtected = (bool)$object['navigation']['protected'];
+            }
+            if (isset($object['protected'])) {
+                $isObjectProtected = $isObjectProtected || (bool)$object['protected'];
+            }
+            
+            if ($isObjectProtected && !$authed) {
+                if ($debugMode) {
+                    $objId = $object['id'] ?? 'no-id';
+                    error_log("DYNAMIC API DEBUG: Authentication failed for protected object '$objId' in full page request");
+                }
                 http_response_code(401);
                 echo json_encode([
                     'success' => false,
-                    'error' => 'Unauthorized access to secured component',
+                    'error' => 'Unauthorized access to protected content',
                     'timestamp' => time()
                 ]);
                 exit();
             }
         }
-        
-        // Strip wrapper for client injection
-        $finalContent = $wrappedContent;
     }
     
-    // Return successful response
-    echo json_encode([
+    // STEP 4: Apply dynamic flag management according to request type and authentication
+    foreach ($objects as &$object) {
+        $isObjectProtected = false;
+        
+        // Check if object is protected
+        if (isset($object['navigation']['protected'])) {
+            $isObjectProtected = (bool)$object['navigation']['protected'];
+        }
+        if (isset($object['protected'])) {
+            $isObjectProtected = $isObjectProtected || (bool)$object['protected'];
+        }
+        
+        if ($isObjectProtected) {
+            // Protected object: dynamic = false only if authenticated, otherwise keep as dynamic
+            $object['dynamic'] = $authed ? false : true;
+            if ($debugMode) {
+                $objId = $object['id'] ?? 'no-id';
+                $dynamicState = $authed ? 'false (authenticated)' : 'true (not authenticated)';
+                error_log("DYNAMIC API DEBUG: Protected object '$objId' dynamic=$dynamicState");
+            }
+        } else {
+            // Non-protected object: always set dynamic = false (content mode)
+            $object['dynamic'] = false;
+            if ($debugMode) {
+                $objId = $object['id'] ?? 'no-id';
+                error_log("DYNAMIC API DEBUG: Non-protected object '$objId' dynamic=false");
+            }
+        }
+    }
+    
+    // STEP 5: Create mini-dictionary for builder
+    $targetIdentifier = $componentId ?? $containerId ?? 'all';
+    $dictionary = [
+        'site' => null, // No site wrapper for dynamic content
+        'objects' => $objects,
+        'pageDefinition' => 'dynamic_' . $pageDefinition . '_' . $requestType . '_' . $targetIdentifier
+    ];
+    
+    if ($debugMode) {
+        error_log("DYNAMIC API DEBUG: Created dictionary with " . count($objects) . " objects");
+    }
+    
+    // STEP 6: Use builder to generate content
+    $builder = new PortfolioBuilder(__DIR__ . '/..', $debugMode);
+    $content = $builder->build($dictionary);
+    
+    if ($debugMode) {
+        error_log("DYNAMIC API DEBUG: Builder returned content length: " . strlen($content));
+    }
+    
+    // STEP 7: Return successful response
+    $responseData = [
         'success' => true,
-        'content' => $finalContent,
-        'componentId' => $componentId,
-        'timestamp' => time(),
-        'cacheKey' => md5($componentSpec . $componentId . serialize($componentData))
-    ]);
+        'content' => $content,
+        'requestType' => $requestType,
+        'objectCount' => count($objects),
+        'timestamp' => time()
+    ];
+    
+    // Add type-specific response data
+    if ($componentId) {
+        $responseData['componentId'] = $componentId;
+    }
+    if ($containerId) {
+        $responseData['containerId'] = $containerId;
+    }
+    $responseData['pageDefinition'] = $pageDefinition;
+    $responseData['cacheKey'] = md5($targetIdentifier . $pageDefinition . serialize($objects));
+    
+    echo json_encode($responseData);
     
 } catch (Exception $e) {
     // Return error response

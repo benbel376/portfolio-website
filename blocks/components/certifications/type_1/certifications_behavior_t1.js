@@ -3,9 +3,9 @@
  * Handles slideshow navigation, pagination, and dynamic content rendering
  */
 
-// Global certifications data storage
-let certificationsData = [];
-let currentSlideIndex = 0;
+// Global certifications data storage (avoid conflicts with multiple script loads)
+window.certificationsData = window.certificationsData || [];
+window.window.currentSlideIndex = window.window.currentSlideIndex || 0;
 
 /**
  * Initialize the certifications slideshow component
@@ -25,7 +25,7 @@ function initializeCertifications() {
     console.log('Certifications: Slide container found:', !!slideContainer);
     
     // Check if we have data to render
-    if (certificationsData.length > 0) {
+    if (window.certificationsData.length > 0) {
         console.log('Certifications: Rendering with existing data');
         renderCertificationsSlideshow();
     } else {
@@ -42,8 +42,8 @@ function initializeCertifications() {
  */
 function setCertificationsData(data) {
     console.log('Certifications: Setting certifications data:', data);
-    certificationsData = data || [];
-    currentSlideIndex = 0;
+    window.certificationsData = data || [];
+    window.currentSlideIndex = 0;
     
     // If component is already initialized, render the data
     const slideContainer = document.getElementById('certifications-slide-container');
@@ -51,6 +51,9 @@ function setCertificationsData(data) {
         renderCertificationsSlideshow();
     }
 }
+
+// Make setCertificationsData available globally
+window.setCertificationsData = setCertificationsData;
 
 /**
  * Render the certifications slideshow
@@ -70,13 +73,13 @@ function renderCertificationsSlideshow() {
     }
     
     // Check if we have certifications data
-    if (!certificationsData || certificationsData.length === 0) {
+    if (!window.certificationsData || window.certificationsData.length === 0) {
         showEmptyState();
         return;
     }
     
     // Render each certification slide
-    certificationsData.forEach((certification, index) => {
+    window.certificationsData.forEach((certification, index) => {
         const slide = createCertificationSlide(certification, index);
         slideContainer.appendChild(slide);
     });
@@ -90,7 +93,7 @@ function renderCertificationsSlideshow() {
     // Update navigation buttons
     updateNavigationButtons();
     
-    console.log('Certifications: Rendered', certificationsData.length, 'certification slides');
+    console.log('Certifications: Rendered', window.certificationsData.length, 'certification slides');
 }
 
 /**
@@ -150,7 +153,7 @@ function showSlide(index) {
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
     
-    currentSlideIndex = index;
+    window.window.currentSlideIndex = index;
     
     // Hide all slides
     slides.forEach(slide => {
@@ -178,13 +181,13 @@ function initializeNavigation() {
     
     if (prevButton) {
         prevButton.addEventListener('click', () => {
-            showSlide(currentSlideIndex - 1);
+            showSlide(window.currentSlideIndex - 1);
         });
     }
     
     if (nextButton) {
         nextButton.addEventListener('click', () => {
-            showSlide(currentSlideIndex + 1);
+            showSlide(window.currentSlideIndex + 1);
         });
     }
     
@@ -193,10 +196,10 @@ function initializeNavigation() {
         if (document.activeElement && document.activeElement.closest('.certifications-component')) {
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
-                showSlide(currentSlideIndex - 1);
+                showSlide(window.currentSlideIndex - 1);
             } else if (e.key === 'ArrowRight') {
                 e.preventDefault();
-                showSlide(currentSlideIndex + 1);
+                showSlide(window.currentSlideIndex + 1);
             }
         }
     });
@@ -208,13 +211,13 @@ function initializeNavigation() {
 function renderPagination() {
     const paginationContainer = document.getElementById('certifications-pagination');
     
-    if (!paginationContainer || certificationsData.length === 0) return;
+    if (!paginationContainer || window.certificationsData.length === 0) return;
     
     // Clear existing pagination
     paginationContainer.innerHTML = '';
     
     // Create pagination dots
-    certificationsData.forEach((_, index) => {
+    window.certificationsData.forEach((_, index) => {
         const dot = document.createElement('button');
         dot.className = 'certifications__pagination-dot';
         dot.setAttribute('data-slide-index', index);
@@ -235,7 +238,7 @@ function updatePagination() {
     const dots = document.querySelectorAll('.certifications__pagination-dot');
     
     dots.forEach((dot, index) => {
-        if (index === currentSlideIndex) {
+        if (index === window.currentSlideIndex) {
             dot.classList.add('active');
         } else {
             dot.classList.remove('active');
@@ -253,8 +256,8 @@ function updateNavigationButtons() {
     if (!prevButton || !nextButton) return;
     
     // Enable/disable buttons based on current position
-    prevButton.disabled = currentSlideIndex === 0;
-    nextButton.disabled = currentSlideIndex === certificationsData.length - 1;
+    prevButton.disabled = window.currentSlideIndex === 0;
+    nextButton.disabled = window.currentSlideIndex === window.certificationsData.length - 1;
 }
 
 /**
@@ -311,8 +314,8 @@ function escapeHtml(text) {
  */
 function startAutoAdvance(interval = 8000) {
     return setInterval(() => {
-        if (certificationsData.length > 1) {
-            showSlide(currentSlideIndex + 1);
+        if (window.certificationsData.length > 1) {
+            showSlide(window.currentSlideIndex + 1);
         }
     }, interval);
 }
@@ -326,7 +329,7 @@ function resetCertificationsAnimations() {
         slide.classList.remove('active');
     });
     
-    currentSlideIndex = 0;
+    window.currentSlideIndex = 0;
     if (slides.length > 0) {
         showSlide(0);
     }

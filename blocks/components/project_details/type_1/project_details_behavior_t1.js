@@ -1,49 +1,47 @@
 // Project Details Component Behavior
-class ProjectDetailsBehavior {
-    constructor() {
-        this.init();
-    }
-
-    init() {
+// Use IIFE to avoid redeclaration issues on dynamic reload
+(function() {
+    'use strict';
+    
+    function initializeProjectDetails() {
         console.log('Project Details: Initializing component...');
         console.log('Project Details: Component element found:', !!document.querySelector('.project-details'));
-        this.setupEventListeners();
+        setupEventListeners();
     }
 
-    setupEventListeners() {
-        // Back button
+    function setupEventListeners() {
+        // Back button - use event delegation to handle dynamically loaded content
         const backBtn = document.getElementById('project-back-btn');
         if (backBtn) {
-            backBtn.addEventListener('click', () => {
+            // Remove any existing listeners by cloning the button
+            const newBackBtn = backBtn.cloneNode(true);
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            
+            // Add fresh event listener
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 console.log('Project Details: Back button clicked');
-                this.handleBackToProjects();
+                handleBackToProjects();
             });
+            console.log('Project Details: Back button listener attached');
+        } else {
+            console.warn('Project Details: Back button not found');
         }
     }
 
-
-
-
-    handleBackToProjects() {
+    function handleBackToProjects() {
         console.log('Project Details: Navigating back to projects');
         
-        // Hide the project details container
-        if (window.handleVerticalContainerNavigation) {
-            window.handleVerticalContainerNavigation('project-details-main-container', 'hide');
-        }
-        
-        // Show the projects container
-        if (window.handleVerticalContainerNavigation) {
-            window.handleVerticalContainerNavigation('projects-main-container', 'show');
-        }
-        
-        // Update URL hash
+        // Update URL hash - let the navigation system handle the rest
         window.location.hash = '#projects-main-container/visible.projects';
     }
-}
 
-// Initialize the behavior
-const projectDetailsBehavior = new ProjectDetailsBehavior();
+    // Export initialization function for dynamic loading
+    window.initializeProjectDetailsComponent = initializeProjectDetails;
+
+    // Initialize on load
+    initializeProjectDetails();
+})();
 
 // Export functions for global access (navigation handler only)
 window.handleProjectDetailsNavigation = function(elementId, action, config) {
