@@ -1,9 +1,14 @@
+// Use global state to prevent redeclaration issues on dynamic reload
+window.toolsState = window.toolsState || {
+  currentCategory: null,
+  currentPage: 0,
+  itemsPerPage: 12,
+  allTools: {}
+};
+
 class ToolsBehavior {
   constructor() {
-    this.currentCategory = null;
-    this.currentPage = 0;
-    this.itemsPerPage = 12; // 2 rows x 6 columns
-    this.allTools = {};
+    this.state = window.toolsState;
     this.init();
   }
 
@@ -54,7 +59,7 @@ class ToolsBehavior {
 
   setToolsData(toolsData) {
     console.log('Tools: Setting tools data:', toolsData);
-    this.allTools = toolsData;
+    this.state.allTools = toolsData;
     const select = document.getElementById('tools-category-select');
     if (select && select.value) {
       console.log('Tools: Rendering category after data load:', select.value);
@@ -63,26 +68,26 @@ class ToolsBehavior {
   }
 
   handleCategoryChange(categoryKey) {
-    this.currentCategory = categoryKey;
-    this.currentPage = 0;
+    this.state.currentCategory = categoryKey;
+    this.state.currentPage = 0;
     this.renderCurrentPage();
     this.renderPagination();
   }
 
   renderCurrentPage() {
     const gridContainer = document.getElementById('tools-grid');
-    console.log('Tools: Rendering page for category:', this.currentCategory);
+    console.log('Tools: Rendering page for category:', this.state.currentCategory);
     console.log('Tools: Grid container found:', !!gridContainer);
-    console.log('Tools: Tools data for category:', this.allTools[this.currentCategory]);
+    console.log('Tools: Tools data for category:', this.state.allTools[this.state.currentCategory]);
     
-    if (!gridContainer || !this.allTools[this.currentCategory]) {
+    if (!gridContainer || !this.state.allTools[this.state.currentCategory]) {
       console.log('Tools: Cannot render - missing container or data');
       return;
     }
 
-    const tools = this.allTools[this.currentCategory];
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
+    const tools = this.state.allTools[this.state.currentCategory];
+    const startIndex = this.state.currentPage * this.state.itemsPerPage;
+    const endIndex = startIndex + this.state.itemsPerPage;
     const pageTools = tools.slice(startIndex, endIndex);
 
     // Clear current tools with fade out
@@ -149,22 +154,22 @@ class ToolsBehavior {
   renderPagination() {
     const dotsContainer = document.getElementById('tools-dots');
     console.log('Tools: Pagination container found:', !!dotsContainer);
-    console.log('Tools: Tools data length:', this.allTools[this.currentCategory]?.length);
+    console.log('Tools: Tools data length:', this.state.allTools[this.state.currentCategory]?.length);
     
-    if (!dotsContainer || !this.allTools[this.currentCategory]) {
+    if (!dotsContainer || !this.state.allTools[this.state.currentCategory]) {
       return;
     }
 
-    const tools = this.allTools[this.currentCategory];
-    const totalPages = Math.ceil(tools.length / this.itemsPerPage);
+    const tools = this.state.allTools[this.state.currentCategory];
+    const totalPages = Math.ceil(tools.length / this.state.itemsPerPage);
     
     dotsContainer.innerHTML = '';
 
     for (let i = 0; i < totalPages; i++) {
       const dot = document.createElement('div');
-      dot.className = `tools__dot ${i === this.currentPage ? 'tools__dot--active' : ''}`;
+      dot.className = `tools__dot ${i === this.state.currentPage ? 'tools__dot--active' : ''}`;
       dot.addEventListener('click', () => {
-        this.currentPage = i;
+        this.state.currentPage = i;
         this.renderCurrentPage();
         this.renderPagination();
       });
@@ -266,19 +271,87 @@ class ToolsBehavior {
   }
 }
 
-// Navigation handler for the framework (must be in global scope)
-function handleToolsNavigation(action, data) {
+// Global data setter function
+function setToolsData(toolsData) {
+  console.log('Tools: setToolsData called');
+  window.toolsState.allTools = toolsData || {};
+  
   if (window.toolsBehavior) {
-    window.toolsBehavior.handleToolsNavigation(action, data);
+    window.toolsBehavior.setToolsData(toolsData);
   }
 }
+window.setToolsData = setToolsData;
+
+// Navigation handler for global navigator integration
+function handleToolsNavigation(elementId, state, parameters = {}) {
+  console.log('Tools: Navigation handler called', { elementId, state, parameters });
+  const element = document.getElementById(elementId);
+  if (!element) return false;
+  
+  switch (state) {
+    case 'visible':
+      element.style.display = 'block';
+      element.classList.remove('nav-hidden');
+      element.classList.add('nav-visible');
+      break;
+    case 'hidden':
+      element.classList.remove('nav-visible');
+      element.classList.add('nav-hidden');
+      setTimeout(() => {
+        if (element.classList.contains('nav-hidden')) {
+          element.style.display = 'none';
+        }
+      }, 300);
+      break;
+    case 'scrollTo':
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      break;
+    default:
+      console.log('Tools: Unknown navigation state:', state);
+      return false;
+  }
+  return true;
+}
+window.handleToolsNavigation = handleToolsNavigation;
+
+// Init hook for dynamic content loading
+function initializeTools(componentElement) {
+  console.log('Tools: Initializing after dynamic load...');
+  
+  // Reinitialize the behavior if needed
+  if (!window.toolsBehavior) {
+    window.toolsBehavior = new ToolsBehavior();
+  } else {
+    // Rebind events
+    window.toolsBehavior.bindEvents();
+    
+    // Re-render if data exists
+    if (window.toolsState.allTools && Object.keys(window.toolsState.allTools).length > 0) {
+      const select = document.getElementById('tools-category-select');
+      if (select && select.value) {
+        window.toolsBehavior.handleCategoryChange(select.value);
+      }
+    }
+  }
+}
+window.initializeTools = initializeTools;
 
 // Initialize the behavior
 document.addEventListener('DOMContentLoaded', () => {
-  window.toolsBehavior = new ToolsBehavior();
+  if (!window.toolsBehavior) {
+    window.toolsBehavior = new ToolsBehavior();
+  }
 });
 
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ToolsBehavior;
+// Also initialize if script loads after DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!window.toolsBehavior) {
+      window.toolsBehavior = new ToolsBehavior();
+    }
+  });
+} else {
+  if (!window.toolsBehavior) {
+    window.toolsBehavior = new ToolsBehavior();
+  }
 }

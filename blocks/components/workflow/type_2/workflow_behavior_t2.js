@@ -1,7 +1,12 @@
+// Use global state to prevent redeclaration issues on dynamic reload
+window.workflowState = window.workflowState || {
+  currentScenario: null,
+  allWorkflows: {}
+};
+
 class WorkflowBehaviorT2 {
   constructor() {
-    this.currentScenario = null;
-    this.allWorkflows = {};
+    this.state = window.workflowState;
     this.init();
   }
 
@@ -40,7 +45,7 @@ class WorkflowBehaviorT2 {
 
   setWorkflowData(workflowData) {
     console.log('Workflow T2: Setting workflow data:', workflowData);
-    this.allWorkflows = workflowData;
+    this.state.allWorkflows = workflowData;
     const select = document.getElementById('workflow-scenario-select');
     if (select && select.value) {
       console.log('Workflow T2: Rendering scenario after data load:', select.value);
@@ -49,7 +54,7 @@ class WorkflowBehaviorT2 {
   }
 
   handleScenarioChange(scenarioKey) {
-    this.currentScenario = scenarioKey;
+    this.state.currentScenario = scenarioKey;
     this.updateScenarioInfo();
     this.renderWorkflow();
   }
@@ -65,7 +70,7 @@ class WorkflowBehaviorT2 {
     }
 
     // Get the scenario data from the workflow data structure
-    const scenarioData = this.getScenarioMetadata(this.currentScenario);
+    const scenarioData = this.getScenarioMetadata(this.state.currentScenario);
     
     if (scenarioData) {
       // Animate out
@@ -83,7 +88,7 @@ class WorkflowBehaviorT2 {
           'scenario_1': 'code-slash-outline', // Full-Stack Development
           'scenario_2': 'analytics-outline'   // Data Analytics Projects
         };
-        iconElement.setAttribute('name', iconMap[this.currentScenario] || 'git-network-outline');
+        iconElement.setAttribute('name', iconMap[this.state.currentScenario] || 'git-network-outline');
         
         // Animate in
         titleElement.style.opacity = '1';
@@ -102,14 +107,14 @@ class WorkflowBehaviorT2 {
   renderWorkflow() {
     const stepsContainer = document.getElementById('workflow-steps-list');
     console.log('Workflow T2: Steps container found:', !!stepsContainer);
-    console.log('Workflow T2: Workflow data for scenario:', this.allWorkflows[this.currentScenario]);
+    console.log('Workflow T2: Workflow data for scenario:', this.state.allWorkflows[this.state.currentScenario]);
     
-    if (!stepsContainer || !this.allWorkflows[this.currentScenario]) {
+    if (!stepsContainer || !this.state.allWorkflows[this.state.currentScenario]) {
       console.log('Workflow T2: Cannot render - missing container or data');
       return;
     }
 
-    const workflowSteps = this.allWorkflows[this.currentScenario];
+    const workflowSteps = this.state.allWorkflows[this.state.currentScenario];
     
     // Clear current steps with fade out
     const currentSteps = stepsContainer.querySelectorAll('.workflow__step-item');
@@ -168,57 +173,86 @@ class WorkflowBehaviorT2 {
     console.log('Workflow T2: Step clicked');
   }
 
-  // Navigation handler for the framework
-  handleWorkflowNavigation(action, data) {
-    switch (action) {
-      case 'show':
-        this.show();
-        break;
-      case 'hide':
-        this.hide();
-        break;
-      case 'scrollTo':
-        this.scrollTo();
-        break;
-      default:
-        console.warn(`WorkflowBehaviorT2: Unknown navigation action: ${action}`);
-    }
-  }
-
-  show() {
-    const workflow = document.querySelector('.workflow');
-    if (workflow) {
-      workflow.classList.remove('nav-hidden');
-      workflow.classList.add('nav-visible');
-    }
-  }
-
-  hide() {
-    const workflow = document.querySelector('.workflow');
-    if (workflow) {
-      workflow.classList.remove('nav-visible');
-      workflow.classList.add('nav-hidden');
-    }
-  }
-
-  scrollTo() {
-    const workflow = document.querySelector('.workflow');
-    if (workflow) {
-      workflow.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
 }
 
-// Navigation handler for the framework (must be in global scope)
-function handleWorkflowNavigation(action, data) {
+// Navigation handler - Standard signature (elementId, state, parameters)
+function handleWorkflowNavigation(elementId, state, parameters = {}) {
+  const element = document.getElementById(elementId);
+  if (!element) return false;
+
+  switch (state) {
+    case 'visible':
+      element.style.display = 'block';
+      element.classList.remove('nav-hidden');
+      element.classList.add('nav-visible');
+      break;
+    case 'hidden':
+      element.classList.remove('nav-visible');
+      element.classList.add('nav-hidden');
+      setTimeout(() => {
+        if (element.classList.contains('nav-hidden')) {
+          element.style.display = 'none';
+        }
+      }, 300);
+      break;
+    case 'scrollTo':
+      element.scrollIntoView({ behavior: 'smooth' });
+      break;
+    default:
+      console.warn(`Workflow: Unknown navigation state: ${state}`);
+      return false;
+  }
+  return true;
+}
+
+// Export to global scope
+window.handleWorkflowNavigation = handleWorkflowNavigation;
+
+// Data setter function
+function setWorkflowData(data) {
+  console.log('Workflow T2: setWorkflowData called with data:', data);
+  
+  // Store in global state
+  if (!window.workflowState) {
+    window.workflowState = { currentScenario: null, allWorkflows: {} };
+  }
+  window.workflowState.allWorkflows = data || {};
+  
+  // If component is already initialized, pass data to the behavior instance
   if (window.workflowBehaviorT2) {
-    window.workflowBehaviorT2.handleWorkflowNavigation(action, data);
+    window.workflowBehaviorT2.setWorkflowData(data);
+  } else {
+    console.log('Workflow T2: Data stored, waiting for behavior initialization');
   }
 }
+
+// Export to global scope
+window.setWorkflowData = setWorkflowData;
+
+// Init hook for dynamic loading
+function initializeWorkflow(componentElement) {
+  console.log('Workflow T2: Initializing after dynamic load...');
+  
+  if (window.workflowData && Object.keys(window.workflowData).length > 0) {
+    // Reinitialize the behavior
+    if (window.workflowBehaviorT2) {
+      window.workflowBehaviorT2.loadInitialData();
+    }
+  }
+}
+
+// Export to global scope
+window.initializeWorkflow = initializeWorkflow;
 
 // Initialize the behavior
 document.addEventListener('DOMContentLoaded', () => {
   window.workflowBehaviorT2 = new WorkflowBehaviorT2();
+  
+  // If data was set before initialization, load it now
+  if (window.workflowState && window.workflowState.allWorkflows && Object.keys(window.workflowState.allWorkflows).length > 0) {
+    console.log('Workflow T2: Loading pre-initialized data');
+    window.workflowBehaviorT2.setWorkflowData(window.workflowState.allWorkflows);
+  }
 });
 
 // Export for module systems

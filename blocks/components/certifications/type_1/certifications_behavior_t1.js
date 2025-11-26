@@ -5,7 +5,7 @@
 
 // Global certifications data storage (avoid conflicts with multiple script loads)
 window.certificationsData = window.certificationsData || [];
-window.window.currentSlideIndex = window.window.currentSlideIndex || 0;
+window.currentSlideIndex = window.currentSlideIndex || 0;
 
 /**
  * Initialize the certifications slideshow component

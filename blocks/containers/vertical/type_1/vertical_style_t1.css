@@ -29,6 +29,13 @@
     .vertical-container {
         gap: 0.5rem;
         min-height: 150px;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .vertical-container {
+        padding: 0 0.75rem;
     }
 }
 

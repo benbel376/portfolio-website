@@ -301,16 +301,13 @@ function createProjectCard(project, index) {
 function navigateToProjectDetails(project, index) {
     console.log('Projects Grid: Navigating to project details for:', project.name);
     
-    // Navigate using the framework's navigation system (no data passing)
-    if (window.handleVerticalContainerNavigation) {
-        window.handleVerticalContainerNavigation('projects-main-container', 'hide');
-        window.handleVerticalContainerNavigation('project-details-main-container', 'show');
+    // Use the detailUrl from the project data
+    // Each project now has its own dedicated page
+    if (project.detailUrl) {
+        window.location.hash = project.detailUrl;
+    } else {
+        console.warn('Projects Grid: No detailUrl found for project:', project.name);
     }
-    
-    // Use the detailUrl from the project data, or fallback to constructed URL
-    // Note: Tab highlighting is automatic via data-parent-tab attribute, no need for .projects suffix
-    const detailUrl = project.detailUrl || `#project-details-main-container/visible?project=${encodeURIComponent(project.name)}`;
-    window.location.hash = detailUrl;
 }
 
 /**

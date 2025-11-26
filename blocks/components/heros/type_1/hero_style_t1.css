@@ -719,8 +719,8 @@ Inner ring - sized relative to avatar
 
 /* Mobile portrait */
 @media (max-width: 480px) {
-	.hero.hero-profile { padding: 12px; }
-	.hero__container { gap: 20px; padding: 0 8px; }
+	.hero.hero-profile { padding: 12px 0.75rem; }
+	.hero__container { gap: 20px; padding: 0; }
 	.hero__avatar-section { max-width: 200px; }
 	.hero__avatar img { width: 180px; height: 180px; }
 	.hero__name { font-size: var(--font-size-xl, 1.2rem); margin: 0 0 var(--spacing-1, 4px) 0; }

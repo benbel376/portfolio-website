@@ -1,11 +1,15 @@
 // Testimonials Component Behavior
+// Use global state to prevent redeclaration issues on dynamic reload
+window.testimonialsState = window.testimonialsState || {
+    currentSlide: 0,
+    testimonialsData: [],
+    slideInterval: null,
+    autoPlayDelay: 6000
+};
+
 class TestimonialsBehavior {
     constructor() {
-        this.currentSlide = 0;
-        this.testimonialsData = [];
-        this.slideInterval = null;
-        this.autoPlayDelay = 6000; // 6 seconds
-        
+        this.state = window.testimonialsState;
         this.init();
     }
 
@@ -13,8 +17,8 @@ class TestimonialsBehavior {
         this.bindEvents();
         
         // Check if data is already available
-        if (window.testimonialsData) {
-            this.setTestimonialsData(window.testimonialsData);
+        if (this.state.testimonialsData && this.state.testimonialsData.length > 0) {
+            this.renderTestimonials();
         }
     }
 
@@ -45,7 +49,7 @@ class TestimonialsBehavior {
 
     setTestimonialsData(data) {
         console.log('Testimonials: Setting testimonials data:', data);
-        this.testimonialsData = data || [];
+        this.state.testimonialsData = data || [];
         this.renderTestimonials();
         // Auto-play disabled per user request
         // this.startAutoPlay();
@@ -62,14 +66,14 @@ class TestimonialsBehavior {
             return;
         }
 
-        if (this.testimonialsData.length === 0) {
+        if (this.state.testimonialsData.length === 0) {
             console.log('Testimonials: No data available');
             slidesContainer.style.display = 'none';
             if (emptyState) emptyState.style.display = 'block';
             return;
         }
 
-        console.log('Testimonials: Rendering', this.testimonialsData.length, 'testimonials');
+        console.log('Testimonials: Rendering', this.state.testimonialsData.length, 'testimonials');
         if (emptyState) emptyState.style.display = 'none';
         slidesContainer.style.display = 'block';
 
@@ -78,7 +82,7 @@ class TestimonialsBehavior {
         if (indicatorsContainer) indicatorsContainer.innerHTML = '';
 
         // Create slides
-        this.testimonialsData.forEach((testimonial, index) => {
+        this.state.testimonialsData.forEach((testimonial, index) => {
             const slide = this.createSlide(testimonial, index);
             slidesContainer.appendChild(slide);
 
@@ -90,11 +94,11 @@ class TestimonialsBehavior {
         });
 
         // Show first slide
-        this.currentSlide = 0;
+        this.state.currentSlide = 0;
         
         // Ensure first slide is immediately visible without animation
         setTimeout(() => {
-            this.showSlide(this.currentSlide);
+            this.showSlide(this.state.currentSlide);
             this.updateNavigationButtons();
         }, 50);
     }
@@ -166,28 +170,28 @@ class TestimonialsBehavior {
     }
 
     nextSlide() {
-        if (this.testimonialsData.length === 0) return;
+        if (this.state.testimonialsData.length === 0) return;
         
-        this.currentSlide = (this.currentSlide + 1) % this.testimonialsData.length;
-        this.showSlide(this.currentSlide);
+        this.state.currentSlide = (this.state.currentSlide + 1) % this.state.testimonialsData.length;
+        this.showSlide(this.state.currentSlide);
         this.updateNavigationButtons();
         this.restartAutoPlay();
     }
 
     previousSlide() {
-        if (this.testimonialsData.length === 0) return;
+        if (this.state.testimonialsData.length === 0) return;
         
-        this.currentSlide = this.currentSlide === 0 ? 
-            this.testimonialsData.length - 1 : this.currentSlide - 1;
-        this.showSlide(this.currentSlide);
+        this.state.currentSlide = this.state.currentSlide === 0 ? 
+            this.state.testimonialsData.length - 1 : this.state.currentSlide - 1;
+        this.showSlide(this.state.currentSlide);
         this.updateNavigationButtons();
         this.restartAutoPlay();
     }
 
     goToSlide(index) {
-        if (index >= 0 && index < this.testimonialsData.length) {
-            this.currentSlide = index;
-            this.showSlide(this.currentSlide);
+        if (index >= 0 && index < this.state.testimonialsData.length) {
+            this.state.currentSlide = index;
+            this.showSlide(this.state.currentSlide);
             this.updateNavigationButtons();
             this.restartAutoPlay();
         }
@@ -197,7 +201,7 @@ class TestimonialsBehavior {
         const prevBtn = document.getElementById('testimonials-prev');
         const nextBtn = document.getElementById('testimonials-next');
 
-        if (this.testimonialsData.length <= 1) {
+        if (this.state.testimonialsData.length <= 1) {
             if (prevBtn) prevBtn.disabled = true;
             if (nextBtn) nextBtn.disabled = true;
         } else {
@@ -209,17 +213,17 @@ class TestimonialsBehavior {
     startAutoPlay() {
         this.pauseAutoPlay(); // Clear any existing interval
         
-        if (this.testimonialsData.length > 1) {
-            this.slideInterval = setInterval(() => {
+        if (this.state.testimonialsData.length > 1) {
+            this.state.slideInterval = setInterval(() => {
                 this.nextSlide();
-            }, this.autoPlayDelay);
+            }, this.state.autoPlayDelay);
         }
     }
 
     pauseAutoPlay() {
-        if (this.slideInterval) {
-            clearInterval(this.slideInterval);
-            this.slideInterval = null;
+        if (this.state.slideInterval) {
+            clearInterval(this.state.slideInterval);
+            this.state.slideInterval = null;
         }
     }
 
@@ -229,39 +233,66 @@ class TestimonialsBehavior {
 }
 
 // Global functions for external integration
-window.setTestimonialsData = function(data) {
+function setTestimonialsData(data) {
+    console.log('Testimonials: setTestimonialsData called with data:', data);
+    window.testimonialsState.testimonialsData = data || [];
+    
     if (window.testimonialsBehavior) {
         window.testimonialsBehavior.setTestimonialsData(data);
-    } else {
-        window.testimonialsData = data;
     }
-};
+}
+window.setTestimonialsData = setTestimonialsData;
 
 // Navigation handler for global navigator integration
-window.handleTestimonialsNavigation = function(elementId, action, config) {
-    console.log('Testimonials: Navigation handler called', { elementId, action, config });
+function handleTestimonialsNavigation(elementId, state, parameters = {}) {
+    console.log('Testimonials: Navigation handler called', { elementId, state, parameters });
+    const element = document.getElementById(elementId);
+    if (!element) return false;
     
-    // Handle different navigation actions
-    switch (action) {
-        case 'scrollTo':
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            break;
-        case 'show':
+    switch (state) {
         case 'visible':
-            // Component is always visible, no specific action needed
+            element.style.display = 'block';
+            element.classList.remove('nav-hidden');
+            element.classList.add('nav-visible');
             break;
-        case 'hide':
         case 'hidden':
-            // Component doesn't support hiding, log for debugging
-            console.log('Testimonials: Hide action not supported');
+            element.classList.remove('nav-visible');
+            element.classList.add('nav-hidden');
+            setTimeout(() => {
+                if (element.classList.contains('nav-hidden')) {
+                    element.style.display = 'none';
+                }
+            }, 300);
+            break;
+        case 'scrollTo':
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             break;
         default:
-            console.log('Testimonials: Unknown navigation action:', action);
+            console.log('Testimonials: Unknown navigation state:', state);
+            return false;
     }
-};
+    return true;
+}
+window.handleTestimonialsNavigation = handleTestimonialsNavigation;
+
+// Init hook for dynamic content loading
+function initializeTestimonials(componentElement) {
+    console.log('Testimonials: Initializing after dynamic load...');
+    
+    // Reinitialize the behavior if needed
+    if (!window.testimonialsBehavior) {
+        window.testimonialsBehavior = new TestimonialsBehavior();
+    } else {
+        // Rebind events
+        window.testimonialsBehavior.bindEvents();
+        
+        // Re-render if data exists
+        if (window.testimonialsState.testimonialsData && window.testimonialsState.testimonialsData.length > 0) {
+            window.testimonialsBehavior.renderTestimonials();
+        }
+    }
+}
+window.initializeTestimonials = initializeTestimonials;
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {

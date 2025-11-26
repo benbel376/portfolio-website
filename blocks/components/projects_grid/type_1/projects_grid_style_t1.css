@@ -18,14 +18,15 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-4, 1rem);
+    flex: 1;
 }
 
 .projects-grid__icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--spacing-12, 50px);
-    height: var(--spacing-12, 50px);
+    width: 50px;
+    height: 50px;
     background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
     border-radius: var(--border-radius-xl, 12px);
     color: var(--color-text-inverse, white);
@@ -33,28 +34,29 @@
 }
 
 .projects-grid__icon-wrapper ion-icon {
-    font-size: var(--font-size-2xl, 1.5rem);
+    font-size: 1.5rem;
 }
 
 .projects-grid__title-content {
     flex: 1;
+    min-width: 0;
 }
 
 .projects-grid__title {
     font-family: inherit;
-    font-size: var(--font-size-2xl, 1.5rem);
+    font-size: 1.5rem;
     font-weight: var(--font-weight-semibold, 600);
     color: var(--color-text-primary, #2C2C2C);
-    margin: 0 0 var(--spacing-1, 0.25rem) 0;
-    line-height: var(--line-height-tight, 1.2);
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
 }
 
 .projects-grid__subtitle {
     font-family: inherit;
-    font-size: var(--font-size-base, 1rem);
+    font-size: 0.95rem;
     color: var(--color-text-secondary, #666);
     margin: 0;
-    line-height: var(--line-height-normal, 1.4);
+    line-height: 1.3;
 }
 
 .theme-dark .projects-grid__title {
@@ -521,17 +523,41 @@
 
 /* Responsive Design */
 
+@media (max-width: 1024px) {
+    .projects-grid-component {
+        padding: 0 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .projects-grid-component {
-        padding: 0px 20px;
+        padding: 0 1rem;
     }
     
     .projects-grid__header {
+        margin-top: 2rem;
         margin-bottom: 2rem;
     }
     
     .projects-grid__title-section {
         gap: 0.75rem;
+    }
+    
+    .projects-grid__icon-wrapper {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .projects-grid__icon-wrapper ion-icon {
+        font-size: 1.3rem;
+    }
+    
+    .projects-grid__title {
+        font-size: 1.3rem;
+    }
+    
+    .projects-grid__subtitle {
+        font-size: 0.9rem;
     }
     
     .projects-grid__icon-wrapper {
@@ -580,7 +606,29 @@
 
 @media (max-width: 480px) {
     .projects-grid-component {
-        padding: 0px 15px;
+        padding: 0 0.75rem;
+    }
+    
+    .projects-grid__header {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .projects-grid__icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .projects-grid__icon-wrapper ion-icon {
+        font-size: 1.2rem;
+    }
+    
+    .projects-grid__title {
+        font-size: 1.2rem;
+    }
+    
+    .projects-grid__subtitle {
+        font-size: 0.85rem;
     }
     
     .projects-grid__grid {

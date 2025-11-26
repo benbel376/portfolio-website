@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-chat-app-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "chat-app-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Real-Time Chat Application",
+              "description": "Scalable real-time messaging application supporting group chats, file sharing, and emoji reactions with end-to-end encryption. Features modern UI/UX design and supports thousands of concurrent users with WebSocket technology.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+              "category": "Web Development",
+              "technologies": ["React", "Socket.io", "Node.js", "Redis", "MongoDB", "WebRTC", "JWT"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Real-time messaging with WebSocket technology",
+                "Group chat functionality with admin controls",
+                "File sharing with drag-and-drop interface",
+                "Emoji reactions and custom stickers",
+                "End-to-end encryption for secure messaging",
+                "Voice and video calling capabilities",
+                "Message search and chat history",
+                "Dark/light theme support"
+              ],
+              "demoLink": "https://chat-app-demo.herokuapp.com",
+              "repoLink": "https://github.com/username/realtime-chat-app"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,58 +1,142 @@
 <?php
 
+/**
+ * Workflow Component Loader
+ * 
+ * Data Structure:
+ * {
+ *   "title": "How I Work",
+ *   "scenarios": [
+ *     {
+ *       "title": "Scenario Name",
+ *       "description": "Scenario description",
+ *       "steps": [
+ *         {
+ *           "title": "Step Title",
+ *           "description": "Step description",
+ *           "icon": "icon-name",
+ *           "tools": ["Tool1", "Tool2"]
+ *         }
+ *       ]
+ *     }
+ *   ]
+ * }
+ * 
+ * Supported States: visible, hidden
+ * Dynamic Loading: Supported
+ * Protected Content: Supported
+ */
 class WorkflowLoaderT2 {
     public function load($id, $title = '', $navigationConfig = [], $loadingMode = 'full', $componentMetadata = []) {
-        $navConfig = $this->processNavigationConfig($navigationConfig);
-        $data = $componentMetadata['componentData'] ?? [];
+        try {
+            $navConfig = $this->processNavigationConfig($navigationConfig);
+            $data = $componentMetadata['componentData'] ?? [];
 
-        switch ($loadingMode) {
-            case 'full':
-            default:
-                return $this->generateFullComponent($id, $navConfig, $data);
+            switch ($loadingMode) {
+                case 'shell':
+                    return $this->generateShell($id, $navConfig, $componentMetadata);
+                case 'content':
+                    return $this->generateContent($data);
+                case 'full':
+                default:
+                    return $this->generateFullComponent($id, $navConfig, $data);
+            }
+        } catch (Exception $e) {
+            error_log("WorkflowLoaderT2 error: " . $e->getMessage());
+            return $this->generateErrorPlaceholder();
         }
     }
 
     private function generateFullComponent($id, $navConfig, $data) {
         $template = file_get_contents(__DIR__ . '/workflow_structure_t2.html');
+        
+        if ($template === false) {
+            throw new Exception('Failed to load workflow structure template');
+        }
+        
         $html = $this->fillTemplate($template, $data);
 
         // Inject ID and nav config
         $defaultState = $navConfig['defaultState'] ?? 'visible';
         $stateClass = $defaultState === 'hidden' ? 'nav-hidden' : 'nav-visible';
+        $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
 
         $html = preg_replace(
             '/<section\\s+class=\\"workflow\\"\\s+data-nav-handler=\\"handleWorkflowNavigation\\"\\s*>/i',
-            '<section class="workflow ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '">',
+            '<section class="workflow ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $html,
             1
         );
 
-        // Add JavaScript data injection
-        $workflowData = $this->prepareWorkflowDataForJS($data['scenarios'] ?? []);
-        $scenarioMeta = $this->prepareScenarioMetaForJS($data['scenarios'] ?? []);
-        $jsDataScript = '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("Workflow T2 PHP: Attempting to set workflow data");
-            window.workflowScenarioMeta = ' . json_encode($scenarioMeta) . ';
-            if (window.workflowBehaviorT2) {
-                console.log("Workflow T2 PHP: Setting workflow data from PHP");
-                window.workflowBehaviorT2.setWorkflowData(' . json_encode($workflowData) . ');
-            } else {
-                console.log("Workflow T2 PHP: Behavior not ready, waiting...");
-                setTimeout(function() {
-                    if (window.workflowBehaviorT2) {
-                        console.log("Workflow T2 PHP: Setting workflow data from PHP (delayed)");
-                        window.workflowBehaviorT2.setWorkflowData(' . json_encode($workflowData) . ');
-                    }
-                }, 500);
-            }
-        });
-        </script>';
-        
-        $html .= $jsDataScript;
+        // Inject JavaScript data
+        $html .= $this->injectDataScript($data);
 
         return $html;
+    }
+    
+    private function generateShell($id, $navConfig, $componentMetadata) {
+        $template = file_get_contents(__DIR__ . '/workflow_structure_t2.html');
+        
+        if ($template === false) {
+            throw new Exception('Failed to load workflow structure template');
+        }
+        
+        // Prepare metadata and config
+        $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
+        $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
+        $protectedAttr = !empty($navConfig['protected']) ? ' data-protected="true"' : '';
+        $defaultState = $navConfig['defaultState'] ?? 'visible';
+        $stateClass = $defaultState === 'hidden' ? 'nav-hidden' : 'nav-visible';
+        $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
+        
+        // Inject shell attributes
+        $html = preg_replace(
+            '/<section\\s+class=\\"workflow\\"\\s+data-nav-handler=\\"handleWorkflowNavigation\\"\\s*>/i',
+            '<section class="workflow ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeWorkflow" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
+            $template,
+            1
+        );
+        
+        return $html;
+    }
+    
+    private function generateContent($data) {
+        // For content-only mode, return minimal structure
+        return '<div class="workflow__steps" id="workflow-steps"></div>';
+    }
+    
+    /**
+     * Inject workflow data into JavaScript
+     */
+    private function injectDataScript($data) {
+        $workflowData = $this->prepareWorkflowDataForJS($data['scenarios'] ?? []);
+        $scenarioMeta = $this->prepareScenarioMetaForJS($data['scenarios'] ?? []);
+        
+        $script = '<script>';
+        $script .= 'console.log("Workflow PHP: Attempting to set workflow data");';
+        $script .= 'window.workflowScenarioMeta = ' . json_encode($scenarioMeta) . ';';
+        $script .= 'if (typeof window.setWorkflowData === "function") {';
+        $script .= '    console.log("Workflow PHP: Setting data immediately");';
+        $script .= '    window.setWorkflowData(' . json_encode($workflowData) . ');';
+        $script .= '} else {';
+        $script .= '    console.log("Workflow PHP: Behavior not ready, waiting...");';
+        $script .= '    setTimeout(function() {';
+        $script .= '        console.log("Workflow PHP: Setting workflow data from PHP (delayed)");';
+        $script .= '        if (typeof window.setWorkflowData === "function") {';
+        $script .= '            window.setWorkflowData(' . json_encode($workflowData) . ');';
+        $script .= '        } else {';
+        $script .= '            console.error("Workflow PHP: setWorkflowData function not found after delay");';
+        $script .= '        }';
+        $script .= '    }, 100);';
+        $script .= '}';
+        $script .= '</script>';
+        
+        return $script;
+    }
+    
+    private function generateErrorPlaceholder() {
+        return '<section class="workflow workflow--error"><div class="workflow__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load workflow</p></div></section>';
     }
 
     private function fillTemplate($template, $data) {

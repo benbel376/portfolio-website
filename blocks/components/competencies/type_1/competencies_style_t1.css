@@ -22,44 +22,46 @@
 .competencies__title-section {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4, 1rem);
+  gap: 1rem;
+  flex: 1;
 }
 
 .competencies__icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--spacing-12, 50px);
-  height: var(--spacing-12, 50px);
+  width: 50px;
+  height: 50px;
   background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
-  border-radius: var(--border-radius-xl, 12px);
+  border-radius: 12px;
   color: var(--color-text-inverse, white);
   flex-shrink: 0;
 }
 
 .competencies__icon-wrapper ion-icon {
-  font-size: var(--font-size-2xl, 1.5rem);
+  font-size: 1.5rem;
 }
 
 .competencies__title-content {
   flex: 1;
+  min-width: 0;
 }
 
 .competencies__title {
   font-family: inherit;
-  font-size: var(--font-size-2xl, 1.5rem);
-  font-weight: var(--font-weight-semibold, 600);
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--color-text-primary, #2C2C2C);
-  margin: 0 0 var(--spacing-1, 0.25rem) 0;
-  line-height: var(--line-height-tight, 1.2);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
 }
 
 .competencies__subtitle {
   font-family: inherit;
-  font-size: var(--font-size-base, 1rem);
+  font-size: 0.95rem;
   color: var(--color-text-secondary, #666);
   margin: 0;
-  line-height: var(--line-height-normal, 1.4);
+  line-height: 1.3;
 }
 
 .theme-dark .competencies__title {
@@ -398,13 +400,46 @@
 .competencies__skill:nth-child(6) { animation-delay: 0.6s; }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .competencies {
-    padding: 60px 40px;
+    padding: 0 1.5rem;
   }
   
   .competencies__container {
-    padding: 0 16px;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .competencies {
+    padding: 0 1rem;
+  }
+  
+  .competencies__container {
+    padding: 0 1rem;
+  }
+  
+  .competencies__main-header {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .competencies__icon-wrapper {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .competencies__icon-wrapper ion-icon {
+    font-size: 1.3rem;
+  }
+  
+  .competencies__title {
+    font-size: 1.3rem;
+    text-align: left;
+  }
+  
+  .competencies__subtitle {
+    font-size: 0.9rem;
   }
   
   .competencies__card {
@@ -415,11 +450,6 @@
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
-  }
-  
-  .competencies__title {
-    font-size: 1.5rem;
-    text-align: center;
   }
   
   .competencies__dropdown {
@@ -692,6 +722,36 @@
 }
 
 @media (max-width: 480px) {
+  .competencies {
+    padding: 0 0.75rem;
+  }
+  
+  .competencies__container {
+    padding: 0 0.75rem;
+  }
+  
+  .competencies__main-header {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .competencies__icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .competencies__icon-wrapper ion-icon {
+    font-size: 1.2rem;
+  }
+  
+  .competencies__title {
+    font-size: 1.2rem;
+  }
+  
+  .competencies__subtitle {
+    font-size: 0.85rem;
+  }
+  
   .competencies__skill {
     padding: 16px;
   }

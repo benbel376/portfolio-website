@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-ai-platform-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "ai-platform-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "AI-Powered Customer Analytics Platform",
+              "description": "A comprehensive machine learning platform that analyzes customer behavior patterns, segments users based on purchasing history, and generates predictive insights for business decision-making. The system processes large datasets in real-time and provides interactive dashboards for stakeholders.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+              "category": "Machine Learning",
+              "technologies": ["Python", "TensorFlow", "React", "Node.js", "MongoDB", "Docker", "Kubernetes", "PostgreSQL"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Real-time customer behavior tracking and analysis",
+                "Advanced machine learning algorithms for predictive analytics",
+                "Interactive dashboards with customizable visualizations",
+                "Automated customer segmentation based on purchasing patterns",
+                "RESTful API for integration with existing systems",
+                "Scalable microservices architecture",
+                "Role-based access control and user management",
+                "Export capabilities for reports and data visualization"
+              ],
+              "demoLink": "https://demo.ai-analytics-platform.com",
+              "repoLink": "https://github.com/username/ai-customer-analytics"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

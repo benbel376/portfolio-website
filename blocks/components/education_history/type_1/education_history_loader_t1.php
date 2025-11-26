@@ -17,8 +17,8 @@ class EducationHistoryLoaderT1 {
     }
     
     private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
-        // Load data from JSON file if dataSource is specified
-        $educationHistoryData = $this->loadDataFromSource($componentMetadata);
+        // Extract education data from inline data
+        $educationHistoryData = $data['education'] ?? [];
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/education_history_structure_t1.html');
@@ -64,25 +64,7 @@ class EducationHistoryLoaderT1 {
         return '<div class="education-history__timeline" id="education-history-timeline"></div><div class="education-history__empty" id="education-history-empty" style="display: none;"><ion-icon name="school-outline" aria-hidden="true"></ion-icon><p>No education history available to display.</p></div>';
     }
     
-    /**
-     * Load data from JSON file specified in dataSource
-     */
-    private function loadDataFromSource($componentMetadata) {
-        $dataSource = $componentMetadata['dataSource'] ?? null;
-        
-        if ($dataSource && file_exists($dataSource)) {
-            $jsonContent = file_get_contents($dataSource);
-            $data = json_decode($jsonContent, true);
-            
-            if (json_last_error() === JSON_ERROR_NONE && isset($data['education'])) {
-                return $data['education'];
-            }
-        }
-        
-        // Return empty array if no data source or invalid data
-        return [];
-    }
-    
+
     /**
      * Replace placeholders in HTML template with data
      */

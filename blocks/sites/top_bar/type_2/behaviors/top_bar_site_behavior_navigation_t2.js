@@ -31,14 +31,19 @@ function setupNavigationLinks() {
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Only modify the hash - global navigator will handle everything else
-            // The hash format includes the tab ID for highlighting: #elementId/state.tabId
-            const targetId = this.getAttribute('data-target');
-            const tabId = this.getAttribute('data-tab-id') || targetId;
+            // Close mobile menu when a link is clicked
+            const navLinksList = document.querySelector('.nav-links-list');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggleBtn');
             
-            if (targetId) {
-                // Build hash with tab highlighting signal
-                window.location.hash = `${targetId}/visible.${tabId}`;
+            if (navLinksList && navLinksList.classList.contains('mobile-open')) {
+                navLinksList.classList.remove('mobile-open');
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = mobileMenuToggle.querySelector('ion-icon');
+                    if (icon) {
+                        icon.setAttribute('name', 'menu-outline');
+                    }
+                }
             }
         });
     });

@@ -10,23 +10,16 @@
     }
 
     function setupEventListeners() {
-        // Back button - use event delegation to handle dynamically loaded content
-        const backBtn = document.getElementById('project-back-btn');
-        if (backBtn) {
-            // Remove any existing listeners by cloning the button
-            const newBackBtn = backBtn.cloneNode(true);
-            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
-            
-            // Add fresh event listener
-            newBackBtn.addEventListener('click', (e) => {
+        // Use event delegation on document for all back buttons
+        document.addEventListener('click', function(e) {
+            const backBtn = e.target.closest('.project-details__back-btn');
+            if (backBtn) {
                 e.preventDefault();
                 console.log('Project Details: Back button clicked');
                 handleBackToProjects();
-            });
-            console.log('Project Details: Back button listener attached');
-        } else {
-            console.warn('Project Details: Back button not found');
-        }
+            }
+        });
+        console.log('Project Details: Back button listener attached via delegation');
     }
 
     function handleBackToProjects() {

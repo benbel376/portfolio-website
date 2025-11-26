@@ -1,12 +1,17 @@
+// Use global state to prevent redeclaration issues on dynamic reload
+window.competenciesState = window.competenciesState || {
+  currentCategory: null,
+  currentPage: 0,
+  itemsPerPage: 6,
+  allSkills: {},
+  slideshowData: [],
+  currentSlide: 0,
+  currentView: 'list'
+};
+
 class CompetenciesBehavior {
   constructor() {
-    this.currentCategory = null;
-    this.currentPage = 0;
-    this.itemsPerPage = 6;
-    this.allSkills = {};
-    this.slideshowData = [];
-    this.currentSlide = 0;
-    this.currentView = 'list'; // 'list' or 'slideshow'
+    this.state = window.competenciesState;
     this.init();
   }
 
@@ -64,7 +69,7 @@ class CompetenciesBehavior {
 
     // Keyboard navigation for slideshow
     document.addEventListener('keydown', (e) => {
-      if (this.currentView === 'slideshow') {
+      if (this.state.currentView === 'slideshow') {
         if (e.key === 'ArrowLeft') this.previousSlide();
         if (e.key === 'ArrowRight') this.nextSlide();
       }
@@ -85,7 +90,7 @@ class CompetenciesBehavior {
 
   setSkillsData(skillsData) {
     console.log('Competencies: Setting skills data:', skillsData);
-    this.allSkills = skillsData;
+    this.state.allSkills = skillsData;
     const select = document.getElementById('competencies-category-select');
     if (select && select.value) {
       console.log('Competencies: Rendering category after data load:', select.value);
@@ -95,13 +100,13 @@ class CompetenciesBehavior {
 
   setSlideshowData(slideshowData) {
     console.log('Competencies: Setting slideshow data:', slideshowData);
-    this.slideshowData = slideshowData;
+    this.state.slideshowData = slideshowData;
     this.renderSlideshow();
   }
 
   switchView(viewType) {
     console.log('Competencies: Switching to view:', viewType);
-    this.currentView = viewType;
+    this.state.currentView = viewType;
     
     // Update tab states
     const tabs = document.querySelectorAll('.competencies__tab');
@@ -141,26 +146,26 @@ class CompetenciesBehavior {
   }
 
   handleCategoryChange(categoryKey) {
-    this.currentCategory = categoryKey;
-    this.currentPage = 0;
+    this.state.currentCategory = categoryKey;
+    this.state.currentPage = 0;
     this.renderCurrentPage();
     this.renderPagination();
   }
 
   renderCurrentPage() {
     const listContainer = document.getElementById('competencies-list');
-    console.log('Competencies: Rendering page for category:', this.currentCategory);
+    console.log('Competencies: Rendering page for category:', this.state.currentCategory);
     console.log('Competencies: List container found:', !!listContainer);
-    console.log('Competencies: Skills data for category:', this.allSkills[this.currentCategory]);
+    console.log('Competencies: Skills data for category:', this.state.allSkills[this.state.currentCategory]);
     
-    if (!listContainer || !this.allSkills[this.currentCategory]) {
+    if (!listContainer || !this.state.allSkills[this.state.currentCategory]) {
       console.log('Competencies: Cannot render - missing container or data');
       return;
     }
 
-    const skills = this.allSkills[this.currentCategory];
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
+    const skills = this.state.allSkills[this.state.currentCategory];
+    const startIndex = this.state.currentPage * this.state.itemsPerPage;
+    const endIndex = startIndex + this.state.itemsPerPage;
     const pageSkills = skills.slice(startIndex, endIndex);
 
     // Clear current skills with fade out
@@ -216,20 +221,20 @@ class CompetenciesBehavior {
 
   renderPagination() {
     const dotsContainer = document.getElementById('competencies-dots');
-    if (!dotsContainer || !this.allSkills[this.currentCategory]) {
+    if (!dotsContainer || !this.state.allSkills[this.state.currentCategory]) {
       return;
     }
 
-    const skills = this.allSkills[this.currentCategory];
-    const totalPages = Math.ceil(skills.length / this.itemsPerPage);
+    const skills = this.state.allSkills[this.state.currentCategory];
+    const totalPages = Math.ceil(skills.length / this.state.itemsPerPage);
     
     dotsContainer.innerHTML = '';
 
     for (let i = 0; i < totalPages; i++) {
       const dot = document.createElement('div');
-      dot.className = `competencies__dot ${i === this.currentPage ? 'competencies__dot--active' : ''}`;
+      dot.className = `competencies__dot ${i === this.state.currentPage ? 'competencies__dot--active' : ''}`;
       dot.addEventListener('click', () => {
-        this.currentPage = i;
+        this.state.currentPage = i;
         this.renderCurrentPage();
         this.renderPagination();
       });
@@ -239,7 +244,7 @@ class CompetenciesBehavior {
 
   renderSlideshow() {
     const slideContainer = document.getElementById('competencies-slide-container');
-    if (!slideContainer || !this.slideshowData.length) {
+    if (!slideContainer || !this.state.slideshowData.length) {
       console.log('Competencies: No slide container or slideshow data');
       return;
     }
@@ -248,12 +253,12 @@ class CompetenciesBehavior {
     const existingSlides = slideContainer.querySelectorAll('.competencies__slide');
     existingSlides.forEach(slide => slide.remove());
     
-    this.slideshowData.forEach((slide, index) => {
+    this.state.slideshowData.forEach((slide, index) => {
       const slideElement = this.createSlideElement(slide, index);
       slideContainer.appendChild(slideElement);
     });
 
-    console.log('Competencies: Rendered', this.slideshowData.length, 'slides');
+    console.log('Competencies: Rendered', this.state.slideshowData.length, 'slides');
     this.renderSlideshowPagination();
     this.updateSlideCounter();
     this.updateSlideVisibility();
@@ -262,7 +267,7 @@ class CompetenciesBehavior {
 
   createSlideElement(slide, index) {
     const slideDiv = document.createElement('div');
-    slideDiv.className = `competencies__slide ${index === this.currentSlide ? 'competencies__slide--active' : ''}`;
+    slideDiv.className = `competencies__slide ${index === this.state.currentSlide ? 'competencies__slide--active' : ''}`;
 
     let mediaElement = '';
     if (slide.type === 'video') {
@@ -288,17 +293,17 @@ class CompetenciesBehavior {
   renderSlideshowPagination() {
     const dotsContainer = document.getElementById('competencies-slideshow-dots');
     console.log('Competencies: Pagination container found:', !!dotsContainer);
-    console.log('Competencies: Slideshow data length:', this.slideshowData.length);
+    console.log('Competencies: Slideshow data length:', this.state.slideshowData.length);
     
-    if (!dotsContainer || !this.slideshowData.length) return;
+    if (!dotsContainer || !this.state.slideshowData.length) return;
 
     dotsContainer.innerHTML = '';
 
-    this.slideshowData.forEach((_, index) => {
+    this.state.slideshowData.forEach((_, index) => {
       const dot = document.createElement('div');
-      dot.className = `competencies__slideshow-dot ${index === this.currentSlide ? 'competencies__slideshow-dot--active' : ''}`;
+      dot.className = `competencies__slideshow-dot ${index === this.state.currentSlide ? 'competencies__slideshow-dot--active' : ''}`;
       dot.addEventListener('click', () => {
-        this.currentSlide = index;
+        this.state.currentSlide = index;
         this.updateSlideVisibility();
         this.updateSlideCounter();
         this.updateNavigationButtons();
@@ -307,13 +312,13 @@ class CompetenciesBehavior {
       dotsContainer.appendChild(dot);
     });
     
-    console.log('Competencies: Created', this.slideshowData.length, 'pagination dots');
+    console.log('Competencies: Created', this.state.slideshowData.length, 'pagination dots');
   }
 
   updateSlideVisibility() {
     const slides = document.querySelectorAll('.competencies__slide');
     slides.forEach((slide, index) => {
-      if (index === this.currentSlide) {
+      if (index === this.state.currentSlide) {
         slide.classList.add('competencies__slide--active');
       } else {
         slide.classList.remove('competencies__slide--active');
@@ -323,8 +328,8 @@ class CompetenciesBehavior {
 
   updateSlideCounter() {
     const counter = document.getElementById('competencies-slide-counter');
-    if (counter && this.slideshowData.length) {
-      counter.textContent = `${this.currentSlide + 1} / ${this.slideshowData.length}`;
+    if (counter && this.state.slideshowData.length) {
+      counter.textContent = `${this.state.currentSlide + 1} / ${this.state.slideshowData.length}`;
     }
   }
 
@@ -335,11 +340,11 @@ class CompetenciesBehavior {
     console.log('Competencies: Navigation buttons found - Prev:', !!prevBtn, 'Next:', !!nextBtn);
 
     if (prevBtn) {
-      prevBtn.disabled = this.currentSlide === 0;
+      prevBtn.disabled = this.state.currentSlide === 0;
     }
 
     if (nextBtn) {
-      nextBtn.disabled = this.currentSlide === this.slideshowData.length - 1;
+      nextBtn.disabled = this.state.currentSlide === this.state.slideshowData.length - 1;
     }
   }
 
@@ -357,8 +362,8 @@ class CompetenciesBehavior {
   }
 
   nextSlide() {
-    if (this.currentSlide < this.slideshowData.length - 1) {
-      this.currentSlide++;
+    if (this.state.currentSlide < this.state.slideshowData.length - 1) {
+      this.state.currentSlide++;
       this.updateSlideVisibility();
       this.updateSlideCounter();
       this.updateNavigationButtons();
@@ -367,8 +372,8 @@ class CompetenciesBehavior {
   }
 
   previousSlide() {
-    if (this.currentSlide > 0) {
-      this.currentSlide--;
+    if (this.state.currentSlide > 0) {
+      this.state.currentSlide--;
       this.updateSlideVisibility();
       this.updateSlideCounter();
       this.updateNavigationButtons();
@@ -412,19 +417,93 @@ class CompetenciesBehavior {
   }
 }
 
-// Navigation handler for the framework (must be in global scope)
-function handleCompetenciesNavigation(action, data) {
+// Global data setter function
+function setCompetenciesData(skillsData, slideshowData) {
+  console.log('Competencies: setCompetenciesData called');
+  window.competenciesState.allSkills = skillsData || {};
+  window.competenciesState.slideshowData = slideshowData || [];
+  
   if (window.competenciesBehavior) {
-    window.competenciesBehavior.handleCompetenciesNavigation(action, data);
+    window.competenciesBehavior.setSkillsData(skillsData);
+    window.competenciesBehavior.setSlideshowData(slideshowData);
   }
 }
+window.setCompetenciesData = setCompetenciesData;
+
+// Navigation handler for global navigator integration
+function handleCompetenciesNavigation(elementId, state, parameters = {}) {
+  console.log('Competencies: Navigation handler called', { elementId, state, parameters });
+  const element = document.getElementById(elementId);
+  if (!element) return false;
+  
+  switch (state) {
+    case 'visible':
+      element.style.display = 'block';
+      element.classList.remove('nav-hidden');
+      element.classList.add('nav-visible');
+      break;
+    case 'hidden':
+      element.classList.remove('nav-visible');
+      element.classList.add('nav-hidden');
+      setTimeout(() => {
+        if (element.classList.contains('nav-hidden')) {
+          element.style.display = 'none';
+        }
+      }, 300);
+      break;
+    case 'scrollTo':
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      break;
+    default:
+      console.log('Competencies: Unknown navigation state:', state);
+      return false;
+  }
+  return true;
+}
+window.handleCompetenciesNavigation = handleCompetenciesNavigation;
+
+// Init hook for dynamic content loading
+function initializeCompetencies(componentElement) {
+  console.log('Competencies: Initializing after dynamic load...');
+  
+  // Reinitialize the behavior if needed
+  if (!window.competenciesBehavior) {
+    window.competenciesBehavior = new CompetenciesBehavior();
+  } else {
+    // Rebind events
+    window.competenciesBehavior.bindEvents();
+    
+    // Re-render if data exists
+    if (window.competenciesState.allSkills && Object.keys(window.competenciesState.allSkills).length > 0) {
+      const select = document.getElementById('competencies-category-select');
+      if (select && select.value) {
+        window.competenciesBehavior.handleCategoryChange(select.value);
+      }
+    }
+    
+    if (window.competenciesState.slideshowData && window.competenciesState.slideshowData.length > 0) {
+      window.competenciesBehavior.renderSlideshow();
+    }
+  }
+}
+window.initializeCompetencies = initializeCompetencies;
 
 // Initialize the behavior
 document.addEventListener('DOMContentLoaded', () => {
-  window.competenciesBehavior = new CompetenciesBehavior();
+  if (!window.competenciesBehavior) {
+    window.competenciesBehavior = new CompetenciesBehavior();
+  }
 });
 
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = CompetenciesBehavior;
+// Also initialize if script loads after DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!window.competenciesBehavior) {
+      window.competenciesBehavior = new CompetenciesBehavior();
+    }
+  });
+} else {
+  if (!window.competenciesBehavior) {
+    window.competenciesBehavior = new CompetenciesBehavior();
+  }
 }

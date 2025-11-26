@@ -13,6 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing-4, 1rem);
 }
 
 .testimonials__title-section {
@@ -26,8 +27,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--spacing-12, 50px);
-  height: var(--spacing-12, 50px);
+  width: 50px;
+  height: 50px;
   background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
   border-radius: var(--border-radius-xl, 12px);
   color: var(--color-text-inverse, white);
@@ -35,19 +36,21 @@
 }
 
 .testimonials__icon-wrapper ion-icon {
-  font-size: var(--font-size-2xl, 1.5rem);
+  font-size: 1.5rem;
 }
 
 .testimonials__title-content {
   flex: 1;
+  min-width: 0;
 }
 
 .testimonials__title {
   font-family: inherit;
-  font-size: var(--font-size-2xl, 1.5rem);
+  font-size: 1.5rem;
   font-weight: var(--font-weight-semibold, 600);
   color: var(--color-text-primary, #2C2C2C);
-  margin: 0 0 var(--spacing-1, 0.25rem) 0;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
   line-height: var(--line-height-tight, 1.2);
 }
 
@@ -368,7 +371,41 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .testimonials-component {
-    padding: 0 2rem;
+    padding: 0 1rem;
+  }
+  
+  .testimonials__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .testimonials__title-section {
+    width: 100%;
+  }
+  
+  .testimonials__header-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .testimonials__icon-wrapper {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .testimonials__icon-wrapper ion-icon {
+    font-size: 1.3rem;
+  }
+  
+  .testimonials__title {
+    font-size: 1.3rem;
+  }
+  
+  .testimonials__subtitle {
+    font-size: 0.9rem;
   }
   
   .testimonials__header {
@@ -438,7 +475,29 @@
 
 @media (max-width: 480px) {
   .testimonials-component {
-    padding: 0 1rem;
+    padding: 0 0.75rem;
+  }
+  
+  .testimonials__header {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .testimonials__icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .testimonials__icon-wrapper ion-icon {
+    font-size: 1.2rem;
+  }
+  
+  .testimonials__title {
+    font-size: 1.2rem;
+  }
+  
+  .testimonials__subtitle {
+    font-size: 0.85rem;
   }
   
   .testimonials__slide {

@@ -17,8 +17,8 @@ class ProjectsGridLoaderT1 {
     }
     
     private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
-        // Load data from JSON file if dataSource is specified
-        $projectsData = $this->loadDataFromSource($componentMetadata);
+        // Extract projects data from inline data
+        $projectsData = $data['projects'] ?? [];
         
         // Load HTML template
         $template = file_get_contents(__DIR__ . '/projects_grid_structure_t1.html');
@@ -64,25 +64,7 @@ class ProjectsGridLoaderT1 {
         return '<div class="projects-grid__grid" id="projects-grid"></div><div class="projects-grid__empty" id="projects-empty" style="display: none;"><ion-icon name="folder-open-outline" aria-hidden="true"></ion-icon><h3>No projects found</h3><p>Try adjusting your search or filter criteria.</p></div>';
     }
     
-    /**
-     * Load data from JSON file specified in dataSource
-     */
-    private function loadDataFromSource($componentMetadata) {
-        $dataSource = $componentMetadata['dataSource'] ?? null;
-        
-        if ($dataSource && file_exists($dataSource)) {
-            $jsonContent = file_get_contents($dataSource);
-            $data = json_decode($jsonContent, true);
-            
-            if (json_last_error() === JSON_ERROR_NONE && isset($data['projects'])) {
-                return $data['projects'];
-            }
-        }
-        
-        // Return empty array if no data source or invalid data
-        return [];
-    }
-    
+
     /**
      * Replace placeholders in HTML template with data
      */

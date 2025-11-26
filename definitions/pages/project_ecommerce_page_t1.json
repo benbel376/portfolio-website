@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-ecommerce-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "ecommerce-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "E-Commerce Mobile Application",
+              "description": "Full-featured mobile e-commerce application with user authentication, product catalog, shopping cart, and payment integration. Built with React Native for cross-platform compatibility and optimized for performance on both iOS and Android devices.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+              "category": "Mobile Development",
+              "technologies": ["React Native", "Node.js", "Express", "MongoDB", "Stripe API", "Firebase", "Redux"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Cross-platform mobile application for iOS and Android",
+                "Secure user authentication and profile management",
+                "Comprehensive product catalog with search and filtering",
+                "Shopping cart with persistent storage",
+                "Multiple payment gateway integrations (Stripe, PayPal)",
+                "Push notifications for order updates and promotions",
+                "Offline mode for browsing products",
+                "Social media integration for product sharing"
+              ],
+              "demoLink": "https://play.google.com/store/apps/details?id=com.example.ecommerce",
+              "repoLink": "https://github.com/username/ecommerce-mobile-app"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}
