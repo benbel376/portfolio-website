@@ -1213,7 +1213,268 @@ triggerPostInjectionHooks(componentElement) {
 
 **URL Parameter Integration**:
 ```javascript
-// Reads 
+// Reads parameters from both query string and hash
+getCurrentUrlParams() {
+    const urlParams = {};
+    
+    // Regular query string: ?param=value
+    const searchParams = new URLSearchParams(window.location.search);
+    for (const [key, value] of searchParams) {
+        urlParams[key] = value;
+    }
+    
+    // Hash parameters: #path?param=value
+    const hash = window.location.hash;
+    if (hash && hash.includes('?')) {
+        const hashQueryString = hash.split('?')[1];
+        const hashParams = new URLSearchParams(hashQueryString);
+        for (const [key, value] of hashParams) {
+            urlParams[key] = value;
+        }
+    }
+    
+    return urlParams;
+}
+```
+
+**Cache Rules**:
+- Protected content: Never cached
+- Public content: Cached for 24 hours
+- Cache key: Based on component spec + ID + data hash + URL params
+- Invalidation: Automatic on expiration or manual clear
+
+**Cache Management**:
+```javascript
+// Clear all dynamic content cache
+window.dynamicContentLoader.clearCache();
+
+// Hard reset (clear cache and reload)
+window.location.href = window.location.pathname + '?hard_reset=true';
+```
+
+**Backward Compatibility**:
+- Components without URL parameters: Work unchanged
+- Components without init hooks: Work unchanged  
+- Existing cache entries: Automatically invalidated and rebuilt
+- Load states: `"loaded"` becomes `"loaded:default"`
+
+### 7.4 Complete Dynamic Loading Process
+
+**Detailed Step-by-Step Flow**:
+
+**Phase 1: Initial Page Load**
+```
+1. User requests page (e.g., /portfolio)
+2. index.php resolves profile and assembles dictionary
+3. Protected objects automatically set to dynamic=true
+4. Builder generates HTML:
+   - Dynamic components → shells with metadata
+   - Static components → full content
+5. Page HTML sent to browser
+6. Browser renders shells (fast initial load)
+7. JavaScript systems initialize:
+   - GlobalNavigator discovers navigation handlers
+   - DynamicContentLoader initializes
+   - AuthManager checks authentication status
+8. Auto-navigation executes (if no hash in URL)
+```
+
+**Phase 2: User Navigation**
+```
+1. User clicks navigation link or changes hash
+2. hashchange event fires
+3. GlobalNavigator.handleHashChange() called
+4. Hash parsed into navigationState Map:
+   - Element IDs → states
+   - URL parameters extracted
+   - Active tab identified
+5. executeNavigation() sequence begins:
+   a. Save current state as previous
+   b. Call loadContainerContent() for visible elements
+   c. Restore previous elements to default states
+   d. Apply new navigation states via handlers
+   e. Update current state tracking
+   f. Update tab highlighting
+```
+
+**Phase 3: Dynamic Content Detection**
+```
+1. TopBarSiteDynamicContent.loadContainerContent(containerId)
+2. Get container element by ID
+3. Scan for [data-dynamic="true"] elements
+4. Filter protected elements if not authenticated
+5. Create loading promises array
+6. For each dynamic component:
+   - Call DynamicContentLoader.loadComponentContent()
+7. Wait for all promises to resolve
+8. Return success/failure status
+```
+
+**Phase 4: Component Loading Decision**
+```
+1. DynamicContentLoader.loadComponentContent(componentElement)
+2. Get current load state attribute
+3. Get content identifier from URL params
+4. Create expected load state: "loaded:{identifier}"
+5. Compare current vs expected:
+   - Match → Skip reload (already showing this content)
+   - Different → Reset to "not-loaded" and continue
+   - "not-loaded" → Continue loading
+6. Check if protected and not authenticated → Skip
+7. Set state to "loading"
+8. Check cache for this specific content
+9. If cached → Inject and done
+10. If not cached → Proceed to API request
+```
+
+**Phase 5: API Request**
+```
+1. Extract metadata from data-component-metadata attribute
+2. Get current URL parameters
+3. Prepare request payload:
+   {
+     componentId: "project-details-main",
+     pageDefinition: "project_details_page_t1.json",
+     isSecured: false,
+     urlParams: { project: "AI Platform" }
+   }
+4. POST to endpoints/dynamic_content_t1.php
+5. Wait for response
+```
+
+**Phase 6: Server-Side Processing**
+```
+1. API receives POST request
+2. Validate JSON payload
+3. Extract: componentId, pageDefinition, isSecured, urlParams
+4. Set URL params in $_GET superglobal
+5. Start session and check authentication
+6. If protected and not authenticated:
+   - Return HTTP 401 Unauthorized
+   - Exit (no content delivered)
+7. Load page definition JSON file
+8. Recursively search for target component object
+9. Extract object and dependencies
+10. Set dynamic=false for content delivery
+11. Create mini-dictionary: {site: null, objects[], pageDefinition}
+12. Call PortfolioBuilder.build(dictionary)
+13. Builder generates HTML content
+14. Return JSON response:
+    {
+      success: true,
+      content: "<html>...</html>",
+      cacheKey: "...",
+      requestType: "component",
+      objectCount: 1,
+      timestamp: 1234567890
+    }
+```
+
+**Phase 7: Content Injection**
+```
+1. Client receives API response
+2. Validate response success
+3. Extract HTML content
+4. Cache content (if not protected):
+   - Generate cache key with URL params
+   - Store in localStorage with timestamp
+5. Inject content into component:
+   - Get component's parent element
+   - Create temporary container
+   - Set innerHTML to new content
+   - Extract new component element
+   - Preserve critical attributes (id, nav-handler, nav-config)
+   - Replace old element with new element
+6. Set load state: "loaded:{identifier}"
+```
+
+**Phase 8: Post-Injection Initialization**
+```
+1. Find all <script> tags in injected content
+2. For each script:
+   - If external (has src attribute):
+     * Check if already loaded in document
+     * If exists → Skip (prevents redeclaration)
+     * If new → Create and execute
+   - If inline:
+     * Create new script element
+     * Copy content and execute
+3. Check for data-init-hook attribute
+4. If init hook exists:
+   - Get function name (e.g., "initializeProjectDetailsComponent")
+   - Call window[functionName](componentElement)
+   - Hook re-initializes component behavior
+5. Dispatch 'component:contentLoaded' event
+6. Component now fully functional
+```
+
+**Phase 9: Component Behavior Initialization**
+```
+1. Init hook function called (e.g., initializeProjectDetailsComponent)
+2. Function finds component element
+3. Attaches event listeners:
+   - Back button click handlers
+   - Form submissions
+   - Interactive elements
+4. Initializes component state
+5. Performs any necessary data loading
+6. Component ready for user interaction
+```
+
+**Example: Project Details Loading**
+```
+User clicks "AI Platform" project card
+  ↓
+Hash changes to: #project-details-main-container/visible?project=AI-Powered Customer Analytics Platform.projects
+  ↓
+GlobalNavigator parses hash:
+  - Container: project-details-main-container
+  - State: visible
+  - URL params: { project: "AI-Powered Customer Analytics Platform" }
+  - Tab: projects
+  ↓
+loadContainerContent("project-details-main-container")
+  ↓
+Finds: <div id="project-details-main" data-dynamic="true" data-load-state="loaded:project=E-Commerce App">
+  ↓
+Current state: "loaded:project=E-Commerce App"
+Expected state: "loaded:project=AI-Powered Customer Analytics Platform"
+States don't match → Need to reload
+  ↓
+Reset to "not-loaded", set to "loading"
+  ↓
+API request with urlParams: { project: "AI-Powered Customer Analytics Platform" }
+  ↓
+Server sets $_GET['project'] = "AI-Powered Customer Analytics Platform"
+  ↓
+Project details loader reads $_GET['project']
+  ↓
+Loads AI Platform project data
+  ↓
+Returns HTML with AI Platform content
+  ↓
+Client injects content
+  ↓
+Skips already-loaded behavior script
+  ↓
+Calls initializeProjectDetailsComponent()
+  ↓
+Back button listener attached
+  ↓
+Set state: "loaded:project=AI-Powered Customer Analytics Platform"
+  ↓
+Component ready, showing AI Platform details
+```
+
+**Key Improvements in Current System**:
+
+1. **Smart State Tracking**: Knows exactly what content is loaded
+2. **URL-Aware Caching**: Different URL params = different cache entries
+3. **Script Optimization**: No duplicate script execution
+4. **Init Hook System**: Components can reinitialize after dynamic loading
+5. **Backward Compatible**: Existing components work unchanged
+6. **Parameter-Dependent Content**: Same component, different data based on URL
+7. **Consistent Behavior**: Back buttons and event handlers work reliably
 
 
 ---
