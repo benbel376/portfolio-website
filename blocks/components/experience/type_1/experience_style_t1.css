@@ -319,7 +319,7 @@
   background: var(--gradient-primary);
   border: none;
   border-radius: var(--border-radius-xl);
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -337,11 +337,19 @@
   transform: translateY(calc(-1 * var(--spacing-1)));
   box-shadow: var(--shadow-md);
   background: var(--gradient-primary-hover);
+  color: #FFFFFF;
+}
+
+.expand-button:active,
+.expand-button:focus {
+  color: #FFFFFF;
+  outline: none;
 }
 
 .expand-button ion-icon {
-  font-size: var(--font-size-base, 1rem);
-  transition: var(--transition-transform-fast, transform 0.2s ease);
+  font-size: var(--font-size-base);
+  transition: var(--transition-transform-fast);
+  color: #FFFFFF;
 }
 
 .expand-button[data-expanded="true"] ion-icon {
@@ -444,12 +452,21 @@
 
 .theme-dark .expand-button {
   background: var(--gradient-primary);
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
 }
 
 .theme-dark .expand-button:hover {
   background: var(--gradient-primary-hover);
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
+}
+
+.theme-dark .expand-button:active,
+.theme-dark .expand-button:focus {
+  color: #FFFFFF;
+}
+
+.theme-dark .expand-button ion-icon {
+  color: #FFFFFF;
 }
 
 
@@ -799,8 +816,11 @@
   }
   
   .experience-card__title-row {
-    padding: var(--spacing-6);
-    padding-bottom: var(--spacing-4);
+    padding: var(--spacing-4);
+    padding-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-4);
+    margin: 0;
+    border-radius: var(--border-radius-xl) var(--border-radius-xl) 0 0;
   }
   
   .experience-card__title {
@@ -817,6 +837,11 @@
   
   .experience-card__tags {
     padding: 0 var(--spacing-8) var(--spacing-4) var(--spacing-8);
+  }
+  
+  /* Hide right section icons on tablet and smaller */
+  .experience-card__right-section {
+    display: none;
   }
   
   .experience-card-header {
@@ -890,8 +915,10 @@
   }
   
   .experience-card__title-row {
-    padding: var(--spacing-4);
-    padding-bottom: var(--spacing-3);
+    padding: var(--spacing-3);
+    padding-bottom: var(--spacing-2);
+    margin: 0;
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
   }
   
   .experience-card__title {
