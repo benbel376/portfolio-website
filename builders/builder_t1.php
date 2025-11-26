@@ -284,6 +284,11 @@ class PortfolioBuilder {
         $data = $object['data'] ?? [];
         $navigationConfig = $object['navigation'] ?? [];
         
+        // Include parentTab if specified
+        if (isset($object['parentTab'])) {
+            $navigationConfig['parentTab'] = $object['parentTab'];
+        }
+        
         if ($this->debugMode) {
             error_log("BUILDER DEBUG: Loading container $id ($containerSpec)");
         }

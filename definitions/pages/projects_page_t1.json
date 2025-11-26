@@ -5,6 +5,7 @@
 			"type": "container",
 			"component": "vertical/type_1",
 			"id": "projects-main-container",
+			"parentTab": "projects",
 			"navigation": {
 				"defaultState": "hidden",
 				"allowedStates": ["visible", "hidden", "scrollTo"]

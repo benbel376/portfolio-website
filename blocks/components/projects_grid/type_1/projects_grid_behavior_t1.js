@@ -308,7 +308,8 @@ function navigateToProjectDetails(project, index) {
     }
     
     // Use the detailUrl from the project data, or fallback to constructed URL
-    const detailUrl = project.detailUrl || `#project-details-main-container/visible.projects?project=${encodeURIComponent(project.name)}`;
+    // Note: Tab highlighting is automatic via data-parent-tab attribute, no need for .projects suffix
+    const detailUrl = project.detailUrl || `#project-details-main-container/visible?project=${encodeURIComponent(project.name)}`;
     window.location.hash = detailUrl;
 }
 

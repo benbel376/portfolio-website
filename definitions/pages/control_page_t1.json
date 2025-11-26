@@ -4,6 +4,7 @@
             "type": "container",
             "component": "vertical/type_1",
             "id": "admin-main-container",
+            "parentTab": "admin",
             "navigation": {
                 "defaultState": "hidden",
                 "allowedStates": ["visible", "hidden"],

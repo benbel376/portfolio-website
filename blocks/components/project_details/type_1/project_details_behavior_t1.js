@@ -32,8 +32,8 @@
     function handleBackToProjects() {
         console.log('Project Details: Navigating back to projects');
         
-        // Update URL hash - let the navigation system handle the rest
-        window.location.hash = '#projects-main-container/visible.projects';
+        // Update URL hash - tab highlighting is automatic via data-parent-tab
+        window.location.hash = '#projects-main-container/visible';
     }
 
     // Export initialization function for dynamic loading

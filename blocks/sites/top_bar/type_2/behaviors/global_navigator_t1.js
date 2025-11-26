@@ -90,40 +90,39 @@ class GlobalNavigator {
         if (!hash) {
             // No hash, restore all to default states
             this.restoreAllToDefaults();
-            this.updateTabHighlighting(null);
+            this.updateTabHighlighting();
             return;
         }
         
-        const { navigationState, activeTab } = this.parseHash(hash);
+        const navigationState = this.parseHash(hash);
         await this.executeNavigation(navigationState);
-        this.updateTabHighlighting(activeTab);
+        this.updateTabHighlighting();
     }
     
     /**
      * Parse hash URL into navigation state
-     * Format: #elementId1/state1/param1=value1&param2=value2|elementId2/state2.tabId
+     * Format: #elementId1/state1?param1=value1&param2=value2|elementId2/state2
      */
     parseHash(hash) {
         const navigationState = new Map();
-        let activeTab = null;
-        
-        // Check for tab highlighting signal at the end (after final .)
-        const tabSplit = hash.split('.');
-        if (tabSplit.length > 1) {
-            activeTab = tabSplit.pop(); // Get the tab ID
-            hash = tabSplit.join('.'); // Rejoin in case there were other dots
-        }
         
         // Split by | for multiple element states
         const elementStates = hash.split('|');
         
         elementStates.forEach(elementState => {
+            // Check for parameters (after ?)
+            let paramString = '';
+            if (elementState.includes('?')) {
+                const [mainPart, params] = elementState.split('?');
+                elementState = mainPart;
+                paramString = params;
+            }
+            
             const parts = elementState.split('/');
             
             if (parts.length >= 2) {
                 const elementId = parts[0];
                 const state = parts[1];
-                const paramString = parts[2] || '';
                 
                 // Parse parameters
                 const parameters = {};
@@ -144,7 +143,7 @@ class GlobalNavigator {
             }
         });
         
-        return { navigationState, activeTab };
+        return navigationState;
     }
     
     /**
@@ -279,57 +278,59 @@ class GlobalNavigator {
         return {};
     }
     
-    navigate(elementId, state, parameters = {}, activeTab = null) {
+    navigate(elementId, state, parameters = {}) {
         const newState = new Map();
         newState.set(elementId, { state, parameters });
-        const hashString = this.buildHashFromState(newState, activeTab);
+        const hashString = this.buildHashFromState(newState);
         window.location.hash = hashString;
     }
     
-    navigateMultiple(stateMap, activeTab = null) {
+    navigateMultiple(stateMap) {
         const newState = new Map();
         if (stateMap instanceof Map) {
             stateMap.forEach((config, elementId) => newState.set(elementId, config));
         } else {
             Object.entries(stateMap).forEach(([elementId, config]) => newState.set(elementId, config));
         }
-        const hashString = this.buildHashFromState(newState, activeTab);
+        const hashString = this.buildHashFromState(newState);
         window.location.hash = hashString;
     }
     
-    buildHashFromState(navigationState, activeTab = null) {
+    buildHashFromState(navigationState) {
         const elementStates = [];
         navigationState.forEach((config, elementId) => {
             let stateString = `${elementId}/${config.state}`;
             if (config.parameters && Object.keys(config.parameters).length > 0) {
                 const paramPairs = Object.entries(config.parameters).map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-                stateString += `/${paramPairs.join('&')}`;
+                stateString += `?${paramPairs.join('&')}`;
             }
             elementStates.push(stateString);
         });
-        let hashString = elementStates.join('|');
-        if (activeTab) hashString += `.${activeTab}`;
-        return hashString;
+        return elementStates.join('|');
     }
     
     getCurrentState() { return new Map(this.currentState); }
     isElementInState(elementId, state) { const currentConfig = this.currentState.get(elementId); return currentConfig && currentConfig.state === state; }
     
-    updateTabHighlighting(activeTab) {
-        if (window.topBarNavigation && typeof window.topBarNavigation.updateTabHighlighting === 'function') {
-            window.topBarNavigation.updateTabHighlighting(activeTab);
-        } else {
-            this.directUpdateTabHighlighting(activeTab);
-        }
-    }
-    
-    directUpdateTabHighlighting(activeTab) {
+    updateTabHighlighting() {
+        // Always detect from visible containers with data-parent-tab
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => link.classList.remove('active'));
-        if (activeTab) {
+        
+        // Find all visible containers with data-parent-tab attribute
+        const visibleContainers = document.querySelectorAll('[data-parent-tab]:not(.nav-hidden)');
+        
+        if (visibleContainers.length === 0) return;
+        
+        // Get the parent tab from the first visible container
+        const parentTab = visibleContainers[0].getAttribute('data-parent-tab');
+        
+        if (parentTab) {
             navLinks.forEach(link => {
                 const tabId = link.getAttribute('data-tab-id') || link.getAttribute('data-target');
-                if (tabId === activeTab) link.classList.add('active');
+                if (tabId === parentTab) {
+                    link.classList.add('active');
+                }
             });
         }
     }

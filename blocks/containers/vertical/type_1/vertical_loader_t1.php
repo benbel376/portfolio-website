@@ -18,10 +18,13 @@ class VerticalLoader {
         // Handle navigation configuration
         $navConfig = $this->processNavigationConfig($navigationConfig);
 
-        // Build attribute string for nav handler, id, optional protected and nav-config in one pass
+        // Build attribute string for nav handler, id, optional protected, parent-tab and nav-config in one pass
         $attributes = 'data-nav-handler="handleVerticalContainerNavigation"';
         if (!empty($navConfig['protected'])) {
             $attributes .= ' data-protected="true"';
+        }
+        if (!empty($navConfig['parentTab'])) {
+            $attributes .= ' data-parent-tab="' . htmlspecialchars($navConfig['parentTab'], ENT_QUOTES, 'UTF-8') . '"';
         }
         if (!empty($navConfig)) {
             $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');

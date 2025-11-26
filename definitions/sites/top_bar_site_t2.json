@@ -5,7 +5,7 @@
     },
     "navigation": {
         "defaultNavigation": {
-            "hash": "summary-main-container/visible.about",
+            "hash": "summary-main-container/visible",
             "description": "Default navigation on first load"
         },
         "tabs": [

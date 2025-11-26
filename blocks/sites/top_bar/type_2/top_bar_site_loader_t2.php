@@ -35,12 +35,12 @@ class TopBarSiteLoader {
             $label = htmlspecialchars($tab['label']);
             $targetId = htmlspecialchars($tab['target']);
             $state = htmlspecialchars($tab['state'] ?? 'visible');
-            $tabId = htmlspecialchars($tab['tabId'] ?? $targetId); // Use tabId if provided, otherwise use targetId
+            $tabId = htmlspecialchars($tab['tabId'] ?? $targetId);
             $isProtected = !empty($tab['protected']);
             
-            // Generate simple hash URL for navigation with tab highlighting signal
-            // Format: #elementId/state.tabId (no parameters in hash)
-            $hashUrl = "#{$targetId}/{$state}.{$tabId}";
+            // Generate clean hash URL - tab highlighting is automatic via data-parent-tab
+            // Format: #elementId/state (no tab ID needed)
+            $hashUrl = "#{$targetId}/{$state}";
             
             $tabsHtml .= '<li>';
             $tabsHtml .= '<a href="' . $hashUrl . '" class="nav-link" data-target="' . $targetId . '" data-state="' . $state . '" data-tab-id="' . $tabId . '"' . ($isProtected ? ' data-protected="true"' : '') . '>';

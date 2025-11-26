@@ -5,6 +5,7 @@
       "component": "vertical/type_1",
       "id": "project-details-main-container",
       "dynamic": false,
+      "parentTab": "projects",
       "navigation": {
         "defaultState": "hidden",
         "allowedStates": ["visible", "hidden", "scrollTo"],
