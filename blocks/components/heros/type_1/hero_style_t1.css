@@ -1,4 +1,29 @@
-.hero.hero-profile { position: relative; padding: 24px; }
+/* Hero Component Specific Variables */
+:root {
+  /* Hero spacing */
+  --hero-padding: 24px;
+  --hero-blob-blur: 3px;
+  
+  /* Hero overlay gradients - Light theme */
+  --hero-overlay-light: linear-gradient(to right, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 255, 255, 0.8) 30%, 
+    rgba(255, 255, 255, 1.0) 100%
+  );
+  
+  /* Hero overlay gradients - Dark theme */
+  --hero-overlay-dark: linear-gradient(to right, 
+    rgba(0, 0, 0, 0.8) 0%, 
+    rgba(0, 0, 0, 0.8) 30%, 
+    rgba(0, 0, 0, 1.0) 100%
+  );
+  
+  /* Blob base gradients */
+  --hero-blob-gradient-light: linear-gradient(135deg, rgba(255, 143, 0, 0.08) 0%, rgba(245, 124, 0, 0.12) 100%);
+  --hero-blob-gradient-dark: linear-gradient(135deg, rgba(255, 143, 0, 0.25) 0%, rgba(245, 124, 0, 0.35) 100%);
+}
+
+.hero.hero-profile { position: relative; padding: var(--hero-padding); }
 
 /* Background image layer */
 .hero.hero-profile::before {
@@ -20,20 +45,12 @@
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(to right, 
-		rgba(255, 255, 255, 0.8) 0%, 
-		rgba(255, 255, 255, 0.8) 30%, 
-		rgba(255, 255, 255, 1.0) 100%
-	);
+	background: var(--hero-overlay-light);
 	z-index: 1;
 }
 
 .theme-dark .hero.hero-profile::after {
-	background: linear-gradient(to right, 
-		rgba(0, 0, 0, 0.8) 0%, 
-		rgba(0, 0, 0, 0.8) 30%, 
-		rgba(0, 0, 0, 1.0) 100%
-	);
+	background: var(--hero-overlay-dark);
 }
 
 /* Floating blobs container */
@@ -49,15 +66,15 @@
 .hero__blob {
 	position: absolute;
 	border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-	background: linear-gradient(135deg, rgba(255, 143, 0, 0.08) 0%, rgba(245, 124, 0, 0.12) 100%);
-	filter: blur(3px);
+	background: var(--hero-blob-gradient-light);
+	filter: blur(var(--hero-blob-blur));
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 	animation-fill-mode: both;
 }
 
 .theme-dark .hero__blob {
-	background: linear-gradient(135deg, rgba(255, 143, 0, 0.25) 0%, rgba(245, 124, 0, 0.35) 100%);
+	background: var(--hero-blob-gradient-dark);
 }
 
 /* Dark theme individual blob opacity overrides */
