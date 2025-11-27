@@ -1,28 +1,28 @@
 /* Competencies Component Styles */
 .competencies {
   font-family: var(--font-family-primary);
-  padding: var(--spacing-5, 20px);
+  padding: var(--spacing-5);
   background: transparent;
-  color: var(--color-text-primary, #333333);
+  color: var(--color-text-primary);
 }
 
 .competencies__container {
-  max-width: 1200px;
+  max-width: var(--container-max-width, 1200px);
   margin: 0 auto;
-  padding: 0 var(--spacing-10, 40px);
+  padding: 0 var(--spacing-10);
 }
 
 /* Main Header Section */
 
 .competencies__main-header {
-  margin-bottom: var(--spacing-12, 3rem);
-  margin-top: var(--spacing-12, 3rem);
+  margin-bottom: var(--spacing-12);
+  margin-top: var(--spacing-12);
 }
 
 .competencies__title-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-4);
   flex: 1;
 }
 
@@ -30,16 +30,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
-  border-radius: 12px;
-  color: var(--color-text-inverse, white);
+  width: var(--spacing-12);
+  height: var(--spacing-12);
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-xl);
+  color: #FFFFFF;
   flex-shrink: 0;
 }
 
 .competencies__icon-wrapper ion-icon {
-  font-size: 1.5rem;
+  font-size: var(--font-size-2xl);
 }
 
 .competencies__title-content {
@@ -49,27 +49,27 @@
 
 .competencies__title {
   font-family: inherit;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-text-primary, #2C2C2C);
-  margin: 0 0 0.25rem 0;
-  line-height: 1.2;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-1) 0;
+  line-height: var(--line-height-tight);
 }
 
 .competencies__subtitle {
   font-family: inherit;
-  font-size: 0.95rem;
-  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
   margin: 0;
-  line-height: 1.3;
+  line-height: var(--line-height-normal);
 }
 
 .theme-dark .competencies__title {
-  color: var(--color-text-primary, #FAFAFA);
+  color: var(--color-text-primary);
 }
 
 .theme-dark .competencies__subtitle {
-  color: var(--color-text-secondary, #D0D0D0);
+  color: var(--color-text-secondary);
 }
 
 /* Controls Header */
@@ -78,25 +78,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
-  gap: 24px;
+  margin-bottom: var(--spacing-10);
+  gap: var(--spacing-6);
   position: relative;
   flex-wrap: wrap;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: var(--spacing-5);
+  border-bottom: var(--border-width-1) solid var(--color-black-alpha-10);
 }
 
 .theme-dark .competencies__header {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: var(--color-white-alpha-10);
 }
 
 .competencies__tabs {
   display: flex;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  gap: var(--spacing-2);
+  background: var(--color-white-alpha-10);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-1);
+  box-shadow: var(--shadow-sm);
 }
 
 .theme-dark .competencies__tabs {
