@@ -1,24 +1,24 @@
 /* Professional Certifications Component - Slideshow Design */
 
 .certifications-component {
-    padding: 0px var(--spacing-12, 50px);
-    max-width: var(--max-width-lg, 1200px);
+    padding: 0 var(--spacing-12);
+    max-width: var(--container-max-width, 1200px);
     margin: 0 auto;
     position: relative;
-    font-family: var(--font-family-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
+    font-family: var(--font-family-primary);
 }
 
 /* Header Section */
 
 .certifications__header {
-    margin-top: var(--spacing-16, 4rem);
-    margin-bottom: var(--spacing-8, 2rem);
+    margin-top: var(--spacing-16);
+    margin-bottom: var(--spacing-8);
 }
 
 .certifications__title-section {
     display: flex;
     align-items: center;
-    gap: var(--spacing-4, 1rem);
+    gap: var(--spacing-4);
     width: 100%;
 }
 
@@ -26,16 +26,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--spacing-12, 50px);
-    height: var(--spacing-12, 50px);
-    background: var(--gradient-primary, linear-gradient(135deg, #FF8F00, #FFB74D));
-    border-radius: var(--border-radius-xl, 12px);
-    color: var(--color-text-inverse, white);
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+    background: var(--gradient-primary);
+    border-radius: var(--border-radius-xl);
+    color: #FFFFFF;
     flex-shrink: 0;
 }
 
 .certifications__icon-wrapper ion-icon {
-    font-size: var(--font-size-2xl, 1.5rem);
+    font-size: var(--font-size-2xl);
 }
 
 .certifications__title-content {
@@ -44,27 +44,27 @@
 
 .certifications__title {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-2xl, 1.5rem);
-    font-weight: var(--font-weight-semibold, 600);
-    color: var(--color-text-primary, #2C2C2C);
-    margin: 0 0 var(--spacing-1, 0.25rem) 0;
-    line-height: var(--line-height-tight, 1.2);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-1) 0;
+    line-height: var(--line-height-tight);
 }
 
 .certifications__subtitle {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-base, 1rem);
-    color: var(--color-text-secondary, #666);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
     margin: 0;
-    line-height: var(--line-height-normal, 1.4);
+    line-height: var(--line-height-normal);
 }
 
 .theme-dark .certifications__title {
-    color: var(--color-text-primary, #FAFAFA);
+    color: var(--color-text-primary);
 }
 
 .theme-dark .certifications__subtitle {
-    color: var(--color-text-secondary, #D0D0D0);
+    color: var(--color-text-secondary);
 }
 
 /* Header Navigation */
@@ -72,10 +72,10 @@
 .certifications__header-navigation {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2, 0.5rem);
+    gap: var(--spacing-2);
     margin-left: auto;
     opacity: 0.6;
-    transition: var(--transition-all-normal, all 0.3s ease);
+    transition: var(--transition-all-normal);
 }
 
 .certifications-component:hover .certifications__header-navigation {
@@ -86,21 +86,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--spacing-8, 32px);
-    height: var(--spacing-8, 32px);
-    background: var(--color-surface, white);
-    border: var(--border-width-1, 1px) solid var(--gradient-primary-alpha-20, rgba(255, 143, 0, 0.2));
-    border-radius: var(--border-radius-lg, 10px);
-    color: var(--color-primary, #FF8F00);
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+    background: var(--color-surface);
+    border: var(--border-width-1) solid var(--color-primary-alpha-20);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-primary);
     cursor: pointer;
-    transition: var(--transition-all-normal, all 0.3s ease);
-    backdrop-filter: blur(10px);
+    transition: var(--transition-all-normal);
+    backdrop-filter: blur(var(--blur-md, 10px));
 }
 
 .certifications__header-nav-button:hover {
-    background: var(--gradient-primary-alpha-10, rgba(255, 143, 0, 0.1));
-    border-color: var(--gradient-primary-alpha-30, rgba(255, 143, 0, 0.4));
-    transform: translateY(-1px);
+    background: var(--color-primary-alpha-10);
+    border-color: var(--color-primary-alpha-30);
+    transform: translateY(calc(-1 * var(--spacing-half)));
 }
 
 .certifications__header-nav-button:active {
@@ -111,42 +111,42 @@
     opacity: 0.3;
     cursor: not-allowed;
     transform: none;
-    background: var(--color-surface-tertiary, rgba(255, 255, 255, 0.05));
-    border-color: var(--gradient-primary-alpha-10, rgba(255, 143, 0, 0.1));
+    background: var(--color-surface-tertiary);
+    border-color: var(--color-primary-alpha-10);
 }
 
 .certifications__header-nav-button ion-icon {
-    font-size: var(--font-size-base, 1rem);
+    font-size: var(--font-size-base);
 }
 
 .theme-dark .certifications__header-nav-button {
-    background: var(--color-surface-tertiary, rgba(40, 40, 40, 0.3));
-    border-color: var(--gradient-primary-alpha-30, rgba(255, 143, 0, 0.3));
-    color: var(--color-primary-light, #FFB74D);
+    background: var(--color-surface-tertiary);
+    border-color: var(--color-primary-alpha-30);
+    color: var(--color-primary-light);
 }
 
 .theme-dark .certifications__header-nav-button:hover {
-    background: var(--gradient-primary-alpha-20, rgba(255, 143, 0, 0.15));
-    border-color: var(--gradient-primary-alpha-30, rgba(255, 143, 0, 0.5));
+    background: var(--color-primary-alpha-20);
+    border-color: var(--color-primary-alpha-50);
 }
 
 /* Slideshow Container */
 
 .certifications__slideshow {
-    background: var(--color-surface-secondary, rgba(255, 255, 255, 0.95));
-    backdrop-filter: blur(10px);
-    border: var(--border-width-1, 1px) solid var(--color-surface-tertiary, rgba(255, 255, 255, 0.2));
-    border-radius: var(--border-radius-3xl, 20px);
-    padding: var(--spacing-8, 2rem);
-    box-shadow: var(--shadow-card, 0 8px 32px rgba(0, 0, 0, 0.08));
+    background: var(--color-surface-secondary);
+    backdrop-filter: blur(var(--blur-md, 10px));
+    border: var(--border-width-1) solid var(--color-surface-tertiary);
+    border-radius: var(--border-radius-3xl);
+    padding: var(--spacing-8);
+    box-shadow: var(--shadow-card);
     position: relative;
     overflow: hidden;
 }
 
 .theme-dark .certifications__slideshow {
-    background: var(--color-surface-secondary, rgba(40, 40, 40, 0.95));
-    border-color: var(--color-border-light, rgba(255, 255, 255, 0.1));
-    box-shadow: var(--shadow-card, 0 8px 32px rgba(0, 0, 0, 0.2));
+    background: var(--color-surface-secondary);
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card);
 }
 
 /* Slide Content */
@@ -377,50 +377,50 @@
 
 @media (max-width: 768px) {
     .certifications-component {
-        padding: 0px var(--spacing-4, 1rem);
+        padding: 0 var(--spacing-4);
     }
     
     .certifications__header {
-        margin-top: var(--spacing-12, 3rem);
-        margin-bottom: var(--spacing-6, 1.5rem);
+        margin-top: var(--spacing-12);
+        margin-bottom: var(--spacing-6);
     }
     
     .certifications__title-section {
-        gap: var(--spacing-3, 0.75rem);
+        gap: var(--spacing-3);
     }
     
     .certifications__icon-wrapper {
-        width: var(--spacing-10, 40px);
-        height: var(--spacing-10, 40px);
+        width: var(--spacing-10);
+        height: var(--spacing-10);
     }
     
     .certifications__icon-wrapper ion-icon {
-        font-size: var(--font-size-xl, 1.25rem);
+        font-size: var(--font-size-xl);
     }
     
     .certifications__title {
-        font-size: var(--font-size-xl, 1.25rem);
+        font-size: var(--font-size-xl);
     }
     
     .certifications__subtitle {
-        font-size: var(--font-size-sm, 0.875rem);
+        font-size: var(--font-size-sm);
     }
     
     .certifications__slideshow {
-        padding: var(--spacing-6, 1.5rem);
-        border-radius: var(--border-radius-2xl, 16px);
+        padding: var(--spacing-6);
+        border-radius: var(--border-radius-2xl);
     }
     
     .certifications__slide.active {
         flex-direction: column;
-        gap: var(--spacing-6, 1.5rem);
+        gap: var(--spacing-6);
         text-align: center;
         min-height: auto;
     }
     
     .certifications__badge {
-        width: var(--spacing-20, 120px);
-        height: var(--spacing-20, 120px);
+        width: var(--spacing-20);
+        height: var(--spacing-20);
     }
     
     .certifications__content {
@@ -428,47 +428,47 @@
     }
     
     .certifications__name {
-        font-size: var(--font-size-2xl, 1.5rem);
+        font-size: var(--font-size-2xl);
     }
     
     .certifications__issuer {
-        font-size: var(--font-size-base, 1rem);
+        font-size: var(--font-size-base);
     }
     
     .certifications__description {
-        font-size: var(--font-size-sm, 0.875rem);
+        font-size: var(--font-size-sm);
     }
     
     .certifications__header-navigation {
-        gap: var(--spacing-1, 0.25rem);
+        gap: var(--spacing-1);
     }
     
     .certifications__header-nav-button {
-        width: var(--spacing-7, 28px);
-        height: var(--spacing-7, 28px);
+        width: var(--spacing-7);
+        height: var(--spacing-7);
     }
     
     .certifications__header-nav-button ion-icon {
-        font-size: var(--font-size-sm, 0.875rem);
+        font-size: var(--font-size-sm);
     }
 }
 
 @media (max-width: 480px) {
     .certifications__title {
-        font-size: var(--font-size-lg, 1.125rem);
+        font-size: var(--font-size-lg);
     }
     
     .certifications__name {
-        font-size: var(--font-size-xl, 1.25rem);
+        font-size: var(--font-size-xl);
     }
     
     .certifications__slideshow {
-        padding: var(--spacing-4, 1rem);
+        padding: var(--spacing-4);
     }
     
     .certifications__badge {
-        width: var(--spacing-16, 100px);
-        height: var(--spacing-16, 100px);
+        width: var(--spacing-16);
+        height: var(--spacing-16);
     }
 }
 
@@ -477,7 +477,7 @@
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateX(var(--spacing-7));
     }
     to {
         opacity: 1;
@@ -486,7 +486,7 @@
 }
 
 .certifications__slide.active {
-    animation: slideIn var(--transition-duration-normal, 0.25s) var(--transition-timing-ease-out, ease-out);
+    animation: slideIn var(--transition-duration-normal) var(--transition-timing-ease-out);
 }
 
 /* Focus States for Accessibility */
@@ -494,8 +494,8 @@
 .certifications__header-nav-button:focus,
 .certifications__indicator:focus,
 .certifications__link:focus {
-    outline: 2px solid var(--color-focus, #2196F3);
-    outline-offset: 2px;
+    outline: var(--border-width-2) solid var(--color-focus);
+    outline-offset: var(--spacing-1);
 }
 
 /* Reduced Motion Support */
