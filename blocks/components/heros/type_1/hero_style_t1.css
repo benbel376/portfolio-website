@@ -659,32 +659,32 @@ Inner ring - sized relative to avatar
 
 .theme-dark .hero__cv-button { 
   background: var(--gradient-primary); 
-  box-shadow: 0 2px 8px rgba(255, 143, 0, 0.2); 
+  box-shadow: var(--shadow-sm); 
 }
 
 .theme-dark .hero__cv-button:hover { 
-  background: linear-gradient(135deg, #FFB74D 0%, #FF8F00 100%); 
-  box-shadow: 0 4px 16px rgba(255, 143, 0, 0.4); 
+  background: var(--gradient-primary-reverse); 
+  box-shadow: var(--shadow-md); 
 }
 
 /* Tablet landscape and smaller desktops */
 @media (max-width: 1024px) {
-	.hero__container { gap: 20px; padding: 0 16px; margin: 0 auto 0 40px; }
+	.hero__container { gap: var(--spacing-5); padding: 0 var(--spacing-4); margin: 0 auto 0 var(--spacing-10); }
 	.hero__avatar-section { flex: 0 0 220px; }
-	.hero__content { padding-left: 16px; }
-	.hero__name { font-size: var(--font-size-xl, 1.25rem); }
-	.hero__title { font-size: var(--font-size-base, 1rem); }
-	.hero__description { font-size: var(--font-size-base, 1rem); }
+	.hero__content { padding-left: var(--spacing-4); }
+	.hero__name { font-size: var(--font-size-xl); }
+	.hero__title { font-size: var(--font-size-base); }
+	.hero__description { font-size: var(--font-size-base); }
 }
 
 /* Tablet portrait */
 @media (max-width: 768px) {
-	.hero.hero-profile { padding: 16px; }
+	.hero.hero-profile { padding: var(--spacing-4); }
 	.hero__container { 
 		flex-direction: column; 
 		text-align: center; 
-		gap: 24px; 
-		padding: 0 12px; 
+		gap: var(--spacing-6); 
+		padding: 0 var(--spacing-3); 
 		margin: 0 auto; 
 	}
 	.hero__avatar-section { 
@@ -699,10 +699,10 @@ Inner ring - sized relative to avatar
 		text-align: center; 
 	}
 	.hero__content::before { display: none; }
-	.hero__description { margin: 0 0 20px; }
+	.hero__description { margin: 0 0 var(--spacing-5); }
 	.hero__social-links { justify-content: center; }
 	.hero__actions { 
-		margin-top: 28px; 
+		margin-top: var(--spacing-7); 
 		display: flex; 
 		justify-content: center; 
 	}
@@ -716,7 +716,7 @@ Inner ring - sized relative to avatar
 	/* Adjust ring positioning for tablet */
 	.hero__avatar-section::before,
 	.hero__avatar-section::after {
-		top: calc(50% - 40px);
+		top: calc(50% - var(--spacing-10));
 	}
 	
 	.hero__avatar-section::before {
@@ -739,45 +739,45 @@ Inner ring - sized relative to avatar
 @media (max-width: 640px) {
 	.hero__avatar-section { max-width: 180px; }
 	.hero__avatar img { width: 200px; height: 200px; }
-	.hero__name { font-size: var(--font-size-xl, 1.3rem); }
-	.hero__title { font-size: var(--font-size-base, 0.95rem); }
-	.hero__description { font-size: var(--font-size-sm, 0.9rem); line-height: var(--line-height-normal, 1.5); }
-	.hero__social-links { gap: 16px; }
-	.hero__icon { width: 44px; height: 44px; }
+	.hero__name { font-size: var(--font-size-xl); }
+	.hero__title { font-size: var(--font-size-base); }
+	.hero__description { font-size: var(--font-size-sm); line-height: var(--line-height-normal); }
+	.hero__social-links { gap: var(--spacing-4); }
+	.hero__icon { width: var(--spacing-11); height: var(--spacing-11); }
 	.hero__cv-button { 
-		padding: var(--spacing-2, 10px) var(--spacing-5, 20px); 
-		font-size: var(--font-size-sm, 0.9rem); 
-		border-radius: var(--border-radius-lg, 10px); 
+		padding: var(--spacing-2) var(--spacing-5); 
+		font-size: var(--font-size-sm); 
+		border-radius: var(--border-radius-lg); 
 	}
 }
 
 /* Mobile portrait */
 @media (max-width: 480px) {
-	.hero.hero-profile { padding: 12px 0.75rem; }
-	.hero__container { gap: 20px; padding: 0; }
+	.hero.hero-profile { padding: var(--spacing-3) var(--spacing-3); }
+	.hero__container { gap: var(--spacing-5); padding: 0; }
 	.hero__avatar-section { max-width: 200px; }
 	.hero__avatar img { width: 180px; height: 180px; }
-	.hero__name { font-size: var(--font-size-xl, 1.2rem); margin: 0 0 var(--spacing-1, 4px) 0; }
-	.hero__title { font-size: var(--font-size-sm, 0.9rem); }
+	.hero__name { font-size: var(--font-size-xl); margin: 0 0 var(--spacing-1) 0; }
+	.hero__title { font-size: var(--font-size-sm); }
 	.hero__description { 
-		font-size: var(--font-size-sm, 0.85rem); 
-		line-height: var(--line-height-tight, 1.4); 
-		margin: 0 0 var(--spacing-4, 16px) 0; 
+		font-size: var(--font-size-sm); 
+		line-height: var(--line-height-tight); 
+		margin: 0 0 var(--spacing-4) 0; 
 	}
 	.hero__social-links { 
-		gap: 12px; 
+		gap: var(--spacing-3); 
 		flex-wrap: wrap; 
 		justify-content: center; 
 	}
-	.hero__icon { width: 40px; height: 40px; }
-	.hero__actions { margin-top: 24px; }
+	.hero__icon { width: var(--spacing-10); height: var(--spacing-10); }
+	.hero__actions { margin-top: var(--spacing-6); }
 	.hero__cv-button { 
-		padding: var(--spacing-2, 8px) var(--spacing-4, 16px); 
-		font-size: var(--font-size-sm, 0.85rem); 
-		border-radius: var(--border-radius-lg, 8px); 
-		gap: var(--spacing-1, 6px); 
+		padding: var(--spacing-2) var(--spacing-4); 
+		font-size: var(--font-size-sm); 
+		border-radius: var(--border-radius-lg); 
+		gap: var(--spacing-1); 
 	}
-	.hero__cv-button ion-icon { font-size: var(--font-size-base, 1rem); }
+	.hero__cv-button ion-icon { font-size: var(--font-size-base); }
 	
 	/* Reduce blobs for mobile */
 	.hero__blob--1 { width: 80px; height: 80px; }
@@ -791,7 +791,7 @@ Inner ring - sized relative to avatar
 	/* Adjust ring positioning for mobile */
 	.hero__avatar-section::before,
 	.hero__avatar-section::after {
-		top: calc(50% - 30px);
+		top: calc(50% - var(--spacing-7));
 	}
 	
 	.hero__avatar-section::before {
@@ -808,13 +808,13 @@ Inner ring - sized relative to avatar
 /* Very small screens */
 @media (max-width: 360px) {
 	.hero__avatar img { width: 160px; height: 160px; }
-	.hero__name { font-size: var(--font-size-lg, 1.1rem); }
-	.hero__description { font-size: var(--font-size-xs, 0.8rem); }
-	.hero__social-links { gap: 10px; }
-	.hero__icon { width: 36px; height: 36px; }
+	.hero__name { font-size: var(--font-size-lg); }
+	.hero__description { font-size: var(--font-size-xs); }
+	.hero__social-links { gap: var(--spacing-2); }
+	.hero__icon { width: var(--spacing-9); height: var(--spacing-9); }
 	.hero__cv-button { 
-		padding: var(--spacing-1, 6px) var(--spacing-3, 14px); 
-		font-size: var(--font-size-xs, 0.8rem); 
+		padding: var(--spacing-1) var(--spacing-3); 
+		font-size: var(--font-size-xs); 
 	}
 }
 
