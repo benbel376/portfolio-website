@@ -26,7 +26,7 @@ class HorizontalLoaderT1 {
 		}
 
 		$html .= '\n<link rel="stylesheet" href="blocks/containers/horizontal/type_1/horizontal_container_style_t1.css">';
-		$html .= '\n<script src="blocks/containers/horizontal/type_1/horizontal_container_behavior_t1.js" type="module"></script>';
+		$html .= '\n<script src="blocks/containers/horizontal/type_1/horizontal_container_behavior_t1.js"></script>';
 		return $html;
 	}
 

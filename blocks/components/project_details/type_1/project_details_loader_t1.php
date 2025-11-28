@@ -71,7 +71,7 @@ class ProjectDetailsLoader {
         // Close the dynamic content container before the script tag
         $html = str_replace(
             '<script src="blocks/components/project_details/type_1/project_details_behavior_t1.js" type="module"></script>',
-            '</div><script src="blocks/components/project_details/type_1/project_details_behavior_t1.js" type="module"></script>',
+            '</div><script src="blocks/components/project_details/type_1/project_details_behavior_t1.js"></script>',
             $html
         );
 
