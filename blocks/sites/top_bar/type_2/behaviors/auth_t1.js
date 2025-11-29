@@ -6,9 +6,9 @@
     class AuthManager {
         constructor() {
             this.isAuthenticated = false;
-            this.statusEndpoint = 'endpoints/security_t1.php?action=status';
-            this.loginEndpoint = 'endpoints/security_t1.php?action=login';
-            this.logoutEndpoint = 'endpoints/security_t1.php?action=logout';
+            this.statusEndpoint = 'api.php?endpoint=security&action=status';
+            this.loginEndpoint = 'api.php?endpoint=security&action=login';
+            this.logoutEndpoint = 'api.php?endpoint=security&action=logout';
             this.listeners = new Set();
             this.initialize();
         }

@@ -47,7 +47,7 @@
 
   const ensureLoggedOut = async () => {
     if (window.authManager && window.authManager.isAuthenticated) {
-      await fetch('endpoints/security_t1.php?action=logout', { method: 'POST', credentials: 'same-origin' });
+      await fetch('api.php?endpoint=security&action=logout', { method: 'POST', credentials: 'same-origin' });
       await window.authManager.refreshStatus();
       window.authManager.broadcast();
       await sleep(100);
@@ -55,7 +55,7 @@
   };
 
   const loginDemo = async () => {
-    await fetch('endpoints/security_t1.php?action=login', {
+    await fetch('api.php?endpoint=security&action=login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'same-origin',

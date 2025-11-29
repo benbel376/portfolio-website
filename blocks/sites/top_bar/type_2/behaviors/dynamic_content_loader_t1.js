@@ -16,7 +16,7 @@ class DynamicContentLoader {
         this.cache = new Map();
         this.loadingPromises = new Map();
         this.cachePrefix = 'dynamic_content_';
-        this.apiEndpoint = 'endpoints/dynamic_content_t1.php';
+        this.apiEndpoint = 'api.php?endpoint=dynamic_content';
         
         console.log('Dynamic Content Loader initialized');
     }
