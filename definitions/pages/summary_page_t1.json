@@ -23,7 +23,11 @@
 							"name": "Biniyam Belayneh",
 							"title": "AI and MLOps Engineer",
 							"description": "Experienced ML Engineer specializing in developing and deploying machine learning solutions. Strong background in data analysis and model optimization.",
-							"image": "blocks/components/heros/type_1/assets/media/profile_hero_avatar_v1.png",
+							"image": "definitions/media/profile/avatar.png",
+							"backdrop": {
+								"light": "definitions/media/backgrounds/hero_backdrop_light.png",
+								"dark": "definitions/media/backgrounds/hero_backdrop_dark.png"
+							},
 							"social": [
 								{ "type": "email", "label": "Email", "href": "mailto:biniyambelayneh376@gmail.com" },
 								{ "type": "phone", "label": "Phone", "href": "tel:+251939890540" },
@@ -31,7 +35,7 @@
 								{ "type": "github", "label": "GitHub", "href": "https://github.com/benbel376" }
 							],
 							"cvDownload": {
-								"href": "blocks/components/heros/type_1/assets/media/Biniyam_Belayneh_CV.pdf",
+								"href": "definitions/media/profile/Biniyam_Belayneh_CV.pdf",
 								"filename": "Biniyam_Belayneh_CV.pdf"
 							}
 						}
@@ -50,6 +54,7 @@
 					"dynamic": false,
 					"data": {
 						"main": {
+							"decorationImage": "definitions/media/misc/summary_profile.gif",
 							"highlightIcon": "rocket-outline",
 							"highlightTitle": "AI & MLOps Team Lead",
 							"highlightSubtitle": "Building end-to-end machine learning systems from development to deployment with scalability, security, and efficiency at the core.",

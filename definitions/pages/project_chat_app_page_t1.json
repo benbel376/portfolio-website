@@ -22,7 +22,7 @@
             "main": {
               "title": "Real-Time Chat Application",
               "description": "Scalable real-time messaging application supporting group chats, file sharing, and emoji reactions with end-to-end encryption. Features modern UI/UX design and supports thousands of concurrent users with WebSocket technology.",
-              "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
               "category": "Web Development",
               "technologies": ["React", "Socket.io", "Node.js", "Redis", "MongoDB", "WebRTC", "JWT"],
               "status": "Completed",

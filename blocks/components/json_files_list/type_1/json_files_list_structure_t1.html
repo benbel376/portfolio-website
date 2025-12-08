@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="blocks/components/json_files_list/type_1/json_files_list_style_t1.css">
+<div class="json-files-list-component" data-nav-handler="handleJsonFilesListNavigation">
+    
+    <!-- Header -->
+    <div class="json-files-list__header">
+        <div class="json-files-list__title-section">
+            <div class="json-files-list__icon-wrapper">
+                <ion-icon name="folder-open-outline"></ion-icon>
+            </div>
+            <div class="json-files-list__title-content">
+                <h2 class="json-files-list__title">JSON Definition Files</h2>
+                <p class="json-files-list__subtitle">Manage page, profile, and site configurations</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- List View (slides out) -->
+    <div class="json-files-list__list-view">
+        <!-- Toolbar -->
+        <div class="json-files-list__toolbar">
+            <!-- Left: Folder selector -->
+            <div class="json-files-list__folder-selector">
+                <label for="json-files-folder">Folder:</label>
+                <select id="json-files-folder" class="json-files-list__folder-dropdown">
+                    <option value="all">All</option>
+                    <option value="pages">Pages</option>
+                    <option value="profiles">Profiles</option>
+                    <option value="sites">Sites</option>
+                </select>
+            </div>
+            
+            <!-- Right: Action buttons -->
+            <div class="json-files-list__actions">
+                <button class="json-files-list__action-btn" id="json-files-view-btn" disabled>
+                    <ion-icon name="create-outline"></ion-icon>
+                    <span>Edit</span>
+                </button>
+                <button class="json-files-list__action-btn json-files-list__action-btn--delete" id="json-files-delete-btn" disabled>
+                    <ion-icon name="trash-outline"></ion-icon>
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="json-files-list__search">
+            <ion-icon name="search-outline"></ion-icon>
+            <input type="text" id="json-files-search" placeholder="Search files..." />
+        </div>
+
+        <!-- Files List Container with scroll -->
+        <div class="json-files-list__list-container">
+            <!-- Files List -->
+            <div class="json-files-list__list" id="json-files-list">
+                <!-- Files will be injected here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="json-files-list__empty" id="json-files-empty" style="display: none;">
+                <ion-icon name="document-outline"></ion-icon>
+                <p>No JSON files found</p>
+            </div>
+
+            <!-- Loading State -->
+            <div class="json-files-list__loading" id="json-files-loading">
+                <div class="json-files-list__spinner"></div>
+                <p>Loading files...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editor Panel (slides in from right) -->
+    <div class="json-files-list__editor-panel" id="json-files-editor-panel">
+        <!-- Editor Header -->
+        <div class="json-files-list__editor-header">
+            <button class="json-files-list__back-btn" id="json-editor-back-btn">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                <span>Back to Files</span>
+            </button>
+            <h3 class="json-files-list__editor-title" id="json-editor-title">Edit File</h3>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="json-files-list__editor-content">
+            <div class="json-files-list__editor-wrapper" id="json-editor-wrapper">
+                <div class="json-files-list__editor-lines" id="json-editor-lines"></div>
+            </div>
+        </div>
+
+        <!-- Validation Messages -->
+        <div class="json-files-list__editor-validation" id="json-editor-validation" style="display: none;"></div>
+
+        <!-- Editor Footer -->
+        <div class="json-files-list__editor-footer">
+            <button class="json-files-list__editor-btn json-files-list__editor-btn--cancel" id="json-editor-cancel-btn">
+                Cancel
+            </button>
+            <button class="json-files-list__editor-btn json-files-list__editor-btn--save" id="json-editor-save-btn">
+                <ion-icon name="save-outline"></ion-icon>
+                <span>Save Changes</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+<script src="blocks/components/json_files_list/type_1/json_files_list_behavior_t1.js"></script>

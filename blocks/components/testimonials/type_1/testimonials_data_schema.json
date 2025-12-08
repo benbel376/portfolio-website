@@ -1,0 +1,49 @@
+{
+  "$schema": "Component Data Schema for testimonials/type_1",
+  "$description": "Testimonials slideshow component displays client/colleague testimonials",
+  "example": [
+    {
+      "name": "John Smith",
+      "title": "Senior Engineer",
+      "company": "Tech Corp",
+      "quote": "Excellent work and great collaboration.",
+      "avatar": "https://via.placeholder.com/80x80/4CAF50/FFFFFF?text=JS"
+    }
+  ],
+  "note": "Testimonials data is an array directly (not wrapped in object)",
+  "fields": {
+    "items": {
+      "type": "array",
+      "required": true,
+      "description": "Array of testimonial objects",
+      "items": {
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "Person's name"
+        },
+        "title": {
+          "type": "string",
+          "required": false,
+          "description": "Person's job title"
+        },
+        "company": {
+          "type": "string",
+          "required": false,
+          "description": "Company name"
+        },
+        "quote": {
+          "type": "string",
+          "required": true,
+          "description": "Testimonial text"
+        },
+        "avatar": {
+          "type": "string",
+          "required": false,
+          "description": "URL or path to avatar image",
+          "example": "definitions/media/testimonials/avatar.png"
+        }
+      }
+    }
+  }
+}

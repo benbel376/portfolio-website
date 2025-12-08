@@ -22,7 +22,7 @@
             "main": {
               "title": "AI-Powered Customer Analytics Platform",
               "description": "A comprehensive machine learning platform that analyzes customer behavior patterns, segments users based on purchasing history, and generates predictive insights for business decision-making. The system processes large datasets in real-time and provides interactive dashboards for stakeholders.",
-              "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
               "category": "Machine Learning",
               "technologies": ["Python", "TensorFlow", "React", "Node.js", "MongoDB", "Docker", "Kubernetes", "PostgreSQL"],
               "status": "Completed",

@@ -1,0 +1,81 @@
+{
+  "$schema": "Component Data Schema for tools/type_1",
+  "$description": "Tools component displays categorized tools/technologies with project examples",
+  "example": {
+    "title": "Toolkits",
+    "categories": [
+      {
+        "title": "Programming Languages",
+        "tools": [
+          {
+            "name": "Python",
+            "description": "Primary language for data science and ML",
+            "icon": "logo-python",
+            "category": "programming",
+            "projects": [
+              {
+                "name": "ML Pipeline",
+                "description": "Built automated ML training pipelines"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Section title"
+    },
+    "categories": {
+      "type": "array",
+      "required": true,
+      "description": "Array of tool categories",
+      "items": {
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "Category name"
+        },
+        "tools": {
+          "type": "array",
+          "required": true,
+          "description": "Array of tools in this category",
+          "items": {
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Tool name"
+            },
+            "description": {
+              "type": "string",
+              "required": false,
+              "description": "Tool description"
+            },
+            "icon": {
+              "type": "string",
+              "required": false,
+              "description": "Ion-icon name or URL to icon image"
+            },
+            "category": {
+              "type": "string",
+              "required": false,
+              "description": "Tool category for filtering"
+            },
+            "projects": {
+              "type": "array",
+              "required": false,
+              "description": "Example projects using this tool",
+              "items": {
+                "name": { "type": "string" },
+                "description": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

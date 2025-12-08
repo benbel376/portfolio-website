@@ -1,0 +1,69 @@
+{
+  "$schema": "Component Data Schema for certifications/type_1",
+  "$description": "Certifications slideshow component displays professional certifications with images and details",
+  "example": {
+    "title": "Professional Certifications",
+    "description": "Industry-recognized credentials and achievements",
+    "certifications": [
+      {
+        "name": "AWS Cloud Practitioner",
+        "issuer": "Amazon Web Services",
+        "image": "definitions/media/certifications/aws_practitioner.png",
+        "description": "Foundational understanding of AWS Cloud concepts, services, security, architecture, pricing, and support.",
+        "link": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+        "dateIssued": "2023-06-15"
+      }
+    ]
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Section title displayed in header"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Section subtitle/description"
+    },
+    "certifications": {
+      "type": "array",
+      "required": true,
+      "description": "Array of certification objects",
+      "items": {
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "Certification name/title"
+        },
+        "issuer": {
+          "type": "string",
+          "required": true,
+          "description": "Organization that issued the certification"
+        },
+        "image": {
+          "type": "string",
+          "required": true,
+          "description": "Path to certification badge/image (relative to project root)",
+          "example": "definitions/media/certifications/cert_name.png"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Description of what the certification covers"
+        },
+        "link": {
+          "type": "string",
+          "required": false,
+          "description": "URL to certification verification or info page"
+        },
+        "dateIssued": {
+          "type": "string",
+          "required": false,
+          "description": "Date certification was issued (ISO format: YYYY-MM-DD)",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "Component Data Schema for projects_grid/type_1",
+  "$description": "Projects grid component displays project cards with filtering and pagination",
+  "example": {
+    "title": "My Projects",
+    "projects": [
+      {
+        "name": "AI Platform",
+        "description": "End-to-end machine learning platform",
+        "image": "definitions/media/projects/ai_platform.png",
+        "technologies": ["Python", "TensorFlow", "AWS"],
+        "category": "ml",
+        "link": "#project-ai-platform-container/visible",
+        "github": "https://github.com/user/project",
+        "demo": "https://demo.example.com"
+      }
+    ]
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Section title"
+    },
+    "projects": {
+      "type": "array",
+      "required": true,
+      "description": "Array of project objects",
+      "items": {
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "Project name"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Project description"
+        },
+        "image": {
+          "type": "string",
+          "required": false,
+          "description": "Path to project image (uses default placeholder if not provided)",
+          "default": "blocks/components/projects_grid/type_1/assets/defaults/project-placeholder.svg"
+        },
+        "technologies": {
+          "type": "array",
+          "required": false,
+          "description": "Array of technology names used in project",
+          "items": { "type": "string" }
+        },
+        "category": {
+          "type": "string",
+          "required": false,
+          "description": "Project category for filtering (ml, web, data, cloud, etc.)"
+        },
+        "link": {
+          "type": "string",
+          "required": false,
+          "description": "Internal navigation link (hash URL to project details)"
+        },
+        "github": {
+          "type": "string",
+          "required": false,
+          "description": "GitHub repository URL"
+        },
+        "demo": {
+          "type": "string",
+          "required": false,
+          "description": "Live demo URL"
+        }
+      }
+    }
+  },
+  "defaults": {
+    "placeholderImage": "blocks/components/projects_grid/type_1/assets/defaults/project-placeholder.svg",
+    "bannerPlaceholder": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg"
+  }
+}

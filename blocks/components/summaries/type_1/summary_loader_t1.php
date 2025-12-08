@@ -59,6 +59,10 @@ class SummaryLoaderT1 {
 		$highlightSubtitle = $data['highlightSubtitle'] ?? '';
 		$paragraphs = $data['paragraphs'] ?? [];
 		$expertise = $data['expertise'] ?? [];
+		$decorationImage = $data['decorationImage'] ?? 'definitions/media/misc/summary_profile.gif';
+
+		// Replace decoration image
+		$template = str_replace('<!-- DECORATION_IMAGE -->', htmlspecialchars($decorationImage), $template);
 
 		// Replace highlight section
 		$template = str_replace('<!-- HIGHLIGHT_ICON_NAME -->', htmlspecialchars($highlightIcon), $template);

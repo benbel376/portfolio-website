@@ -269,7 +269,7 @@ function createProjectCard(project, index) {
     card.setAttribute('data-project-index', index);
     
     // Use placeholder image if no image provided
-    const imageSrc = project.image || 'blocks/components/projects_grid/type_1/assets/media/project-placeholder.svg';
+    const imageSrc = project.image || 'blocks/components/projects_grid/type_1/assets/defaults/project-placeholder.svg';
     
     card.innerHTML = `
         <img class="project-card__image" 

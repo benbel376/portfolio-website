@@ -1,0 +1,79 @@
+{
+  "$schema": "Component Data Schema for education_history/type_1",
+  "$description": "Education history timeline component displays academic background",
+  "example": {
+    "title": "Education History",
+    "description": "Academic background and qualifications",
+    "education": [
+      {
+        "institution": "University of Technology",
+        "degree": "Master of Science in Computer Science",
+        "field": "Machine Learning & Data Science",
+        "startDate": "2020-09-01",
+        "endDate": "2022-06-30",
+        "description": "Specialized in machine learning algorithms and AI.",
+        "highlights": [
+          "Graduated Magna Cum Laude",
+          "Published research paper"
+        ]
+      }
+    ]
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Section title"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Section subtitle"
+    },
+    "education": {
+      "type": "array",
+      "required": true,
+      "description": "Array of education entries",
+      "items": {
+        "institution": {
+          "type": "string",
+          "required": true,
+          "description": "School/University name"
+        },
+        "degree": {
+          "type": "string",
+          "required": true,
+          "description": "Degree obtained"
+        },
+        "field": {
+          "type": "string",
+          "required": false,
+          "description": "Field of study"
+        },
+        "startDate": {
+          "type": "string",
+          "required": false,
+          "description": "Start date (ISO format: YYYY-MM-DD)",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "required": false,
+          "description": "End date (ISO format: YYYY-MM-DD)",
+          "format": "date"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Description of studies"
+        },
+        "highlights": {
+          "type": "array",
+          "required": false,
+          "description": "Array of achievement highlights",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

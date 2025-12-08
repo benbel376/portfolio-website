@@ -1,0 +1,81 @@
+{
+  "$schema": "Component Data Schema for project_details/type_1",
+  "$description": "Project details component displays full project information",
+  "example": {
+    "name": "AI Platform",
+    "description": "End-to-end machine learning platform for automated model training and deployment.",
+    "image": "definitions/media/projects/ai_platform_banner.png",
+    "technologies": ["Python", "TensorFlow", "AWS", "Docker"],
+    "features": [
+      "Automated model training pipeline",
+      "Real-time inference API",
+      "Model versioning and rollback"
+    ],
+    "challenges": "Scaling to handle 1M+ predictions per day while maintaining low latency.",
+    "solution": "Implemented distributed inference with auto-scaling Kubernetes pods.",
+    "results": "Reduced inference latency by 60% and increased throughput by 300%.",
+    "github": "https://github.com/user/ai-platform",
+    "demo": "https://demo.ai-platform.com",
+    "date": "2023-06-15"
+  },
+  "fields": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Project name"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "description": "Project description"
+    },
+    "image": {
+      "type": "string",
+      "required": false,
+      "description": "Path to project banner/hero image"
+    },
+    "technologies": {
+      "type": "array",
+      "required": false,
+      "description": "Technologies used",
+      "items": { "type": "string" }
+    },
+    "features": {
+      "type": "array",
+      "required": false,
+      "description": "Key features list",
+      "items": { "type": "string" }
+    },
+    "challenges": {
+      "type": "string",
+      "required": false,
+      "description": "Challenges faced"
+    },
+    "solution": {
+      "type": "string",
+      "required": false,
+      "description": "Solution implemented"
+    },
+    "results": {
+      "type": "string",
+      "required": false,
+      "description": "Results achieved"
+    },
+    "github": {
+      "type": "string",
+      "required": false,
+      "description": "GitHub repository URL"
+    },
+    "demo": {
+      "type": "string",
+      "required": false,
+      "description": "Live demo URL"
+    },
+    "date": {
+      "type": "string",
+      "required": false,
+      "description": "Project date (ISO format)",
+      "format": "date"
+    }
+  }
+}

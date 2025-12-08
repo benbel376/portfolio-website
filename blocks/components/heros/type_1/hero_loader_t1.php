@@ -8,24 +8,40 @@ class HeroLoaderT1 {
         $name = $data['name'] ?? '';
         $headline = $data['title'] ?? $title;
         $description = $data['description'] ?? '';
-        $image = $data['image'] ?? 'blocks/components/heros/type_1/assets/media/profile_hero_avatar_v1.png';
+        $image = $data['image'] ?? 'definitions/media/profile/avatar.png';
+        $backdrop = $data['backdrop'] ?? [
+            'light' => 'definitions/media/backgrounds/hero_backdrop_light.png',
+            'dark' => 'definitions/media/backgrounds/hero_backdrop_dark.png'
+        ];
         $social = $data['social'] ?? [];
         $cvDownload = $data['cvDownload'] ?? [];
 
         switch ($loadingMode) {
             case 'full':
             default:
-                return $this->generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $social, $cvDownload);
+                return $this->generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $backdrop, $social, $cvDownload);
         }
     }
 
-    private function generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $social, $cvDownload) {
+    private function generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $backdrop, $social, $cvDownload) {
         $template = file_get_contents(__DIR__ . '/hero_structure_t1.html');
         
-        // Process image path once for both HTML and CSS usage
+        // Process image paths - add base path for relative URLs
+        $basePath = '/website/react/portfolio3/portfolio-website/';
+        
         $imagePath = $image;
         if (strpos($imagePath, '/') !== 0 && strpos($imagePath, 'http') !== 0) {
-            $imagePath = '/website/react/portfolio3/portfolio-website/' . $imagePath;
+            $imagePath = $basePath . $imagePath;
+        }
+        
+        $backdropLight = $backdrop['light'] ?? 'definitions/media/backgrounds/hero_backdrop_light.png';
+        $backdropDark = $backdrop['dark'] ?? 'definitions/media/backgrounds/hero_backdrop_dark.png';
+        
+        if (strpos($backdropLight, '/') !== 0 && strpos($backdropLight, 'http') !== 0) {
+            $backdropLight = $basePath . $backdropLight;
+        }
+        if (strpos($backdropDark, '/') !== 0 && strpos($backdropDark, 'http') !== 0) {
+            $backdropDark = $basePath . $backdropDark;
         }
         
         $html = $this->fillTemplate($template, $name, $headline, $description, $imagePath, $social, $cvDownload);
@@ -42,10 +58,9 @@ class HeroLoaderT1 {
             1
         );
 
-        // Provide CSS variables for images on the element style
-        // Set CSS variables on the element so CSS can resolve them from the right base (avoid CSS file relative path issues)
-        $cssVars = '--hero-backdrop-light: url(/website/react/portfolio3/portfolio-website/blocks/components/heros/type_1/assets/media/profile_hero_backdrop_light_v3.png);'
-                 . ' --hero-backdrop-dark: url(/website/react/portfolio3/portfolio-website/blocks/components/heros/type_1/assets/media/profile_hero_backdrop_dark_v3.png);'
+        // Provide CSS variables for images on the element style (from JSON data)
+        $cssVars = '--hero-backdrop-light: url(' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');'
+                 . ' --hero-backdrop-dark: url(' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');'
                  . ' --avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
                  . ' --avatar-image-dark: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');';
         $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);

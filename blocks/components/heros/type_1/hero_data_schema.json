@@ -1,0 +1,97 @@
+{
+  "$schema": "Component Data Schema for heros/type_1",
+  "$description": "Hero component displays profile information with avatar, social links, and CV download",
+  "example": {
+    "name": "John Doe",
+    "title": "Software Engineer",
+    "description": "Experienced developer specializing in web applications and cloud solutions.",
+    "image": "definitions/media/profile/avatar.png",
+    "backdrop": {
+      "light": "definitions/media/backgrounds/hero_backdrop_light.png",
+      "dark": "definitions/media/backgrounds/hero_backdrop_dark.png"
+    },
+    "social": [
+      { "type": "email", "label": "Email", "href": "mailto:john@example.com" },
+      { "type": "phone", "label": "Phone", "href": "tel:+1234567890" },
+      { "type": "linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/johndoe" },
+      { "type": "github", "label": "GitHub", "href": "https://github.com/johndoe" }
+    ],
+    "cvDownload": {
+      "href": "definitions/media/profile/cv.pdf",
+      "filename": "John_Doe_CV.pdf"
+    }
+  },
+  "fields": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Full name displayed in hero"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Professional title/headline"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Brief professional description"
+    },
+    "image": {
+      "type": "string",
+      "required": true,
+      "description": "Path to avatar image (relative to project root)",
+      "default": "definitions/media/profile/avatar.png"
+    },
+    "backdrop": {
+      "type": "object",
+      "required": false,
+      "description": "Background images for light/dark themes",
+      "properties": {
+        "light": {
+          "type": "string",
+          "description": "Path to light theme backdrop"
+        },
+        "dark": {
+          "type": "string",
+          "description": "Path to dark theme backdrop"
+        }
+      }
+    },
+    "social": {
+      "type": "array",
+      "required": false,
+      "description": "Social media links",
+      "items": {
+        "type": {
+          "type": "string",
+          "enum": ["email", "phone", "linkedin", "github"],
+          "description": "Type determines icon displayed"
+        },
+        "label": {
+          "type": "string",
+          "description": "Accessibility label"
+        },
+        "href": {
+          "type": "string",
+          "description": "Link URL (mailto:, tel:, or https://)"
+        }
+      }
+    },
+    "cvDownload": {
+      "type": "object",
+      "required": false,
+      "description": "CV/Resume download configuration",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "Path to CV file"
+        },
+        "filename": {
+          "type": "string",
+          "description": "Download filename"
+        }
+      }
+    }
+  }
+}

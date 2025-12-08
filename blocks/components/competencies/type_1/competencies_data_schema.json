@@ -1,0 +1,109 @@
+{
+  "$schema": "Component Data Schema for competencies/type_1",
+  "$description": "Competencies component displays skills with slideshow and categorized skill cards",
+  "example": {
+    "title": "My Competencies",
+    "slideshow": [
+      {
+        "title": "ML Pipeline Architecture",
+        "description": "End-to-end machine learning pipeline with automated training",
+        "src": "definitions/media/slides/competencies_slide_1.svg",
+        "type": "image"
+      }
+    ],
+    "categories": [
+      {
+        "title": "AI & Machine Learning",
+        "icon": "brain-outline",
+        "skills": [
+          {
+            "title": "Model Development",
+            "description": "End-to-end ML model creation",
+            "icon": "analytics-outline",
+            "type": "ml"
+          }
+        ]
+      }
+    ]
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Section title"
+    },
+    "slideshow": {
+      "type": "array",
+      "required": false,
+      "description": "Array of slideshow items",
+      "items": {
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "Slide title"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Slide description"
+        },
+        "src": {
+          "type": "string",
+          "required": true,
+          "description": "Path to slide image (relative to project root)",
+          "example": "definitions/media/slides/slide_name.svg"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["image", "video"],
+          "default": "image",
+          "description": "Media type"
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "required": true,
+      "description": "Array of skill categories",
+      "items": {
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "Category name"
+        },
+        "icon": {
+          "type": "string",
+          "required": false,
+          "description": "Ion-icon name for category"
+        },
+        "skills": {
+          "type": "array",
+          "required": true,
+          "description": "Array of skills in this category",
+          "items": {
+            "title": {
+              "type": "string",
+              "required": true,
+              "description": "Skill name"
+            },
+            "description": {
+              "type": "string",
+              "required": false,
+              "description": "Skill description"
+            },
+            "icon": {
+              "type": "string",
+              "required": false,
+              "description": "Ion-icon name for skill"
+            },
+            "type": {
+              "type": "string",
+              "required": false,
+              "description": "Skill type for filtering (ml, ops, data, cloud, analysis)"
+            }
+          }
+        }
+      }
+    }
+  }
+}

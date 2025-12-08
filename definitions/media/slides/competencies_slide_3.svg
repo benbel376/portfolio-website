@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-label="Workflow Schematic C">
+  <defs>
+    <radialGradient id="rg" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EDEDED"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="810" fill="url(#rg)"/>
+  <g fill="#FF8F00">
+    <circle cx="300" cy="400" r="8"/>
+    <circle cx="620" cy="250" r="8"/>
+    <circle cx="980" cy="520" r="8"/>
+  </g>
+  <g stroke="#999" stroke-width="4" fill="none">
+    <path d="M300 400 C 460 330, 540 300, 620 250"/>
+    <path d="M620 250 C 780 350, 880 420, 980 520"/>
+  </g>
+  <g fill="#333" fill-opacity=".7" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace" font-size="28">
+    <text x="260" y="430">Idea</text>
+    <text x="580" y="230">Design</text>
+    <text x="1000" y="550">Operate</text>
+  </g>
+</svg>
+
+

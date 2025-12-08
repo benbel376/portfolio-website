@@ -14,10 +14,10 @@
             "objects": [
                 {
                     "type": "component",
-                    "component": "placeholders/type_1",
-                    "id": "admin-placeholder",
+                    "component": "json_files_list/type_1",
+                    "id": "admin-json-files-list",
                     "dynamic": false,
-                    "data": { "main": { "title": "Admin Tools" } },
+                    "data": { "main": {} },
                     "variant": "main",
                     "navigation": { "defaultState": "visible", "allowedStates": ["visible","hidden"], "protected": true }
                 }

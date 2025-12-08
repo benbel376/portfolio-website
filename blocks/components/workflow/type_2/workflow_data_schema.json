@@ -1,0 +1,61 @@
+{
+  "$schema": "Component Data Schema for workflow/type_2",
+  "$description": "Workflow component displays step-by-step process diagrams",
+  "example": {
+    "title": "My Workflow",
+    "scenarios": {
+      "scenario_0": [
+        {
+          "title": "Data Collection",
+          "description": "Gather and validate input data",
+          "icon": "cloud-download-outline"
+        },
+        {
+          "title": "Processing",
+          "description": "Transform and clean data",
+          "icon": "cog-outline"
+        },
+        {
+          "title": "Analysis",
+          "description": "Apply ML models",
+          "icon": "analytics-outline"
+        }
+      ]
+    }
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Section title"
+    },
+    "scenarios": {
+      "type": "object",
+      "required": true,
+      "description": "Map of scenario names to step arrays",
+      "properties": {
+        "scenario_N": {
+          "type": "array",
+          "description": "Array of workflow steps (N = 0, 1, 2, etc.)",
+          "items": {
+            "title": {
+              "type": "string",
+              "required": true,
+              "description": "Step title"
+            },
+            "description": {
+              "type": "string",
+              "required": false,
+              "description": "Step description"
+            },
+            "icon": {
+              "type": "string",
+              "required": false,
+              "description": "Ion-icon name for step"
+            }
+          }
+        }
+      }
+    }
+  }
+}

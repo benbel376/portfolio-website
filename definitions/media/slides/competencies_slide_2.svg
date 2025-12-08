@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-label="Workflow Schematic B">
+  <rect width="1440" height="810" fill="#F7F7F7"/>
+  <g stroke="#FFB84D" stroke-width="8" fill="none" stroke-linecap="round">
+    <path d="M160 160 H1280"/>
+    <path d="M160 650 H1280"/>
+    <path d="M240 200 V610"/>
+    <path d="M1200 200 V610"/>
+  </g>
+  <g fill="#333" fill-opacity=".7" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="32" font-weight="700">
+    <text x="260" y="260">Data ➜ Features ➜ Train ➜ Evaluate ➜ Ship</text>
+    <text x="260" y="330" font-weight="600" font-size="26">CI/CD • Artefacts • Lineage • Gates • Rollback</text>
+    <text x="260" y="560" font-weight="600" font-size="26">Dashboards • Traces • Alerts • SLOs</text>
+  </g>
+</svg>
+
+

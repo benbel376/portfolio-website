@@ -1,0 +1,75 @@
+{
+  "$schema": "Component Data Schema for summaries/type_1",
+  "$description": "Summary component displays professional overview with highlight card and expertise grid",
+  "example": {
+    "decorationImage": "definitions/media/misc/summary_profile.gif",
+    "highlightIcon": "rocket-outline",
+    "highlightTitle": "AI & MLOps Team Lead",
+    "highlightSubtitle": "Building end-to-end machine learning systems",
+    "paragraphs": [
+      "First paragraph with <strong>bold text</strong> allowed.",
+      "Second paragraph describing expertise."
+    ],
+    "expertise": [
+      {
+        "icon": "server-outline",
+        "title": "ML Infrastructure",
+        "description": "Scalable ML pipelines with automation"
+      }
+    ]
+  },
+  "fields": {
+    "decorationImage": {
+      "type": "string",
+      "required": false,
+      "description": "Path to header decoration image (GIF/PNG)",
+      "default": "definitions/media/misc/summary_profile.gif"
+    },
+    "highlightIcon": {
+      "type": "string",
+      "required": false,
+      "description": "Ion-icon name for highlight card",
+      "default": "rocket-outline"
+    },
+    "highlightTitle": {
+      "type": "string",
+      "required": true,
+      "description": "Main title in highlight card"
+    },
+    "highlightSubtitle": {
+      "type": "string",
+      "required": false,
+      "description": "Subtitle in highlight card"
+    },
+    "paragraphs": {
+      "type": "array",
+      "required": false,
+      "description": "Array of paragraph strings (basic HTML tags allowed: strong, em, b, i, u, a)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expertise": {
+      "type": "array",
+      "required": false,
+      "description": "Array of expertise items for the grid",
+      "items": {
+        "icon": {
+          "type": "string",
+          "required": false,
+          "description": "Ion-icon name"
+        },
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "Expertise title"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Expertise description"
+        }
+      }
+    }
+  }
+}

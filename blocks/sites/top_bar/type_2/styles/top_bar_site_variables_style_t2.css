@@ -41,7 +41,7 @@
     /* Even more subtle for hover */
     --nav-main-border-color: hsl(0, 0%, 90%);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(../assets/media/general_background_bubbles_v1.avif);
+    --site-container-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_bubbles_v1.avif);
     /* Light theme image */
     /* Spacing Variables */
     --spacing-xs: 4px;
@@ -819,7 +819,7 @@
     --transition-1: 0.25s ease;
     --transition-2: 0.5s ease-in-out;
     /* Body Background Image - Light Theme */
-    --body-bg-image: url(../assets/media/general_background_light_v1.png);
+    --body-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_light_v1.png);
     --hero-name-text-color: var(--primary);
     /* Avatar image is now handled by the hero component itself */
     /* Responsive Layout Spacing */
@@ -885,12 +885,12 @@
     /* Even more subtle for hover */
     --nav-main-border-color: var(--nav-border-color);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(../assets/media/general_background_bubbles_dark_v1.jpg);
+    --site-container-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg);
     /* Dark theme background with bubbles pattern */
     /* Shadows for dark theme */
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
     /* Body Background Image - Dark Theme */
-    --body-bg-image: url(../assets/media/general_background_dark_v1.png);
+    --body-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_dark_v1.png);
     --hero-name-text-color: var(--orange-yellow-crayola);
     /* Hero name specifically yellow in dark mode */
     /* Avatar image is now handled by the hero component itself */

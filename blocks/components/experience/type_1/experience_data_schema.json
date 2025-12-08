@@ -1,0 +1,78 @@
+{
+  "$schema": "Component Data Schema for experience/type_1",
+  "$description": "Experience timeline component displays work history",
+  "example": {
+    "title": "Work Experience",
+    "experiences": [
+      {
+        "company": "Tech Company",
+        "role": "Senior Engineer",
+        "location": "San Francisco, CA",
+        "startDate": "2021-01-01",
+        "endDate": "present",
+        "description": "Led development of ML infrastructure.",
+        "achievements": [
+          "Reduced deployment time by 50%",
+          "Built automated ML pipeline"
+        ],
+        "technologies": ["Python", "AWS", "Kubernetes"]
+      }
+    ]
+  },
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Section title"
+    },
+    "experiences": {
+      "type": "array",
+      "required": true,
+      "description": "Array of work experience entries",
+      "items": {
+        "company": {
+          "type": "string",
+          "required": true,
+          "description": "Company name"
+        },
+        "role": {
+          "type": "string",
+          "required": true,
+          "description": "Job title/role"
+        },
+        "location": {
+          "type": "string",
+          "required": false,
+          "description": "Work location"
+        },
+        "startDate": {
+          "type": "string",
+          "required": false,
+          "description": "Start date (ISO format or 'present')"
+        },
+        "endDate": {
+          "type": "string",
+          "required": false,
+          "description": "End date (ISO format or 'present')"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Role description"
+        },
+        "achievements": {
+          "type": "array",
+          "required": false,
+          "description": "Array of achievements",
+          "items": { "type": "string" }
+        },
+        "technologies": {
+          "type": "array",
+          "required": false,
+          "description": "Technologies used",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

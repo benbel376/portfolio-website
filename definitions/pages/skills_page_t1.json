@@ -22,19 +22,19 @@
                                 {
                                     "title": "ML Pipeline Architecture",
                                     "description": "End-to-end machine learning pipeline with automated training, validation, and deployment",
-                                    "src": "blocks/components/competencies/type_1/assets/media/slides/slide_1.svg",
+                                    "src": "definitions/media/slides/competencies_slide_1.svg",
                                     "type": "image"
                                 },
                                 {
                                     "title": "Data Processing Workflow",
                                     "description": "Real-time data ingestion and processing pipeline using Apache Kafka and Spark",
-                                    "src": "blocks/components/competencies/type_1/assets/media/slides/slide_2.svg",
+                                    "src": "definitions/media/slides/competencies_slide_2.svg",
                                     "type": "image"
                                 },
                                 {
                                     "title": "Cloud Infrastructure Setup",
                                     "description": "Kubernetes-based microservices architecture with auto-scaling and load balancing",
-                                    "src": "blocks/components/competencies/type_1/assets/media/slides/slide_3.svg",
+                                    "src": "definitions/media/slides/competencies_slide_3.svg",
                                     "type": "image"
                                 }
                             ],

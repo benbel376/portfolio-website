@@ -23,7 +23,7 @@
                 "AI-Powered Customer Analytics Platform": {
                   "title": "AI-Powered Customer Analytics Platform",
                   "description": "A comprehensive machine learning platform that analyzes customer behavior patterns, segments users based on purchasing history, and generates predictive insights for business decision-making. The system processes large datasets in real-time and provides interactive dashboards for stakeholders.",
-                  "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+                  "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
                   "category": "Machine Learning",
                   "technologies": ["Python", "TensorFlow", "React", "Node.js", "MongoDB", "Docker", "Kubernetes", "PostgreSQL"],
                   "status": "Completed",
@@ -44,7 +44,7 @@
                 "E-Commerce Mobile Application": {
                   "title": "E-Commerce Mobile Application",
                   "description": "Full-featured mobile e-commerce application with user authentication, product catalog, shopping cart, and payment integration. Built with React Native for cross-platform compatibility and optimized for performance on both iOS and Android devices.",
-                  "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+                  "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
                   "category": "Mobile Development",
                   "technologies": ["React Native", "Node.js", "Express", "MongoDB", "Stripe API", "Firebase", "Redux"],
                   "status": "Completed",
@@ -65,7 +65,7 @@
                 "Real-Time Chat Application": {
                   "title": "Real-Time Chat Application",
                   "description": "Scalable real-time messaging application supporting group chats, file sharing, and emoji reactions with end-to-end encryption. Features modern UI/UX design and supports thousands of concurrent users with WebSocket technology.",
-                  "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+                  "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
                   "category": "Web Development",
                   "technologies": ["React", "Socket.io", "Node.js", "Redis", "MongoDB", "WebRTC", "JWT"],
                   "status": "Completed",
@@ -86,7 +86,7 @@
                 "Blockchain Voting System": {
                   "title": "Blockchain Voting System",
                   "description": "Secure and transparent voting system built on blockchain technology ensuring vote integrity and immutability. Implements smart contracts for automated vote counting and provides a user-friendly interface for voters and administrators.",
-                  "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+                  "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
                   "category": "Blockchain",
                   "technologies": ["Solidity", "Ethereum", "Web3.js", "React", "Truffle", "Ganache", "MetaMask"],
                   "status": "Completed",
@@ -107,7 +107,7 @@
                 "Machine Learning Stock Predictor": {
                   "title": "Machine Learning Stock Predictor",
                   "description": "Advanced stock price prediction system using LSTM neural networks with 85% accuracy rate for trading signals. Incorporates technical indicators, sentiment analysis, and market data to provide comprehensive trading insights.",
-                  "bannerImage": "blocks/components/projects_grid/type_1/assets/media/project_banner_placeholder.svg",
+                  "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
                   "category": "Machine Learning",
                   "technologies": ["Python", "TensorFlow", "Keras", "Pandas", "NumPy", "Scikit-learn", "Alpha Vantage API"],
                   "status": "Completed",
