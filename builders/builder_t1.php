@@ -396,9 +396,11 @@ class PortfolioBuilder {
         $navigationTabs = $siteConfig['navigationTabs'] ?? $siteConfig['navigation']['tabs'] ?? [];
         $defaultNavigation = $siteConfig['defaultNavigation'] ?? $siteConfig['navigation']['defaultNavigation'] ?? null;
         $title = $siteConfig['title'] ?? $siteConfig['branding']['title'] ?? 'Portfolio';
+        $backgrounds = $siteConfig['backgrounds'] ?? null;
+        $theme = $siteConfig['theme'] ?? null;
         
         // Load site with navigation and page content
-        return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation);
+        return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation, $backgrounds, $theme);
     }
     
     private function findLoaderFile($directoryPath) {

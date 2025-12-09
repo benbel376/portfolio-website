@@ -2,7 +2,11 @@
 
 class TopBarSiteLoader {
     
-    public function load($navigationTabs, $title, $pageContent, $defaultNavigation = null) {
+    public function load($navigationTabs, $title, $pageContent, $defaultNavigation = null, $backgrounds = null, $theme = null) {
+        // DEBUG: Log what we received
+        error_log("SITE LOADER DEBUG: backgrounds = " . json_encode($backgrounds));
+        error_log("SITE LOADER DEBUG: theme = " . json_encode($theme));
+        
         // Load the HTML structure template
         $htmlTemplate = file_get_contents(__DIR__ . '/top_bar_site_structure_t2.html');
         
@@ -22,10 +26,138 @@ class TopBarSiteLoader {
             $html = str_replace('<div class="site-container">', '<div class="site-container" data-default-navigation="' . $defaultNavJson . '">', $html);
         }
         
+        // Inject background CSS variables from JSON config (in head)
+        $backgroundStyles = $this->generateBackgroundStyles($backgrounds);
+        $html = str_replace('<!-- BACKGROUND_STYLES_PLACEHOLDER -->', $backgroundStyles, $html);
+        
+        // Inject theme CSS variables from JSON config (at end of body to override @import CSS)
+        $themeStyles = $this->generateThemeStyles($theme);
+        $html = str_replace('<!-- THEME_OVERRIDE_PLACEHOLDER -->', $themeStyles, $html);
+        
         // Replace page content placeholder
         $html = str_replace('<!-- PAGE_CONTENT_PLACEHOLDER -->', $pageContent, $html);
         
         return $html;
+    }
+    
+    private function generateBackgroundStyles($backgrounds) {
+        // Default backgrounds (fallbacks) - used when JSON doesn't specify
+        $defaults = [
+            'light' => [
+                'body' => 'definitions/media/backgrounds/general_background_light_v1.png',
+                'container' => 'definitions/media/backgrounds/general_background_bubbles_v1.avif'
+            ],
+            'dark' => [
+                'body' => 'definitions/media/backgrounds/general_background_dark_v1.png',
+                'container' => 'definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg'
+            ]
+        ];
+        
+        // Merge with provided backgrounds
+        $lightBody = $backgrounds['light']['body'] ?? $defaults['light']['body'];
+        $lightContainer = $backgrounds['light']['container'] ?? $defaults['light']['container'];
+        $darkBody = $backgrounds['dark']['body'] ?? $defaults['dark']['body'];
+        $darkContainer = $backgrounds['dark']['container'] ?? $defaults['dark']['container'];
+        
+        // Generate inline style tag with CSS variables
+        // These variable names match what the CSS expects
+        // Use absolute path from web root for reliability
+        $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+        
+        $style = '<style id="site-background-variables">';
+        $style .= ':root {';
+        $style .= '--site-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightContainer) . '");';
+        $style .= '--body-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightBody) . '");';
+        $style .= '--site-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkContainer) . '");';
+        $style .= '--body-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkBody) . '");';
+        $style .= '}';
+        $style .= '</style>';
+        
+        return $style;
+    }
+    
+    private function generateThemeStyles($theme) {
+        if (empty($theme)) {
+            return '';
+        }
+        
+        $style = '<style id="site-theme-variables">';
+        
+        // Light theme variables (in :root)
+        $style .= ':root {';
+        $style .= $this->generateThemeVariables($theme['light'] ?? [], 'light');
+        $style .= $this->generateSharedVariables($theme['shared'] ?? []);
+        $style .= '}';
+        
+        // Dark theme variables (in .theme-dark)
+        $style .= '.theme-dark {';
+        $style .= $this->generateThemeVariables($theme['dark'] ?? [], 'dark');
+        $style .= '}';
+        
+        $style .= '</style>';
+        
+        return $style;
+    }
+    
+    private function generateThemeVariables($themeConfig, $mode) {
+        $css = '';
+        
+        // Colors
+        if (!empty($themeConfig['colors'])) {
+            foreach ($themeConfig['colors'] as $name => $value) {
+                $css .= '--' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        // Fonts
+        if (!empty($themeConfig['fonts'])) {
+            foreach ($themeConfig['fonts'] as $name => $value) {
+                $css .= '--font-' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        // Custom variables (extensible - any variable can be added here)
+        if (!empty($themeConfig['custom'])) {
+            foreach ($themeConfig['custom'] as $name => $value) {
+                $css .= '--' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        return $css;
+    }
+    
+    private function generateSharedVariables($sharedConfig) {
+        $css = '';
+        
+        // Spacing
+        if (!empty($sharedConfig['spacing'])) {
+            foreach ($sharedConfig['spacing'] as $name => $value) {
+                $css .= '--spacing-' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        // Border radius
+        if (!empty($sharedConfig['radius'])) {
+            foreach ($sharedConfig['radius'] as $name => $value) {
+                $css .= '--radius-' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        // Text sizes
+        if (!empty($sharedConfig['text-size'])) {
+            foreach ($sharedConfig['text-size'] as $name => $value) {
+                $css .= '--text-' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        // Custom shared variables (extensible)
+        if (!empty($sharedConfig['custom'])) {
+            foreach ($sharedConfig['custom'] as $name => $value) {
+                $css .= '--' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        return $css;
     }
     
     private function generateNavigationTabs($navigationTabs) {

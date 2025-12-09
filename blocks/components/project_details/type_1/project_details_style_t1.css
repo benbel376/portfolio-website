@@ -126,9 +126,9 @@
 
 .project-details__tech-tag {
   padding: 0.3rem 0.6rem;
-  background: #F5F5F5;
-  color: #666;
-  border: 1px solid #E0E0E0;
+  background: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
@@ -136,21 +136,21 @@
 }
 
 .project-details__tech-tag:hover {
-  background: #FF8F00;
-  color: white;
-  border-color: #FF8F00;
+  background: var(--accent);
+  color: var(--color-text-inverse);
+  border-color: var(--accent);
 }
 
 .theme-dark .project-details__tech-tag {
-  background: #2C2C2C;
-  color: #B0B0B0;
-  border-color: #424242;
+  background: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
 }
 
 .theme-dark .project-details__tech-tag:hover {
-  background: #FF8F00;
-  color: white;
-  border-color: #FF8F00;
+  background: var(--accent);
+  color: var(--color-text-inverse);
+  border-color: var(--accent);
 }
 
 /* Description */
@@ -293,8 +293,8 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.8rem 1.2rem;
-  background: #FF8F00;
-  color: white;
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
   text-decoration: none;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -303,10 +303,10 @@
 }
 
 .project-details__link:hover {
-  background: #F57C00;
+  background: var(--gradient-primary-reverse);
   transform: translateY(-1px);
   text-decoration: none;
-  color: white;
+  color: var(--color-text-inverse);
 }
 
 .project-details__link ion-icon {

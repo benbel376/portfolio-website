@@ -55,8 +55,9 @@
 
 .card {
     background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 16px;
-    box-shadow: var(--shadow-1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     padding: 2em;
 }
 
@@ -66,7 +67,7 @@
     background-color: var(--site-container-bg);
     position: relative;
     border-radius: 22px;
-    box-shadow: var(--shadow-1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     padding: 0;
     min-height: calc(100vh - 2em);
     display: flex;

@@ -48,8 +48,12 @@
   
   <!-- Auth Manager -->
   <script src="blocks/sites/top_bar/type_2/behaviors/auth_t1.js"></script>
+  
   <!-- Test Helper (temporary) -->
   <script src="blocks/sites/top_bar/type_2/behaviors/test_helper_t1.js"></script>
+  
+  <!-- Theme Styles (injected from JSON config) - MUST be last to override CSS defaults -->
+  <!-- BACKGROUND_STYLES_PLACEHOLDER -->
 </head>
 <body>
 <div class="site-container">
@@ -79,7 +83,7 @@
     <button id="siteLoginModalClose" class="site-login-modal-close" aria-label="Close login">✕</button>
     <div class="site-login-modal-header">
       <h3 class="site-login-modal-title">Sign in</h3>
-      <p class="site-login-modal-subtitle">Use demo credentials: admin / admin</p>
+      <p class="site-login-modal-subtitle">Enter your credentials to access admin features</p>
     </div>
     <form id="siteLoginForm" class="site-login-form">
       <div class="site-form-group">
@@ -99,6 +103,9 @@
   </div>
   
 </div>
+
+<!-- Theme Variables Override (injected from JSON - MUST be here to override @import CSS) -->
+<!-- THEME_OVERRIDE_PLACEHOLDER -->
 
 <!-- Theme Script (loaded first to ensure availability) -->
 <script src="blocks/sites/top_bar/type_2/behaviors/top_bar_site_behavior_theme_t2.js"></script>

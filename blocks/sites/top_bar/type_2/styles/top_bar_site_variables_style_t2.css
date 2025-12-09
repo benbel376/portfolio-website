@@ -1,22 +1,13 @@
 /* Unified Variables and Theme Logic */
 
 :root {
-    /* Colors (LIGHT THEME DEFAULT) */
-    --bg: #f5f6fa;
-    /* Light background */
-    --text: #1a1a1a;
-    /* Darker text for better contrast */
-    --primary: #ffdb70;
-    --border: #dddddd;
-    --nav-bg: #f0f0f0;
-    /* Light nav background */
-    --site-container-bg: #ffffffee;
-    /* More opaque for better text visibility */
-    --card-bg: #ffffff;
-    /* White card background */
-    --card-border: #eeeeee;
-    --error: #dc3545;
-    --success: #28a745;
+    /* Core colors are now injected from site JSON via PHP loader */
+    /* These comments document what variables are expected:
+       --bg, --text, --primary, --border, --nav-bg, 
+       --site-container-bg, --card-bg, --card-border, --error, --success, --accent
+       --font-primary, --font-secondary, --font-mono
+       --spacing-xs/sm/md/lg/xl, --radius-sm/md/lg/xl, --text-xs/sm/base/lg/xl/2xl
+    */
     /* Navigation specific colors for Light Theme */
     --nav-link-color: hsl(0, 0%, 35%);
     /* Standard text color for nav links */
@@ -41,7 +32,7 @@
     /* Even more subtle for hover */
     --nav-main-border-color: hsl(0, 0%, 90%);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_bubbles_v1.avif);
+    --site-container-bg-image: var(--site-bg-light);
     /* Light theme image */
     /* Spacing Variables */
     --spacing-xs: 4px;
@@ -819,7 +810,7 @@
     --transition-1: 0.25s ease;
     --transition-2: 0.5s ease-in-out;
     /* Body Background Image - Light Theme */
-    --body-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_light_v1.png);
+    --body-bg-image: var(--body-bg-light);
     --hero-name-text-color: var(--primary);
     /* Avatar image is now handled by the hero component itself */
     /* Responsive Layout Spacing */
@@ -850,18 +841,12 @@
 }
 
 .theme-dark {
-    /* Colors (DARK THEME OVERRIDES) */
-    --bg: #181a1b;
-    --text: #e6e6e6;
-    --primary: #4ea1ff;
-    --border: #333333;
+    /* Core dark theme colors are now injected from site JSON via PHP loader */
+    /* Variables expected: --bg, --text, --primary, --border, --site-container-bg, 
+       --card-bg, --card-border, --error, --success, --accent */
+    
+    /* Navigation-specific colors still defined here (not in JSON yet) */
     --nav-bg: var(--eerie-black-3);
-    /* Dark nav background from inspiration, matches card */
-    --site-container-bg: var(--eerie-black-1-transparent);
-    --card-bg: var(--eerie-black-1);
-    --card-border: #333333;
-    --error: #ff6b6b;
-    --success: #51fa7b;
     /* Navigation specific colors for Dark Theme */
     --nav-link-color: var(--vegas-gold);
     /* Golden/kaki for non-active dark theme nav links */
@@ -885,12 +870,12 @@
     /* Even more subtle for hover */
     --nav-main-border-color: var(--nav-border-color);
     /* Can be made more subtle if needed */
-    --site-container-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg);
+    --site-container-bg-image: var(--site-bg-dark);
     /* Dark theme background with bubbles pattern */
     /* Shadows for dark theme */
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
     /* Body Background Image - Dark Theme */
-    --body-bg-image: url(/website/react/portfolio3/portfolio-website/definitions/media/backgrounds/general_background_dark_v1.png);
+    --body-bg-image: var(--body-bg-dark);
     --hero-name-text-color: var(--orange-yellow-crayola);
     /* Hero name specifically yellow in dark mode */
     /* Avatar image is now handled by the hero component itself */

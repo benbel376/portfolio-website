@@ -37,6 +37,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Remove body padding on mobile */
+@media (max-width: 768px) {
+    body {
+        padding-top: 0;
+    }
+}
+
 h1,
 h2,
 h3,

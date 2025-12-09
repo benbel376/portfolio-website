@@ -29,7 +29,7 @@
     height: var(--spacing-12);
     background: var(--gradient-primary);
     border-radius: var(--border-radius-xl);
-    color: #FFFFFF;
+    color: var(--color-text-inverse);
     flex-shrink: 0;
 }
 
@@ -168,8 +168,8 @@
 
 .theme-dark .projects-grid__filter-select {
     background: var(--color-surface);
-    border-color: rgba(255, 143, 0, 0.3);
-    color: #FAFAFA;
+    border-color: var(--color-primary-alpha-30);
+    color: var(--color-text-primary);
 }
 
 /* Results Info */
@@ -416,18 +416,18 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 143, 0, 0.3);
+    background: var(--color-primary-alpha-30);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .projects-grid__pagination-dot.active {
-    background: #FF8F00;
+    background: var(--accent);
     transform: scale(1.2);
 }
 
 .projects-grid__pagination-dot:hover {
-    background: #FF8F00;
+    background: var(--accent);
     transform: scale(1.1);
 }
 
@@ -447,15 +447,15 @@
 }
 
 .theme-dark .projects-grid__pagination-dot {
-    background: rgba(255, 143, 0, 0.4);
+    background: var(--color-primary-alpha-40);
 }
 
 .theme-dark .projects-grid__pagination-dot.active {
-    background: #FFB74D;
+    background: var(--accent);
 }
 
 .theme-dark .projects-grid__pagination-dot:hover {
-    background: #FFB74D;
+    background: var(--accent);
 }
 
 /* Empty State */

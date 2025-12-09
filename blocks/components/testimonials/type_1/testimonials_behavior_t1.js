@@ -44,6 +44,13 @@ class TestimonialsBehavior {
             }
         });
 
+        // Quote expand/collapse on click
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('testimonials__quote')) {
+                e.target.classList.toggle('expanded');
+            }
+        });
+
         // Auto-play disabled - no hover listeners needed
     }
 

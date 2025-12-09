@@ -28,7 +28,7 @@
     height: var(--spacing-12);
     background: var(--gradient-primary);
     border-radius: var(--border-radius-xl);
-    color: #FFFFFF;
+    color: var(--color-text-inverse);
     flex-shrink: 0;
     position: relative;
     z-index: 3;
@@ -152,7 +152,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFFFFF;
+    color: var(--color-text-inverse);
     transition: var(--transition-all-normal);
     z-index: 2;
 }

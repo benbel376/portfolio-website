@@ -30,7 +30,7 @@
     height: var(--spacing-12);
     background: var(--gradient-primary);
     border-radius: var(--border-radius-xl);
-    color: #FFFFFF;
+    color: var(--color-text-inverse);
     flex-shrink: 0;
 }
 
@@ -223,8 +223,8 @@
     align-items: center;
     gap: var(--spacing-2, 8px);
     padding: var(--spacing-3, 12px) var(--spacing-6, 24px);
-    background: linear-gradient(135deg, #FF8F00 0%, #F57C00 100%);
-    color: #FFFFFF;
+    background: var(--gradient-primary);
+    color: var(--color-text-inverse);
     text-decoration: none;
     border-radius: var(--border-radius-xl, 12px);
     font-weight: var(--font-weight-medium, 500);
@@ -236,7 +236,7 @@
 .certifications__link:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(255, 143, 0, 0.3);
-    background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
+    background: var(--gradient-primary-reverse);
 }
 
 .certifications__link ion-icon {
@@ -249,8 +249,8 @@
     align-items: center;
     gap: var(--spacing-2, 8px);
     padding: var(--spacing-3, 12px) var(--spacing-6, 24px);
-    background: linear-gradient(135deg, #FF8F00 0%, #F57C00 100%);
-    color: #FFFFFF;
+    background: var(--gradient-primary);
+    color: var(--color-text-inverse);
     text-decoration: none;
     border-radius: var(--border-radius-xl, 12px);
     font-weight: var(--font-weight-medium, 500);
@@ -262,7 +262,7 @@
 .certifications__link-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(255, 143, 0, 0.3);
-    background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
+    background: var(--gradient-primary-reverse);
 }
 
 .certifications__link-button ion-icon {

@@ -4,8 +4,7 @@
 /* Main navigation bar styles - Updated with Theme Colors */
 
 .main-nav.card {
-    background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
-    /* Light theme gradient */
+    background: var(--card-bg);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
     padding: 1em 1.5em;
@@ -15,9 +14,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--ff-poppins, sans-serif);
-    border: 1px solid #E0E0E0;
-    /* Light theme border */
+    font-family: var(--font-primary, sans-serif);
+    border: 1px solid var(--border);
     position: relative;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -52,8 +50,7 @@
 
 .main-nav a {
     text-decoration: none;
-    color: #212121;
-    /* Primary text color from color plan */
+    color: var(--text);
     font-weight: 600;
     font-size: 0.95em;
     padding: 0.7em 1.6em;
@@ -85,20 +82,17 @@
 }
 
 .main-nav a.active {
-    color: #262626;
-    /* Slightly darker text for active state */
-    background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
-    /* Light subtle gradient */
+    color: var(--text);
+    background: var(--card-border);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transform: translateY(-1px);
 }
 
 .main-nav a:hover {
-    color: #FF8F00;
-    /* Primary color on hover */
-    background-color: rgba(255, 143, 0, 0.08);
+    color: var(--accent);
+    background-color: rgba(245, 158, 11, 0.08);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 143, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.15);
 }
 
 
@@ -119,9 +113,9 @@
 
 .mobile-menu-toggle {
     display: none;
-    background: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
-    border: 1px solid #E0E0E0;
-    color: #212121;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
     font-size: 1.6em;
     cursor: pointer;
     padding: 0.6em;
@@ -136,8 +130,8 @@
 }
 
 .mobile-menu-toggle:hover {
-    background: linear-gradient(135deg, #FF8F00 0%, #FF3A00 100%);
-    color: #FFFFFF;
+    background: var(--accent);
+    color: var(--card-bg);
     transform: scale(1.05);
 }
 
@@ -151,13 +145,11 @@
 }
 
 
-/* Dark Theme Styles */
+/* Dark Theme Styles - uses same variables, dark values come from JSON */
 
 .theme-dark .main-nav.card {
-    background: linear-gradient(135deg, #111111 0%, #212121 100%);
-    /* Dark theme gradient */
-    border: 1px solid #444444;
-    /* Dark theme border */
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -166,40 +158,36 @@
 }
 
 .theme-dark .main-nav a {
-    color: #FAFAFA;
-    /* Primary text for dark theme */
+    color: var(--text);
 }
 
 .theme-dark .main-nav a::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 143, 0, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .theme-dark .main-nav a.active {
-    color: #FAFAFA;
-    /* Light text for dark theme active state */
-    background: linear-gradient(135deg, #333333 0%, #404040 100%);
-    /* Subtle dark gradient */
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.08);
 }
 
 .theme-dark .main-nav a:hover {
-    color: #FF8F00;
-    background-color: rgba(255, 143, 0, 0.12);
-    box-shadow: 0 6px 20px rgba(255, 143, 0, 0.2);
+    color: var(--text);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
 }
-
 
 /* Theme toggle button uses .nav-action-btn styles */
 
 .theme-dark .mobile-menu-toggle {
-    background: linear-gradient(135deg, #212121 0%, #111111 100%);
-    border: 1px solid #444444;
-    color: #FAFAFA;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
 }
 
 .theme-dark .mobile-menu-toggle:hover {
-    background: linear-gradient(135deg, #FF8F00 0%, #FF3A00 100%);
-    color: #111111;
+    background: var(--accent);
+    color: var(--bg);
 }
 
 
@@ -225,23 +213,24 @@
         left: 0;
         right: 0;
         width: 100%;
+        height: auto;
         max-height: 80vh;
         overflow-y: auto;
-        background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+        background: var(--card-bg);
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1);
         z-index: 1000;
-        padding: 1em 0;
+        padding: 0.5em 0;
         gap: 0;
         flex-grow: 0;
         border-radius: 16px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid #E0E0E0;
+        border: 1px solid var(--border);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
     }
     .theme-dark .main-nav ul.nav-links-list {
-        background: linear-gradient(135deg, #111111 0%, #212121 100%);
-        border: 1px solid #444444;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     .main-nav ul.nav-links-list.mobile-open {
@@ -252,36 +241,41 @@
     .main-nav ul.nav-links-list li {
         width: 100%;
         margin: 0;
+        border-bottom: 1px solid var(--border);
+    }
+    .main-nav ul.nav-links-list li:last-child {
+        border-bottom: none;
     }
     .main-nav ul.nav-links-list li a {
         display: block;
-        width: auto;
+        width: 100%;
         padding: 1em 1.5em;
-        margin: 0.2em 1em;
-        border-bottom: none;
+        margin: 0;
         text-align: left;
         font-size: 1em;
-        border-radius: 12px;
+        border-radius: 0;
         transition: all 0.3s ease;
         font-weight: 600;
     }
     .main-nav ul.nav-links-list li a.active {
-        background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
-        color: #262626;
+        background: rgba(0, 0, 0, 0.05);
+        color: var(--text);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
     .theme-dark .main-nav ul.nav-links-list li a.active {
-        background: linear-gradient(135deg, #333333 0%, #404040 100%);
-        color: #FAFAFA;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
         box-shadow: 0 2px 8px rgba(255, 255, 255, 0.08);
     }
-    .main-nav ul.nav-links-list li a:hover {
-        background-color: rgba(255, 143, 0, 0.08);
-        color: #FF8F00;
-        transform: translateX(8px);
+    .main-nav ul.nav-links-list li a:hover,
+    .main-nav ul.nav-links-list li a.active {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: var(--text);
+        transform: none;
     }
-    .theme-dark .main-nav ul.nav-links-list li a:hover {
-        background-color: rgba(255, 143, 0, 0.12);
+    .theme-dark .main-nav ul.nav-links-list li a:hover,
+    .theme-dark .main-nav ul.nav-links-list li a.active {
+        background-color: rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -370,22 +364,18 @@ main.visible {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #212121;
-    /* Primary text color from theme */
+    color: var(--text);
     width: 48px;
     height: 48px;
 }
 
 .nav-action-btn:hover {
-    background-color: rgba(255, 143, 0, 0.1);
-    /* Primary color with opacity */
-    color: #FF8F00;
-    /* Primary color from theme */
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--accent);
 }
 
 .nav-action-btn:focus {
-    outline: 2px solid #FF8F00;
-    /* Primary color from theme */
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
 
@@ -398,47 +388,43 @@ main.visible {
 /* Authentication button specific styles */
 
 .nav-action-btn.authenticated {
-    color: #4CAF50;
-    /* Green for authenticated state */
+    color: var(--success);
 }
 
 .nav-action-btn.authenticated:hover {
-    background-color: rgba(76, 175, 80, 0.1);
-    color: #4CAF50;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--success);
 }
 
 
 /* Dark theme support for nav action buttons */
 
 .theme-dark .nav-action-btn {
-    color: #FAFAFA;
-    /* Primary text for dark theme */
+    color: var(--text);
 }
 
 .theme-dark .nav-action-btn:hover {
-    background-color: rgba(255, 143, 0, 0.15);
-    /* Primary color with opacity for dark */
-    color: #FF8F00;
-    /* Primary color from theme */
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
 }
 
 .theme-dark .nav-action-btn.authenticated {
-    color: #4CAF50;
+    color: var(--success);
 }
 
 .theme-dark .nav-action-btn.authenticated:hover {
-    background-color: rgba(76, 175, 80, 0.15);
-    color: #4CAF50;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--success);
 }
 
 
 /* Navigation styles for the main site navigation */
 
 .main-nav {
-    background: linear-gradient(135deg, var(--card-bg-color) 0%, var(--alt-card-bg-color) 100%);
-    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 20px;
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     padding: 16px 24px;
     margin: 20px;
     display: flex;
@@ -455,7 +441,7 @@ main.visible {
 
 .main-nav:hover {
     transform: translateY(-2px);
-    box-shadow: var(--card-hover-shadow);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 .nav-links-list {
@@ -474,7 +460,7 @@ main.visible {
 
 .nav-links-list a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
     font-size: 16px;
     padding: 12px 20px;
@@ -487,27 +473,12 @@ main.visible {
 
 .nav-links-list a:hover,
 .nav-links-list a.active {
-    color: var(--accent-orange);
-    background: var(--accent-orange-light);
+    color: var(--text);
+    background: rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
-.nav-links-list a::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    left: 20px;
-    right: 20px;
-    height: 2px;
-    background: var(--accent-orange);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.nav-links-list a:hover::after,
-.nav-links-list a.active::after {
-    transform: scaleX(1);
-}
+/* Underline effect removed */
 
 .theme-toggle-wrapper {
     display: flex;
@@ -517,9 +488,9 @@ main.visible {
 }
 
 .nav-action-btn {
-    background: var(--button-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 12px 16px;
     border-radius: 12px;
     cursor: pointer;
@@ -533,9 +504,9 @@ main.visible {
 }
 
 .nav-action-btn:hover {
-    background: var(--button-hover-bg);
+    background: rgba(245, 158, 11, 0.1);
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(255, 143, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
 }
 
 .nav-action-btn:active {
@@ -576,10 +547,8 @@ main.visible {
 }
 
 .site-login-modal-content {
-    background: #FFFFFF;
-    /* Light theme background */
-    border: 1px solid #E0E0E0;
-    /* Light theme border */
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 20px;
     width: 100%;
     max-width: 400px;
@@ -596,8 +565,7 @@ main.visible {
     right: 16px;
     background: none;
     border: none;
-    color: #212121;
-    /* Primary text */
+    color: var(--text);
     cursor: pointer;
     padding: 8px;
     border-radius: 8px;
@@ -607,32 +575,28 @@ main.visible {
 }
 
 .site-login-modal-close:hover {
-    background-color: rgba(255, 143, 0, 0.1);
-    /* Primary color with opacity */
-    color: #FF8F00;
-    /* Primary color */
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--accent);
 }
 
 .site-login-modal-header {
     padding: 32px 32px 24px;
     text-align: center;
-    border-bottom: 1px solid #E0E0E0;
-    /* Light theme border */
+    border-bottom: 1px solid var(--border);
 }
 
 .site-login-modal-title {
     font-size: 24px;
     font-weight: 700;
     margin: 0 0 8px 0;
-    color: #212121;
-    /* Primary text */
+    color: var(--text);
 }
 
 .site-login-modal-subtitle {
     font-size: 16px;
     margin: 0;
-    color: #757575;
-    /* Secondary text */
+    color: var(--text);
+    opacity: 0.7;
 }
 
 .site-login-form {
@@ -647,39 +611,33 @@ main.visible {
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #212121;
-    /* Primary text */
+    color: var(--text);
     margin-bottom: 8px;
 }
 
 .site-form-input {
     width: 100%;
     padding: 14px 16px;
-    border: 1px solid #E0E0E0;
-    /* Light theme border */
+    border: 1px solid var(--border);
     border-radius: 12px;
     font-size: 16px;
-    background: #FFFFFF;
-    /* Light theme background */
-    color: #212121;
-    /* Primary text */
+    background: var(--card-bg);
+    color: var(--text);
     transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
 .site-form-input:focus {
     outline: none;
-    border-color: #FF8F00;
-    /* Primary color */
-    box-shadow: 0 0 0 3px rgba(255, 143, 0, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 .site-login-submit {
     width: 100%;
-    background: linear-gradient(135deg, #FF8F00 0%, #FF3A00 100%);
-    /* Primary gradient */
+    background: var(--gradient-primary, linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%));
     border: none;
-    color: #FFFFFF;
+    color: var(--card-bg);
     padding: 14px 24px;
     border-radius: 12px;
     font-size: 16px;
@@ -695,10 +653,9 @@ main.visible {
 }
 
 .site-login-submit:hover:not(:disabled) {
-    background: linear-gradient(135deg, #FF3A00 0%, #FF8F00 100%);
-    /* Reversed gradient */
+    background: var(--gradient-primary-reverse, linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%));
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(255, 143, 0, 0.4);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
 }
 
 .site-login-submit:disabled {
@@ -711,7 +668,7 @@ main.visible {
     width: 16px;
     height: 16px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #FFFFFF;
+    border-top-color: var(--card-bg);
     border-radius: 50%;
     animation: siteSpinner 1s linear infinite;
     display: none;
@@ -736,15 +693,15 @@ main.visible {
 }
 
 .site-error-message {
-    background: #FFEBEE;
-    color: #C62828;
-    border: 1px solid #FFCDD2;
+    background: rgba(198, 40, 40, 0.1);
+    color: var(--error);
+    border: 1px solid rgba(198, 40, 40, 0.2);
 }
 
 .site-success-message {
-    background: #E8F5E8;
-    color: #2E7D32;
-    border: 1px solid #C8E6C9;
+    background: rgba(46, 125, 50, 0.1);
+    color: var(--success);
+    border: 1px solid rgba(46, 125, 50, 0.2);
 }
 
 @keyframes siteSpinner {
@@ -756,70 +713,13 @@ main.visible {
 
 /* Dark Theme Support for Site Modal */
 
-.theme-dark .site-login-modal-content {
-    background: #111111;
-    /* Dark theme background */
-    border: 1px solid #444444;
-    /* Dark theme border */
-}
-
-.theme-dark .site-login-modal-close {
-    color: #FAFAFA;
-    /* Primary text for dark */
-}
-
 .theme-dark .site-login-modal-close:hover {
-    background-color: rgba(255, 143, 0, 0.15);
-    /* Primary color with opacity for dark */
-    color: #FF8F00;
-    /* Primary color */
-}
-
-.theme-dark .site-login-modal-header {
-    border-bottom: 1px solid #444444;
-    /* Dark theme border */
-}
-
-.theme-dark .site-login-modal-title {
-    color: #FAFAFA;
-    /* Primary text for dark */
-}
-
-.theme-dark .site-login-modal-subtitle {
-    color: #BDBDBD;
-    /* Secondary text for dark */
-}
-
-.theme-dark .site-form-label {
-    color: #FAFAFA;
-    /* Primary text for dark */
-}
-
-.theme-dark .site-form-input {
-    border: 1px solid #444444;
-    /* Dark theme border */
-    background: #111111;
-    /* Dark theme background */
-    color: #FAFAFA;
-    /* Primary text for dark */
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
 }
 
 .theme-dark .site-form-input:focus {
-    border-color: #FF8F00;
-    /* Primary color */
-    box-shadow: 0 0 0 3px rgba(255, 143, 0, 0.15);
-}
-
-.theme-dark .site-error-message {
-    background: rgba(244, 67, 54, 0.15);
-    color: #FF5252;
-    border-color: rgba(244, 67, 54, 0.3);
-}
-
-.theme-dark .site-success-message {
-    background: rgba(76, 175, 80, 0.15);
-    color: #4CAF50;
-    border-color: rgba(76, 175, 80, 0.3);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 
@@ -845,13 +745,11 @@ main.visible {
 .secured-component-placeholder {
     padding: 20px;
     text-align: center;
-    border: 2px dashed #E0E0E0;
-    /* Light theme border */
+    border: 2px dashed var(--border);
     border-radius: 12px;
-    color: #757575;
-    /* Secondary text */
-    background: #FAFAFA;
-    /* Light theme background */
+    color: var(--text);
+    opacity: 0.7;
+    background: var(--card-bg);
     margin: 10px 0;
     transition: all 0.3s ease;
 }
@@ -860,49 +758,20 @@ main.visible {
     font-size: 2em;
     margin-bottom: 10px;
     display: block;
-    color: #757575;
-    /* Secondary text */
+    color: var(--text);
+    opacity: 0.7;
 }
 
 .secured-placeholder-title {
     margin: 0;
     font-size: 14px;
     font-weight: 600;
-    color: #212121;
-    /* Primary text */
+    color: var(--text);
 }
 
 .secured-placeholder-subtitle {
     margin: 5px 0 0 0;
     font-size: 12px;
     opacity: 0.7;
-    color: #757575;
-    /* Secondary text */
-}
-
-
-/* Dark Theme Support for Secured Component Placeholder */
-
-.theme-dark .secured-component-placeholder {
-    border-color: #444444;
-    /* Dark theme border */
-    background: #212121;
-    /* Dark theme background */
-    color: #BDBDBD;
-    /* Secondary text for dark */
-}
-
-.theme-dark .secured-placeholder-icon {
-    color: #BDBDBD;
-    /* Secondary text for dark */
-}
-
-.theme-dark .secured-placeholder-title {
-    color: #FAFAFA;
-    /* Primary text for dark */
-}
-
-.theme-dark .secured-placeholder-subtitle {
-    color: #BDBDBD;
-    /* Secondary text for dark */
+    color: var(--text);
 }

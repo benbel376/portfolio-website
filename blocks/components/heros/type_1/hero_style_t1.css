@@ -304,6 +304,7 @@
 	z-index: 10;
 }
 .hero__avatar { 
+	max-width: 230px;
 	margin: 0; 
 	width: 100%;
 	aspect-ratio: 1;
@@ -681,25 +682,50 @@ Inner ring - sized relative to avatar
 @media (max-width: 768px) {
 	.hero.hero-profile { padding: var(--spacing-4); }
 	.hero__container { 
+		
 		flex-direction: column; 
 		text-align: center; 
 		gap: var(--spacing-6); 
 		padding: 0 var(--spacing-3); 
 		margin: 0 auto; 
+		width: 100%;
+		padding-bottom: var(--spacing-6);
 	}
 	.hero__avatar-section { 
 		flex: none; 
 		width: 100%; 
-		max-width: 240px; 
+		max-width: 307px; 
 		margin: 0 auto; 
+	}
+	.hero__avatar img { 
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1;
+	}
+	.hero__info {
+		width: 100%;
+		max-width: none;
+	}
+	.hero__name { 
+		font-size: var(--font-size-3xl); 
+	}
+	.hero__title { 
+		font-size: var(--font-size-2xl); 
 	}
 	.hero__content { 
 		padding-left: 0; 
 		min-height: auto; 
-		text-align: center; 
+		text-align: center;
+		width: 100%;
+		max-width: none;
 	}
 	.hero__content::before { display: none; }
-	.hero__description { margin: 0 0 var(--spacing-5); }
+	.hero__description { 
+		margin: 0 0 var(--spacing-5);
+		width: 100%;
+		max-width: none;
+		font-size: var(--font-size-lg);
+	}
 	.hero__social-links { justify-content: center; }
 	.hero__actions { 
 		margin-top: var(--spacing-7); 
@@ -737,11 +763,11 @@ Inner ring - sized relative to avatar
 
 /* Mobile landscape */
 @media (max-width: 640px) {
-	.hero__avatar-section { max-width: 180px; }
-	.hero__avatar img { width: 200px; height: 200px; }
-	.hero__name { font-size: var(--font-size-xl); }
-	.hero__title { font-size: var(--font-size-base); }
-	.hero__description { font-size: var(--font-size-sm); line-height: var(--line-height-normal); }
+	.hero__avatar-section { max-width: none; }
+	.hero__avatar img { width: 100%; height: auto; aspect-ratio: 1; }
+	.hero__name { font-size: var(--font-size-3xl); }
+	.hero__title { font-size: var(--font-size-2xl); }
+	.hero__description { font-size: var(--font-size-lg); line-height: var(--line-height-normal); }
 	.hero__social-links { gap: var(--spacing-4); }
 	.hero__icon { width: var(--spacing-11); height: var(--spacing-11); }
 	.hero__cv-button { 
@@ -754,14 +780,14 @@ Inner ring - sized relative to avatar
 /* Mobile portrait */
 @media (max-width: 480px) {
 	.hero.hero-profile { padding: var(--spacing-3) var(--spacing-3); }
-	.hero__container { gap: var(--spacing-5); padding: 0; }
-	.hero__avatar-section { max-width: 200px; }
-	.hero__avatar img { width: 180px; height: 180px; }
-	.hero__name { font-size: var(--font-size-xl); margin: 0 0 var(--spacing-1) 0; }
-	.hero__title { font-size: var(--font-size-sm); }
+	.hero__container { gap: var(--spacing-5); padding: 0; padding-bottom: var(--spacing-8)}
+	.hero__avatar-section { max-width: none; }
+	.hero__avatar img { width: 100%; height: auto; aspect-ratio: 1; }
+	.hero__name { font-size: var(--font-size-3xl); margin: 0 0 var(--spacing-1) 0; }
+	.hero__title { font-size: var(--font-size-2xl); }
 	.hero__description { 
-		font-size: var(--font-size-sm); 
-		line-height: var(--line-height-tight); 
+		font-size: var(--font-size-lg); 
+		line-height: var(--line-height-relaxed); 
 		margin: 0 0 var(--spacing-4) 0; 
 	}
 	.hero__social-links { 

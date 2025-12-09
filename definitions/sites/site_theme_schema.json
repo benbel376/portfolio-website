@@ -1,0 +1,157 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Site Theme Configuration Schema",
+    "description": "Defines the structure for theme customization in site JSON files",
+    "type": "object",
+    "properties": {
+        "theme": {
+            "type": "object",
+            "description": "Theme configuration for light/dark modes and shared variables",
+            "properties": {
+                "light": {
+                    "type": "object",
+                    "description": "Light theme specific variables",
+                    "properties": {
+                        "colors": {
+                            "type": "object",
+                            "description": "Color variables for light theme",
+                            "properties": {
+                                "bg": { "type": "string", "description": "Main background color", "example": "#f5f6fa" },
+                                "text": { "type": "string", "description": "Primary text color", "example": "#1a1a1a" },
+                                "primary": { "type": "string", "description": "Primary accent color", "example": "#ffdb70" },
+                                "border": { "type": "string", "description": "Border color", "example": "#dddddd" },
+                                "nav-bg": { "type": "string", "description": "Navigation background", "example": "#f0f0f0" },
+                                "site-container-bg": { "type": "string", "description": "Main container background", "example": "#ffffffee" },
+                                "card-bg": { "type": "string", "description": "Card background color", "example": "#ffffff" },
+                                "card-border": { "type": "string", "description": "Card border color", "example": "#eeeeee" },
+                                "error": { "type": "string", "description": "Error state color", "example": "#dc3545" },
+                                "success": { "type": "string", "description": "Success state color", "example": "#28a745" },
+                                "accent": { "type": "string", "description": "Secondary accent color", "example": "#f59e0b" }
+                            },
+                            "additionalProperties": { "type": "string" }
+                        },
+                        "fonts": {
+                            "type": "object",
+                            "description": "Font family variables (generates --font-{name})",
+                            "properties": {
+                                "primary": { "type": "string", "description": "Primary font family", "example": "'Poppins', sans-serif" },
+                                "secondary": { "type": "string", "description": "Secondary font family", "example": "'Inter', sans-serif" },
+                                "mono": { "type": "string", "description": "Monospace font family", "example": "'Geist Mono', monospace" }
+                            },
+                            "additionalProperties": { "type": "string" }
+                        },
+                        "custom": {
+                            "type": "object",
+                            "description": "Any additional CSS variables (generates --{name}: {value})",
+                            "additionalProperties": { "type": "string" }
+                        }
+                    }
+                },
+                "dark": {
+                    "type": "object",
+                    "description": "Dark theme specific variables (overrides light theme)",
+                    "properties": {
+                        "colors": { "$ref": "#/properties/theme/properties/light/properties/colors" },
+                        "fonts": { "$ref": "#/properties/theme/properties/light/properties/fonts" },
+                        "custom": { "$ref": "#/properties/theme/properties/light/properties/custom" }
+                    }
+                },
+                "shared": {
+                    "type": "object",
+                    "description": "Variables shared between light and dark themes",
+                    "properties": {
+                        "spacing": {
+                            "type": "object",
+                            "description": "Spacing variables (generates --spacing-{name})",
+                            "properties": {
+                                "xs": { "type": "string", "example": "4px" },
+                                "sm": { "type": "string", "example": "8px" },
+                                "md": { "type": "string", "example": "16px" },
+                                "lg": { "type": "string", "example": "24px" },
+                                "xl": { "type": "string", "example": "32px" }
+                            },
+                            "additionalProperties": { "type": "string" }
+                        },
+                        "radius": {
+                            "type": "object",
+                            "description": "Border radius variables (generates --radius-{name})",
+                            "properties": {
+                                "sm": { "type": "string", "example": "6px" },
+                                "md": { "type": "string", "example": "8px" },
+                                "lg": { "type": "string", "example": "12px" },
+                                "xl": { "type": "string", "example": "16px" }
+                            },
+                            "additionalProperties": { "type": "string" }
+                        },
+                        "text-size": {
+                            "type": "object",
+                            "description": "Text size variables (generates --text-{name})",
+                            "properties": {
+                                "xs": { "type": "string", "example": "12px" },
+                                "sm": { "type": "string", "example": "14px" },
+                                "base": { "type": "string", "example": "16px" },
+                                "lg": { "type": "string", "example": "18px" },
+                                "xl": { "type": "string", "example": "20px" },
+                                "2xl": { "type": "string", "example": "24px" }
+                            },
+                            "additionalProperties": { "type": "string" }
+                        },
+                        "custom": {
+                            "type": "object",
+                            "description": "Any additional shared CSS variables",
+                            "additionalProperties": { "type": "string" }
+                        }
+                    }
+                }
+            }
+        },
+        "backgrounds": {
+            "type": "object",
+            "description": "Background image configuration",
+            "properties": {
+                "light": {
+                    "type": "object",
+                    "properties": {
+                        "body": { "type": "string", "description": "Body background image path" },
+                        "container": { "type": "string", "description": "Site container background image path" }
+                    }
+                },
+                "dark": {
+                    "type": "object",
+                    "properties": {
+                        "body": { "type": "string", "description": "Body background image path for dark mode" },
+                        "container": { "type": "string", "description": "Site container background image path for dark mode" }
+                    }
+                }
+            }
+        }
+    },
+    "examples": [
+        {
+            "theme": {
+                "light": {
+                    "colors": {
+                        "primary": "#3b82f6",
+                        "accent": "#10b981"
+                    },
+                    "custom": {
+                        "hero-wrapper-height": "500px"
+                    }
+                },
+                "dark": {
+                    "colors": {
+                        "primary": "#60a5fa"
+                    }
+                },
+                "shared": {
+                    "radius": {
+                        "md": "12px"
+                    },
+                    "custom": {
+                        "max-content-width": "1400px"
+                    }
+                }
+            }
+        }
+    ]
+}
