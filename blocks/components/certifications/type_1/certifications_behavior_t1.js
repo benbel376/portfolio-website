@@ -10,12 +10,20 @@ window.currentSlideIndex = window.currentSlideIndex || 0;
 /**
  * Initialize the certifications slideshow component
  */
-function initializeCertifications() {
+function initializeCertifications(componentElement) {
     console.log('Certifications: Initializing slideshow component...');
     
-    // Find containers
-    const slideContainer = document.getElementById('certifications-slide-container');
-    const emptyState = document.getElementById('certifications-empty');
+    // Find containers - use componentElement if provided, otherwise search globally
+    let slideContainer, emptyState;
+    
+    if (componentElement) {
+        slideContainer = componentElement.querySelector('#certifications-slide-container') || 
+                         componentElement.querySelector('.certifications__slide-container');
+        emptyState = componentElement.querySelector('#certifications-empty');
+    } else {
+        slideContainer = document.getElementById('certifications-slide-container');
+        emptyState = document.getElementById('certifications-empty');
+    }
     
     if (!slideContainer) {
         console.error('Certifications: Slide container not found');
@@ -23,10 +31,11 @@ function initializeCertifications() {
     }
     
     console.log('Certifications: Slide container found:', !!slideContainer);
+    console.log('Certifications: Pre-loaded data available:', window.certificationsData?.length || 0);
     
-    // Check if we have data to render
-    if (window.certificationsData.length > 0) {
-        console.log('Certifications: Rendering with existing data');
+    // Check if we have data to render (check global data that PHP may have set)
+    if (window.certificationsData && window.certificationsData.length > 0) {
+        console.log('Certifications: Rendering with existing data:', window.certificationsData.length, 'items');
         renderCertificationsSlideshow();
     } else {
         console.log('Certifications: No data available, showing empty state');

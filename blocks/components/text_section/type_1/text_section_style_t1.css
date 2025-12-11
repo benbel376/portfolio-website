@@ -4,7 +4,7 @@
     font-family: var(--font-family-primary);
     max-width: var(--container-max-width, 1200px);
     margin: 0 auto;
-    padding: 0 var(--spacing-16);
+    padding: 0 var(--spacing-12);
     margin-bottom: var(--spacing-6);
 }
 
@@ -116,14 +116,14 @@
 /* Responsive - Tablet */
 @media (max-width: 768px) {
     .text-section-component {
-        padding: 0 var(--spacing-6);
+        padding: 0 var(--spacing-8);
     }
 }
 
 /* Responsive - Mobile */
 @media (max-width: 480px) {
     .text-section-component {
-        padding: 0 var(--spacing-4);
+        padding: 0 var(--spacing-6);
     }
 
     .text-section__content {

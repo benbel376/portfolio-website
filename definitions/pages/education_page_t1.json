@@ -14,7 +14,7 @@
 					"type": "component",
 					"component": "certifications/type_1",
 					"id": "my-certifications",
-					"dynamic": true,
+					"dynamic": false,
 					"data": {
 						"main": {
 							"title": "Professional Certifications",

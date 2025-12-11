@@ -1,15 +1,15 @@
 /* Competencies Component Styles */
 .competencies-component {
   font-family: var(--font-family-primary);
-  padding: var(--spacing-5);
+  padding: 0 var(--spacing-12);
   background: transparent;
   color: var(--color-text-primary);
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
 }
 
 .competencies__container {
-  max-width: var(--container-max-width, 1200px);
-  margin: 0 auto;
-  padding: 0 var(--spacing-12);
+  width: 100%;
 }
 
 /* Main Header Section */

@@ -2,7 +2,7 @@
 
 .summary-component {
 	font-family: var(--font-family-primary);
-	padding: 0 var(--spacing-10);
+	padding: 0 var(--spacing-12);
 	position: relative;
 	overflow: hidden;
 	display: block;
@@ -108,14 +108,14 @@
 
 @media (max-width: 768px) {
 	.summary-component {
-		padding: 0 1rem;
+		padding: 0 var(--spacing-8);
 	}
 	
 	.summary-component__header {
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 1rem;
-		margin-top: 2rem;
+		gap: var(--spacing-4);
+		margin-top: var(--spacing-8);
 	}
 	
 	.summary-component__title-section {
@@ -480,7 +480,7 @@
 /* Tablet (max-width: 768px) */
 @media (max-width: 768px) {
 	.summary-component { 
-		padding: var(--spacing-4) var(--spacing-8); 
+		padding: 0 var(--spacing-8); 
 		margin-bottom: var(--spacing-6);
 	}
 	
@@ -527,7 +527,7 @@
 /* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
 	.summary-component { 
-		padding: 0 var(--spacing-8); 
+		padding: 0 var(--spacing-6); 
 		margin-bottom: var(--spacing-4);
 	}
 	

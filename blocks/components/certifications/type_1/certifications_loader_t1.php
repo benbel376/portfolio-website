@@ -97,13 +97,17 @@ class CertificationsLoaderT1 {
         
         $script = '<script>';
         $script .= 'console.log("Certifications PHP: Attempting to set certifications data", ' . json_encode($certificationsData) . ');';
-        $script .= 'console.log("Certifications PHP: window.setCertificationsData function exists?", typeof window.setCertificationsData);';
         
-        // The behavior script should already be loaded globally, so just call the function
+        // Store data globally first, then try to call the setter
+        $script .= 'window.certificationsData = ' . json_encode($certificationsData) . ';';
+        $script .= 'console.log("Certifications PHP: Data stored globally");';
+        
+        // Try to call the setter if available, otherwise the behavior script will pick up the data
         $script .= 'if (typeof window.setCertificationsData === "function") {';
+        $script .= '    console.log("Certifications PHP: Setting data immediately");';
         $script .= '    window.setCertificationsData(' . json_encode($certificationsData) . ');';
         $script .= '} else {';
-        $script .= '    console.error("Certifications PHP: window.setCertificationsData function not found - behavior script not loaded");';
+        $script .= '    console.log("Certifications PHP: Data stored, waiting for behavior initialization");';
         $script .= '}';
         $script .= '</script>';
         

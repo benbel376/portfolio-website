@@ -3,6 +3,7 @@
 class SideBarSiteLoader {
     
     public function load($navigationTabs, $title, $pageContent, $defaultNavigation = null, $backgrounds = null, $theme = null, $branding = null) {
+        // Load the HTML structure template
         $htmlTemplate = file_get_contents(__DIR__ . '/side_bar_site_structure_t1.html');
         $html = $htmlTemplate;
         
@@ -14,25 +15,25 @@ class SideBarSiteLoader {
         $logo = $branding['logo'] ?? 'definitions/media/profile/avatar.png';
         $html = str_replace('<!-- LOGO_PLACEHOLDER -->', htmlspecialchars($logo), $html);
         
-        // Generate navigation tabs
+        // Generate navigation tabs with icons for sidebar
         $navigationHtml = $this->generateNavigationTabs($navigationTabs);
         $html = str_replace('<!-- NAVIGATION_TABS_PLACEHOLDER -->', $navigationHtml, $html);
         
-        // Add default navigation config
+        // Add default navigation configuration as data attribute
         if ($defaultNavigation) {
             $defaultNavJson = htmlspecialchars(json_encode($defaultNavigation), ENT_QUOTES, 'UTF-8');
             $html = str_replace('<div class="site-container sidebar-layout">', '<div class="site-container sidebar-layout" data-default-navigation="' . $defaultNavJson . '">', $html);
         }
         
-        // Inject background styles
+        // Inject background CSS variables from JSON config
         $backgroundStyles = $this->generateBackgroundStyles($backgrounds);
         $html = str_replace('<!-- BACKGROUND_STYLES_PLACEHOLDER -->', $backgroundStyles, $html);
         
-        // Inject theme styles
+        // Inject theme CSS variables from JSON config
         $themeStyles = $this->generateThemeStyles($theme);
         $html = str_replace('<!-- THEME_OVERRIDE_PLACEHOLDER -->', $themeStyles, $html);
         
-        // Replace page content
+        // Replace page content placeholder
         $html = str_replace('<!-- PAGE_CONTENT_PLACEHOLDER -->', $pageContent, $html);
         
         return $html;
@@ -60,7 +61,7 @@ class SideBarSiteLoader {
             $isProtected = !empty($tab['protected']);
             $icon = $tab['icon'] ?? ($iconMap[strtolower($tabId)] ?? 'ellipse-outline');
             
-            // Generate hash URL
+            // Generate minimal hash URL
             $hashUrl = "#{$targetId}";
             if ($state !== 'visible') {
                 $hashUrl .= "/{$state}";
@@ -79,23 +80,39 @@ class SideBarSiteLoader {
     
     private function generateBackgroundStyles($backgrounds) {
         $defaults = [
-            'light' => ['body' => '', 'container' => ''],
-            'dark' => ['body' => '', 'container' => '']
+            'light' => [
+                'body' => 'definitions/media/backgrounds/general_background_light_v1.png',
+                'container' => 'definitions/media/backgrounds/general_background_bubbles_v1.avif',
+                'sidebar' => ''
+            ],
+            'dark' => [
+                'body' => 'definitions/media/backgrounds/general_background_dark_v1.png',
+                'container' => 'definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg',
+                'sidebar' => ''
+            ]
         ];
         
         $lightBody = $backgrounds['light']['body'] ?? $defaults['light']['body'];
         $lightContainer = $backgrounds['light']['container'] ?? $defaults['light']['container'];
+        $lightSidebar = $backgrounds['light']['sidebar'] ?? $defaults['light']['sidebar'];
         $darkBody = $backgrounds['dark']['body'] ?? $defaults['dark']['body'];
         $darkContainer = $backgrounds['dark']['container'] ?? $defaults['dark']['container'];
+        $darkSidebar = $backgrounds['dark']['sidebar'] ?? $defaults['dark']['sidebar'];
         
         $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
         
         $style = '<style id="site-background-variables">';
         $style .= ':root {';
-        if ($lightContainer) $style .= '--site-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightContainer) . '");';
-        if ($lightBody) $style .= '--body-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightBody) . '");';
-        if ($darkContainer) $style .= '--site-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkContainer) . '");';
-        if ($darkBody) $style .= '--body-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkBody) . '");';
+        $style .= '--site-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightContainer) . '");';
+        $style .= '--body-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightBody) . '");';
+        $style .= '--site-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkContainer) . '");';
+        $style .= '--body-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkBody) . '");';
+        if (!empty($lightSidebar)) {
+            $style .= '--sidebar-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightSidebar) . '");';
+        }
+        if (!empty($darkSidebar)) {
+            $style .= '--sidebar-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkSidebar) . '");';
+        }
         $style .= '}';
         $style .= '</style>';
         
@@ -103,17 +120,19 @@ class SideBarSiteLoader {
     }
     
     private function generateThemeStyles($theme) {
-        if (empty($theme)) return '';
+        if (empty($theme)) {
+            return '';
+        }
         
         $style = '<style id="site-theme-variables">';
         
-        // Light theme
+        // Light theme variables
         $style .= ':root {';
         $style .= $this->generateThemeVariables($theme['light'] ?? []);
         $style .= $this->generateSharedVariables($theme['shared'] ?? []);
         $style .= '}';
         
-        // Dark theme
+        // Dark theme variables
         $style .= '.theme-dark {';
         $style .= $this->generateThemeVariables($theme['dark'] ?? []);
         $style .= '}';
@@ -138,6 +157,12 @@ class SideBarSiteLoader {
             }
         }
         
+        if (!empty($themeConfig['custom'])) {
+            foreach ($themeConfig['custom'] as $name => $value) {
+                $css .= '--' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
         return $css;
     }
     
@@ -159,6 +184,12 @@ class SideBarSiteLoader {
         if (!empty($sharedConfig['text-size'])) {
             foreach ($sharedConfig['text-size'] as $name => $value) {
                 $css .= '--text-' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
+            }
+        }
+        
+        if (!empty($sharedConfig['custom'])) {
+            foreach ($sharedConfig['custom'] as $name => $value) {
+                $css .= '--' . htmlspecialchars($name) . ': ' . htmlspecialchars($value) . ';';
             }
         }
         

@@ -1,0 +1,306 @@
+/* Side Bar Site - Navigation Styles */
+
+/* ========================================
+ * NAV LINKS LIST (Sidebar)
+ * ======================================== */
+
+.nav-links-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+}
+
+.nav-links-list li {
+    margin: 0;
+}
+
+.nav-links-list a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* Secured hidden links */
+.nav-links-list a.secured-hidden {
+    display: none !important;
+}
+
+/* ========================================
+ * NAV ACTION BUTTONS
+ * ======================================== */
+
+.nav-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3em;
+    padding: 0.5em;
+    border-radius: var(--radius-sm, 6px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    width: 48px;
+    height: 48px;
+}
+
+.nav-action-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--accent);
+}
+
+.nav-action-btn:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Authentication button */
+.nav-action-btn.authenticated {
+    color: var(--success);
+}
+
+/* Dark theme */
+.theme-dark .nav-action-btn {
+    color: var(--text);
+}
+
+.theme-dark .nav-action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+/* ========================================
+ * LOGIN MODAL
+ * ======================================== */
+
+.site-login-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.site-login-modal.visible {
+    display: flex;
+}
+
+.site-login-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.site-login-modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2001;
+}
+
+.site-login-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    z-index: 2002;
+    font-size: 1.2em;
+}
+
+.site-login-modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--accent);
+}
+
+.site-login-modal-header {
+    padding: 32px 32px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.site-login-modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: var(--text);
+}
+
+.site-login-modal-subtitle {
+    font-size: 16px;
+    margin: 0;
+    color: var(--text);
+    opacity: 0.7;
+}
+
+.site-login-form {
+    padding: 32px;
+}
+
+.site-form-group {
+    margin-bottom: 24px;
+}
+
+.site-form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.site-form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    background: var(--card-bg);
+    color: var(--text);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.site-form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.site-login-submit {
+    width: 100%;
+    background: var(--gradient-primary, linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%));
+    border: none;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.site-login-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.site-login-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.site-loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: siteSpinner 1s linear infinite;
+    display: none;
+}
+
+.site-login-submit.loading .site-loading-spinner {
+    display: block;
+}
+
+.site-error-message,
+.site-success-message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    display: none;
+}
+
+.site-error-message {
+    background: rgba(198, 40, 40, 0.1);
+    color: var(--error);
+    border: 1px solid rgba(198, 40, 40, 0.2);
+}
+
+.site-success-message {
+    background: rgba(46, 125, 50, 0.1);
+    color: var(--success);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+@keyframes siteSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Dark theme modal */
+.theme-dark .site-login-modal-close:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-dark .site-form-input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+ * SECURED COMPONENT PLACEHOLDER
+ * ======================================== */
+
+.secured-component-placeholder {
+    padding: 20px;
+    text-align: center;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    opacity: 0.7;
+    background: var(--card-bg);
+    margin: 10px 0;
+}
+
+.secured-placeholder-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+    display: block;
+    opacity: 0.7;
+}
+
+.secured-placeholder-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.secured-placeholder-subtitle {
+    margin: 5px 0 0 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
