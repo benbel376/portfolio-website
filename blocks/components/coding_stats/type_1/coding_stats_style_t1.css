@@ -379,7 +379,8 @@
     
     .coding-stats__header {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
     }
     
     .coding-stats__main-card {
