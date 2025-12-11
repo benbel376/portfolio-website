@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Image Carousel Component Schema",
+    "description": "Schema for image carousel/gallery component with navigation, thumbnails, and lightbox",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Optional title displayed above the carousel"
+        },
+        "images": {
+            "type": "array",
+            "description": "Array of images to display in the carousel",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "src": {
+                        "type": "string",
+                        "description": "Image source URL or path"
+                    },
+                    "alt": {
+                        "type": "string",
+                        "description": "Alt text for accessibility"
+                    },
+                    "caption": {
+                        "type": "string",
+                        "description": "Optional caption displayed below the image"
+                    }
+                },
+                "required": ["src"]
+            }
+        }
+    },
+    "required": ["images"],
+    "examples": [
+        {
+            "title": "Project Screenshots",
+            "images": [
+                {
+                    "src": "definitions/media/projects/screenshot1.png",
+                    "alt": "Dashboard view",
+                    "caption": "Main dashboard showing analytics overview"
+                },
+                {
+                    "src": "definitions/media/projects/screenshot2.png",
+                    "alt": "Settings panel",
+                    "caption": "Configuration settings interface"
+                }
+            ]
+        }
+    ]
+}

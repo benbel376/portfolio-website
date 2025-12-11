@@ -57,6 +57,40 @@
             "allowedStates": ["visible", "hidden", "scrollTo"],
             "protected": false
           }
+        },
+        {
+          "type": "component",
+          "component": "image_carousel/type_1",
+          "id": "ai-platform-gallery",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Project Screenshots",
+              "images": [
+                {
+                  "src": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+                  "alt": "Dashboard Overview",
+                  "caption": "Main analytics dashboard showing customer segments and key metrics"
+                },
+                {
+                  "src": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+                  "alt": "Segmentation View",
+                  "caption": "Customer segmentation visualization with cluster analysis"
+                },
+                {
+                  "src": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+                  "alt": "Prediction Panel",
+                  "caption": "Predictive analytics panel for customer behavior forecasting"
+                }
+              ]
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
         }
       ]
     }

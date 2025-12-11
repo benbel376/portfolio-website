@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="blocks/components/image_carousel/type_1/image_carousel_style_t1.css">
+<div class="image-carousel-component" data-nav-handler="handleImageCarouselNavigation">
+    
+    <!-- Header (optional) -->
+    <div class="image-carousel__header">
+        <div class="image-carousel__title-section">
+            <ion-icon name="images-outline" class="image-carousel__icon"></ion-icon>
+            <h3 class="image-carousel__title"></h3>
+        </div>
+        <div class="image-carousel__counter">
+            <span class="image-carousel__current">1</span>
+            <span class="image-carousel__separator">/</span>
+            <span class="image-carousel__total">1</span>
+        </div>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="image-carousel__container">
+        <!-- Navigation Arrows -->
+        <button class="image-carousel__nav image-carousel__nav--prev" aria-label="Previous image">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        
+        <!-- Slides Wrapper -->
+        <div class="image-carousel__slides-wrapper">
+            <div class="image-carousel__slides"></div>
+        </div>
+        
+        <button class="image-carousel__nav image-carousel__nav--next" aria-label="Next image">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="image-carousel__thumbnails"></div>
+
+    <!-- Caption -->
+    <div class="image-carousel__caption"></div>
+
+</div>
+<script src="blocks/components/image_carousel/type_1/image_carousel_behavior_t1.js"></script>
