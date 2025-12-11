@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="blocks/components/code_display/type_1/code_display_style_t1.css">
+<div class="code-display-component" data-nav-handler="handleCodeDisplayNavigation">
+    
+    <!-- Header -->
+    <div class="code-display__header">
+        <div class="code-display__title-section">
+            <ion-icon name="code-slash-outline" class="code-display__icon"></ion-icon>
+            <h3 class="code-display__title"></h3>
+        </div>
+        <div class="code-display__actions">
+            <span class="code-display__language"></span>
+            <button class="code-display__copy-btn" title="Copy code">
+                <ion-icon name="copy-outline"></ion-icon>
+                <span>Copy</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Code Block -->
+    <div class="code-display__code-wrapper">
+        <div class="code-display__code-table"></div>
+    </div>
+
+    <!-- Description (optional) -->
+    <div class="code-display__description"></div>
+
+</div>
+<script src="blocks/components/code_display/type_1/code_display_behavior_t1.js"></script>

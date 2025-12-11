@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Code Display Component Data",
+  "description": "Schema for code_display/type_1 component data",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title for the code snippet"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["javascript", "js", "typescript", "ts", "python", "py", "json", "bash", "shell", "sh", "sql", "text"],
+      "description": "Programming language for syntax highlighting"
+    },
+    "code": {
+      "type": "string",
+      "description": "The code content to display"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description shown below the code block"
+    }
+  },
+  "required": ["code"]
+}

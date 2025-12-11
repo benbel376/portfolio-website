@@ -2,6 +2,7 @@
 
 .project-hero-component {
     font-family: var(--font-family-primary);
+    margin-bottom: var(--spacing-10);
 }
 
 /* Back Navigation */

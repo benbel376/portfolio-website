@@ -37,6 +37,26 @@
             "allowedStates": ["visible", "hidden", "scrollTo"],
             "protected": false
           }
+        },
+        {
+          "type": "component",
+          "component": "code_display/type_1",
+          "id": "ai-platform-code-1",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Customer Segmentation Model",
+              "language": "python",
+              "code": "import tensorflow as tf\nfrom sklearn.preprocessing import StandardScaler\n\nclass CustomerSegmentation:\n    def __init__(self, n_clusters=5):\n        self.n_clusters = n_clusters\n        self.scaler = StandardScaler()\n        self.model = self._build_model()\n    \n    def _build_model(self):\n        \"\"\"Build the neural network for customer embedding\"\"\"\n        model = tf.keras.Sequential([\n            tf.keras.layers.Dense(128, activation='relu'),\n            tf.keras.layers.Dropout(0.3),\n            tf.keras.layers.Dense(64, activation='relu'),\n            tf.keras.layers.Dense(32, activation='relu'),\n        ])\n        return model\n    \n    def fit(self, customer_data):\n        \"\"\"Train the segmentation model\"\"\"\n        scaled_data = self.scaler.fit_transform(customer_data)\n        embeddings = self.model(scaled_data)\n        return self._cluster(embeddings)",
+              "description": "The core segmentation model uses a neural network to create customer embeddings, which are then clustered to identify distinct customer segments."
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
         }
       ]
     }

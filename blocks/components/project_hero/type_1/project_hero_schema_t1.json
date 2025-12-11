@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project Hero Component Data",
+  "description": "Schema for project_hero/type_1 component data",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Project title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Project description"
+    },
+    "bannerImage": {
+      "type": "string",
+      "description": "Path to banner image"
+    },
+    "category": {
+      "type": "string",
+      "description": "Project category (e.g., Machine Learning, Web Development)"
+    },
+    "technologies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of technologies used"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Completed", "In Progress", "Planned"],
+      "description": "Project status"
+    },
+    "year": {
+      "type": "string",
+      "description": "Year of completion"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Project duration (e.g., 6 months)"
+    },
+    "demoLink": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to live demo"
+    },
+    "repoLink": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to source code repository"
+    }
+  },
+  "required": ["title", "description"]
+}
