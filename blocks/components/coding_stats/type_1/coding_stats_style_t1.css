@@ -95,10 +95,11 @@
 }
 
 /* Platform info - name and link */
-.coding-stats__slide-content {
+.coding-stats__slide-info {
     display: flex;
     flex-direction: column;
-    min-width: 120px;
+    min-width: 100px;
+    flex-shrink: 0;
 }
 
 .coding-stats__slide-name {

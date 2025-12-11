@@ -58,19 +58,19 @@ function renderCodingStats() {
             <div class="coding-stats__slide-logo">
                 ${logoContent}
             </div>
-            <div class="coding-stats__slide-content">
+            <div class="coding-stats__slide-info">
                 <h3 class="coding-stats__slide-name">${platform.name}</h3>
                 <a class="coding-stats__slide-link" href="${platform.profileUrl || '#'}" target="_blank">
                     @${platform.username || 'profile'} <ion-icon name="open-outline"></ion-icon>
                 </a>
-                <div class="coding-stats__slide-stats">
-                    ${(platform.stats || []).map(s => `
-                        <div class="coding-stats__stat">
-                            <div class="coding-stats__stat-value">${s.value}</div>
-                            <div class="coding-stats__stat-label">${s.label}</div>
-                        </div>
-                    `).join('')}
-                </div>
+            </div>
+            <div class="coding-stats__slide-stats">
+                ${(platform.stats || []).map(s => `
+                    <div class="coding-stats__stat">
+                        <div class="coding-stats__stat-value">${s.value}</div>
+                        <div class="coding-stats__stat-label">${s.label}</div>
+                    </div>
+                `).join('')}
             </div>
         `;
         container.appendChild(div);
