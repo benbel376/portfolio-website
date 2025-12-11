@@ -60,6 +60,55 @@
         },
         {
           "type": "component",
+          "component": "feature_list/type_1",
+          "id": "ai-platform-features",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Key Features",
+              "features": [
+                {
+                  "title": "Real-time Analytics",
+                  "description": "Process and visualize customer data in real-time with sub-second latency for instant insights",
+                  "icon": "analytics-outline"
+                },
+                {
+                  "title": "ML-Powered Segmentation",
+                  "description": "Neural network-based customer clustering that identifies distinct behavioral patterns",
+                  "icon": "hardware-chip-outline"
+                },
+                {
+                  "title": "Predictive Insights",
+                  "description": "Forecast customer behavior and churn probability using advanced ML models",
+                  "icon": "trending-up-outline"
+                },
+                {
+                  "title": "Interactive Dashboards",
+                  "description": "Customizable visualization panels for stakeholders with drill-down capabilities",
+                  "icon": "grid-outline"
+                },
+                {
+                  "title": "Scalable Architecture",
+                  "description": "Kubernetes-based deployment handling millions of customer records efficiently",
+                  "icon": "cloud-outline"
+                },
+                {
+                  "title": "API Integration",
+                  "description": "RESTful APIs for seamless integration with existing business systems",
+                  "icon": "code-slash-outline"
+                }
+              ]
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        },
+        {
+          "type": "component",
           "component": "image_carousel/type_1",
           "id": "ai-platform-gallery",
           "dynamic": false,

@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Feature List Component Schema",
+    "description": "Schema for displaying project features/highlights in a grid layout",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Section title displayed above the features grid",
+            "default": "Key Features"
+        },
+        "features": {
+            "type": "array",
+            "description": "Array of feature items to display",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Feature title/name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Brief description of the feature"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "Ionicon name for the feature icon",
+                        "default": "checkmark-circle-outline"
+                    }
+                },
+                "required": ["title", "description"]
+            }
+        }
+    },
+    "required": ["features"],
+    "examples": [
+        {
+            "title": "Key Features",
+            "features": [
+                {
+                    "title": "Real-time Analytics",
+                    "description": "Process and visualize data in real-time with sub-second latency",
+                    "icon": "analytics-outline"
+                },
+                {
+                    "title": "Machine Learning",
+                    "description": "Built-in ML models for predictive analytics and pattern recognition",
+                    "icon": "hardware-chip-outline"
+                }
+            ]
+        }
+    ]
+}
