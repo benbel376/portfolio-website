@@ -8,6 +8,14 @@
        --font-primary, --font-secondary, --font-mono
        --spacing-xs/sm/md/lg/xl, --radius-sm/md/lg/xl, --text-xs/sm/base/lg/xl/2xl
     */
+    
+    /* Primary Color Alpha Variants (Light Theme) */
+    --color-primary-alpha-10: rgba(255, 143, 0, 0.1);
+    --color-primary-alpha-20: rgba(255, 143, 0, 0.2);
+    --color-primary-alpha-30: rgba(255, 143, 0, 0.3);
+    --color-primary-alpha-35: rgba(255, 143, 0, 0.35);
+    --color-primary-alpha-40: rgba(255, 143, 0, 0.4);
+    --color-primary-alpha-50: rgba(255, 143, 0, 0.5);
     /* Navigation specific colors for Light Theme */
     --nav-link-color: hsl(0, 0%, 35%);
     /* Standard text color for nav links */

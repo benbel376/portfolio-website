@@ -306,7 +306,50 @@
 .tools__pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: var(--spacing-3, 12px);
   margin-top: var(--spacing-5, 20px);
+}
+
+.tools__pagination-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-8, 32px);
+  height: var(--spacing-8, 32px);
+  background: var(--color-surface, #f5f5f5);
+  border: 1px solid rgba(255, 143, 0, 0.2);
+  border-radius: var(--border-radius-lg, 8px);
+  color: var(--color-primary, #FF8F00);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tools__pagination-arrow:hover:not(:disabled) {
+  background: rgba(255, 143, 0, 0.1);
+  border-color: rgba(255, 143, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.tools__pagination-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tools__pagination-arrow ion-icon {
+  font-size: var(--font-size-base, 1rem);
+}
+
+.theme-dark .tools__pagination-arrow {
+  background: var(--color-surface-tertiary, #2a2a2a);
+  border-color: rgba(255, 183, 77, 0.3);
+  color: var(--color-primary-light, #FFB74D);
+}
+
+.theme-dark .tools__pagination-arrow:hover:not(:disabled) {
+  background: rgba(255, 183, 77, 0.2);
+  border-color: rgba(255, 183, 77, 0.5);
 }
 
 .tools__dots {

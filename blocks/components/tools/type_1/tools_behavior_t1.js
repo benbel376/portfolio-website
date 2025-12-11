@@ -25,6 +25,18 @@ class ToolsBehavior {
       });
     }
 
+    // Pagination arrow events
+    const prevBtn = document.getElementById('tools-list-prev');
+    const nextBtn = document.getElementById('tools-list-next');
+    
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => this.previousPage());
+    }
+    
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => this.nextPage());
+    }
+
     // Modal events
     const modal = document.getElementById('tools-modal');
     const backdrop = document.getElementById('tools-modal-backdrop');
@@ -44,6 +56,24 @@ class ToolsBehavior {
         this.closeModal();
       }
     });
+  }
+
+  previousPage() {
+    if (this.state.currentPage > 0) {
+      this.state.currentPage--;
+      this.renderCurrentPage();
+      this.renderPagination();
+    }
+  }
+
+  nextPage() {
+    const tools = this.state.allTools[this.state.currentCategory] || [];
+    const totalPages = Math.ceil(tools.length / this.state.itemsPerPage);
+    if (this.state.currentPage < totalPages - 1) {
+      this.state.currentPage++;
+      this.renderCurrentPage();
+      this.renderPagination();
+    }
   }
 
   loadInitialData() {
@@ -153,6 +183,9 @@ class ToolsBehavior {
 
   renderPagination() {
     const dotsContainer = document.getElementById('tools-dots');
+    const prevBtn = document.getElementById('tools-list-prev');
+    const nextBtn = document.getElementById('tools-list-next');
+    
     console.log('Tools: Pagination container found:', !!dotsContainer);
     console.log('Tools: Tools data length:', this.state.allTools[this.state.currentCategory]?.length);
     
@@ -162,6 +195,14 @@ class ToolsBehavior {
 
     const tools = this.state.allTools[this.state.currentCategory];
     const totalPages = Math.ceil(tools.length / this.state.itemsPerPage);
+    
+    // Update arrow button states
+    if (prevBtn) {
+      prevBtn.disabled = this.state.currentPage === 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = this.state.currentPage >= totalPages - 1;
+    }
     
     dotsContainer.innerHTML = '';
 
