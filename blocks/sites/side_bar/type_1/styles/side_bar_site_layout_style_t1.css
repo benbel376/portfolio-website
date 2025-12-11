@@ -83,6 +83,33 @@
     display: none;
 }
 
+/* Bottom fade gradient for scroll indication - on parent container */
+.site-container.sidebar-layout::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: 60px;
+    background: linear-gradient(
+        to top,
+        var(--site-container-bg, rgba(255, 255, 255, 0.95)) 0%,
+        transparent 100%
+    );
+    pointer-events: none;
+    z-index: 10;
+    border-radius: 0 0 16px 0;
+}
+
+/* Dark theme bottom fade */
+.theme-dark .site-container.sidebar-layout::after {
+    background: linear-gradient(
+        to top,
+        rgba(32, 33, 36, 0.95) 0%,
+        transparent 100%
+    );
+}
+
 /* ========================================
  * SIDEBAR NAVIGATION
  * ======================================== */
@@ -93,9 +120,9 @@
     min-width: var(--sidebar-width);
     height: 100%;
     background: linear-gradient(180deg, 
-        rgba(245, 245, 245, 0.98) 0%, 
-        rgba(240, 240, 240, 0.95) 30%,
-        rgba(235, 235, 235, 0.92) 100%);
+        rgba(250, 250, 250, 1) 0%, 
+        rgba(235, 235, 235, 1) 50%,
+        rgba(220, 220, 220, 1) 100%);
     border-right: 1px solid var(--border);
     border-radius: 16px 0 0 16px;
     display: flex;
@@ -104,24 +131,6 @@
     transition: transform 0.3s ease;
     flex-shrink: 0;
     overflow: hidden;
-}
-
-/* Sidebar background with overlay */
-.sidebar-nav::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: var(--sidebar-bg-image, none);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.12;
-    z-index: 0;
-    pointer-events: none;
-    border-radius: 16px 0 0 16px;
 }
 
 /* Ensure sidebar content is above the background */
@@ -179,19 +188,25 @@
     justify-content: center;
     gap: var(--spacing-xs, 4px);
     padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
-    background: var(--card-bg);
+    background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 1) 0%, 
+        rgba(245, 245, 245, 1) 100%);
     border: 1px solid var(--border);
     border-radius: var(--radius-md, 8px);
     color: var(--text);
     font-size: var(--text-sm, 14px);
     cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar-action-btn:hover {
-    background: var(--primary);
+    background: linear-gradient(180deg, 
+        var(--primary) 0%, 
+        color-mix(in srgb, var(--primary) 85%, black) 100%);
     color: #fff;
     border-color: var(--primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================
@@ -316,34 +331,7 @@
     opacity: 0.3;
 }
 
-/* Bottom fade gradient for scroll indication */
-.sidebar-layout .main-content::after {
-    content: '';
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: linear-gradient(
-        to top,
-        var(--site-container-bg, rgba(255, 255, 255, 0.95)) 0%,
-        transparent 100%
-    );
-    pointer-events: none;
-    z-index: 2;
-    display: block;
-    margin-top: -60px;
-    border-radius: 0 0 16px 0;
-}
 
-/* Dark theme bottom fade */
-.theme-dark .sidebar-layout .main-content::after {
-    background: linear-gradient(
-        to top,
-        rgba(32, 33, 36, 0.95) 0%,
-        transparent 100%
-    );
-}
 
 /* ========================================
  * SCROLLBAR STYLING
@@ -521,13 +509,9 @@
 
 .theme-dark .sidebar-nav {
     background: linear-gradient(180deg, 
-        rgba(40, 42, 45, 0.98) 0%, 
-        rgba(32, 33, 36, 0.95) 30%,
-        rgba(28, 29, 32, 0.92) 100%);
-}
-
-.theme-dark .sidebar-nav::before {
-    opacity: 0.06;
+        rgba(50, 52, 55, 1) 0%, 
+        rgba(35, 37, 40, 1) 50%,
+        rgba(24, 26, 28, 1) 100%);
 }
 
 .theme-dark .sidebar-header {
@@ -537,13 +521,19 @@
 }
 
 .theme-dark .sidebar-action-btn {
-    background: var(--card-bg);
+    background: linear-gradient(180deg, 
+        rgba(55, 57, 60, 1) 0%, 
+        rgba(40, 42, 45, 1) 100%);
     border-color: var(--border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .theme-dark .sidebar-action-btn:hover {
-    background: var(--primary);
+    background: linear-gradient(180deg, 
+        var(--primary) 0%, 
+        color-mix(in srgb, var(--primary) 80%, black) 100%);
     border-color: var(--primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .theme-dark .mobile-menu-toggle:hover {

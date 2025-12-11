@@ -77,6 +77,9 @@
                     btn.classList.toggle('authenticated', authed);
                     const icon = btn.querySelector('.site-auth-icon');
                     if (icon) icon.setAttribute('name', authed ? 'log-out-outline' : 'log-in-outline');
+                    // Update button text
+                    const textSpan = btn.querySelector('span:not(.site-auth-icon)');
+                    if (textSpan) textSpan.textContent = authed ? 'Logout' : 'Login';
                 }
 
                 // Hide/show protected nav links
