@@ -20,9 +20,15 @@ function renderTechStack(component, data) {
     if (!component || !data) return;
 
     const title = data.title || 'Technology Stack';
+    const showTitle = data.showTitle !== false;
+    const labelWidth = data.labelWidth || '120px';
     const categories = data.categories || [];
 
-    // Set title
+    // Set title visibility
+    const header = component.querySelector('.tech-stack__header');
+    if (header) header.style.display = showTitle ? 'flex' : 'none';
+
+    // Set title text
     const titleEl = component.querySelector('.tech-stack__title');
     if (titleEl) titleEl.textContent = title;
 
@@ -31,7 +37,7 @@ function renderTechStack(component, data) {
     if (container) {
         container.innerHTML = categories.map(category => `
             <div class="tech-stack__category">
-                <div class="tech-stack__category-label">
+                <div class="tech-stack__category-label" style="min-width: ${labelWidth}">
                     <ion-icon name="${category.icon || 'cube-outline'}" class="tech-stack__category-icon"></ion-icon>
                     <span class="tech-stack__category-name">${escapeHtml(category.name)}</span>
                 </div>

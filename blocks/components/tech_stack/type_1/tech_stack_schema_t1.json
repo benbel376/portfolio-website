@@ -1,17 +1,27 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Tech Stack Component Schema",
-    "description": "Displays technology stack organized by categories",
+    "description": "Displays technology stack as compact inline tags organized by categories",
     "type": "object",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Section title",
+            "description": "Section title displayed in header",
             "default": "Technology Stack"
+        },
+        "showTitle": {
+            "type": "boolean",
+            "description": "Whether to show the section title",
+            "default": true
+        },
+        "labelWidth": {
+            "type": "string",
+            "description": "CSS width for category labels (e.g., '120px', '150px')",
+            "default": "120px"
         },
         "categories": {
             "type": "array",
-            "description": "Technology categories",
+            "description": "Technology categories to display",
             "items": {
                 "type": "object",
                 "properties": {
@@ -21,21 +31,18 @@
                     },
                     "icon": {
                         "type": "string",
-                        "description": "Ionicon name for category",
+                        "description": "Ionicon name for category label",
                         "default": "cube-outline"
                     },
                     "technologies": {
                         "type": "array",
+                        "description": "List of technologies in this category",
                         "items": {
                             "type": "object",
                             "properties": {
                                 "name": {
                                     "type": "string",
                                     "description": "Technology name"
-                                },
-                                "icon": {
-                                    "type": "string",
-                                    "description": "Optional icon URL/path"
                                 },
                                 "version": {
                                     "type": "string",
@@ -56,19 +63,35 @@
             "title": "Technology Stack",
             "categories": [
                 {
-                    "name": "Frontend",
-                    "icon": "desktop-outline",
-                    "technologies": [
-                        { "name": "React", "version": "18.2" },
-                        { "name": "TypeScript", "version": "5.0" }
-                    ]
-                },
-                {
                     "name": "Backend",
                     "icon": "server-outline",
                     "technologies": [
-                        { "name": "Node.js", "version": "20" },
-                        { "name": "PostgreSQL", "version": "15" }
+                        { "name": "PHP", "version": "8.2" },
+                        { "name": "Node.js", "version": "20" }
+                    ]
+                },
+                {
+                    "name": "Frontend",
+                    "icon": "desktop-outline",
+                    "technologies": [
+                        { "name": "JavaScript" },
+                        { "name": "CSS3" },
+                        { "name": "HTML5" }
+                    ]
+                }
+            ]
+        },
+        {
+            "showTitle": false,
+            "labelWidth": "100px",
+            "categories": [
+                {
+                    "name": "Languages",
+                    "icon": "code-outline",
+                    "technologies": [
+                        { "name": "Python" },
+                        { "name": "Go" },
+                        { "name": "Rust" }
                     ]
                 }
             ]
