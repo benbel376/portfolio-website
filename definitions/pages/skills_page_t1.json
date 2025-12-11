@@ -899,6 +899,50 @@
                         "defaultState": "visible",
                         "allowedStates": ["visible", "hidden", "scrollTo"]
                     }
+                },
+                {
+                    "type": "component",
+                    "component": "coding_stats/type_1",
+                    "id": "my-coding-stats",
+                    "dynamic": false,
+                    "data": {
+                        "main": {
+                            "title": "Coding Practice",
+                            "platforms": [
+                                {
+                                    "name": "LeetCode",
+                                    "username": "benbel376",
+                                    "profileUrl": "https://leetcode.com/u/benbel376/",
+                                    "icon": "code-slash-outline",
+                                    "stats": {
+                                        "totalSolved": 157,
+                                        "ranking": 458721,
+                                        "acceptanceRate": "67.8%",
+                                        "contestRating": null
+                                    },
+                                    "problems": {
+                                        "easy": { "solved": 71, "total": 859 },
+                                        "medium": { "solved": 76, "total": 1802 },
+                                        "hard": { "solved": 10, "total": 802 }
+                                    },
+                                    "badges": [
+                                        "100 Days Badge 2024",
+                                        "50 Days Badge 2024"
+                                    ],
+                                    "recentActivity": [
+                                        { "problem": "Two Sum", "difficulty": "Easy", "date": "2024-12-10" },
+                                        { "problem": "Add Two Numbers", "difficulty": "Medium", "date": "2024-12-09" },
+                                        { "problem": "Longest Substring", "difficulty": "Medium", "date": "2024-12-08" }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "variant": "main",
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden", "scrollTo"]
+                    }
                 }
             ]
         }
