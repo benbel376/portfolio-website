@@ -1,11 +1,12 @@
 /**
  * Coding Stats Component Behavior - Type 1
- * Multi-platform slideshow with generic metrics
+ * Multi-platform slideshow with fully generic metrics
  */
 
 // Global state
 window.codingStatsData = window.codingStatsData || null;
 window.codingStatsCurrentSlide = window.codingStatsCurrentSlide || 0;
+window.codingStatsContainer = window.codingStatsContainer || null;
 
 /**
  * Initialize the coding stats component
@@ -18,6 +19,9 @@ function initializeCodingStats(componentElement) {
         console.error('Coding Stats: Container not found');
         return;
     }
+    
+    // Store container reference globally
+    window.codingStatsContainer = container;
 
     if (window.codingStatsData && window.codingStatsData.platforms && window.codingStatsData.platforms.length > 0) {
         renderCodingStats(window.codingStatsData, container);
@@ -37,6 +41,7 @@ function setCodingStatsData(data) {
     
     const container = document.querySelector('.coding-stats-component');
     if (container) {
+        window.codingStatsContainer = container;
         renderCodingStats(data, container);
         setupNavigation(container);
     }
@@ -66,11 +71,21 @@ function renderCodingStats(data, container) {
         ).join('');
     }
 
-    // Render dots
+    // Render dots (only if more than 1 platform)
     if (dotsContainer) {
-        dotsContainer.innerHTML = data.platforms.map((_, index) => 
-            `<div class="coding-stats__dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`
-        ).join('');
+        if (data.platforms.length > 1) {
+            dotsContainer.innerHTML = data.platforms.map((_, index) => 
+                `<div class="coding-stats__dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`
+            ).join('');
+        } else {
+            dotsContainer.innerHTML = '';
+        }
+    }
+
+    // Show/hide nav buttons based on platform count
+    const nav = container.querySelector('.coding-stats__nav');
+    if (nav) {
+        nav.style.display = data.platforms.length > 1 ? 'flex' : 'none';
     }
 
     // Show first slide
@@ -83,7 +98,7 @@ function renderCodingStats(data, container) {
 }
 
 /**
- * Render a single platform slide
+ * Render a single platform slide - FULLY GENERIC
  */
 function renderPlatformSlide(platform, index) {
     const logoStyle = platform.color ? `background: ${platform.color};` : 'background: linear-gradient(135deg, #FFA116 0%, #FFB800 100%);';
@@ -91,10 +106,10 @@ function renderPlatformSlide(platform, index) {
         ? `<img src="${escapeHtml(platform.logo)}" alt="${escapeHtml(platform.name)}">`
         : `<ion-icon name="${platform.icon || 'code-working-outline'}"></ion-icon>`;
 
-    // Hero stat (first metric or totalSolved)
-    const heroMetric = platform.heroMetric || { value: platform.stats?.totalSolved || 0, label: 'Problems Solved' };
+    // Hero stat - fully configurable
+    const heroMetric = platform.heroMetric || { value: '--', label: 'Score' };
 
-    // Progress bars (from progressBars array or problems object)
+    // Progress bars - ONLY from progressBars array (no hardcoded easy/medium/hard)
     let progressBarsHtml = '';
     if (platform.progressBars && platform.progressBars.length > 0) {
         progressBarsHtml = platform.progressBars.map((bar, i) => {
@@ -106,34 +121,13 @@ function renderPlatformSlide(platform, index) {
                         <div class="coding-stats__progress-fill coding-stats__progress-fill--${(i % 5) + 1}" 
                              data-width="${percentage}" style="width: 0%"></div>
                     </div>
-                    <span class="coding-stats__progress-count">${bar.value} / ${bar.total}</span>
-                </div>
-            `;
-        }).join('');
-    } else if (platform.problems) {
-        const difficulties = [
-            { key: 'easy', label: 'Easy' },
-            { key: 'medium', label: 'Medium' },
-            { key: 'hard', label: 'Hard' }
-        ];
-        progressBarsHtml = difficulties.map((diff, i) => {
-            const data = platform.problems[diff.key];
-            if (!data) return '';
-            const percentage = data.total > 0 ? (data.solved / data.total) * 100 : 0;
-            return `
-                <div class="coding-stats__progress-item">
-                    <span class="coding-stats__progress-label">${diff.label}</span>
-                    <div class="coding-stats__progress-bar">
-                        <div class="coding-stats__progress-fill coding-stats__progress-fill--${i + 1}" 
-                             data-width="${percentage}" style="width: 0%"></div>
-                    </div>
-                    <span class="coding-stats__progress-count">${data.solved} / ${data.total}</span>
+                    <span class="coding-stats__progress-count">${bar.value}/${bar.total}</span>
                 </div>
             `;
         }).join('');
     }
 
-    // Metrics grid
+    // Metrics grid - ONLY from metrics array (no hardcoded fallbacks)
     let metricsHtml = '';
     if (platform.metrics && platform.metrics.length > 0) {
         metricsHtml = platform.metrics.map(metric => `
@@ -145,30 +139,9 @@ function renderPlatformSlide(platform, index) {
                 <div class="coding-stats__metric-label">${escapeHtml(metric.label)}</div>
             </div>
         `).join('');
-    } else if (platform.stats) {
-        // Fallback to stats object
-        const defaultMetrics = [
-            { key: 'acceptanceRate', label: 'Acceptance', icon: 'checkmark-done-outline' },
-            { key: 'ranking', label: 'Global Rank', icon: 'trophy-outline', format: v => v ? '#' + v.toLocaleString() : '--' },
-            { key: 'streak', label: 'Max Streak', icon: 'flame-outline', format: v => v ? v + ' days' : '--' },
-            { key: 'contestRating', label: 'Contest Rating', icon: 'star-outline' }
-        ];
-        metricsHtml = defaultMetrics.map(m => {
-            const value = platform.stats[m.key];
-            const displayValue = m.format ? m.format(value) : (value || '--');
-            return `
-                <div class="coding-stats__metric">
-                    <div class="coding-stats__metric-icon">
-                        <ion-icon name="${m.icon}"></ion-icon>
-                    </div>
-                    <div class="coding-stats__metric-value">${displayValue}</div>
-                    <div class="coding-stats__metric-label">${m.label}</div>
-                </div>
-            `;
-        }).join('');
     }
 
-    // Badges
+    // Badges - optional
     let badgesHtml = '';
     if (platform.badges && platform.badges.length > 0) {
         badgesHtml = `
@@ -192,7 +165,6 @@ function renderPlatformSlide(platform, index) {
     return `
         <div class="coding-stats__slide ${index === 0 ? 'active' : ''}" data-index="${index}">
             <div class="coding-stats__platform-card">
-                <!-- Platform Header with Hero Stat -->
                 <div class="coding-stats__platform-header">
                     <div class="coding-stats__platform-logo" style="${logoStyle}">
                         ${logoContent}
@@ -211,16 +183,8 @@ function renderPlatformSlide(platform, index) {
                         <div class="coding-stats__hero-label">${escapeHtml(heroMetric.label)}</div>
                     </div>
                 </div>
-
-                <!-- Progress Bars -->
                 ${progressBarsHtml ? `<div class="coding-stats__main-stats"><div class="coding-stats__progress-section">${progressBarsHtml}</div></div>` : ''}
-
-                <!-- Metrics Grid -->
-                <div class="coding-stats__metrics">
-                    ${metricsHtml}
-                </div>
-
-                <!-- Badges -->
+                ${metricsHtml ? `<div class="coding-stats__metrics">${metricsHtml}</div>` : ''}
                 ${badgesHtml}
             </div>
         </div>
@@ -228,78 +192,80 @@ function renderPlatformSlide(platform, index) {
 }
 
 /**
- * Setup navigation controls
+ * Setup navigation controls using direct onclick
  */
 function setupNavigation(container) {
-    // Use event delegation on the container itself
-    // Remove previous handler if exists
-    if (container._codingStatsNavHandler) {
-        container.removeEventListener('click', container._codingStatsNavHandler);
+    const prevBtn = container.querySelector('#coding-stats-prev');
+    const nextBtn = container.querySelector('#coding-stats-next');
+    const dotsContainer = container.querySelector('#coding-stats-dots');
+
+    if (prevBtn) {
+        prevBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Coding Stats: Prev clicked, current:', window.codingStatsCurrentSlide);
+            const platforms = window.codingStatsData?.platforms || [];
+            const newIndex = window.codingStatsCurrentSlide - 1;
+            if (newIndex >= 0) {
+                showSlide(window.codingStatsContainer, newIndex);
+            }
+        };
     }
-    
-    // Create new handler
-    container._codingStatsNavHandler = function(e) {
-        const target = e.target;
-        
-        // Check for prev button
-        if (target.closest('#coding-stats-prev')) {
+
+    if (nextBtn) {
+        nextBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Coding Stats: Prev clicked');
-            navigateSlide(container, -1);
-            return;
-        }
-        
-        // Check for next button
-        if (target.closest('#coding-stats-next')) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Coding Stats: Next clicked');
-            navigateSlide(container, 1);
-            return;
-        }
-        
-        // Check for dot click
-        const dot = target.closest('.coding-stats__dot');
-        if (dot) {
-            e.preventDefault();
-            const index = parseInt(dot.dataset.index, 10);
-            console.log('Coding Stats: Dot clicked, index:', index);
-            showSlide(container, index);
-            return;
-        }
-    };
-    
-    container.addEventListener('click', container._codingStatsNavHandler);
+            console.log('Coding Stats: Next clicked, current:', window.codingStatsCurrentSlide);
+            const platforms = window.codingStatsData?.platforms || [];
+            const newIndex = window.codingStatsCurrentSlide + 1;
+            if (newIndex < platforms.length) {
+                showSlide(window.codingStatsContainer, newIndex);
+            }
+        };
+    }
+
+    if (dotsContainer) {
+        dotsContainer.onclick = function(e) {
+            const dot = e.target.closest('.coding-stats__dot');
+            if (dot) {
+                const index = parseInt(dot.dataset.index, 10);
+                console.log('Coding Stats: Dot clicked, index:', index);
+                showSlide(window.codingStatsContainer, index);
+            }
+        };
+    }
+
     updateNavButtons(container);
     console.log('Coding Stats: Navigation setup complete');
-}
-
-/**
- * Navigate to next/prev slide
- */
-function navigateSlide(container, direction) {
-    const platforms = window.codingStatsData?.platforms || [];
-    const newIndex = window.codingStatsCurrentSlide + direction;
-    
-    if (newIndex >= 0 && newIndex < platforms.length) {
-        showSlide(container, newIndex);
-    }
 }
 
 /**
  * Show specific slide
  */
 function showSlide(container, index) {
+    if (!container) container = window.codingStatsContainer;
+    if (!container) return;
+    
     const slides = container.querySelectorAll('.coding-stats__slide');
     const dots = container.querySelectorAll('.coding-stats__dot');
     
+    console.log('Coding Stats: Showing slide', index, 'of', slides.length);
+    
     slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
+        if (i === index) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
     });
     
     dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
+        if (i === index) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
     });
     
     window.codingStatsCurrentSlide = index;
@@ -313,6 +279,9 @@ function showSlide(container, index) {
  * Update nav button states
  */
 function updateNavButtons(container) {
+    if (!container) container = window.codingStatsContainer;
+    if (!container) return;
+    
     const platforms = window.codingStatsData?.platforms || [];
     const prevBtn = container.querySelector('#coding-stats-prev');
     const nextBtn = container.querySelector('#coding-stats-next');
@@ -325,6 +294,9 @@ function updateNavButtons(container) {
  * Animate progress bars
  */
 function animateProgressBars(container) {
+    if (!container) container = window.codingStatsContainer;
+    if (!container) return;
+    
     const activeSlide = container.querySelector('.coding-stats__slide.active');
     if (!activeSlide) return;
     
