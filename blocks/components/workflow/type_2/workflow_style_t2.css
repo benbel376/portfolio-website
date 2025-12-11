@@ -133,7 +133,7 @@
 /* Scenario Info Section - Solid Colors */
 .workflow__scenario-info {
   margin-top: var(--spacing-4);
-  background: var(--gradient-surface-light);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
   border-radius: var(--border-radius-3xl);
   padding: var(--spacing-6);
   padding-left: var(--spacing-8);
@@ -141,10 +141,11 @@
   flex-direction: row;
   align-items: center;
   gap: var(--spacing-8);
-  border: var(--border-width-1) solid var(--color-black-alpha-10);
+  border: var(--border-width-1) solid rgba(255, 143, 0, 0.15);
   transition: var(--transition-all-slow);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(255, 143, 0, 0.08);
 }
 
 .workflow__scenario-info::before {
@@ -164,8 +165,8 @@
 
 .workflow__scenario-info:hover {
   transform: translateY(calc(-1 * var(--spacing-2)));
-  box-shadow: var(--shadow-xl);
-  border-color: var(--color-primary-alpha-30);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(255, 143, 0, 0.15);
+  border-color: rgba(255, 143, 0, 0.3);
 }
 
 .workflow__scenario-icon-wrapper {
@@ -176,12 +177,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary-alpha-20);
-  color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(255, 143, 0, 0.15) 0%, rgba(255, 183, 77, 0.2) 100%);
+  color: var(--color-primary, #FF8F00);
   font-size: var(--font-size-2xl);
-  border: var(--border-width-2) solid var(--color-primary-alpha-20);
+  border: 2px solid rgba(255, 143, 0, 0.25);
   transition: var(--transition-all-normal);
   position: relative;
+  box-shadow: 0 2px 8px rgba(255, 143, 0, 0.15);
 }
 
 .workflow__scenario-icon-wrapper::after {
@@ -201,8 +203,9 @@
 
 .workflow__scenario-info:hover .workflow__scenario-icon-wrapper {
   transform: scale(1.1) rotate(5deg);
-  background: var(--color-primary-alpha-30);
-  border-color: var(--color-primary-alpha-50);
+  background: linear-gradient(135deg, rgba(255, 143, 0, 0.25) 0%, rgba(255, 183, 77, 0.3) 100%);
+  border-color: rgba(255, 143, 0, 0.4);
+  box-shadow: 0 4px 16px rgba(255, 143, 0, 0.25);
 }
 
 .workflow__scenario-icon-wrapper ion-icon {
