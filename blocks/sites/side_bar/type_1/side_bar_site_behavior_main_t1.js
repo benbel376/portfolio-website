@@ -31,7 +31,7 @@ function initMobileMenu() {
     });
     
     // Close on nav link click (mobile)
-    document.querySelectorAll('.sidebar-link').forEach(link => {
+    document.querySelectorAll('.sidebar-links .nav-link').forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
                 sidebar.classList.remove('open');
@@ -44,7 +44,7 @@ function initMobileMenu() {
 // Tab highlighting based on visible container
 function updateTabHighlighting() {
     const visibleContainers = document.querySelectorAll('[data-parent-tab]:not([style*="display: none"])');
-    const allLinks = document.querySelectorAll('.sidebar-link');
+    const allLinks = document.querySelectorAll('.sidebar-links .nav-link');
     
     // Remove all active states
     allLinks.forEach(link => {
@@ -58,7 +58,7 @@ function updateTabHighlighting() {
             (container.style.display !== 'none' && !container.classList.contains('nav-hidden'))) {
             const tabId = container.getAttribute('data-parent-tab');
             if (tabId) {
-                const link = document.querySelector(`.sidebar-link[data-tab-id="${tabId}"]`);
+                const link = document.querySelector(`.sidebar-links .nav-link[data-tab-id="${tabId}"]`);
                 if (link) {
                     link.classList.add('active');
                     link.setAttribute('data-active', 'true');
