@@ -2,7 +2,7 @@
     "type": "side_bar/type_1",
     "branding": {
         "title": "Portfolio",
-        "logo": "definitions/media/avatars/default_avatar.png"
+        "logo": "definitions/media/profile/avatar.png"
     },
     "backgrounds": {
         "light": {

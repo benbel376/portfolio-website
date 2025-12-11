@@ -11,7 +11,7 @@ class SideBarSiteLoader {
         $html = str_replace('<!-- SITE_TITLE_PLACEHOLDER -->', htmlspecialchars($branding['title'] ?? $title), $html);
         
         // Replace logo placeholder
-        $logo = $branding['logo'] ?? 'definitions/media/avatars/default_avatar.png';
+        $logo = $branding['logo'] ?? 'definitions/media/profile/avatar.png';
         $html = str_replace('<!-- LOGO_PLACEHOLDER -->', htmlspecialchars($logo), $html);
         
         // Generate navigation tabs
