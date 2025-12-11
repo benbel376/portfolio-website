@@ -50,9 +50,13 @@ function renderCodingStats() {
         const div = document.createElement('div');
         div.className = 'coding-stats__slide' + (i === 0 ? ' active' : '');
         div.style.display = i === 0 ? 'flex' : 'none';
+        const logoContent = platform.logo 
+            ? `<img src="${platform.logo}" alt="${platform.name}" />`
+            : `<ion-icon name="${platform.icon || 'code-outline'}"></ion-icon>`;
+        
         div.innerHTML = `
-            <div class="coding-stats__slide-logo" style="background: ${platform.color || 'linear-gradient(135deg, #FFA116, #FFB800)'}">
-                <ion-icon name="${platform.icon || 'code-outline'}"></ion-icon>
+            <div class="coding-stats__slide-logo">
+                ${logoContent}
             </div>
             <div class="coding-stats__slide-content">
                 <h3 class="coding-stats__slide-name">${platform.name}</h3>

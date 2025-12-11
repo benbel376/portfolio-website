@@ -787,8 +787,7 @@
                                     "name": "LeetCode",
                                     "username": "codemaster_dev",
                                     "profileUrl": "https://leetcode.com/u/codemaster_dev/",
-                                    "color": "linear-gradient(135deg, #FFA116 0%, #FFB800 100%)",
-                                    "icon": "code-working-outline",
+                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
                                     "stats": [
                                         { "value": "423", "label": "Solved" },
                                         { "value": "#52K", "label": "Rank" },
@@ -799,8 +798,7 @@
                                     "name": "HackerRank",
                                     "username": "codemaster_dev",
                                     "profileUrl": "https://hackerrank.com/codemaster_dev",
-                                    "color": "linear-gradient(135deg, #00EA64 0%, #00C853 100%)",
-                                    "icon": "terminal-outline",
+                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png",
                                     "stats": [
                                         { "value": "6★", "label": "Level" },
                                         { "value": "312", "label": "Solved" },
@@ -811,8 +809,7 @@
                                     "name": "Kaggle",
                                     "username": "codemaster_ml",
                                     "profileUrl": "https://kaggle.com/codemaster_ml",
-                                    "color": "linear-gradient(135deg, #20BEFF 0%, #0095D9 100%)",
-                                    "icon": "analytics-outline",
+                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Kaggle_logo.png",
                                     "stats": [
                                         { "value": "Expert", "label": "Tier" },
                                         { "value": "34", "label": "Notebooks" },
