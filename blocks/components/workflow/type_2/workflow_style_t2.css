@@ -130,10 +130,10 @@
   transform: translateY(-50%) rotate(180deg);
 }
 
-/* Scenario Info Section - Solid Colors */
+/* Scenario Info Section - Matching Dark Theme Style */
 .workflow__scenario-info {
   margin-top: var(--spacing-4);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 50%, #f0f1f3 100%);
   border-radius: var(--border-radius-3xl);
   padding: var(--spacing-6);
   padding-left: var(--spacing-8);
@@ -141,11 +141,15 @@
   flex-direction: row;
   align-items: center;
   gap: var(--spacing-8);
-  border: var(--border-width-1) solid rgba(255, 143, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: var(--transition-all-slow);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(255, 143, 0, 0.08);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 10px 25px -5px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .workflow__scenario-info::before {
@@ -155,7 +159,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, var(--color-primary-alpha-10), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 143, 0, 0.08), transparent);
   transition: left 0.6s ease;
 }
 
@@ -164,9 +168,13 @@
 }
 
 .workflow__scenario-info:hover {
-  transform: translateY(calc(-1 * var(--spacing-2)));
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(255, 143, 0, 0.15);
-  border-color: rgba(255, 143, 0, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.12),
+    0 4px 6px -2px rgba(0, 0, 0, 0.08),
+    0 20px 40px -10px rgba(255, 143, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 143, 0, 0.25);
 }
 
 .workflow__scenario-icon-wrapper {
@@ -177,21 +185,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(255, 143, 0, 0.15) 0%, rgba(255, 183, 77, 0.2) 100%);
-  color: var(--color-primary, #FF8F00);
+  background: linear-gradient(145deg, #fff8f0 0%, #fff3e0 100%);
+  color: #FF8F00;
   font-size: var(--font-size-2xl);
-  border: 2px solid rgba(255, 143, 0, 0.25);
+  border: 2px solid rgba(255, 143, 0, 0.2);
   transition: var(--transition-all-normal);
   position: relative;
-  box-shadow: 0 2px 8px rgba(255, 143, 0, 0.15);
+  box-shadow: 
+    0 4px 12px rgba(255, 143, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .workflow__scenario-icon-wrapper::after {
   content: '';
   position: absolute;
-  inset: calc(-1 * var(--border-width-2));
-  border-radius: var(--border-radius-3xl);
-  background: var(--gradient-primary);
+  inset: -2px;
+  border-radius: var(--border-radius-xl);
+  background: linear-gradient(135deg, #FF8F00, #FFB74D);
   opacity: 0;
   z-index: -1;
   transition: var(--transition-all-normal);
@@ -203,9 +214,12 @@
 
 .workflow__scenario-info:hover .workflow__scenario-icon-wrapper {
   transform: scale(1.1) rotate(5deg);
-  background: linear-gradient(135deg, rgba(255, 143, 0, 0.25) 0%, rgba(255, 183, 77, 0.3) 100%);
+  background: linear-gradient(145deg, #fff3e0 0%, #ffe0b2 100%);
   border-color: rgba(255, 143, 0, 0.4);
-  box-shadow: 0 4px 16px rgba(255, 143, 0, 0.25);
+  box-shadow: 
+    0 8px 20px rgba(255, 143, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .workflow__scenario-icon-wrapper ion-icon {
