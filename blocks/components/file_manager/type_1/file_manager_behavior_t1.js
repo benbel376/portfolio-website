@@ -804,14 +804,28 @@ function showPdfPreview(path) {
     const previewImage = document.getElementById('fm-preview-image');
     const previewVideo = document.getElementById('fm-preview-video');
     const previewPdf = document.getElementById('fm-preview-pdf');
+    const pdfIframe = document.getElementById('fm-pdf-iframe');
     const pdfDownload = document.getElementById('fm-pdf-download');
+    const pdfOpen = document.getElementById('fm-pdf-open');
     
     if (previewPdf) previewPdf.style.display = 'flex';
     if (previewImage) previewImage.style.display = 'none';
     if (previewVideo) previewVideo.style.display = 'none';
+    
+    // Set iframe source for PDF preview
+    if (pdfIframe) {
+        pdfIframe.src = path;
+    }
+    
+    // Set download link
     if (pdfDownload) {
         pdfDownload.href = path;
         pdfDownload.download = path.split('/').pop();
+    }
+    
+    // Set open in new tab link
+    if (pdfOpen) {
+        pdfOpen.href = path;
     }
 }
 

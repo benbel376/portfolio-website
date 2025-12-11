@@ -134,12 +134,17 @@
                 <img id="fm-preview-image" style="display: none;" />
                 <video id="fm-preview-video" controls style="display: none;"></video>
                 <div class="file-manager__pdf-preview" id="fm-preview-pdf" style="display: none;">
-                    <ion-icon name="document-outline"></ion-icon>
-                    <p>PDF Preview</p>
-                    <a id="fm-pdf-download" class="file-manager__download-btn" download>
-                        <ion-icon name="download-outline"></ion-icon>
-                        Download PDF
-                    </a>
+                    <iframe id="fm-pdf-iframe" class="file-manager__pdf-iframe"></iframe>
+                    <div class="file-manager__pdf-actions">
+                        <a id="fm-pdf-download" class="file-manager__download-btn" download>
+                            <ion-icon name="download-outline"></ion-icon>
+                            Download PDF
+                        </a>
+                        <a id="fm-pdf-open" class="file-manager__download-btn file-manager__download-btn--secondary" target="_blank">
+                            <ion-icon name="open-outline"></ion-icon>
+                            Open in New Tab
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
