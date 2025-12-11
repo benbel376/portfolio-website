@@ -34,13 +34,14 @@ class TechStackLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="tech-stack-component"',
-            '<div class="tech-stack-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+            '<section class="tech-stack-component" data-nav-handler="handleTechStackNavigation">',
+            '<section class="tech-stack-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleTechStackNavigation"
                  data-nav-config=\'' . $navConfigJson . '\'
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeTechStack"
-                 data-component-metadata=\'' . $metadataJson . '\'',
+                 data-component-metadata=\'' . $metadataJson . '\'>',
             $template
         );
         
@@ -57,15 +58,16 @@ class TechStackLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="tech-stack-component"',
-            '<div class="tech-stack-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
-                 data-nav-config=\'' . $navConfigJson . '\'',
+            '<section class="tech-stack-component" data-nav-handler="handleTechStackNavigation">',
+            '<section class="tech-stack-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleTechStackNavigation"
+                 data-nav-config=\'' . $navConfigJson . '\'>',
             $template
         );
         
         $dataScript = $this->injectDataScript($id, $data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
         
         return $template;
     }

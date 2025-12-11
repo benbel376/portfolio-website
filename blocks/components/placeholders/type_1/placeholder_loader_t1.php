@@ -26,8 +26,8 @@ class PlaceholderLoader {
         $stateClass = $defaultState === 'hidden' ? 'nav-hidden' : 'nav-visible';
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
-        $html = str_replace('<div class="placeholder-component">',
-            '<div class="placeholder-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handlePlaceholderNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+        $html = str_replace('<section class="placeholder-component" data-nav-handler="handlePlaceholderNavigation">',
+            '<section class="placeholder-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handlePlaceholderNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $html);
 
         return $html;
@@ -43,7 +43,7 @@ class PlaceholderLoader {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
 
         $shell = '<link rel="stylesheet" href="blocks/components/placeholders/type_1/placeholder_style_t1.css">'
-            . '<div class="placeholder-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '"'
+            . '<section class="placeholder-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '"'
             . $protectedAttr
             . ' data-nav-handler="handlePlaceholderNavigation" data-nav-config="' . $navConfigJson . '"'
             . ' data-dynamic="true" data-load-state="not-loaded" data-component-metadata="' . $metadataJson . '"' . $styleAttr . '>'
@@ -52,7 +52,7 @@ class PlaceholderLoader {
             . '    <div class="error-placeholder" style="display:none;"><span>Content unavailable</span></div>'
             . '    <div class="dynamic-content-container"></div>'
             . '  </div>'
-            . '</div>';
+            . '</section>';
 
         return $shell;
     }

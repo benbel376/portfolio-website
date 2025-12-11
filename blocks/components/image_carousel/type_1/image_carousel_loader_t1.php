@@ -34,13 +34,14 @@ class ImageCarouselLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<section class="image-carousel-component"',
+            '<section class="image-carousel-component" data-nav-handler="handleImageCarouselNavigation">',
             '<section class="image-carousel-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleImageCarouselNavigation"
                  data-nav-config=\'' . $navConfigJson . '\'
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeImageCarousel"
-                 data-component-metadata=\'' . $metadataJson . '\'',
+                 data-component-metadata=\'' . $metadataJson . '\'>',
             $template
         );
         
@@ -57,9 +58,10 @@ class ImageCarouselLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<section class="image-carousel-component"',
+            '<section class="image-carousel-component" data-nav-handler="handleImageCarouselNavigation">',
             '<section class="image-carousel-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
-                 data-nav-config=\'' . $navConfigJson . '\'',
+                 data-nav-handler="handleImageCarouselNavigation"
+                 data-nav-config=\'' . $navConfigJson . '\'>',
             $template
         );
         

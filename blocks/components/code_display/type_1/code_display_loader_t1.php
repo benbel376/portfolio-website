@@ -44,8 +44,8 @@ class CodeDisplayLoaderT1 {
         // Inject ID and nav config
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         $template = str_replace(
-            '<div class="code-display-component"',
-            '<div class="code-display-component" id="' . htmlspecialchars($id) . '" data-nav-config="' . $navConfigJson . '"',
+            '<section class="code-display-component" data-nav-handler="handleCodeDisplayNavigation">',
+            '<section class="code-display-component" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCodeDisplayNavigation" data-nav-config="' . $navConfigJson . '">',
             $template
         );
 
@@ -67,14 +67,15 @@ class CodeDisplayLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<section class="code-display-component"',
+            '<section class="code-display-component" data-nav-handler="handleCodeDisplayNavigation">',
             '<section class="code-display-component" 
                  id="' . htmlspecialchars($id) . '" 
+                 data-nav-handler="handleCodeDisplayNavigation"
                  data-nav-config="' . $navConfigJson . '"
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeCodeDisplay"
-                 data-component-metadata="' . $metadataJson . '"',
+                 data-component-metadata="' . $metadataJson . '">',
             $template
         );
 

@@ -34,13 +34,14 @@ class SectionTitleLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="section-title-component"',
-            '<div class="section-title-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+            '<section class="section-title-component" data-nav-handler="handleSectionTitleNavigation">',
+            '<section class="section-title-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleSectionTitleNavigation"
                  data-nav-config=\'' . $navConfigJson . '\'
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeSectionTitle"
-                 data-component-metadata=\'' . $metadataJson . '\'',
+                 data-component-metadata=\'' . $metadataJson . '\'>',
             $template
         );
         
@@ -57,15 +58,16 @@ class SectionTitleLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="section-title-component"',
-            '<div class="section-title-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
-                 data-nav-config=\'' . $navConfigJson . '\'',
+            '<section class="section-title-component" data-nav-handler="handleSectionTitleNavigation">',
+            '<section class="section-title-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleSectionTitleNavigation"
+                 data-nav-config=\'' . $navConfigJson . '\'>',
             $template
         );
         
         $dataScript = $this->injectDataScript($id, $data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
         
         return $template;
     }

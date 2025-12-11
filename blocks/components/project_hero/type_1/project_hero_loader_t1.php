@@ -44,15 +44,15 @@ class ProjectHeroLoaderT1 {
         // Inject ID and nav config
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         $template = str_replace(
-            '<div class="project-hero-component"',
-            '<div class="project-hero-component" id="' . htmlspecialchars($id) . '" data-nav-config="' . $navConfigJson . '"',
+            '<section class="project-hero-component" data-nav-handler="handleProjectHeroNavigation">',
+            '<section class="project-hero-component" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectHeroNavigation" data-nav-config="' . $navConfigJson . '">',
             $template
         );
 
-        // Inject data script before closing div
+        // Inject data script before closing section
         $dataScript = $this->generateDataScript($data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
 
         return $template;
     }
@@ -67,14 +67,15 @@ class ProjectHeroLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="project-hero-component"',
-            '<div class="project-hero-component" 
+            '<section class="project-hero-component" data-nav-handler="handleProjectHeroNavigation">',
+            '<section class="project-hero-component" 
                  id="' . htmlspecialchars($id) . '" 
+                 data-nav-handler="handleProjectHeroNavigation"
                  data-nav-config="' . $navConfigJson . '"
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeProjectHero"
-                 data-component-metadata="' . $metadataJson . '"',
+                 data-component-metadata="' . $metadataJson . '">',
             $template
         );
 
@@ -93,8 +94,8 @@ class ProjectHeroLoaderT1 {
         
         // Inject data script
         $dataScript = $this->generateDataScript($data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
 
         return $template;
     }

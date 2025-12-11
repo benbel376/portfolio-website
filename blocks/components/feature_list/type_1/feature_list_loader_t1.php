@@ -34,13 +34,14 @@ class FeatureListLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<section class="feature-list-component"',
+            '<section class="feature-list-component" data-nav-handler="handleFeatureListNavigation">',
             '<section class="feature-list-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleFeatureListNavigation"
                  data-nav-config=\'' . $navConfigJson . '\'
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeFeatureList"
-                 data-component-metadata=\'' . $metadataJson . '\'',
+                 data-component-metadata=\'' . $metadataJson . '\'>',
             $template
         );
         
@@ -57,9 +58,10 @@ class FeatureListLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<section class="feature-list-component"',
+            '<section class="feature-list-component" data-nav-handler="handleFeatureListNavigation">',
             '<section class="feature-list-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
-                 data-nav-config=\'' . $navConfigJson . '\'',
+                 data-nav-handler="handleFeatureListNavigation"
+                 data-nav-config=\'' . $navConfigJson . '\'>',
             $template
         );
         

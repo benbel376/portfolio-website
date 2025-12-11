@@ -34,13 +34,14 @@ class StatsGridLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="stats-grid-component"',
-            '<div class="stats-grid-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+            '<section class="stats-grid-component" data-nav-handler="handleStatsGridNavigation">',
+            '<section class="stats-grid-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleStatsGridNavigation"
                  data-nav-config=\'' . $navConfigJson . '\'
                  data-dynamic="true"
                  data-load-state="not-loaded"
                  data-init-hook="initializeStatsGrid"
-                 data-component-metadata=\'' . $metadataJson . '\'',
+                 data-component-metadata=\'' . $metadataJson . '\'>',
             $template
         );
         
@@ -57,15 +58,16 @@ class StatsGridLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="stats-grid-component"',
-            '<div class="stats-grid-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
-                 data-nav-config=\'' . $navConfigJson . '\'',
+            '<section class="stats-grid-component" data-nav-handler="handleStatsGridNavigation">',
+            '<section class="stats-grid-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+                 data-nav-handler="handleStatsGridNavigation"
+                 data-nav-config=\'' . $navConfigJson . '\'>',
             $template
         );
         
         $dataScript = $this->injectDataScript($id, $data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
         
         return $template;
     }
