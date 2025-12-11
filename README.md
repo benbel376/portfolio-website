@@ -65,10 +65,17 @@ open http://localhost:8000
 Edit `definitions/entry.json` to set the active profile:
 ```json
 {
-  "profile": "ml_mlops_t1",
-  "builder": "builder_t1"
+  "default_profile": "ml_mlops",
+  "profiles": {
+    "ml_mlops": { "profile": "ml_mlops_t1.json", "builder": "builder_t1.php" },
+    "sidebar": { "profile": "sidebar_profile_t1.json", "builder": "builder_t1.php" }
+  }
 }
 ```
+
+### Site Layouts
+- `top_bar/type_2` - Horizontal navigation bar at top
+- `side_bar/type_1` - Vertical sidebar navigation
 
 ### Page Definition
 Pages are defined in `definitions/pages/`:
