@@ -26,7 +26,7 @@ function renderTechStack(component, data) {
     const titleEl = component.querySelector('.tech-stack__title');
     if (titleEl) titleEl.textContent = title;
 
-    // Render categories
+    // Render categories as clean two-column list
     const container = component.querySelector('.tech-stack__categories');
     if (container) {
         container.innerHTML = categories.map(category => `
@@ -40,10 +40,9 @@ function renderTechStack(component, data) {
                         <div class="tech-stack__tech">
                             ${tech.icon 
                                 ? `<img src="${tech.icon}" alt="${escapeHtml(tech.name)}" class="tech-stack__tech-icon" />`
-                                : `<span class="tech-stack__tech-icon-fallback">${getInitials(tech.name)}</span>`
+                                : `<span class="tech-stack__tech-bullet"><ion-icon name="checkmark-outline"></ion-icon></span>`
                             }
-                            <span class="tech-stack__tech-name">${escapeHtml(tech.name)}</span>
-                            ${tech.version ? `<span class="tech-stack__tech-version">v${escapeHtml(tech.version)}</span>` : ''}
+                            <span class="tech-stack__tech-name">${escapeHtml(tech.name)}${tech.version ? `<span class="tech-stack__tech-version">${escapeHtml(tech.version)}</span>` : ''}</span>
                         </div>
                     `).join('')}
                 </div>
