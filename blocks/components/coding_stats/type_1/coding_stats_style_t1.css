@@ -437,7 +437,7 @@
 
 @media (max-width: 768px) {
     .coding-stats-component {
-        padding: 0 var(--spacing-10);
+        padding: 0 var(--spacing-8);
     }
     
     .coding-stats__platform-card {

@@ -233,29 +233,48 @@ function renderPlatformSlide(platform, index) {
  * Setup navigation controls
  */
 function setupNavigation(container) {
-    const prevBtn = container.querySelector('#coding-stats-prev');
-    const nextBtn = container.querySelector('#coding-stats-next');
-    const dotsContainer = container.querySelector('#coding-stats-dots');
-
-    if (prevBtn) {
-        prevBtn.onclick = () => navigateSlide(container, -1);
+    // Use event delegation on the container itself
+    // Remove previous handler if exists
+    if (container._codingStatsNavHandler) {
+        container.removeEventListener('click', container._codingStatsNavHandler);
     }
-
-    if (nextBtn) {
-        nextBtn.onclick = () => navigateSlide(container, 1);
-    }
-
-    if (dotsContainer) {
-        dotsContainer.onclick = (e) => {
-            const dot = e.target.closest('.coding-stats__dot');
-            if (dot) {
-                const index = parseInt(dot.dataset.index, 10);
-                showSlide(container, index);
-            }
-        };
-    }
-
+    
+    // Create new handler
+    container._codingStatsNavHandler = function(e) {
+        const target = e.target;
+        
+        // Check for prev button
+        if (target.closest('#coding-stats-prev')) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Coding Stats: Prev clicked');
+            navigateSlide(container, -1);
+            return;
+        }
+        
+        // Check for next button
+        if (target.closest('#coding-stats-next')) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Coding Stats: Next clicked');
+            navigateSlide(container, 1);
+            return;
+        }
+        
+        // Check for dot click
+        const dot = target.closest('.coding-stats__dot');
+        if (dot) {
+            e.preventDefault();
+            const index = parseInt(dot.dataset.index, 10);
+            console.log('Coding Stats: Dot clicked, index:', index);
+            showSlide(container, index);
+            return;
+        }
+    };
+    
+    container.addEventListener('click', container._codingStatsNavHandler);
     updateNavButtons(container);
+    console.log('Coding Stats: Navigation setup complete');
 }
 
 /**
