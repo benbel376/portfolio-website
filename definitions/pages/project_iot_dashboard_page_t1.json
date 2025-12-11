@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-iot-dashboard-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "iot-dashboard-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "IoT Smart Home Dashboard",
+              "description": "Comprehensive IoT dashboard for smart home management with lighting, temperature, and security system controls. The platform connects multiple IoT devices and provides unified control through an intuitive interface.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+              "category": "IoT",
+              "technologies": ["React", "Node.js", "MQTT", "InfluxDB", "Grafana", "Raspberry Pi", "Arduino", "WebSocket"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Real-time device status monitoring",
+                "Automated lighting schedules",
+                "Temperature and humidity control",
+                "Security camera integration",
+                "Motion detection alerts",
+                "Energy consumption analytics",
+                "Voice assistant integration",
+                "Mobile app for remote control"
+              ],
+              "demoLink": "https://demo.smart-home-iot.com",
+              "repoLink": "https://github.com/username/iot-smart-home"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

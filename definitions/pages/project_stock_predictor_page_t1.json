@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-stock-predictor-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "stock-predictor-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "ML Stock Price Predictor",
+              "description": "Advanced stock price prediction system using LSTM neural networks with 85% accuracy rate for trading signals. The system analyzes historical data, market sentiment, and technical indicators to generate predictions.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+              "category": "Machine Learning",
+              "technologies": ["Python", "TensorFlow", "Keras", "Pandas", "NumPy", "Scikit-learn", "PostgreSQL", "FastAPI"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "LSTM-based price prediction model",
+                "Technical indicator analysis",
+                "Sentiment analysis from news",
+                "Real-time market data integration",
+                "Backtesting framework",
+                "Risk assessment metrics",
+                "Portfolio optimization suggestions",
+                "Alert system for trading signals"
+              ],
+              "demoLink": "https://demo.stock-predictor.com",
+              "repoLink": "https://github.com/username/ml-stock-predictor"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

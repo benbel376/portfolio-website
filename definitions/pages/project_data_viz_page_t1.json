@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-data-viz-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "data-viz-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Data Visualization Dashboard",
+              "description": "Interactive business intelligence dashboard with real-time data visualization and automated report generation. The platform connects to multiple data sources and provides customizable charts and analytics.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+              "category": "Data Science",
+              "technologies": ["D3.js", "React", "Python", "Apache Airflow", "PostgreSQL", "Redis", "Elasticsearch", "Plotly"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Real-time data streaming",
+                "Interactive chart components",
+                "Drag-and-drop dashboard builder",
+                "Automated report scheduling",
+                "Multi-source data integration",
+                "Custom metric calculations",
+                "Export to PDF/Excel",
+                "Role-based dashboard sharing"
+              ],
+              "demoLink": "https://demo.data-viz-dashboard.com",
+              "repoLink": "https://github.com/username/data-viz-dashboard"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

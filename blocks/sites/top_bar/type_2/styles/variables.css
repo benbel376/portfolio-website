@@ -81,6 +81,8 @@
   --color-black: #000000;
   
   /* Alpha/Opacity Colors - Frequently used transparent variations */
+  --color-black-alpha-3: rgba(0, 0, 0, 0.03);
+  --color-black-alpha-5: rgba(0, 0, 0, 0.05);
   --color-black-alpha-10: rgba(0, 0, 0, 0.1);
   --color-black-alpha-20: rgba(0, 0, 0, 0.2);
   --color-black-alpha-25: rgba(0, 0, 0, 0.25);

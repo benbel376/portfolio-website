@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-blockchain-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "blockchain-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Blockchain Voting System",
+              "description": "Secure and transparent voting system built on blockchain technology ensuring vote integrity and immutability. The system uses smart contracts to automate vote counting and provides real-time results while maintaining voter anonymity.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+              "category": "Blockchain",
+              "technologies": ["Solidity", "Ethereum", "Web3.js", "React", "Node.js", "IPFS", "Truffle"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Immutable vote recording on blockchain",
+                "Smart contract-based vote counting",
+                "Voter anonymity with cryptographic proofs",
+                "Real-time election results dashboard",
+                "Multi-signature admin controls",
+                "Audit trail for all transactions",
+                "Mobile-responsive voting interface",
+                "Integration with identity verification systems"
+              ],
+              "demoLink": "https://demo.blockchain-voting.com",
+              "repoLink": "https://github.com/username/blockchain-voting"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

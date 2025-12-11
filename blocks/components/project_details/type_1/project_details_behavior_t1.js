@@ -26,7 +26,7 @@
         console.log('Project Details: Navigating back to projects');
         
         // Update URL hash - tab highlighting is automatic via data-parent-tab
-        window.location.hash = '#projects-main-container/visible';
+        window.location.hash = '#projects-main-container';
     }
 
     // Export initialization function for dynamic loading
@@ -37,35 +37,38 @@
 })();
 
 // Export functions for global access (navigation handler only)
-window.handleProjectDetailsNavigation = function(elementId, action, config) {
-    console.log('Project Details: Navigation handler called', { elementId, action, config });
+window.handleProjectDetailsNavigation = function(elementId, state, parameters = {}) {
+    console.log('Project Details: Navigation handler called', { elementId, state, parameters });
     
-    switch (action) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.warn('Project Details: Element not found:', elementId);
+        return false;
+    }
+    
+    switch (state) {
+        case 'visible':
+            element.style.display = 'block';
+            element.classList.remove('nav-hidden');
+            element.classList.add('nav-visible');
+            break;
+        case 'hidden':
+            element.classList.remove('nav-visible');
+            element.classList.add('nav-hidden');
+            setTimeout(() => {
+                if (element.classList.contains('nav-hidden')) {
+                    element.style.display = 'none';
+                }
+            }, 300);
+            break;
         case 'scrollTo':
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-            break;
-        case 'show':
-            const showElement = document.getElementById(elementId);
-            if (showElement) {
-                showElement.style.display = 'block';
-                showElement.classList.remove('nav-hidden');
-                showElement.classList.add('nav-visible');
-            }
-            break;
-        case 'hide':
-            const hideElement = document.getElementById(elementId);
-            if (hideElement) {
-                hideElement.style.display = 'none';
-                hideElement.classList.remove('nav-visible');
-                hideElement.classList.add('nav-hidden');
-            }
+            element.scrollIntoView({ behavior: 'smooth' });
             break;
         default:
-            console.warn('Project Details: Unknown navigation action:', action);
+            console.warn('Project Details: Unknown state:', state);
+            return false;
     }
+    return true;
 };
 
 console.log('Project Details: Behavior script loaded');

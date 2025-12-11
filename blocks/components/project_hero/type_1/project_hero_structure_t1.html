@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="blocks/components/project_hero/type_1/project_hero_style_t1.css">
+<div class="project-hero-component" data-nav-handler="handleProjectHeroNavigation">
+    
+    <!-- Back Navigation -->
+    <div class="project-hero__back-nav">
+        <button class="project-hero__back-btn" id="project-hero-back">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <span>Back to Projects</span>
+        </button>
+    </div>
+
+    <!-- Banner Section -->
+    <div class="project-hero__banner">
+        <img class="project-hero__banner-image" src="" alt="Project Banner" />
+        <div class="project-hero__banner-overlay"></div>
+    </div>
+
+    <!-- Content Wrapper -->
+    <div class="project-hero__content-wrapper">
+    <!-- Content Section -->
+    <div class="project-hero__content">
+        <!-- Category & Status -->
+        <div class="project-hero__meta">
+            <span class="project-hero__category"></span>
+            <span class="project-hero__status"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="project-hero__title"></h1>
+
+        <!-- Description -->
+        <p class="project-hero__description"></p>
+
+        <!-- Tech Stack -->
+        <div class="project-hero__tech-stack">
+            <h3 class="project-hero__tech-title">
+                <ion-icon name="code-slash-outline"></ion-icon>
+                <span>Technologies</span>
+            </h3>
+            <div class="project-hero__tech-badges"></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="project-hero__actions">
+            <a class="project-hero__action-btn project-hero__action-btn--primary" href="" target="_blank" rel="noopener noreferrer">
+                <ion-icon name="play-circle-outline"></ion-icon>
+                <span>Live Demo</span>
+            </a>
+            <a class="project-hero__action-btn project-hero__action-btn--secondary" href="" target="_blank" rel="noopener noreferrer">
+                <ion-icon name="logo-github"></ion-icon>
+                <span>View Code</span>
+            </a>
+        </div>
+
+        <!-- Project Info Grid -->
+        <div class="project-hero__info-grid">
+            <div class="project-hero__info-item">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <div class="project-hero__info-content">
+                    <span class="project-hero__info-label">Year</span>
+                    <span class="project-hero__info-value" id="project-hero-year"></span>
+                </div>
+            </div>
+            <div class="project-hero__info-item">
+                <ion-icon name="time-outline"></ion-icon>
+                <div class="project-hero__info-content">
+                    <span class="project-hero__info-label">Duration</span>
+                    <span class="project-hero__info-value" id="project-hero-duration"></span>
+                </div>
+            </div>
+            <div class="project-hero__info-item">
+                <ion-icon name="git-branch-outline"></ion-icon>
+                <div class="project-hero__info-content">
+                    <span class="project-hero__info-label">Status</span>
+                    <span class="project-hero__info-value" id="project-hero-status-text"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>
+<script src="blocks/components/project_hero/type_1/project_hero_behavior_t1.js"></script>

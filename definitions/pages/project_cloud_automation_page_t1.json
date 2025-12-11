@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-cloud-automation-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "cloud-automation-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Cloud Infrastructure Automation",
+              "description": "DevOps automation suite for cloud infrastructure management with CI/CD pipelines and auto-scaling capabilities. The platform provides infrastructure-as-code templates and automated deployment workflows.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+              "category": "DevOps",
+              "technologies": ["Terraform", "AWS", "Kubernetes", "Docker", "Jenkins", "Ansible", "Python", "Prometheus"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "Infrastructure-as-code templates",
+                "Automated CI/CD pipelines",
+                "Auto-scaling based on metrics",
+                "Multi-cloud deployment support",
+                "Cost optimization recommendations",
+                "Security compliance scanning",
+                "Centralized logging and monitoring",
+                "Disaster recovery automation"
+              ],
+              "demoLink": "https://demo.cloud-automation.com",
+              "repoLink": "https://github.com/username/cloud-automation"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}

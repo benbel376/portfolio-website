@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "project-api-gateway-container",
+      "dynamic": false,
+      "parentTab": "projects",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": ["visible", "hidden", "scrollTo"],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "project_details/type_1",
+          "id": "api-gateway-details",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Microservices API Gateway",
+              "description": "High-performance API gateway for microservices architecture handling 10k+ requests per second with load balancing. The gateway provides authentication, rate limiting, and request routing for distributed systems.",
+              "bannerImage": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
+              "category": "Backend",
+              "technologies": ["Go", "Redis", "PostgreSQL", "Docker", "Kubernetes", "gRPC", "Nginx", "Consul"],
+              "status": "Completed",
+              "year": "2023",
+              "features": [
+                "High-throughput request handling",
+                "Dynamic load balancing",
+                "JWT-based authentication",
+                "Rate limiting and throttling",
+                "Request/response transformation",
+                "Service discovery integration",
+                "Circuit breaker pattern",
+                "Comprehensive API analytics"
+              ],
+              "demoLink": "https://demo.api-gateway.com",
+              "repoLink": "https://github.com/username/microservices-gateway"
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
+}
