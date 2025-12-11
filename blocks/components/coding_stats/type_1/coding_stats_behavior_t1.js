@@ -151,11 +151,17 @@ function createSlide(platform, index) {
 }
 
 function showSlide(index) {
-    const slides = document.querySelectorAll('.coding-stats__slide');
+    const container = document.getElementById('coding-stats-slide-container');
+    if (!container) {
+        console.log('CodingStats: showSlide - container not found');
+        return;
+    }
+    
+    const slides = container.querySelectorAll('.coding-stats__slide');
     console.log('CodingStats: showSlide called, index:', index, 'total slides:', slides.length);
     
     if (slides.length === 0) {
-        console.log('CodingStats: No slides found');
+        console.log('CodingStats: No slides found in container');
         return;
     }
     
@@ -240,7 +246,10 @@ function renderPagination() {
 }
 
 function updatePagination() {
-    const dots = document.querySelectorAll('.coding-stats__pagination-dot');
+    const paginationContainer = document.getElementById('coding-stats-pagination');
+    if (!paginationContainer) return;
+    
+    const dots = paginationContainer.querySelectorAll('.coding-stats__pagination-dot');
     dots.forEach((dot, i) => {
         if (i === window.codingStatsCurrentSlide) {
             dot.classList.add('active');
@@ -312,4 +321,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded v2');
+console.log('CodingStats: Behavior loaded v3');
