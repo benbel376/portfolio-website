@@ -59,7 +59,7 @@
     background-repeat: no-repeat;
 }
 
-/* Light theme overlay - higher opacity for better text readability */
+/* Light theme overlay - lower opacity to show more background */
 .coding-stats__slideshow::before {
     content: '';
     position: absolute;
@@ -67,14 +67,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.75);
     pointer-events: none;
     z-index: 0;
 }
 
-/* Dark theme overlay - higher opacity for dark mode */
+/* Dark theme overlay - lower opacity to show more background */
 .theme-dark .coding-stats__slideshow::before {
-    background: rgba(0, 0, 0, 0.82);
+    background: rgba(0, 0, 0, 0.70);
 }
 
 /* Slide - Single row layout */
