@@ -89,15 +89,15 @@
 									"detailUrl": "#project-iot-dashboard-container"
 								},
 								{
-									"name": "Data Visualization Dashboard",
-									"description": "Interactive business intelligence dashboard with real-time data visualization and automated report generation.",
-									"category": "data-science",
-									"date": "2023-04-30",
-									"technologies": ["D3.js", "React", "Python", "PostgreSQL", "Elasticsearch"],
-									"status": "Completed",
-									"year": "2023",
+									"name": "Portfolio Website Builder Framework",
+									"description": "A modular, component-based framework for building dynamic portfolio websites with dictionary-driven architecture and comprehensive theming.",
+									"category": "web-development",
+									"date": "2024-12-11",
+									"technologies": ["PHP", "JavaScript", "CSS3", "HTML5", "JSON"],
+									"status": "Active",
+									"year": "2024",
 									"image": "blocks/components/projects_grid/type_1/assets/defaults/project_banner_placeholder.svg",
-									"detailUrl": "#project-data-viz-container"
+									"detailUrl": "#project-portfolio-framework-container"
 								},
 								{
 									"name": "Blockchain Voting System",
