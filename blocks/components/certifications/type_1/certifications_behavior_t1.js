@@ -335,8 +335,38 @@ function resetCertificationsAnimations() {
     }
 }
 
+/**
+ * Navigation handler for GlobalNavigator integration
+ */
+function handleCertificationsNavigation(elementId, state, parameters = {}) {
+    const element = document.getElementById(elementId);
+    if (!element) return false;
+
+    switch (state) {
+        case 'visible':
+            element.style.display = 'block';
+            element.classList.remove('nav-hidden');
+            element.classList.add('nav-visible');
+            initializeCertifications();
+            break;
+        case 'hidden':
+            element.classList.remove('nav-visible');
+            element.classList.add('nav-hidden');
+            setTimeout(() => {
+                if (element.classList.contains('nav-hidden')) {
+                    element.style.display = 'none';
+                }
+            }, 300);
+            break;
+        case 'scrollTo':
+            element.scrollIntoView({ behavior: 'smooth' });
+            break;
+    }
+    return true;
+}
+
 // Export functions to global scope for framework integration
-window.handleCertificationsNavigation = initializeCertifications;
+window.handleCertificationsNavigation = handleCertificationsNavigation;
 window.setCertificationsData = setCertificationsData;
 window.initializeCertifications = initializeCertifications;
 window.resetCertificationsAnimations = resetCertificationsAnimations;

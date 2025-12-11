@@ -1,5 +1,5 @@
 // Minimal navigation handler to align with framework expectations
-export function handleSummaryNavigation(elementId, state, params = {}) {
+function handleSummaryNavigation(elementId, state, params = {}) {
 	const element = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
 	if (!element) return false;
 	switch (state) {
@@ -25,7 +25,7 @@ if (typeof window !== 'undefined') {
 }
 
 // Optional automatic initializer; safe to call before or after inner HTML is present
-export function initSummaryComponent(elementOrId) {
+function initSummaryComponent(elementOrId) {
     const el = typeof elementOrId === 'string' ? document.getElementById(elementOrId) : elementOrId;
     if (!el) return;
     // If inner content not yet present (shell-only), bail quietly; dynamic loader will re-trigger later

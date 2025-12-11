@@ -453,8 +453,38 @@ function resetProjectsGridAnimations() {
     });
 }
 
+/**
+ * Navigation handler for GlobalNavigator integration
+ */
+function handleProjectsGridNavigation(elementId, state, parameters = {}) {
+    const element = document.getElementById(elementId);
+    if (!element) return false;
+
+    switch (state) {
+        case 'visible':
+            element.style.display = 'block';
+            element.classList.remove('nav-hidden');
+            element.classList.add('nav-visible');
+            initializeProjectsGrid();
+            break;
+        case 'hidden':
+            element.classList.remove('nav-visible');
+            element.classList.add('nav-hidden');
+            setTimeout(() => {
+                if (element.classList.contains('nav-hidden')) {
+                    element.style.display = 'none';
+                }
+            }, 300);
+            break;
+        case 'scrollTo':
+            element.scrollIntoView({ behavior: 'smooth' });
+            break;
+    }
+    return true;
+}
+
 // Export functions to global scope for framework integration
-window.handleProjectsGridNavigation = initializeProjectsGrid;
+window.handleProjectsGridNavigation = handleProjectsGridNavigation;
 window.setProjectsData = setProjectsData;
 window.initializeProjectsGrid = initializeProjectsGrid;
 window.resetProjectsGridAnimations = resetProjectsGridAnimations;
