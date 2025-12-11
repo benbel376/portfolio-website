@@ -11,6 +11,7 @@ A modular, component-based portfolio website system built with PHP, JavaScript, 
 - **Protected Content** - Authentication-gated sections
 - **Responsive Design** - Mobile-first, works on all devices
 - **File Manager** - Built-in JSON/media file management
+- **AI Assistant** - Integrated chat assistant powered by Gemini API for portfolio exploration
 
 ## 🚀 Quick Start
 
@@ -58,6 +59,7 @@ open http://localhost:8000
 | `projects_grid` | Filterable project portfolio |
 | `project_details` | Individual project page |
 | `file_manager` | Admin file management |
+| `coding_stats` | LeetCode/coding platform statistics display |
 
 ## ⚙️ Configuration
 
@@ -76,6 +78,8 @@ Edit `definitions/entry.json` to set the active profile:
 ### Site Layouts
 - `top_bar/type_2` - Horizontal navigation bar at top
 - `side_bar/type_1` - Vertical sidebar navigation
+
+Both layouts include an integrated AI Assistant chat widget for portfolio exploration.
 
 ### Page Definition
 Pages are defined in `definitions/pages/`:
@@ -109,6 +113,17 @@ Components use these variables directly - no hardcoded colors.
 - Protected content requires authentication
 - Session-based auth via `endpoints/security_t1.php`
 - Protected components render as shells until authenticated
+
+## 🤖 AI Assistant
+
+The portfolio includes an AI-powered chat assistant that helps visitors explore the portfolio:
+
+- Powered by Google Gemini API
+- Context-aware responses about skills, projects, and experience
+- Navigation integration - can direct users to relevant sections
+- Multi-turn conversation with session persistence
+- Rate limit handling with user-friendly messages
+- Configurable via site JSON (`aiAssistant` section)
 
 ## 📖 Documentation
 

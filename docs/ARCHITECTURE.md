@@ -171,8 +171,42 @@ blocks/sites/{type}/type_{version}/
 ├── {type}_site_structure_t{v}.html
 ├── {type}_site_loader_t{v}.php
 ├── behaviors/                    # JS modules
+│   └── {type}_site_ai_assistant_t{v}.js
 └── styles/                       # CSS modules
+    └── {type}_site_ai_assistant_style_t{v}.css
 ```
+
+## AI Assistant Integration
+
+Both site layouts (`top_bar/type_2` and `side_bar/type_1`) include an integrated AI Assistant chat widget.
+
+### Configuration
+AI Assistant is configured in site JSON files:
+```json
+{
+  "aiAssistant": {
+    "enabled": true,
+    "provider": "gemini",
+    "model": "gemini-2.0-flash"
+  }
+}
+```
+
+### Architecture
+- **Frontend**: Floating chat widget with toggle button, message panel, and input form
+- **Backend**: `endpoints/ai_assistant_t1.php` handles API requests to Gemini
+- **Context Gathering**: Collects portfolio data (skills, projects, experience) for AI context
+- **Navigation**: AI can suggest navigation to relevant sections via `navigate` response field
+- **Session Persistence**: Chat history stored in sessionStorage for multi-turn conversations
+- **Rate Limiting**: Handles 429 errors with user-friendly messages
+
+### Files
+| File | Purpose |
+|------|---------|
+| `behaviors/*_ai_assistant_t1.js` | Client-side chat behavior |
+| `styles/*_ai_assistant_style_t1.css` | Chat widget styling |
+| `endpoints/ai_assistant_t1.php` | API endpoint for Gemini integration |
+| `features/ai_assistant/` | Loader for dynamic component mode |
 
 ## Builder System
 

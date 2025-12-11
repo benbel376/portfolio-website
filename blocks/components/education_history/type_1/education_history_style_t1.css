@@ -261,7 +261,7 @@
     justify-content: space-between;
     gap: var(--spacing-4, 1rem);
     background: rgba(0, 0, 0, 0.03);
-    padding: var(--spacing-6) var(--spacing-8);
+    padding: var(--spacing-8) var(--spacing-10);
     border-radius: var(--border-radius-2xl) var(--border-radius-2xl) 0 0;
 }
 
@@ -321,7 +321,7 @@
     line-height: var(--line-height-relaxed, 1.6);
     color: var(--color-text-tertiary, #555);
     margin: 0;
-    padding: var(--spacing-5, 1.25rem) var(--spacing-8, 2rem) var(--spacing-4, 1rem) var(--spacing-8, 2rem);
+    padding: var(--spacing-5, 1.25rem) var(--spacing-10, 2rem) var(--spacing-4, 1rem) var(--spacing-10, 2rem);
 }
 
 .theme-dark .education-history__description {
@@ -332,7 +332,7 @@
 
 .education-history__highlights {
     margin-top: var(--spacing-4, 1rem);
-    padding: 0 var(--spacing-8, 2rem) var(--spacing-8, 2rem) var(--spacing-8, 2rem);
+    padding: 0 var(--spacing-10, 2rem) var(--spacing-8, 2rem) var(--spacing-10, 2rem);
 }
 
 .education-history__highlights-title {

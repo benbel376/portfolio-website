@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="blocks/components/coding_stats/type_1/coding_stats_style_t1.css">
+<section class="coding-stats-component" data-nav-handler="handleCodingStatsNavigation">
+    <!-- Header Section -->
+    <div class="coding-stats__header">
+        <div class="coding-stats__title-section">
+            <div class="coding-stats__icon-wrapper">
+                <ion-icon name="code-slash-outline"></ion-icon>
+            </div>
+            <div class="coding-stats__title-content">
+                <h2 class="coding-stats__title">Coding Practice</h2>
+                <p class="coding-stats__subtitle">Problem solving and algorithmic skills</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards Container -->
+    <div class="coding-stats__content">
+        <!-- Platform Card -->
+        <div class="coding-stats__platform-card" id="coding-stats-platform">
+            <div class="coding-stats__platform-header">
+                <div class="coding-stats__platform-logo" id="coding-stats-logo">
+                    <!-- Platform logo will be inserted here -->
+                </div>
+                <div class="coding-stats__platform-info">
+                    <h3 class="coding-stats__platform-name" id="coding-stats-platform-name">LeetCode</h3>
+                    <a class="coding-stats__profile-link" id="coding-stats-profile-link" href="#" target="_blank" rel="noopener noreferrer">
+                        <ion-icon name="open-outline"></ion-icon>
+                        <span>View Profile</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Total Solved -->
+            <div class="coding-stats__total-section">
+                <div class="coding-stats__total-number" id="coding-stats-total">0</div>
+                <div class="coding-stats__total-label">Problems Solved</div>
+            </div>
+
+            <!-- Difficulty Breakdown -->
+            <div class="coding-stats__breakdown" id="coding-stats-breakdown">
+                <!-- Difficulty bars will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Additional Stats Grid -->
+        <div class="coding-stats__grid" id="coding-stats-grid">
+            <!-- Stats cards will be dynamically loaded here -->
+        </div>
+
+        <!-- Badges Section -->
+        <div class="coding-stats__badges-section" id="coding-stats-badges-section">
+            <h4 class="coding-stats__badges-title">Achievements</h4>
+            <div class="coding-stats__badges" id="coding-stats-badges">
+                <!-- Badges will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="coding-stats__empty" id="coding-stats-empty" style="display: none;">
+        <ion-icon name="code-slash-outline" aria-hidden="true"></ion-icon>
+        <p>No coding stats available to display.</p>
+    </div>
+</section>
+<script src="blocks/components/coding_stats/type_1/coding_stats_behavior_t1.js"></script>
