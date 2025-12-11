@@ -116,9 +116,10 @@ try {
     $endpointMap = [
         'dynamic_content' => 'endpoints/dynamic_content_t1.php',
         'security' => 'endpoints/security_t1.php',
-        'definition_management' => 'endpoints/definition_management_t1.php',
-        'media_management' => 'endpoints/media_management_t1.php',
-        // Add more endpoints here as needed
+        'file_manager' => 'endpoints/file_manager_t1.php',
+        // Legacy aliases for backward compatibility
+        'definition_management' => 'endpoints/file_manager_t1.php',
+        'media_management' => 'endpoints/file_manager_t1.php',
     ];
     
     // Check if endpoint exists

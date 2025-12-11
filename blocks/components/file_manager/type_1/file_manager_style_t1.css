@@ -1,0 +1,1159 @@
+/* File Manager Component - Modern Design */
+
+.file-manager-component {
+  font-family: var(--font-family-primary);
+  padding: 0 var(--spacing-12);
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Header */
+.file-manager__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--spacing-12);
+  margin-bottom: var(--spacing-8);
+  gap: var(--spacing-4);
+}
+
+.file-manager__title-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  flex: 1;
+}
+
+.file-manager__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-12);
+  height: var(--spacing-12);
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-xl);
+  color: var(--color-text-inverse);
+  flex-shrink: 0;
+}
+
+.file-manager__icon-wrapper ion-icon {
+  font-size: var(--font-size-2xl);
+}
+
+.file-manager__title-content {
+  flex: 1;
+}
+
+.file-manager__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-1) 0;
+  line-height: var(--line-height-tight);
+}
+
+.file-manager__subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.theme-dark .file-manager__title {
+  color: var(--color-text-primary);
+}
+
+.theme-dark .file-manager__subtitle {
+  color: var(--color-text-secondary);
+}
+
+.file-manager__header-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.file-manager__header-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__header-btn:hover {
+  background: var(--color-primary-alpha-10);
+  border-color: var(--color-primary-alpha-30);
+  color: var(--color-primary);
+}
+
+.file-manager__header-btn ion-icon {
+  font-size: var(--font-size-lg);
+}
+
+/* Main Layout */
+.file-manager__main {
+  display: flex;
+  gap: var(--spacing-6);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-2xl);
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.theme-dark .file-manager__main {
+  background: var(--color-surface-secondary);
+  border-color: var(--color-border-light);
+}
+
+/* Sidebar */
+.file-manager__sidebar {
+  width: 220px;
+  background: var(--color-black-alpha-3);
+  border-right: 1px solid var(--color-border-light);
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.theme-dark .file-manager__sidebar {
+  background: var(--color-white-alpha-5);
+  border-right-color: var(--color-border-light);
+}
+
+/* Folder Tree */
+.file-manager__tree {
+  font-size: var(--font-size-sm);
+}
+
+.file-manager__tree-node {
+  user-select: none;
+}
+
+.file-manager__tree-node.collapsed > .file-manager__tree-children {
+  display: none;
+}
+
+.file-manager__tree-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) 0;
+}
+
+.file-manager__tree-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__tree-toggle:hover {
+  background: var(--color-primary-alpha-10);
+  color: var(--color-text-primary);
+}
+
+.file-manager__tree-toggle ion-icon {
+  font-size: var(--font-size-xs);
+}
+
+.file-manager__tree-spacer {
+  width: var(--spacing-5);
+  flex-shrink: 0;
+}
+
+.file-manager__tree-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  color: var(--color-text-secondary);
+  flex: 1;
+  min-width: 0;
+}
+
+.file-manager__tree-label:hover {
+  background: var(--color-primary-alpha-10);
+  color: var(--color-text-primary);
+}
+
+.file-manager__tree-label.active {
+  background: var(--color-primary-alpha-20);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.file-manager__tree-label ion-icon {
+  font-size: var(--font-size-base);
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.file-manager__tree-label span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-manager__tree-children {
+  /* No left border/padding - indentation handled by padding-left on rows */
+}
+
+.file-manager__tree-item.active {
+  background: var(--color-primary-alpha-20);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.file-manager__tree-item ion-icon {
+  font-size: var(--font-size-base);
+  flex-shrink: 0;
+}
+
+.file-manager__tree-children {
+  margin-left: var(--spacing-4);
+  border-left: 1px solid var(--color-border-light);
+  padding-left: var(--spacing-2);
+}
+
+/* Content Area */
+.file-manager__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--spacing-4);
+}
+
+/* Breadcrumb */
+.file-manager__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-3);
+}
+
+.file-manager__breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__breadcrumb-item:hover {
+  background: var(--color-primary-alpha-10);
+  color: var(--color-primary);
+}
+
+.file-manager__breadcrumb-separator {
+  color: var(--color-text-tertiary);
+}
+
+/* Toolbar */
+.file-manager__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.file-manager__search {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+}
+
+.file-manager__search ion-icon {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-base);
+}
+
+.file-manager__search input {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3) var(--spacing-2) var(--spacing-10);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__search input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-alpha-10);
+}
+
+.theme-dark .file-manager__search input {
+  background: var(--color-surface);
+  border-color: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.file-manager__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.file-manager__filter {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.file-manager__view-toggle {
+  display: flex;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.file-manager__view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-9);
+  height: var(--spacing-9);
+  background: var(--color-surface);
+  border: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__view-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.file-manager__view-btn.active {
+  background: var(--color-primary-alpha-20);
+  color: var(--color-primary);
+}
+
+/* Files Container */
+.file-manager__files-container {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Files List View */
+.file-manager__files {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.file-manager__files.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--spacing-4);
+}
+
+/* File Item - List View */
+.file-manager__file-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  border: 1px solid transparent;
+}
+
+.file-manager__file-item:hover {
+  background: var(--color-primary-alpha-5);
+  border-color: var(--color-primary-alpha-20);
+}
+
+.file-manager__file-item.selected {
+  background: var(--color-primary-alpha-10);
+  border-color: var(--color-primary-alpha-30);
+}
+
+.file-manager__file-icon {
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-lg);
+  flex-shrink: 0;
+}
+
+.file-manager__file-icon.folder {
+  background: var(--color-primary-alpha-20);
+  color: var(--color-primary);
+}
+
+.file-manager__file-icon.json {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.file-manager__file-icon.image {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+}
+
+.file-manager__file-icon.video {
+  background: rgba(156, 39, 176, 0.2);
+  color: #9C27B0;
+}
+
+.file-manager__file-icon.document {
+  background: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
+}
+
+.file-manager__file-icon ion-icon {
+  font-size: var(--font-size-xl);
+}
+
+.file-manager__file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-manager__file-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-manager__file-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  display: flex;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-1);
+}
+
+.file-manager__file-actions {
+  opacity: 0;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__file-item:hover .file-manager__file-actions {
+  opacity: 1;
+}
+
+.file-manager__file-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__file-action-btn:hover {
+  background: var(--color-black-alpha-10);
+  color: var(--color-text-primary);
+}
+
+/* Grid View Items */
+.file-manager__files.grid-view .file-manager__file-item {
+  flex-direction: column;
+  padding: var(--spacing-4);
+  text-align: center;
+}
+
+.file-manager__files.grid-view .file-manager__file-icon {
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+  margin-bottom: var(--spacing-2);
+}
+
+.file-manager__files.grid-view .file-manager__file-icon ion-icon {
+  font-size: var(--font-size-4xl);
+}
+
+.file-manager__files.grid-view .file-manager__file-info {
+  width: 100%;
+}
+
+.file-manager__files.grid-view .file-manager__file-meta {
+  justify-content: center;
+}
+
+/* Status Bar */
+.file-manager__status {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-2) 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  border-top: 1px solid var(--color-border-light);
+  margin-top: var(--spacing-3);
+}
+
+/* Loading & Empty States */
+.file-manager__loading,
+.file-manager__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-16);
+  color: var(--color-text-tertiary);
+}
+
+.file-manager__loading ion-icon,
+.file-manager__empty ion-icon {
+  font-size: var(--font-size-6xl);
+  margin-bottom: var(--spacing-4);
+  opacity: 0.5;
+}
+
+.file-manager__spinner {
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  border: 3px solid var(--color-border-light);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
+
+/* Editor Panel */
+.file-manager__editor-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 800px;
+  height: 100vh;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2xl);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+}
+
+.file-manager-component.editor-active .file-manager__editor-panel {
+  right: 0;
+}
+
+.theme-dark .file-manager__editor-panel {
+  background: var(--color-surface);
+}
+
+.file-manager__editor-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-surface-secondary);
+}
+
+.file-manager__back-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: transparent;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__back-btn:hover {
+  background: var(--color-primary-alpha-10);
+  border-color: var(--color-primary-alpha-30);
+  color: var(--color-primary);
+}
+
+.file-manager__editor-title-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.file-manager__editor-title-section ion-icon {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.file-manager__editor-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-manager__editor-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.file-manager__editor-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-9);
+  height: var(--spacing-9);
+  background: transparent;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__editor-btn:hover {
+  background: var(--color-primary-alpha-10);
+  border-color: var(--color-primary-alpha-30);
+  color: var(--color-primary);
+}
+
+/* JSON Editor */
+.file-manager__editor-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.file-manager__json-editor {
+  display: flex;
+  height: 100%;
+  font-family: var(--font-family-mono, 'Consolas', 'Monaco', monospace);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.file-manager__editor-gutter {
+  width: var(--spacing-12);
+  background: var(--color-black-alpha-3);
+  border-right: 1px solid var(--color-border-light);
+  padding: var(--spacing-3) var(--spacing-2);
+  text-align: right;
+  color: var(--color-text-tertiary);
+  user-select: none;
+  overflow: hidden;
+}
+
+.theme-dark .file-manager__editor-gutter {
+  background: var(--color-white-alpha-5);
+}
+
+.file-manager__editor-gutter-line {
+  height: 1.6em;
+}
+
+.file-manager__editor-textarea {
+  flex: 1;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  resize: none;
+  outline: none;
+  white-space: pre;
+  overflow: auto;
+}
+
+.file-manager__editor-textarea::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Media Preview */
+.file-manager__media-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing-8);
+  background: var(--color-black-alpha-3);
+}
+
+.file-manager__media-preview img,
+.file-manager__media-preview video {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.file-manager__pdf-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  color: var(--color-text-secondary);
+}
+
+.file-manager__pdf-preview ion-icon {
+  font-size: 5rem;
+  color: var(--color-primary);
+}
+
+.file-manager__download-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-5);
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  border-radius: var(--border-radius-lg);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Validation */
+.file-manager__validation {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-sm);
+  display: none;
+}
+
+.file-manager__validation.error {
+  display: block;
+  background: rgba(244, 67, 54, 0.1);
+  color: #F44336;
+  border-top: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.file-manager__validation.success {
+  display: block;
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  border-top: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.file-manager__validation.warning {
+  display: block;
+  background: rgba(255, 152, 0, 0.1);
+  color: #FF9800;
+  border-top: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+/* Editor Footer */
+.file-manager__editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-3) var(--spacing-6);
+  border-top: 1px solid var(--color-border-light);
+  background: var(--color-surface-secondary);
+}
+
+.file-manager__editor-info {
+  display: flex;
+  gap: var(--spacing-4);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.file-manager__editor-buttons {
+  display: flex;
+  gap: var(--spacing-3);
+}
+
+/* Buttons */
+.file-manager__btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__btn--primary {
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  border: none;
+}
+
+.file-manager__btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.file-manager__btn--secondary {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+}
+
+.file-manager__btn--secondary:hover {
+  background: var(--color-black-alpha-5);
+  color: var(--color-text-primary);
+}
+
+/* Context Menu */
+.file-manager__context-menu {
+  position: fixed;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-2);
+  min-width: 160px;
+  z-index: 1001;
+}
+
+.theme-dark .file-manager__context-menu {
+  background: var(--color-surface);
+  border-color: var(--color-border-light);
+}
+
+.file-manager__context-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  text-align: left;
+}
+
+.file-manager__context-item:hover {
+  background: var(--color-primary-alpha-10);
+}
+
+.file-manager__context-item--danger {
+  color: #F44336;
+}
+
+.file-manager__context-item--danger:hover {
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.file-manager__context-divider {
+  height: 1px;
+  background: var(--color-border-light);
+  margin: var(--spacing-2) 0;
+}
+
+/* Modals */
+.file-manager__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-manager__modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-black-alpha-50);
+  backdrop-filter: blur(4px);
+}
+
+.file-manager__modal-content {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-2xl);
+  box-shadow: var(--shadow-2xl);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.file-manager__modal-content--small {
+  max-width: 400px;
+}
+
+.theme-dark .file-manager__modal-content {
+  background: var(--color-surface);
+}
+
+.file-manager__modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4) var(--spacing-6);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.file-manager__modal-header h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.file-manager__modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__modal-close:hover {
+  background: var(--color-black-alpha-10);
+  color: var(--color-text-primary);
+}
+
+.file-manager__modal-body {
+  padding: var(--spacing-6);
+  overflow-y: auto;
+}
+
+.file-manager__modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Dropzone */
+.file-manager__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-12);
+  border: 2px dashed var(--color-border-light);
+  border-radius: var(--border-radius-xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__dropzone.dragover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-alpha-5);
+}
+
+.file-manager__dropzone ion-icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.file-manager__dropzone span {
+  margin: var(--spacing-2) 0;
+  color: var(--color-text-tertiary);
+}
+
+.file-manager__browse-btn {
+  display: inline-flex;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--color-primary-alpha-10);
+  color: var(--color-primary);
+  border-radius: var(--border-radius-lg);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+}
+
+.file-manager__browse-btn:hover {
+  background: var(--color-primary-alpha-20);
+}
+
+/* Form Groups */
+.file-manager__form-group {
+  margin-bottom: var(--spacing-4);
+}
+
+.file-manager__form-group:last-child {
+  margin-bottom: 0;
+}
+
+.file-manager__form-group label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.file-manager__form-group input,
+.file-manager__form-group select {
+  width: 100%;
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.file-manager__form-group input:focus,
+.file-manager__form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-alpha-10);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .file-manager-component {
+    padding: 0 var(--spacing-4);
+  }
+  
+  .file-manager__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-8);
+  }
+  
+  .file-manager__header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .file-manager__main {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .file-manager__sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-light);
+    max-height: 200px;
+  }
+  
+  .file-manager__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .file-manager__search {
+    max-width: none;
+  }
+  
+  .file-manager__editor-panel {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .file-manager__icon-wrapper {
+    width: var(--spacing-10);
+    height: var(--spacing-10);
+  }
+  
+  .file-manager__icon-wrapper ion-icon {
+    font-size: var(--font-size-lg);
+  }
+  
+  .file-manager__title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .file-manager__subtitle {
+    font-size: var(--font-size-xs);
+  }
+  
+  .file-manager__files.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Focus States */
+.file-manager__header-btn:focus,
+.file-manager__view-btn:focus,
+.file-manager__file-item:focus,
+.file-manager__btn:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .file-manager__editor-panel,
+  .file-manager__spinner {
+    animation: none;
+    transition: none;
+  }
+}

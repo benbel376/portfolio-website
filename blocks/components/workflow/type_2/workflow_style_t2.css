@@ -401,7 +401,6 @@
   }
 
   .workflow__scenario-info {
-    flex-direction: column;
     text-align: center;
     padding: var(--spacing-8) var(--spacing-6);
     gap: var(--spacing-6);

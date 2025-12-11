@@ -170,9 +170,24 @@ class TopBarSiteLoader {
             $tabId = htmlspecialchars($tab['tabId'] ?? $targetId);
             $isProtected = !empty($tab['protected']);
             
-            // Generate clean hash URL - tab highlighting is automatic via data-parent-tab
-            // Format: #elementId/state (no tab ID needed)
-            $hashUrl = "#{$targetId}/{$state}";
+            // Generate minimal hash URL - only include state if NOT the default (visible)
+            // Format: #elementId (default state) or #elementId/customState (non-default)
+            $hashUrl = "#{$targetId}";
+            if ($state !== 'visible') {
+                $hashUrl .= "/{$state}";
+            }
+            
+            // Add children to hash URL if specified (only if non-default state)
+            if (!empty($tab['children']) && is_array($tab['children'])) {
+                foreach ($tab['children'] as $child) {
+                    $childTarget = htmlspecialchars($child['target']);
+                    $childState = htmlspecialchars($child['state'] ?? 'visible');
+                    // Only add child to URL if it has a non-default state
+                    if ($childState !== 'visible') {
+                        $hashUrl .= "|{$childTarget}/{$childState}";
+                    }
+                }
+            }
             
             $tabsHtml .= '<li>';
             $tabsHtml .= '<a href="' . $hashUrl . '" class="nav-link" data-target="' . $targetId . '" data-state="' . $state . '" data-tab-id="' . $tabId . '"' . ($isProtected ? ' data-protected="true"' : '') . '>';

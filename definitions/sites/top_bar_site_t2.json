@@ -73,12 +73,17 @@
                 "xl": "20px",
                 "2xl": "24px"
             },
-            "custom": {}
+            "custom": {
+                "size-badge-lg": "12rem",
+                "size-badge-md": "8rem",
+                "size-badge-sm": "5rem",
+                "size-badge-xs": "4rem"
+            }
         }
     },
     "navigation": {
         "defaultNavigation": {
-            "hash": "summary-main-container/visible",
+            "hash": "summary-main-container",
             "description": "Default navigation on first load"
         },
         "tabs": [

@@ -81,7 +81,6 @@
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
   margin: 0 var(--spacing-8);
-  text-align: justify;
 }
 
 .theme-dark .experience__summary {
@@ -428,6 +427,7 @@
 .theme-dark .experience-responsibilities-title,
 .theme-dark .experience-tags-title {
   color: var(--color-text-primary, #FAFAFA);
+  margin-top: var(--spacing-2);
 }
 
 .theme-dark .responsibility-item {
@@ -772,7 +772,7 @@
 
 @media (max-width: 768px) {
   .experience-component {
-    padding: 0 var(--spacing-4);
+    padding: 0 var(--spacing-10);
   }
   
   .experience__header {
@@ -807,11 +807,11 @@
   
   .experience__summary p {
     font-size: var(--font-size-sm);
-    margin: 0 var(--spacing-4);
+    margin: 0 var(--spacing-0);
   }
   
   .experience-card {
-    padding: var(--spacing-6);
+    padding: var(--spacing-0);
     margin-bottom: var(--spacing-8);
   }
   
@@ -884,7 +884,7 @@
 
 @media (max-width: 480px) {
   .experience-component {
-    padding: 0 var(--spacing-3);
+    padding: 0 var(--spacing-8);
   }
   
   .experience__header {
@@ -910,7 +910,7 @@
   }
   
   .experience-card {
-    padding: var(--spacing-4);
+    padding: var(--spacing-0);
     margin-bottom: var(--spacing-6);
   }
   
@@ -919,33 +919,58 @@
     padding-bottom: var(--spacing-2);
     margin: 0;
     border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    gap: var(--spacing-2);
   }
   
   .experience-card__title {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-1);
   }
   
   .experience-card__company {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .experience-card__meta-item {
+    font-size: var(--font-size-xs);
+  }
+  
+  .experience-card__dates,
+  .experience-card__location,
+  .experience-card__years-inline {
+    font-size: var(--font-size-xs);
   }
   
   .experience-card__responsibilities {
-    padding: 0 var(--spacing-4);
-    margin-bottom: var(--spacing-4);
+    padding: 0 var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .experience-responsibilities-title,
+  .experience-tags-title {
+    font-size: var(--font-size-xs);
   }
   
   .experience-card__tags {
-    padding: 0 var(--spacing-4) var(--spacing-3) var(--spacing-4);
-    margin-top: var(--spacing-4);
+    padding: 0 var(--spacing-3) var(--spacing-3) var(--spacing-3);
+    margin-top: var(--spacing-3);
   }
   
   .responsibility-item {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
   }
   
   .experience-tag {
-    font-size: var(--font-size-xs);
+    font-size: 0.65rem;
     padding: var(--spacing-1) var(--spacing-2);
+    height: auto;
+  }
+  
+  .expand-button {
+    font-size: 0.65rem;
+    padding: var(--spacing-1) var(--spacing-3);
+    height: auto;
   }
   
   .experience__summary p {

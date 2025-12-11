@@ -662,9 +662,10 @@
   
   .tools__grid {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: auto;
     gap: var(--spacing-5);
-    min-height: var(--spacing-140);
+    min-height: auto;
+    padding: var(--spacing-5);
   }
   
   .tools__tool {
@@ -697,7 +698,7 @@
   }
   
   .tools__container {
-    padding: 0 var(--spacing-3);
+    padding: 0 var(--spacing-8);
   }
   
   .tools__main-header {
@@ -731,29 +732,35 @@
   }
   
   .tools__grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
     gap: var(--spacing-4);
     min-height: auto;
+    padding: var(--spacing-4);
   }
   
   .tools__tool {
-    padding: var(--spacing-4);
-    border-radius: var(--border-radius-2xl);
+    padding: var(--spacing-3);
+    border-radius: var(--border-radius-xl);
   }
   
   .tools__tool-icon {
-    width: var(--spacing-14);
-    height: var(--spacing-14);
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+    margin-bottom: var(--spacing-2);
   }
   
   .tools__tool-icon img {
-    width: var(--spacing-7);
-    height: var(--spacing-7);
+    width: var(--spacing-6);
+    height: var(--spacing-6);
   }
   
   .tools__tool-icon ion-icon {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
+  }
+  
+  .tools__tool-name {
+    font-size: var(--font-size-xs);
   }
   
   .tools__modal-content {

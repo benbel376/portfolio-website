@@ -14,8 +14,8 @@
             "objects": [
                 {
                     "type": "component",
-                    "component": "json_files_list/type_1",
-                    "id": "admin-json-files-list",
+                    "component": "file_manager/type_1",
+                    "id": "admin-file-manager",
                     "dynamic": false,
                     "data": { "main": {} },
                     "variant": "main",
@@ -25,5 +25,3 @@
         }
     ]
 }
-
-

@@ -1,0 +1,254 @@
+<link rel="stylesheet" href="blocks/components/file_manager/type_1/file_manager_style_t1.css">
+<div class="file-manager-component" data-nav-handler="handleFileManagerNavigation">
+    
+    <!-- Header -->
+    <div class="file-manager__header">
+        <div class="file-manager__title-section">
+            <div class="file-manager__icon-wrapper">
+                <ion-icon name="folder-open-outline"></ion-icon>
+            </div>
+            <div class="file-manager__title-content">
+                <h2 class="file-manager__title">File Manager</h2>
+                <p class="file-manager__subtitle">Manage definitions, media, and configurations</p>
+            </div>
+        </div>
+        <div class="file-manager__header-actions">
+            <button class="file-manager__header-btn" id="fm-new-folder-btn" title="New Folder">
+                <ion-icon name="folder-outline"></ion-icon>
+            </button>
+            <button class="file-manager__header-btn" id="fm-new-file-btn" title="New File">
+                <ion-icon name="document-outline"></ion-icon>
+            </button>
+            <button class="file-manager__header-btn" id="fm-upload-btn" title="Upload">
+                <ion-icon name="cloud-upload-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="file-manager__main">
+        
+        <!-- Sidebar - Folder Tree -->
+        <aside class="file-manager__sidebar" id="fm-sidebar">
+            <div class="file-manager__tree" id="fm-tree">
+                <!-- Folder tree will be rendered here -->
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="file-manager__content">
+            
+            <!-- Breadcrumb -->
+            <div class="file-manager__breadcrumb" id="fm-breadcrumb">
+                <span class="file-manager__breadcrumb-item" data-path="definitions">
+                    <ion-icon name="home-outline"></ion-icon>
+                    <span>definitions</span>
+                </span>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="file-manager__toolbar">
+                <div class="file-manager__search">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <input type="text" id="fm-search" placeholder="Search files..." />
+                </div>
+                <div class="file-manager__toolbar-actions">
+                    <select id="fm-filter" class="file-manager__filter">
+                        <option value="all">All Files</option>
+                        <option value="json">JSON Only</option>
+                        <option value="images">Images</option>
+                        <option value="videos">Videos</option>
+                        <option value="documents">Documents</option>
+                    </select>
+                    <div class="file-manager__view-toggle">
+                        <button class="file-manager__view-btn active" id="fm-view-list" title="List View">
+                            <ion-icon name="list-outline"></ion-icon>
+                        </button>
+                        <button class="file-manager__view-btn" id="fm-view-grid" title="Grid View">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File List Container -->
+            <div class="file-manager__files-container">
+                <!-- Files List/Grid -->
+                <div class="file-manager__files" id="fm-files">
+                    <!-- Files will be rendered here -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="file-manager__empty" id="fm-empty" style="display: none;">
+                    <ion-icon name="folder-open-outline"></ion-icon>
+                    <p>This folder is empty</p>
+                </div>
+
+                <!-- Loading State -->
+                <div class="file-manager__loading" id="fm-loading">
+                    <div class="file-manager__spinner"></div>
+                    <p>Loading...</p>
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="file-manager__status" id="fm-status">
+                <span id="fm-item-count">0 items</span>
+                <span id="fm-selected-count"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editor Panel (slides in from right) -->
+    <div class="file-manager__editor-panel" id="fm-editor-panel">
+        <!-- Editor Header -->
+        <div class="file-manager__editor-header">
+            <button class="file-manager__back-btn" id="fm-editor-back">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                <span>Back</span>
+            </button>
+            <div class="file-manager__editor-title-section">
+                <ion-icon name="document-text-outline" id="fm-editor-icon"></ion-icon>
+                <h3 class="file-manager__editor-title" id="fm-editor-title">Untitled</h3>
+            </div>
+            <div class="file-manager__editor-actions">
+                <button class="file-manager__editor-btn" id="fm-editor-format" title="Format JSON">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                </button>
+                <button class="file-manager__editor-btn" id="fm-editor-validate" title="Validate">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="file-manager__editor-body">
+            <!-- JSON Editor -->
+            <div class="file-manager__json-editor" id="fm-json-editor">
+                <div class="file-manager__editor-gutter" id="fm-editor-gutter"></div>
+                <textarea class="file-manager__editor-textarea" id="fm-editor-textarea" spellcheck="false"></textarea>
+            </div>
+
+            <!-- Media Preview -->
+            <div class="file-manager__media-preview" id="fm-media-preview" style="display: none;">
+                <img id="fm-preview-image" style="display: none;" />
+                <video id="fm-preview-video" controls style="display: none;"></video>
+                <div class="file-manager__pdf-preview" id="fm-preview-pdf" style="display: none;">
+                    <ion-icon name="document-outline"></ion-icon>
+                    <p>PDF Preview</p>
+                    <a id="fm-pdf-download" class="file-manager__download-btn" download>
+                        <ion-icon name="download-outline"></ion-icon>
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation Messages -->
+        <div class="file-manager__validation" id="fm-validation"></div>
+
+        <!-- Editor Footer -->
+        <div class="file-manager__editor-footer">
+            <div class="file-manager__editor-info">
+                <span id="fm-editor-line-info">Ln 1, Col 1</span>
+                <span id="fm-editor-file-type">JSON</span>
+            </div>
+            <div class="file-manager__editor-buttons">
+                <button class="file-manager__btn file-manager__btn--secondary" id="fm-editor-cancel">
+                    Cancel
+                </button>
+                <button class="file-manager__btn file-manager__btn--primary" id="fm-editor-save">
+                    <ion-icon name="save-outline"></ion-icon>
+                    <span>Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="file-manager__context-menu" id="fm-context-menu" style="display: none;">
+        <button class="file-manager__context-item" data-action="open">
+            <ion-icon name="open-outline"></ion-icon>
+            <span>Open</span>
+        </button>
+        <button class="file-manager__context-item" data-action="rename">
+            <ion-icon name="pencil-outline"></ion-icon>
+            <span>Rename</span>
+        </button>
+        <button class="file-manager__context-item" data-action="duplicate">
+            <ion-icon name="copy-outline"></ion-icon>
+            <span>Duplicate</span>
+        </button>
+        <div class="file-manager__context-divider"></div>
+        <button class="file-manager__context-item file-manager__context-item--danger" data-action="delete">
+            <ion-icon name="trash-outline"></ion-icon>
+            <span>Delete</span>
+        </button>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="file-manager__modal" id="fm-upload-modal" style="display: none;">
+        <div class="file-manager__modal-backdrop"></div>
+        <div class="file-manager__modal-content">
+            <div class="file-manager__modal-header">
+                <h3>Upload Files</h3>
+                <button class="file-manager__modal-close" id="fm-upload-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+            <div class="file-manager__modal-body">
+                <div class="file-manager__dropzone" id="fm-dropzone">
+                    <ion-icon name="cloud-upload-outline"></ion-icon>
+                    <p>Drag & drop files here</p>
+                    <span>or</span>
+                    <label class="file-manager__browse-btn">
+                        Browse Files
+                        <input type="file" id="fm-file-input" multiple hidden />
+                    </label>
+                </div>
+                <div class="file-manager__upload-list" id="fm-upload-list"></div>
+            </div>
+            <div class="file-manager__modal-footer">
+                <button class="file-manager__btn file-manager__btn--secondary" id="fm-upload-cancel">Cancel</button>
+                <button class="file-manager__btn file-manager__btn--primary" id="fm-upload-confirm" disabled>
+                    <ion-icon name="cloud-upload-outline"></ion-icon>
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New File/Folder Modal -->
+    <div class="file-manager__modal" id="fm-new-modal" style="display: none;">
+        <div class="file-manager__modal-backdrop"></div>
+        <div class="file-manager__modal-content file-manager__modal-content--small">
+            <div class="file-manager__modal-header">
+                <h3 id="fm-new-modal-title">New File</h3>
+                <button class="file-manager__modal-close" id="fm-new-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+            <div class="file-manager__modal-body">
+                <div class="file-manager__form-group">
+                    <label for="fm-new-name">Name</label>
+                    <input type="text" id="fm-new-name" placeholder="Enter name..." />
+                </div>
+                <div class="file-manager__form-group" id="fm-template-group">
+                    <label for="fm-new-template">Template</label>
+                    <select id="fm-new-template">
+                        <option value="empty">Empty</option>
+                        <option value="page">Page Definition</option>
+                        <option value="profile">Profile Definition</option>
+                        <option value="site">Site Definition</option>
+                    </select>
+                </div>
+            </div>
+            <div class="file-manager__modal-footer">
+                <button class="file-manager__btn file-manager__btn--secondary" id="fm-new-cancel">Cancel</button>
+                <button class="file-manager__btn file-manager__btn--primary" id="fm-new-confirm">Create</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="blocks/components/file_manager/type_1/file_manager_behavior_t1.js"></script>

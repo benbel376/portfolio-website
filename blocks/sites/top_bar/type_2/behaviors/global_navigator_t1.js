@@ -101,7 +101,14 @@ class GlobalNavigator {
     
     /**
      * Parse hash URL into navigation state
-     * Format: #elementId1/state1?param1=value1&param2=value2|elementId2/state2
+     * Format: #elementId (implies 'visible') or #elementId/state (explicit state)
+     * Multiple: #element1|element2/customState
+     * With params: #elementId?param=value or #elementId/state?param=value
+     * 
+     * NOTE: When no state is specified, we use 'visible' because:
+     * - The hash URL represents NAVIGATION intent (user wants to see this element)
+     * - Element's defaultState is for when NOT navigating to it (e.g., hidden on page load)
+     * - Minimal hash format: #elementId means "show this element"
      */
     parseHash(hash) {
         const navigationState = new Map();
@@ -119,28 +126,36 @@ class GlobalNavigator {
             }
             
             const parts = elementState.split('/');
+            const elementId = parts[0];
             
-            if (parts.length >= 2) {
-                const elementId = parts[0];
-                const state = parts[1];
-                
-                // Parse parameters
-                const parameters = {};
-                if (paramString) {
-                    const paramPairs = paramString.split('&');
-                    paramPairs.forEach(pair => {
-                        const [key, value] = pair.split('=');
-                        if (key && value) {
-                            parameters[decodeURIComponent(key)] = decodeURIComponent(value);
-                        }
-                    });
-                }
-                
-                navigationState.set(elementId, {
-                    state: state,
-                    parameters: parameters
+            if (!elementId) return;
+            
+            // If no state specified, use 'visible' (navigation intent = show the element)
+            // If state IS specified, use that explicit state
+            let state;
+            if (parts.length >= 2 && parts[1]) {
+                state = parts[1];
+            } else {
+                // No state in URL = user wants to see this element = 'visible'
+                state = 'visible';
+            }
+            
+            // Parse parameters
+            const parameters = {};
+            if (paramString) {
+                const paramPairs = paramString.split('&');
+                paramPairs.forEach(pair => {
+                    const [key, value] = pair.split('=');
+                    if (key && value) {
+                        parameters[decodeURIComponent(key)] = decodeURIComponent(value);
+                    }
                 });
             }
+            
+            navigationState.set(elementId, {
+                state: state,
+                parameters: parameters
+            });
         });
         
         return navigationState;
@@ -169,10 +184,43 @@ class GlobalNavigator {
                 return;
             }
             this.setElementState(elementId, config.state, config.parameters);
+            
+            // 4b) Trigger child components with their default states
+            // This ensures all children get their state handlers called on any navigation
+            this.triggerChildComponentDefaults(elementId);
         });
         
         // 5) Update current state
         this.currentState = navigationState;
+    }
+    
+    /**
+     * Trigger navigation handlers for child components based on their defaultState
+     * This ensures child components initialize when their parent container becomes visible
+     * The defaultState from data-nav-config is passed to the handler
+     */
+    triggerChildComponentDefaults(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        // Find all child elements with navigation handlers
+        const childElements = container.querySelectorAll('[data-nav-handler]');
+        
+        childElements.forEach(child => {
+            const childId = child.id;
+            if (!childId || childId === containerId) return;
+            
+            // Check if this child is already in the current navigation state (explicitly navigated)
+            if (this.currentState.has(childId)) return;
+            
+            // Get the child's default state from config (defaults to 'visible' if not specified)
+            const defaultState = this.defaultStates.get(childId) || 'visible';
+            
+            // Always trigger the handler with the defaultState
+            // This allows components to initialize properly regardless of their default state
+            console.log(`Triggering default state '${defaultState}' for child component: ${childId}`);
+            this.setElementState(childId, defaultState, {});
+        });
     }
     
     /**
@@ -299,7 +347,14 @@ class GlobalNavigator {
     buildHashFromState(navigationState) {
         const elementStates = [];
         navigationState.forEach((config, elementId) => {
-            let stateString = `${elementId}/${config.state}`;
+            // Only include state in URL if it's NOT 'visible'
+            // (minimal hash: #elementId implies visible, #elementId/hidden for non-visible)
+            let stateString = elementId;
+            if (config.state !== 'visible') {
+                stateString += `/${config.state}`;
+            }
+            
+            // Add parameters if any
             if (config.parameters && Object.keys(config.parameters).length > 0) {
                 const paramPairs = Object.entries(config.parameters).map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
                 stateString += `?${paramPairs.join('&')}`;

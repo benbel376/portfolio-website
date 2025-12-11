@@ -167,8 +167,8 @@
 
 .certifications__badge {
     flex-shrink: 0;
-    width: var(--spacing-32, 200px);
-    height: var(--spacing-32, 200px);
+    width: var(--size-badge-lg, 12rem);
+    height: var(--size-badge-lg, 12rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,6 +178,29 @@
 .certifications__badge-image {
     width: 100%;
     height: 100%;
+}
+
+/* Image container styles (used by JS-generated slides) */
+.certifications__slide-image {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.certifications__image-container {
+    width: var(--size-badge-lg, 12rem);
+    height: var(--size-badge-lg, 12rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.certifications__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: var(--border-radius-2xl);
     object-fit: contain;
     border-radius: var(--border-radius-2xl, 16px);
     transition: var(--transition-all-normal, all 0.3s ease);
@@ -377,7 +400,7 @@
 
 @media (max-width: 768px) {
     .certifications-component {
-        padding: 0 var(--spacing-4);
+        padding: 0 var(--spacing-10);
     }
     
     .certifications__header {
@@ -418,13 +441,19 @@
         min-height: auto;
     }
     
-    .certifications__badge {
-        width: var(--spacing-20);
-        height: var(--spacing-20);
+    .certifications__badge,
+    .certifications__image-container {
+        width: var(--size-badge-md, 8rem);
+        height: var(--size-badge-md, 8rem);
     }
     
-    .certifications__content {
+    .certifications__content,
+    .certifications__slide-details {
         padding-left: 0;
+    }
+    
+    .certifications__slide.active {
+        flex-direction: column;
     }
     
     .certifications__name {
@@ -454,21 +483,47 @@
 }
 
 @media (max-width: 480px) {
+    .certifications-component {
+        padding: 0 var(--spacing-8);
+    }
+    
     .certifications__title {
         font-size: var(--font-size-lg);
     }
     
-    .certifications__name {
-        font-size: var(--font-size-xl);
+    .certifications__subtitle {
+        font-size: var(--font-size-xs);
+    }
+    
+    .certifications__name,
+    .certifications__slide-title {
+        font-size: var(--font-size-base);
+    }
+    
+    .certifications__issuer,
+    .certifications__slide-issuer {
+        font-size: var(--font-size-sm);
+    }
+    
+    .certifications__description,
+    .certifications__slide-description {
+        font-size: var(--font-size-xs);
     }
     
     .certifications__slideshow {
         padding: var(--spacing-4);
     }
     
-    .certifications__badge {
-        width: var(--spacing-16);
-        height: var(--spacing-16);
+    .certifications__badge,
+    .certifications__image-container {
+        width: var(--size-badge-sm, 5rem);
+        height: var(--size-badge-sm, 5rem);
+    }
+    
+    .certifications__link,
+    .certifications__link-button {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-2) var(--spacing-4);
     }
 }
 
