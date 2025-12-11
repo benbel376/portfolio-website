@@ -77,9 +77,13 @@ class CodingStatsLoaderT1 {
         $jsonData = json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP);
         
         $script = '<script>';
-        $script .= 'window.codingStatsData = ' . $jsonData . ';';
+        $script .= 'console.log("CodingStats PHP: Attempting to set data", ' . $jsonData . ');';
         $script .= 'if (typeof window.setCodingStatsData === "function") {';
+        $script .= '    console.log("CodingStats PHP: Setting data immediately");';
         $script .= '    window.setCodingStatsData(' . $jsonData . ');';
+        $script .= '} else {';
+        $script .= '    console.log("CodingStats PHP: Data stored globally, waiting for behavior");';
+        $script .= '    window.codingStatsDataPending = ' . $jsonData . ';';
         $script .= '}';
         $script .= '</script>';
         

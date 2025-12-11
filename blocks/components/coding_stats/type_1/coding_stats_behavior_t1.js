@@ -1,6 +1,6 @@
 /**
  * Coding Stats Slideshow Component
- * Based on certifications pattern - proven to work
+ * Based on certifications pattern
  */
 
 window.codingStatsData = window.codingStatsData || [];
@@ -15,6 +15,14 @@ function initializeCodingStats(componentElement) {
         return;
     }
     
+    // Check for pending data from PHP
+    if (window.codingStatsDataPending) {
+        console.log('CodingStats: Found pending data from PHP');
+        setCodingStatsData(window.codingStatsDataPending);
+        delete window.codingStatsDataPending;
+        return;
+    }
+    
     // Check if already rendered
     if (slideContainer.querySelectorAll('.coding-stats__slide').length > 0) {
         console.log('CodingStats: Already rendered');
@@ -22,9 +30,12 @@ function initializeCodingStats(componentElement) {
         return;
     }
     
+    // Check if we have data
     if (window.codingStatsData && window.codingStatsData.length > 0) {
+        console.log('CodingStats: Rendering with existing data:', window.codingStatsData.length);
         renderSlideshow();
     } else {
+        console.log('CodingStats: No data available');
         showEmptyState();
     }
     
@@ -32,33 +43,48 @@ function initializeCodingStats(componentElement) {
 }
 
 function setCodingStatsData(data) {
-    console.log('CodingStats: Setting data', data);
-    if (data && data.platforms) {
+    console.log('CodingStats: setCodingStatsData called with:', data);
+    
+    // Handle both {platforms: [...]} object and direct array
+    if (data && data.platforms && Array.isArray(data.platforms)) {
         window.codingStatsData = data.platforms;
+        console.log('CodingStats: Extracted platforms array:', window.codingStatsData.length);
+    } else if (Array.isArray(data)) {
+        window.codingStatsData = data;
     } else {
-        window.codingStatsData = data || [];
+        window.codingStatsData = [];
     }
+    
     window.codingStatsCurrentSlide = 0;
     
     const slideContainer = document.getElementById('coding-stats-slide-container');
-    if (slideContainer && slideContainer.querySelectorAll('.coding-stats__slide').length === 0) {
+    if (slideContainer) {
         renderSlideshow();
+        initializeNavigation();
     }
 }
 
 function renderSlideshow() {
     const slideContainer = document.getElementById('coding-stats-slide-container');
     const emptyState = document.getElementById('coding-stats-empty');
+    const paginationContainer = document.querySelector('.coding-stats__pagination-container');
     
-    if (!slideContainer) return;
+    if (!slideContainer) {
+        console.error('CodingStats: Slide container not found in renderSlideshow');
+        return;
+    }
     
     slideContainer.innerHTML = '';
     if (emptyState) emptyState.style.display = 'none';
+    if (paginationContainer) paginationContainer.style.display = 'flex';
     
     if (!window.codingStatsData || window.codingStatsData.length === 0) {
+        console.log('CodingStats: No data to render');
         showEmptyState();
         return;
     }
+    
+    console.log('CodingStats: Rendering', window.codingStatsData.length, 'slides');
     
     // Create slides
     window.codingStatsData.forEach((platform, index) => {
@@ -72,7 +98,7 @@ function renderSlideshow() {
     // Render pagination dots
     renderPagination();
     
-    console.log('CodingStats: Rendered', window.codingStatsData.length, 'slides');
+    console.log('CodingStats: Rendered', window.codingStatsData.length, 'slides successfully');
 }
 
 function createSlide(platform, index) {
@@ -116,9 +142,14 @@ function createSlide(platform, index) {
 
 function showSlide(index) {
     const slides = document.querySelectorAll('.coding-stats__slide');
-    if (slides.length === 0) return;
+    console.log('CodingStats: showSlide called, index:', index, 'total slides:', slides.length);
     
-    // Bounds check
+    if (slides.length === 0) {
+        console.log('CodingStats: No slides found');
+        return;
+    }
+    
+    // Bounds check with wrap
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
     
@@ -126,49 +157,72 @@ function showSlide(index) {
     
     // Hide all, show current
     slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
+        if (i === index) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
     });
     
-    // Update dots
     updatePagination();
-    
-    // Update buttons
     updateNavigationButtons();
     
-    console.log('CodingStats: Showing slide', index + 1, 'of', slides.length);
+    console.log('CodingStats: Now showing slide', index + 1, 'of', slides.length);
 }
 
 function initializeNavigation() {
     const prevBtn = document.getElementById('coding-stats-prev');
     const nextBtn = document.getElementById('coding-stats-next');
     
+    console.log('CodingStats: initializeNavigation - prev:', !!prevBtn, 'next:', !!nextBtn);
+    
     if (prevBtn && !prevBtn.hasAttribute('data-initialized')) {
         prevBtn.setAttribute('data-initialized', 'true');
-        prevBtn.addEventListener('click', () => {
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('CodingStats: Prev clicked, current:', window.codingStatsCurrentSlide);
             showSlide(window.codingStatsCurrentSlide - 1);
         });
+        console.log('CodingStats: Prev button listener attached');
     }
     
     if (nextBtn && !nextBtn.hasAttribute('data-initialized')) {
         nextBtn.setAttribute('data-initialized', 'true');
-        nextBtn.addEventListener('click', () => {
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('CodingStats: Next clicked, current:', window.codingStatsCurrentSlide);
             showSlide(window.codingStatsCurrentSlide + 1);
         });
+        console.log('CodingStats: Next button listener attached');
     }
 }
 
 function renderPagination() {
     const container = document.getElementById('coding-stats-pagination');
-    if (!container || !window.codingStatsData) return;
+    if (!container) {
+        console.log('CodingStats: Pagination container not found');
+        return;
+    }
     
     container.innerHTML = '';
+    
+    if (!window.codingStatsData || window.codingStatsData.length === 0) return;
+    
+    console.log('CodingStats: Creating', window.codingStatsData.length, 'pagination dots');
     
     window.codingStatsData.forEach((_, index) => {
         const dot = document.createElement('button');
         dot.className = 'coding-stats__pagination-dot';
         dot.setAttribute('data-slide-index', index);
         dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-        dot.addEventListener('click', () => showSlide(index));
+        dot.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('CodingStats: Dot clicked:', index);
+            showSlide(index);
+        });
         container.appendChild(dot);
     });
     
@@ -178,7 +232,11 @@ function renderPagination() {
 function updatePagination() {
     const dots = document.querySelectorAll('.coding-stats__pagination-dot');
     dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === window.codingStatsCurrentSlide);
+        if (i === window.codingStatsCurrentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
     });
 }
 
