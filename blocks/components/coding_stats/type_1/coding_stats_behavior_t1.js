@@ -136,7 +136,11 @@ function createSlide(platform, index) {
     slide.className = 'coding-stats__slide';
     slide.setAttribute('data-slide-index', index);
     
-    const logoStyle = platform.color || 'background: linear-gradient(135deg, #FFA116 0%, #FFB800 100%)';
+    // Ensure color has 'background:' prefix
+    let logoStyle = platform.color || 'linear-gradient(135deg, #FFA116 0%, #FFB800 100%)';
+    if (!logoStyle.startsWith('background')) {
+        logoStyle = 'background: ' + logoStyle;
+    }
     const logoContent = platform.logo 
         ? `<img src="${escapeHtml(platform.logo)}" alt="${escapeHtml(platform.name)}">`
         : `<ion-icon name="${platform.icon || 'code-working-outline'}"></ion-icon>`;
@@ -349,4 +353,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded v7');
+console.log('CodingStats: Behavior loaded v8');
