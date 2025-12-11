@@ -111,10 +111,22 @@ function renderSlideshow() {
     
     // Show first slide - pass container directly
     console.log('CodingStats: Calling showSlide(0), container children:', slideContainer.children.length);
-    showSlide(0, slideContainer);
+    console.log('CodingStats: typeof showSlide:', typeof showSlide);
+    try {
+        showSlide(0, slideContainer);
+        console.log('CodingStats: showSlide completed');
+    } catch (err) {
+        console.error('CodingStats: showSlide ERROR:', err.message, err.stack);
+    }
     
     // Render pagination dots
-    renderPagination();
+    console.log('CodingStats: Calling renderPagination');
+    try {
+        renderPagination();
+        console.log('CodingStats: renderPagination completed');
+    } catch (err) {
+        console.error('CodingStats: renderPagination ERROR:', err.message, err.stack);
+    }
     
     console.log('CodingStats: Rendered', window.codingStatsData.length, 'slides successfully');
 }
@@ -333,4 +345,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded v5');
+console.log('CodingStats: Behavior loaded v6');
