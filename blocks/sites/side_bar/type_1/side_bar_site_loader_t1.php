@@ -21,7 +21,7 @@ class SideBarSiteLoader {
         // Add default navigation config
         if ($defaultNavigation) {
             $defaultNavJson = htmlspecialchars(json_encode($defaultNavigation), ENT_QUOTES, 'UTF-8');
-            $html = str_replace('<div class="site-container">', '<div class="site-container" data-default-navigation="' . $defaultNavJson . '">', $html);
+            $html = str_replace('<div class="site-container sidebar-layout">', '<div class="site-container sidebar-layout" data-default-navigation="' . $defaultNavJson . '">', $html);
         }
         
         // Inject background styles
@@ -67,7 +67,7 @@ class SideBarSiteLoader {
             }
             
             $tabsHtml .= '<li>';
-            $tabsHtml .= '<a href="' . $hashUrl . '" class="sidebar-link" data-target="' . $targetId . '" data-state="' . $state . '" data-tab-id="' . $tabId . '"' . ($isProtected ? ' data-protected="true"' : '') . '>';
+            $tabsHtml .= '<a href="' . $hashUrl . '" class="nav-link" data-target="' . $targetId . '" data-state="' . $state . '" data-tab-id="' . $tabId . '"' . ($isProtected ? ' data-protected="true"' : '') . '>';
             $tabsHtml .= '<ion-icon name="' . htmlspecialchars($icon) . '"></ion-icon>';
             $tabsHtml .= '<span>' . $label . '</span>';
             $tabsHtml .= '</a>';
