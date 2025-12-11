@@ -9,17 +9,20 @@ require_once 'builders/builder_t1.php';
  * Assemble dictionary from profile, site, and page definitions
  * Applies security-first rule: protected = dynamic
  */
-function assembleDictionary($profileName, $profileKey, $debugMode = false) {
+function assembleDictionary($profileName, $profileKey, $siteFile, $debugMode = false) {
     if ($debugMode) {
-        error_log("INDEX DEBUG: Starting dictionary assembly for profile '$profileKey'");
+        error_log("INDEX DEBUG: Starting dictionary assembly for profile '$profileKey' with site '$siteFile'");
     }
     
     // Step 1: Load profile configuration
     $profilePath = 'definitions/profiles/' . $profileName;
     $profileConfig = loadJsonFile($profilePath, $debugMode);
     
-    // Step 2: Load site configuration
-    $siteName = $profileConfig['site'];
+    // Step 2: Load site configuration (from parameter, profile, or default)
+    $siteName = $siteFile;
+    if (empty($siteName) && isset($profileConfig['site'])) {
+        $siteName = $profileConfig['site'];
+    }
     $sitePath = 'definitions/sites/' . $siteName;
     $siteConfig = loadJsonFile($sitePath, $debugMode);
     
@@ -292,8 +295,15 @@ try {
     // Create builder with debug mode
     $builder = new PortfolioBuilder('.', $debugMode);
     
+    // Determine site layout from query parameter or entry.json default
+    $siteKey = $_GET['site'] ?? ($entryConfig['default_site'] ?? '');
+    $siteFile = '';
+    if (!empty($siteKey) && isset($entryConfig['sites'][$siteKey])) {
+        $siteFile = $entryConfig['sites'][$siteKey];
+    }
+    
     // Assemble dictionary from profile, site, and page definitions
-    $dictionary = assembleDictionary($profileName, $profileKey, $debugMode);
+    $dictionary = assembleDictionary($profileName, $profileKey, $siteFile, $debugMode);
     
     if ($debugMode) {
         error_log("INDEX DEBUG: Dictionary assembled for profile '$profileKey'");
