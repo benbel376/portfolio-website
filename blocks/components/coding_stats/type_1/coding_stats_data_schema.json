@@ -1,97 +1,102 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Coding Stats Component Data Schema",
-    "description": "Schema for coding practice statistics (LeetCode, HackerRank, etc.)",
+    "description": "Schema for coding practice statistics slideshow (LeetCode, HackerRank, Kaggle, etc.)",
     "type": "object",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Component title override",
+            "description": "Component title",
             "default": "Coding Practice"
         },
-        "subtitle": {
-            "type": "string",
-            "description": "Component subtitle override",
-            "default": "Problem solving and algorithmic skills"
-        },
-        "platform": {
-            "type": "string",
-            "description": "Platform name (e.g., LeetCode, HackerRank)",
-            "default": "LeetCode"
-        },
-        "username": {
-            "type": "string",
-            "description": "Username on the platform"
-        },
-        "profileUrl": {
-            "type": "string",
-            "format": "uri",
-            "description": "URL to the user's profile"
-        },
-        "platformLogo": {
-            "type": "string",
-            "description": "URL or path to platform logo image"
-        },
-        "stats": {
-            "type": "object",
-            "description": "Statistics data",
-            "properties": {
-                "totalSolved": {
-                    "type": "integer",
-                    "description": "Total problems solved",
-                    "minimum": 0
-                },
-                "easy": {
-                    "type": "object",
-                    "properties": {
-                        "solved": { "type": "integer", "minimum": 0 },
-                        "total": { "type": "integer", "minimum": 0 }
-                    },
-                    "required": ["solved", "total"]
-                },
-                "medium": {
-                    "type": "object",
-                    "properties": {
-                        "solved": { "type": "integer", "minimum": 0 },
-                        "total": { "type": "integer", "minimum": 0 }
-                    },
-                    "required": ["solved", "total"]
-                },
-                "hard": {
-                    "type": "object",
-                    "properties": {
-                        "solved": { "type": "integer", "minimum": 0 },
-                        "total": { "type": "integer", "minimum": 0 }
-                    },
-                    "required": ["solved", "total"]
-                },
-                "acceptanceRate": {
-                    "type": "string",
-                    "description": "Acceptance rate percentage (e.g., '65%')"
-                },
-                "ranking": {
-                    "type": "integer",
-                    "description": "Global ranking",
-                    "minimum": 1
-                },
-                "contestRating": {
-                    "type": "integer",
-                    "description": "Contest rating score"
-                },
-                "streak": {
-                    "type": "integer",
-                    "description": "Current day streak",
-                    "minimum": 0
-                }
-            }
-        },
-        "badges": {
+        "platforms": {
             "type": "array",
-            "description": "List of achievements/badges",
+            "description": "List of coding platforms with stats",
             "items": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Platform name (e.g., LeetCode, HackerRank, Kaggle)"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Username on the platform"
+                    },
+                    "profileUrl": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "URL to the user's profile"
+                    },
+                    "color": {
+                        "type": "string",
+                        "description": "CSS gradient for platform logo background",
+                        "default": "linear-gradient(135deg, #FFA116 0%, #FFB800 100%)"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "Ionicon name for platform icon",
+                        "default": "code-working-outline"
+                    },
+                    "logo": {
+                        "type": "string",
+                        "description": "Optional URL/path to platform logo image (overrides icon)"
+                    },
+                    "stats": {
+                        "type": "array",
+                        "description": "Array of 2-3 key statistics to display",
+                        "minItems": 1,
+                        "maxItems": 3,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "string",
+                                    "description": "Stat value (e.g., '423', '6★', 'Expert')"
+                                },
+                                "label": {
+                                    "type": "string",
+                                    "description": "Stat label (e.g., 'Solved', 'Rank', 'Rating')"
+                                }
+                            },
+                            "required": ["value", "label"]
+                        }
+                    }
+                },
+                "required": ["name", "stats"]
             }
         }
     },
-    "required": ["platform", "stats"]
+    "required": ["platforms"],
+    "examples": [
+        {
+            "title": "Coding Practice",
+            "platforms": [
+                {
+                    "name": "LeetCode",
+                    "username": "codemaster_dev",
+                    "profileUrl": "https://leetcode.com/u/codemaster_dev/",
+                    "color": "linear-gradient(135deg, #FFA116 0%, #FFB800 100%)",
+                    "icon": "code-working-outline",
+                    "stats": [
+                        { "value": "423", "label": "Solved" },
+                        { "value": "#52K", "label": "Rank" },
+                        { "value": "1847", "label": "Rating" }
+                    ]
+                },
+                {
+                    "name": "HackerRank",
+                    "username": "codemaster_dev",
+                    "profileUrl": "https://hackerrank.com/codemaster_dev",
+                    "color": "linear-gradient(135deg, #00EA64 0%, #00C853 100%)",
+                    "icon": "terminal-outline",
+                    "stats": [
+                        { "value": "6★", "label": "Level" },
+                        { "value": "312", "label": "Solved" },
+                        { "value": "5", "label": "Gold" }
+                    ]
+                }
+            ]
+        }
+    ]
 }
