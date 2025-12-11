@@ -20,7 +20,12 @@ function renderFeatureList(component, data) {
     if (!component || !data) return;
 
     const features = data.features || [];
-    const title = data.title || 'Key Features';
+    const title = data.title || '';
+    const showTitle = data.showTitle !== false && title;
+
+    // Set header visibility
+    const header = component.querySelector('.feature-list__header');
+    if (header) header.style.display = showTitle ? 'flex' : 'none';
 
     // Set title
     const titleEl = component.querySelector('.feature-list__title');

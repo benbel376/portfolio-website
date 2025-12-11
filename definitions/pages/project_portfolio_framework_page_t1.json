@@ -40,277 +40,278 @@
         {
           "type": "component",
           "component": "section_title/type_1",
-          "id": "portfolio-framework-overview-title",
+          "id": "portfolio-overview-title",
           "dynamic": false,
           "variant": "main",
-          "data": {
-            "main": {
-              "title": "Project Overview",
-              "icon": "information-circle-outline"
-            }
-          },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
+          "data": { "main": { "title": "Project Overview", "icon": "information-circle-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
         },
         {
           "type": "component",
           "component": "text_section/type_1",
-          "id": "portfolio-framework-overview",
+          "id": "portfolio-overview-text",
           "dynamic": false,
           "variant": "main",
           "data": {
             "main": {
-              "content": "This framework was built to solve the challenge of creating **maintainable, scalable portfolio websites** without relying on heavy frontend frameworks or complex build systems.\n\nThe core philosophy is {{highlight}}configuration over code{{/highlight}} - content changes happen through JSON files, not code modifications. This makes it easy to add new pages, components, and profiles without touching the underlying system.\n\nKey design principles:\n- Dictionary-driven rendering for consistent data flow\n- Component isolation for maximum reusability\n- Security-first approach with protected content support\n- Theme variables for consistent styling across all components"
+              "content": "This framework was built to solve the challenge of creating **maintainable, scalable portfolio websites** without relying on heavy frontend frameworks or complex build systems.\n\nThe core philosophy is {{highlight}}configuration over code{{/highlight}} - content changes happen through JSON files, not code modifications. This makes it easy to add new pages, components, and profiles without touching the underlying system."
             }
           },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
         },
         {
           "type": "component",
           "component": "stats_grid/type_1",
-          "id": "portfolio-framework-stats",
+          "id": "portfolio-stats",
           "dynamic": false,
           "variant": "main",
           "data": {
             "main": {
-              "title": "Framework Statistics",
               "stats": [
-                {
-                  "value": "25+",
-                  "label": "Reusable Components",
-                  "icon": "cube-outline"
-                },
-                {
-                  "value": "100%",
-                  "label": "CSS Variable Coverage",
-                  "icon": "color-palette-outline"
-                },
-                {
-                  "value": "3",
-                  "label": "Loading Modes",
-                  "icon": "flash-outline"
-                },
-                {
-                  "value": "0",
-                  "label": "Build Dependencies",
-                  "icon": "construct-outline"
-                }
+                { "value": "25+", "label": "Reusable Components", "icon": "cube-outline" },
+                { "value": "100%", "label": "CSS Variable Coverage", "icon": "color-palette-outline" },
+                { "value": "3", "label": "Loading Modes", "icon": "flash-outline" },
+                { "value": "0", "label": "Build Dependencies", "icon": "construct-outline" }
               ]
             }
           },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
-        },
-        {
-          "type": "component",
-          "component": "feature_list/type_1",
-          "id": "portfolio-framework-features",
-          "dynamic": false,
-          "variant": "main",
-          "data": {
-            "main": {
-              "title": "Key Features",
-              "features": [
-                {
-                  "title": "Component-Based Architecture",
-                  "description": "Self-contained components with HTML, CSS, JS, and PHP loader - fully portable and reusable",
-                  "icon": "cube-outline"
-                },
-                {
-                  "title": "Dynamic Content Loading",
-                  "description": "Shell/content/full loading modes with smart caching and lazy loading for optimal performance",
-                  "icon": "cloud-download-outline"
-                },
-                {
-                  "title": "Hash-Based Navigation",
-                  "description": "Clean URL navigation with state management, tab highlighting, and deep linking support",
-                  "icon": "navigate-outline"
-                },
-                {
-                  "title": "Theme System",
-                  "description": "Comprehensive CSS variables for colors, spacing, typography with automatic light/dark mode",
-                  "icon": "color-palette-outline"
-                },
-                {
-                  "title": "Protected Content",
-                  "description": "Built-in authentication support with automatic dynamic loading for secured sections",
-                  "icon": "shield-checkmark-outline"
-                },
-                {
-                  "title": "JSON Configuration",
-                  "description": "Define pages, profiles, and sites through JSON - no code changes needed for content updates",
-                  "icon": "document-text-outline"
-                }
-              ]
-            }
-          },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
-        },
-        {
-          "type": "component",
-          "component": "tech_stack/type_1",
-          "id": "portfolio-framework-tech",
-          "dynamic": false,
-          "variant": "main",
-          "data": {
-            "main": {
-              "title": "Technology Stack",
-              "categories": [
-                {
-                  "name": "Backend",
-                  "icon": "server-outline",
-                  "technologies": [
-                    { "name": "PHP", "version": "8.2" },
-                    { "name": "JSON", "version": "Schema" }
-                  ]
-                },
-                {
-                  "name": "Frontend",
-                  "icon": "desktop-outline",
-                  "technologies": [
-                    { "name": "JavaScript", "version": "ES6+" },
-                    { "name": "CSS3", "version": "Variables" },
-                    { "name": "HTML5", "version": "Semantic" },
-                    { "name": "Ionicons", "version": "7.0" }
-                  ]
-                },
-                {
-                  "name": "Architecture",
-                  "icon": "git-branch-outline",
-                  "technologies": [
-                    { "name": "Dictionary-Driven" },
-                    { "name": "Component Isolation" },
-                    { "name": "Hash Navigation" },
-                    { "name": "Dynamic Loading" }
-                  ]
-                },
-                {
-                  "name": "Development",
-                  "icon": "code-slash-outline",
-                  "technologies": [
-                    { "name": "Git" },
-                    { "name": "VS Code" },
-                    { "name": "XAMPP" },
-                    { "name": "Kiro AI" }
-                  ]
-                }
-              ]
-            }
-          },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
-        },
-        {
-          "type": "component",
-          "component": "code_display/type_1",
-          "id": "portfolio-framework-code",
-          "dynamic": false,
-          "variant": "main",
-          "data": {
-            "main": {
-              "title": "Component Loader Pattern",
-              "language": "php",
-              "code": "<?php\nclass ComponentLoaderT1 {\n    public function load($id, $title, $navConfig, $loadingMode, $metadata) {\n        $data = $metadata['componentData'] ?? [];\n        \n        switch ($loadingMode) {\n            case 'shell':\n                return $this->generateShell($id, $navConfig, $metadata);\n            case 'content':\n                return $this->generateContent($data);\n            case 'full':\n            default:\n                return $this->generateFullComponent($id, $navConfig, $data);\n        }\n    }\n}",
-              "description": "Every component follows this three-mode loading pattern: shell for dynamic placeholders, content for API responses, and full for initial page load."
-            }
-          },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
         },
         {
           "type": "component",
           "component": "section_title/type_1",
-          "id": "portfolio-framework-components-title",
+          "id": "portfolio-architecture-title",
           "dynamic": false,
           "variant": "main",
-          "data": {
-            "main": {
-              "title": "Available Components",
-              "subtitle": "Building blocks for portfolio pages",
-              "icon": "apps-outline"
-            }
-          },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
+          "data": { "main": { "title": "Architecture", "icon": "git-branch-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
         },
         {
           "type": "component",
           "component": "text_section/type_1",
-          "id": "portfolio-framework-components-list",
+          "id": "portfolio-architecture-text",
           "dynamic": false,
           "variant": "main",
           "data": {
             "main": {
-              "content": "**Page Components:** heros, summaries, experience, education_history, certifications, competencies, tools, workflow, testimonials, projects_grid, project_details, project_hero\n\n**Detail Components:** code_display, image_carousel, feature_list, text_section, section_title, stats_grid, tech_stack\n\n**Admin Components:** file_manager, json_files_list, json_file_creator\n\n**Containers:** vertical, horizontal, slider, collapsing\n\n**Site Layouts:** top_bar, side_bar"
+              "content": "The framework uses a **dictionary-driven architecture** where all data flows through a unified structure:\n\n- `entry.json` defines which profile to load\n- Profile JSON lists the site layout and pages to include\n- Page JSONs define containers and components with inline data\n- The builder processes this dictionary and renders HTML\n\nThis separation means you can swap entire profiles, add new pages, or modify content without changing any PHP or JavaScript code."
             }
           },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "code_display/type_1",
+          "id": "portfolio-code-dictionary",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Dictionary Structure",
+              "language": "php",
+              "code": "$dictionary = [\n    'site' => $siteConfig,           // Site layout configuration\n    'objects' => $flattenedObjects,  // All page objects in flat array\n    'pageDefinition' => $pageFile    // Source page definition file\n];\n\n// Builder processes dictionary\n$html = PortfolioBuilder::build($dictionary);",
+              "description": "The dictionary flows through the entire system, providing consistent data access at every layer."
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "section_title/type_1",
+          "id": "portfolio-components-title",
+          "dynamic": false,
+          "variant": "main",
+          "data": { "main": { "title": "Component System", "icon": "cube-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "text_section/type_1",
+          "id": "portfolio-components-text",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "content": "Every component is **completely self-contained** with its own:\n- `*_structure_t1.html` - HTML template\n- `*_style_t1.css` - Scoped styles using CSS variables\n- `*_behavior_t1.js` - JavaScript with global exports\n- `*_loader_t1.php` - PHP loader with three modes\n- `*_schema_t1.json` - Data structure documentation\n\nThis isolation means components can be copied between projects without modification."
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "code_display/type_1",
+          "id": "portfolio-code-loader",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Three Loading Modes",
+              "language": "php",
+              "code": "public function load($id, $title, $navConfig, $loadingMode, $metadata) {\n    switch ($loadingMode) {\n        case 'shell':   // Empty placeholder for dynamic loading\n            return $this->generateShell($id, $navConfig, $metadata);\n        case 'content': // Data-only for API responses\n            return $this->generateContent($data);\n        case 'full':    // Complete component for initial load\n        default:\n            return $this->generateFullComponent($id, $navConfig, $data);\n    }\n}",
+              "description": "Shell mode renders a lightweight placeholder, content mode returns just the data script, and full mode renders the complete component."
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "section_title/type_1",
+          "id": "portfolio-navigation-title",
+          "dynamic": false,
+          "variant": "main",
+          "data": { "main": { "title": "Navigation System", "icon": "navigate-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "text_section/type_1",
+          "id": "portfolio-navigation-text",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "content": "The framework uses **hash-based navigation** with minimal URLs. Each component registers a navigation handler that responds to state changes.\n\nURL format: `#elementId` or `#elementId/state?param=value`\n\nWhen navigation occurs:\n- Previous page components return to their default state\n- New page components are shown with the requested state\n- Dynamic content is loaded if needed\n- Tab highlighting updates automatically based on `parentTab` attributes"
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "code_display/type_1",
+          "id": "portfolio-code-navigation",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Navigation Handler",
+              "language": "javascript",
+              "code": "function handleComponentNavigation(elementId, state, parameters = {}) {\n    const element = document.getElementById(elementId);\n    if (!element) return false;\n\n    switch (state) {\n        case 'visible':\n            element.style.display = 'block';\n            element.classList.add('nav-visible');\n            break;\n        case 'hidden':\n            element.classList.add('nav-hidden');\n            setTimeout(() => element.style.display = 'none', 300);\n            break;\n    }\n    return true;\n}\n\n// Export to global scope\nwindow.handleComponentNavigation = handleComponentNavigation;",
+              "description": "Every component exports its navigation handler to the window object for the global navigator to discover."
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "section_title/type_1",
+          "id": "portfolio-theming-title",
+          "dynamic": false,
+          "variant": "main",
+          "data": { "main": { "title": "Theme System", "icon": "color-palette-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "text_section/type_1",
+          "id": "portfolio-theming-text",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "content": "All styling uses **CSS custom properties** defined at the site level. Components never define colors directly - they reference variables like `var(--color-primary)` or `var(--spacing-4)`.\n\nThe theme automatically switches between light and dark modes using:\n- `@media (prefers-color-scheme: dark)` for system preference\n- `.theme-dark` class for manual override\n\nThis ensures {{highlight}}100% consistent theming{{/highlight}} across all components with zero effort."
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "code_display/type_1",
+          "id": "portfolio-code-theme",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "CSS Variables Usage",
+              "language": "css",
+              "code": "/* Component styles - NO hardcoded colors */\n.my-component {\n    background: var(--color-surface);\n    color: var(--color-text-primary);\n    padding: var(--spacing-4);\n    border-radius: var(--border-radius-lg);\n    box-shadow: var(--shadow-md);\n}\n\n/* Dark theme handled automatically */\n.theme-dark .my-component {\n    background: var(--color-surface); /* Same variable, different value */\n}",
+              "description": "Components use semantic variable names. The actual color values change based on the active theme."
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "section_title/type_1",
+          "id": "portfolio-features-title",
+          "dynamic": false,
+          "variant": "main",
+          "data": { "main": { "title": "Key Features", "icon": "star-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "feature_list/type_1",
+          "id": "portfolio-features",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "features": [
+                { "title": "Component-Based Architecture", "description": "Self-contained components with HTML, CSS, JS, and PHP loader - fully portable and reusable", "icon": "cube-outline" },
+                { "title": "Dynamic Content Loading", "description": "Shell/content/full loading modes with smart caching and lazy loading for optimal performance", "icon": "cloud-download-outline" },
+                { "title": "Hash-Based Navigation", "description": "Clean URL navigation with state management, tab highlighting, and deep linking support", "icon": "navigate-outline" },
+                { "title": "Theme System", "description": "Comprehensive CSS variables for colors, spacing, typography with automatic light/dark mode", "icon": "color-palette-outline" },
+                { "title": "Protected Content", "description": "Built-in authentication support with automatic dynamic loading for secured sections", "icon": "shield-checkmark-outline" },
+                { "title": "JSON Configuration", "description": "Define pages, profiles, and sites through JSON - no code changes needed for content updates", "icon": "document-text-outline" }
+              ]
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "section_title/type_1",
+          "id": "portfolio-tech-title",
+          "dynamic": false,
+          "variant": "main",
+          "data": { "main": { "title": "Technology Stack", "icon": "layers-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "tech_stack/type_1",
+          "id": "portfolio-tech",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "showTitle": false,
+              "categories": [
+                { "name": "Backend", "icon": "server-outline", "technologies": [{ "name": "PHP", "version": "8.2" }, { "name": "JSON Schema" }] },
+                { "name": "Frontend", "icon": "desktop-outline", "technologies": [{ "name": "JavaScript ES6+" }, { "name": "CSS3 Variables" }, { "name": "HTML5 Semantic" }, { "name": "Ionicons 7" }] },
+                { "name": "Patterns", "icon": "git-branch-outline", "technologies": [{ "name": "Dictionary-Driven" }, { "name": "Component Isolation" }, { "name": "Hash Navigation" }] },
+                { "name": "Tools", "icon": "code-slash-outline", "technologies": [{ "name": "Git" }, { "name": "VS Code" }, { "name": "XAMPP" }, { "name": "Kiro AI" }] }
+              ]
+            }
+          },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
+        },
+        {
+          "type": "component",
+          "component": "section_title/type_1",
+          "id": "portfolio-gallery-title",
+          "dynamic": false,
+          "variant": "main",
+          "data": { "main": { "title": "Screenshots", "icon": "images-outline" } },
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
         },
         {
           "type": "component",
           "component": "image_carousel/type_1",
-          "id": "portfolio-framework-gallery",
+          "id": "portfolio-gallery",
           "dynamic": false,
           "variant": "main",
           "data": {
             "main": {
-              "title": "Screenshots",
               "images": [
-                {
-                  "src": "definitions/media/portfolio/profile_light_screenshot.png",
-                  "alt": "Profile Page - Light Theme",
-                  "caption": "Profile summary page showcasing the hero component and skills overview in light theme"
-                },
-                {
-                  "src": "definitions/media/portfolio/profile_dark_screenshot.png",
-                  "alt": "Profile Page - Dark Theme",
-                  "caption": "Same profile page with automatic dark theme support using CSS variables"
-                },
-                {
-                  "src": "definitions/media/portfolio/education_light_screenshot.png",
-                  "alt": "Education Page - Light Theme",
-                  "caption": "Education history component with timeline layout and degree badges"
-                },
-                {
-                  "src": "definitions/media/portfolio/education_dark_screenshot.png",
-                  "alt": "Education Page - Dark Theme",
-                  "caption": "Education page demonstrating consistent theming across all components"
-                }
+                { "src": "definitions/media/portfolio/profile_light_screenshot.png", "alt": "Profile Page - Light Theme", "caption": "Profile summary page showcasing the hero component and skills overview in light theme" },
+                { "src": "definitions/media/portfolio/profile_dark_screenshot.png", "alt": "Profile Page - Dark Theme", "caption": "Same profile page with automatic dark theme support using CSS variables" },
+                { "src": "definitions/media/portfolio/education_light_screenshot.png", "alt": "Education Page - Light Theme", "caption": "Education history component with timeline layout and degree badges" },
+                { "src": "definitions/media/portfolio/education_dark_screenshot.png", "alt": "Education Page - Dark Theme", "caption": "Education page demonstrating consistent theming across all components" }
               ]
             }
           },
-          "navigation": {
-            "defaultState": "visible",
-            "allowedStates": ["visible", "hidden", "scrollTo"],
-            "protected": false
-          }
+          "navigation": { "defaultState": "visible", "allowedStates": ["visible", "hidden", "scrollTo"], "protected": false }
         }
       ]
     }
