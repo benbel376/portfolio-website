@@ -10,59 +10,7 @@
                 "allowedStates": ["visible", "hidden", "scrollTo"]
             },
             "objects": [
-                {
-                    "type": "component",
-                    "component": "coding_stats/type_1",
-                    "id": "my-coding-stats",
-                    "dynamic": false,
-                    "data": {
-                        "main": {
-                            "title": "Coding Practice",
-                            "backgroundLight": "definitions/media/backgrounds/code_stats_background.jpg",
-                            "backgroundDark": "definitions/media/backgrounds/code_stats_background_black.jpg",
-                            "platforms": [
-                                {
-                                    "name": "LeetCode",
-                                    "username": "codemaster_dev",
-                                    "profileUrl": "https://leetcode.com/u/codemaster_dev/",
-                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
-                                    "stats": [
-                                        { "value": "423", "label": "Solved" },
-                                        { "value": "#52K", "label": "Rank" },
-                                        { "value": "1847", "label": "Rating" }
-                                    ]
-                                },
-                                {
-                                    "name": "HackerRank",
-                                    "username": "codemaster_dev",
-                                    "profileUrl": "https://hackerrank.com/codemaster_dev",
-                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png",
-                                    "stats": [
-                                        { "value": "6★", "label": "Level" },
-                                        { "value": "312", "label": "Solved" },
-                                        { "value": "5", "label": "Gold" }
-                                    ]
-                                },
-                                {
-                                    "name": "Kaggle",
-                                    "username": "codemaster_ml",
-                                    "profileUrl": "https://kaggle.com/codemaster_ml",
-                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Kaggle_logo.png",
-                                    "stats": [
-                                        { "value": "Expert", "label": "Tier" },
-                                        { "value": "34", "label": "Notebooks" },
-                                        { "value": "3", "label": "Medals" }
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "variant": "main",
-                    "navigation": {
-                        "defaultState": "visible",
-                        "allowedStates": ["visible", "hidden", "scrollTo"]
-                    }
-                },
+                
                 {
                     "type": "component",
                     "component": "competencies/type_1",
@@ -816,6 +764,59 @@
                                                 }
                                             ]
                                         }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "variant": "main",
+                    "navigation": {
+                        "defaultState": "visible",
+                        "allowedStates": ["visible", "hidden", "scrollTo"]
+                    }
+                },
+                {
+                    "type": "component",
+                    "component": "coding_stats/type_1",
+                    "id": "my-coding-stats",
+                    "dynamic": false,
+                    "data": {
+                        "main": {
+                            "title": "Coding Practice",
+                            "backgroundLight": "definitions/media/backgrounds/code_stats_background.jpg",
+                            "backgroundDark": "definitions/media/backgrounds/code_stats_background_black.jpg",
+                            "platforms": [
+                                {
+                                    "name": "LeetCode",
+                                    "username": "codemaster_dev",
+                                    "profileUrl": "https://leetcode.com/u/codemaster_dev/",
+                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
+                                    "stats": [
+                                        { "value": "423", "label": "Solved" },
+                                        { "value": "#52K", "label": "Rank" },
+                                        { "value": "1847", "label": "Rating" }
+                                    ]
+                                },
+                                {
+                                    "name": "HackerRank",
+                                    "username": "codemaster_dev",
+                                    "profileUrl": "https://hackerrank.com/codemaster_dev",
+                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png",
+                                    "stats": [
+                                        { "value": "6★", "label": "Level" },
+                                        { "value": "312", "label": "Solved" },
+                                        { "value": "5", "label": "Gold" }
+                                    ]
+                                },
+                                {
+                                    "name": "Kaggle",
+                                    "username": "codemaster_ml",
+                                    "profileUrl": "https://kaggle.com/codemaster_ml",
+                                    "logo": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Kaggle_logo.png",
+                                    "stats": [
+                                        { "value": "Expert", "label": "Tier" },
+                                        { "value": "34", "label": "Notebooks" },
+                                        { "value": "3", "label": "Medals" }
                                     ]
                                 }
                             ]
