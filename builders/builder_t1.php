@@ -398,9 +398,19 @@ class PortfolioBuilder {
         $title = $siteConfig['title'] ?? $siteConfig['branding']['title'] ?? 'Portfolio';
         $backgrounds = $siteConfig['backgrounds'] ?? null;
         $theme = $siteConfig['theme'] ?? null;
+        $branding = $siteConfig['branding'] ?? null;
         
-        // Load site with navigation and page content
-        return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation, $backgrounds, $theme);
+        // Check loader signature and call appropriately
+        $reflection = new ReflectionMethod($loader, 'load');
+        $paramCount = $reflection->getNumberOfParameters();
+        
+        if ($paramCount >= 7) {
+            // New loader with branding support
+            return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation, $backgrounds, $theme, $branding);
+        } else {
+            // Legacy loader
+            return $loader->load($navigationTabs, $title, $pageContent, $defaultNavigation, $backgrounds, $theme);
+        }
     }
     
     private function findLoaderFile($directoryPath) {

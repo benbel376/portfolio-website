@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><!-- TITLE_PLACEHOLDER --></title>
+  <link rel="stylesheet" href="blocks/sites/side_bar/type_1/side_bar_site_style_main_t1.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <!-- Auth Manager -->
+  <script src="blocks/sites/side_bar/type_1/behaviors/auth_t1.js"></script>
+  
+  <!-- Theme Variables (injected from JSON) -->
+  <!-- BACKGROUND_STYLES_PLACEHOLDER -->
+</head>
+<body>
+<div class="site-container">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar-nav">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <img src="<!-- LOGO_PLACEHOLDER -->" alt="Logo" class="sidebar-logo-img">
+      </div>
+      <h2 class="sidebar-title"><!-- SITE_TITLE_PLACEHOLDER --></h2>
+    </div>
+    
+    <nav class="sidebar-menu">
+      <ul class="sidebar-links">
+        <!-- NAVIGATION_TABS_PLACEHOLDER -->
+      </ul>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <button id="siteAuthBtn" onclick="handleSiteAuthClick()" class="sidebar-action-btn" aria-label="Authentication">
+        <ion-icon name="log-in-outline"></ion-icon>
+        <span>Login</span>
+      </button>
+      <button id="themeToggleBtn" onclick="window.toggleTheme()" class="sidebar-action-btn" aria-label="Toggle theme">
+        <span id="themeToggleIcon">🌙</span>
+        <span>Theme</span>
+      </button>
+    </div>
+  </aside>
+  
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <button id="mobileMenuToggleBtn" class="mobile-menu-toggle" aria-label="Toggle menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
+    <h1 class="mobile-title"><!-- SITE_TITLE_PLACEHOLDER --></h1>
+    <div class="mobile-actions">
+      <button id="mobileThemeBtn" onclick="window.toggleTheme()" class="mobile-action-btn">
+        <span id="mobileThemeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- PAGE_CONTENT_PLACEHOLDER -->
+  </main>
+</div>
+
+<!-- Login Modal -->
+<div id="siteLoginModal" class="site-login-modal" aria-hidden="true">
+  <div class="site-login-modal-backdrop"></div>
+  <div class="site-login-modal-content">
+    <button id="siteLoginModalClose" class="site-login-modal-close" aria-label="Close">✕</button>
+    <div class="site-login-modal-header">
+      <h3 class="site-login-modal-title">Sign in</h3>
+      <p class="site-login-modal-subtitle">Enter credentials to access admin features</p>
+    </div>
+    <form id="siteLoginForm" class="site-login-form">
+      <div class="site-form-group">
+        <label class="site-form-label">Username</label>
+        <input class="site-form-input" type="text" name="username" autocomplete="username" required />
+      </div>
+      <div class="site-form-group">
+        <label class="site-form-label">Password</label>
+        <input class="site-form-input" type="password" name="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="site-login-submit">Sign in</button>
+      <div class="site-error-message"></div>
+    </form>
+  </div>
+</div>
+
+<!-- Theme Override (injected from JSON) -->
+<!-- THEME_OVERRIDE_PLACEHOLDER -->
+
+<!-- Scripts -->
+<script src="blocks/sites/side_bar/type_1/behaviors/side_bar_site_behavior_theme_t1.js"></script>
+<script src="blocks/sites/side_bar/type_1/behaviors/cache_manager_t1.js" type="module"></script>
+<script src="blocks/sites/side_bar/type_1/behaviors/dynamic_content_loader_t1.js" type="module"></script>
+<script src="blocks/sites/side_bar/type_1/behaviors/global_navigator_t1.js" type="module"></script>
+<script src="blocks/sites/side_bar/type_1/side_bar_site_behavior_main_t1.js" type="module"></script>
+</body>
+</html>
