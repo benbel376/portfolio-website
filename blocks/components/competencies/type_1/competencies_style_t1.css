@@ -452,7 +452,7 @@
 
 @media (max-width: 768px) {
   .competencies-component {
-    padding: 0 var(--spacing-10);
+    padding: 0 var(--spacing-8);
   }
   
   .competencies__main-header {
@@ -732,9 +732,7 @@
     padding: 60px 0;
   }
   
-  .competencies__container {
-    padding: var(--spacing-0) var(--spacing-8);
-  }
+  
   
   .competencies__header {
     gap: 20px;

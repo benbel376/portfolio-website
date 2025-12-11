@@ -787,25 +787,61 @@
                                     "name": "LeetCode",
                                     "username": "codemaster_dev",
                                     "profileUrl": "https://leetcode.com/u/codemaster_dev/",
-                                    "stats": {
-                                        "totalSolved": 423,
-                                        "ranking": 52847,
-                                        "acceptanceRate": "72.4%",
-                                        "contestRating": 1847,
-                                        "streak": 156
-                                    },
-                                    "problems": {
-                                        "easy": { "solved": 168, "total": 859 },
-                                        "medium": { "solved": 198, "total": 1802 },
-                                        "hard": { "solved": 57, "total": 802 }
-                                    },
-                                    "badges": [
-                                        "Guardian Badge",
-                                        "100 Days Badge 2024",
-                                        "Annual Badge 2023",
-                                        "Knight Badge",
-                                        "50 Days Badge 2024"
-                                    ]
+                                    "color": "linear-gradient(135deg, #FFA116 0%, #FFB800 100%)",
+                                    "icon": "code-working-outline",
+                                    "heroMetric": { "value": 423, "label": "Problems Solved" },
+                                    "progressBars": [
+                                        { "label": "Easy", "value": 168, "total": 859 },
+                                        { "label": "Medium", "value": 198, "total": 1802 },
+                                        { "label": "Hard", "value": 57, "total": 802 }
+                                    ],
+                                    "metrics": [
+                                        { "icon": "checkmark-done-outline", "value": "72.4%", "label": "Acceptance" },
+                                        { "icon": "trophy-outline", "value": "#52,847", "label": "Global Rank" },
+                                        { "icon": "flame-outline", "value": "156 days", "label": "Max Streak" },
+                                        { "icon": "star-outline", "value": "1847", "label": "Contest Rating" }
+                                    ],
+                                    "badges": ["Guardian Badge", "100 Days Badge 2024", "Knight Badge"]
+                                },
+                                {
+                                    "name": "HackerRank",
+                                    "username": "codemaster_dev",
+                                    "profileUrl": "https://hackerrank.com/codemaster_dev",
+                                    "color": "linear-gradient(135deg, #00EA64 0%, #00C853 100%)",
+                                    "icon": "terminal-outline",
+                                    "heroMetric": { "value": "6 Stars", "label": "Problem Solving" },
+                                    "progressBars": [
+                                        { "label": "Python", "value": 85, "total": 100 },
+                                        { "label": "SQL", "value": 72, "total": 100 },
+                                        { "label": "Algorithms", "value": 68, "total": 100 }
+                                    ],
+                                    "metrics": [
+                                        { "icon": "ribbon-outline", "value": "5 Gold", "label": "Badges" },
+                                        { "icon": "trophy-outline", "value": "#1,247", "label": "Global Rank" },
+                                        { "icon": "checkmark-circle-outline", "value": "312", "label": "Challenges" },
+                                        { "icon": "medal-outline", "value": "15", "label": "Certifications" }
+                                    ],
+                                    "badges": ["Python Gold", "SQL Gold", "Problem Solving Gold"]
+                                },
+                                {
+                                    "name": "Kaggle",
+                                    "username": "codemaster_ml",
+                                    "profileUrl": "https://kaggle.com/codemaster_ml",
+                                    "color": "linear-gradient(135deg, #20BEFF 0%, #0095D9 100%)",
+                                    "icon": "analytics-outline",
+                                    "heroMetric": { "value": "Expert", "label": "Notebooks Tier" },
+                                    "progressBars": [
+                                        { "label": "Competitions", "value": 12, "total": 20 },
+                                        { "label": "Notebooks", "value": 34, "total": 50 },
+                                        { "label": "Datasets", "value": 8, "total": 15 }
+                                    ],
+                                    "metrics": [
+                                        { "icon": "podium-outline", "value": "3", "label": "Medals" },
+                                        { "icon": "document-text-outline", "value": "34", "label": "Notebooks" },
+                                        { "icon": "people-outline", "value": "1.2K", "label": "Followers" },
+                                        { "icon": "thumbs-up-outline", "value": "847", "label": "Upvotes" }
+                                    ],
+                                    "badges": ["Notebooks Expert", "Datasets Contributor", "Competition Bronze"]
                                 }
                             ]
                         }
