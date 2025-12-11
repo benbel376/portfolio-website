@@ -40,10 +40,10 @@
   --hero-icon-bg-dark: linear-gradient(135deg, #212121 0%, #111111 100%);
 }
 
-.hero.hero-profile { position: relative; padding: var(--hero-padding); }
+.hero-component.hero-profile { position: relative; padding: var(--hero-padding); }
 
 /* Background image layer */
-.hero.hero-profile::before {
+.hero-component.hero-profile::before {
 	content: '';
 	position: absolute;
 	inset: 0;
@@ -53,12 +53,12 @@
 	z-index: 0;
 }
 
-.theme-dark .hero.hero-profile::before {
+.theme-dark .hero-component.hero-profile::before {
 	background-image: var(--hero-backdrop-dark);
 }
 
 /* Overlay that fades from semi-transparent to opaque left to right */
-.hero.hero-profile::after {
+.hero-component.hero-profile::after {
 	content: '';
 	position: absolute;
 	inset: 0;
@@ -66,7 +66,7 @@
 	z-index: 1;
 }
 
-.theme-dark .hero.hero-profile::after {
+.theme-dark .hero-component.hero-profile::after {
 	background: var(--hero-overlay-dark);
 }
 
@@ -680,7 +680,7 @@ Inner ring - sized relative to avatar
 
 /* Tablet portrait */
 @media (max-width: 768px) {
-	.hero.hero-profile { padding: var(--spacing-4); }
+	.hero-component.hero-profile { padding: var(--spacing-4); }
 	.hero__container { 
 		
 		flex-direction: column; 
@@ -779,7 +779,7 @@ Inner ring - sized relative to avatar
 
 /* Mobile portrait */
 @media (max-width: 480px) {
-	.hero.hero-profile { padding: var(--spacing-3) var(--spacing-3); }
+	.hero-component.hero-profile { padding: var(--spacing-3) var(--spacing-3); }
 	.hero__container { gap: var(--spacing-5); padding: 0; padding-bottom: var(--spacing-8)}
 	.hero__avatar-section { max-width: none; }
 	.hero__avatar img { width: 100%; height: auto; aspect-ratio: 1; }

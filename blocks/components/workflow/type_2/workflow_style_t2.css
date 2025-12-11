@@ -1,5 +1,5 @@
 /* Workflow Component Type 2 - Simple List Style */
-.workflow {
+.workflow-component {
   width: 100%;
   margin-bottom: var(--spacing-12);
   background: transparent;
