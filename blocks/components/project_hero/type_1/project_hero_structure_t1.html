@@ -17,9 +17,8 @@
 
     <!-- Content Wrapper -->
     <div class="project-hero__content-wrapper">
-    <!-- Content Section -->
     <div class="project-hero__content">
-        <!-- Category & Status -->
+        <!-- Category & Status - opposite ends -->
         <div class="project-hero__meta">
             <span class="project-hero__category"></span>
             <span class="project-hero__status"></span>
@@ -31,50 +30,26 @@
         <!-- Description -->
         <p class="project-hero__description"></p>
 
-        <!-- Tech Stack -->
-        <div class="project-hero__tech-stack">
-            <h3 class="project-hero__tech-title">
-                <ion-icon name="code-slash-outline"></ion-icon>
-                <span>Technologies</span>
-            </h3>
-            <div class="project-hero__tech-badges"></div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="project-hero__actions">
-            <a class="project-hero__action-btn project-hero__action-btn--primary" href="" target="_blank" rel="noopener noreferrer">
-                <ion-icon name="play-circle-outline"></ion-icon>
-                <span>Live Demo</span>
-            </a>
-            <a class="project-hero__action-btn project-hero__action-btn--secondary" href="" target="_blank" rel="noopener noreferrer">
-                <ion-icon name="logo-github"></ion-icon>
-                <span>View Code</span>
-            </a>
-        </div>
-
-        <!-- Project Info Grid -->
-        <div class="project-hero__info-grid">
+        <!-- Info Row: Year, Duration, Status, Links -->
+        <div class="project-hero__info-row">
             <div class="project-hero__info-item">
                 <ion-icon name="calendar-outline"></ion-icon>
-                <div class="project-hero__info-content">
-                    <span class="project-hero__info-label">Year</span>
-                    <span class="project-hero__info-value" id="project-hero-year"></span>
-                </div>
+                <span class="project-hero__info-label">Year:</span>
+                <span class="project-hero__info-value" id="project-hero-year"></span>
             </div>
             <div class="project-hero__info-item">
                 <ion-icon name="time-outline"></ion-icon>
-                <div class="project-hero__info-content">
-                    <span class="project-hero__info-label">Duration</span>
-                    <span class="project-hero__info-value" id="project-hero-duration"></span>
-                </div>
+                <span class="project-hero__info-label">Duration:</span>
+                <span class="project-hero__info-value" id="project-hero-duration"></span>
             </div>
-            <div class="project-hero__info-item">
-                <ion-icon name="git-branch-outline"></ion-icon>
-                <div class="project-hero__info-content">
-                    <span class="project-hero__info-label">Status</span>
-                    <span class="project-hero__info-value" id="project-hero-status-text"></span>
-                </div>
-            </div>
+            <a class="project-hero__link" id="project-hero-demo" href="" target="_blank" rel="noopener noreferrer">
+                <ion-icon name="play-circle-outline"></ion-icon>
+                <span>Demo</span>
+            </a>
+            <a class="project-hero__link" id="project-hero-repo" href="" target="_blank" rel="noopener noreferrer">
+                <ion-icon name="logo-github"></ion-icon>
+                <span>Code</span>
+            </a>
         </div>
     </div>
     </div>

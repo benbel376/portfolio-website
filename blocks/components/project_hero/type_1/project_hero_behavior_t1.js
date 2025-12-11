@@ -68,13 +68,13 @@ function renderProjectHero(component, data) {
         bannerImg.alt = data.title || 'Project Banner';
     }
 
-    // Category
+    // Category (left side)
     const category = component.querySelector('.project-hero__category');
     if (category) {
         category.textContent = data.category || 'Project';
     }
 
-    // Status
+    // Status (right side)
     const status = component.querySelector('.project-hero__status');
     if (status) {
         const statusText = data.status || 'Completed';
@@ -94,44 +94,35 @@ function renderProjectHero(component, data) {
         description.textContent = data.description || '';
     }
 
-    // Tech badges
-    const techBadges = component.querySelector('.project-hero__tech-badges');
-    if (techBadges && data.technologies) {
-        techBadges.innerHTML = data.technologies.map(tech => 
-            `<span class="project-hero__tech-badge">${escapeHtml(tech)}</span>`
-        ).join('');
-    }
-
-    // Action buttons
-    const demoBtn = component.querySelector('.project-hero__action-btn--primary');
-    const repoBtn = component.querySelector('.project-hero__action-btn--secondary');
-
-    if (demoBtn) {
-        if (data.demoLink) {
-            demoBtn.href = data.demoLink;
-            demoBtn.style.display = 'inline-flex';
-        } else {
-            demoBtn.style.display = 'none';
-        }
-    }
-
-    if (repoBtn) {
-        if (data.repoLink) {
-            repoBtn.href = data.repoLink;
-            repoBtn.style.display = 'inline-flex';
-        } else {
-            repoBtn.style.display = 'none';
-        }
-    }
-
-    // Info grid
+    // Info row - Year
     const yearEl = component.querySelector('#project-hero-year');
-    const durationEl = component.querySelector('#project-hero-duration');
-    const statusTextEl = component.querySelector('#project-hero-status-text');
-
     if (yearEl) yearEl.textContent = data.year || '-';
+
+    // Info row - Duration
+    const durationEl = component.querySelector('#project-hero-duration');
     if (durationEl) durationEl.textContent = data.duration || '-';
-    if (statusTextEl) statusTextEl.textContent = data.status || 'Completed';
+
+    // Links in info row
+    const demoLink = component.querySelector('#project-hero-demo');
+    const repoLink = component.querySelector('#project-hero-repo');
+
+    if (demoLink) {
+        if (data.demoLink) {
+            demoLink.href = data.demoLink;
+            demoLink.style.display = 'inline-flex';
+        } else {
+            demoLink.style.display = 'none';
+        }
+    }
+
+    if (repoLink) {
+        if (data.repoLink) {
+            repoLink.href = data.repoLink;
+            repoLink.style.display = 'inline-flex';
+        } else {
+            repoLink.style.display = 'none';
+        }
+    }
 }
 
 /**
