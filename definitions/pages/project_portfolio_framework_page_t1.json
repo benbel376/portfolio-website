@@ -272,6 +272,45 @@
             "allowedStates": ["visible", "hidden", "scrollTo"],
             "protected": false
           }
+        },
+        {
+          "type": "component",
+          "component": "image_carousel/type_1",
+          "id": "portfolio-framework-gallery",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Screenshots",
+              "images": [
+                {
+                  "src": "definitions/media/portfolio/profile_light_screenshot.png",
+                  "alt": "Profile Page - Light Theme",
+                  "caption": "Profile summary page showcasing the hero component and skills overview in light theme"
+                },
+                {
+                  "src": "definitions/media/portfolio/profile_dark_screenshot.png",
+                  "alt": "Profile Page - Dark Theme",
+                  "caption": "Same profile page with automatic dark theme support using CSS variables"
+                },
+                {
+                  "src": "definitions/media/portfolio/education_light_screenshot.png",
+                  "alt": "Education Page - Light Theme",
+                  "caption": "Education history component with timeline layout and degree badges"
+                },
+                {
+                  "src": "definitions/media/portfolio/education_dark_screenshot.png",
+                  "alt": "Education Page - Dark Theme",
+                  "caption": "Education page demonstrating consistent theming across all components"
+                }
+              ]
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
         }
       ]
     }
