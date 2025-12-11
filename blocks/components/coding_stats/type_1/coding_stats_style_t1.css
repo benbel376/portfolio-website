@@ -61,7 +61,6 @@
     opacity: 0;
     transition: opacity 0.3s ease;
     align-items: center;
-    justify-content: space-between;
     gap: var(--spacing-lg);
 }
 
@@ -70,10 +69,18 @@
     opacity: 1;
 }
 
+/* Left section - logo and info */
+.coding-stats__slide-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
 /* Logo */
 .coding-stats__slide-logo {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -90,20 +97,18 @@
 }
 
 .coding-stats__slide-logo ion-icon {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--primary);
 }
 
-/* Platform info - name and link */
+/* Platform info */
 .coding-stats__slide-info {
     display: flex;
     flex-direction: column;
-    min-width: 100px;
-    flex-shrink: 0;
 }
 
 .coding-stats__slide-name {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: 600;
     color: var(--text);
     margin: 0;
@@ -128,11 +133,39 @@
     font-size: 10px;
 }
 
-/* Stats Row - pushed to right */
+.coding-stats__slide-desc {
+    font-size: var(--text-xs);
+    color: var(--text);
+    opacity: 0.5;
+    margin: 4px 0 0 0;
+}
+
+/* Divider */
+.coding-stats__slide-divider {
+    width: 1px;
+    height: 50px;
+    background: var(--border);
+    flex-shrink: 0;
+}
+
+/* Right section - stats */
+.coding-stats__slide-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.coding-stats__slide-stats-desc {
+    font-size: var(--text-xs);
+    color: var(--text);
+    opacity: 0.5;
+    margin: 6px 0 0 0;
+}
+
+/* Stats Row */
 .coding-stats__slide-stats {
     display: flex;
-    gap: var(--spacing-lg);
-    margin-left: auto;
+    gap: var(--spacing-md);
 }
 
 .coding-stats__stat {

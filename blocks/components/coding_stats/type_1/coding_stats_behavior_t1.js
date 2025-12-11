@@ -55,22 +55,29 @@ function renderCodingStats() {
             : `<ion-icon name="${platform.icon || 'code-outline'}"></ion-icon>`;
         
         div.innerHTML = `
-            <div class="coding-stats__slide-logo">
-                ${logoContent}
+            <div class="coding-stats__slide-left">
+                <div class="coding-stats__slide-logo">
+                    ${logoContent}
+                </div>
+                <div class="coding-stats__slide-info">
+                    <h3 class="coding-stats__slide-name">${platform.name}</h3>
+                    <a class="coding-stats__slide-link" href="${platform.profileUrl || '#'}" target="_blank">
+                        @${platform.username || 'profile'} <ion-icon name="open-outline"></ion-icon>
+                    </a>
+                    <p class="coding-stats__slide-desc">Coding challenges & competitions</p>
+                </div>
             </div>
-            <div class="coding-stats__slide-info">
-                <h3 class="coding-stats__slide-name">${platform.name}</h3>
-                <a class="coding-stats__slide-link" href="${platform.profileUrl || '#'}" target="_blank">
-                    @${platform.username || 'profile'} <ion-icon name="open-outline"></ion-icon>
-                </a>
-            </div>
-            <div class="coding-stats__slide-stats">
-                ${(platform.stats || []).map(s => `
-                    <div class="coding-stats__stat">
-                        <div class="coding-stats__stat-value">${s.value}</div>
-                        <div class="coding-stats__stat-label">${s.label}</div>
-                    </div>
-                `).join('')}
+            <div class="coding-stats__slide-divider"></div>
+            <div class="coding-stats__slide-right">
+                <div class="coding-stats__slide-stats">
+                    ${(platform.stats || []).map(s => `
+                        <div class="coding-stats__stat">
+                            <div class="coding-stats__stat-value">${s.value}</div>
+                            <div class="coding-stats__stat-label">${s.label}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <p class="coding-stats__slide-stats-desc">Performance metrics</p>
             </div>
         `;
         container.appendChild(div);
