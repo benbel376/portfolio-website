@@ -353,18 +353,6 @@
                                             ]
                                         },
                                         {
-                                            "name": "Go",
-                                            "description": "High-performance backend services and CLI tools",
-                                            "icon": "code-working-outline",
-                                            "category": "programming",
-                                            "projects": [
-                                                {
-                                                    "name": "Container Orchestration",
-                                                    "description": "Built Kubernetes operators and CLI tools in Go"
-                                                }
-                                            ]
-                                        },
-                                        {
                                             "name": "Bash/Shell",
                                             "description": "System automation and deployment scripts",
                                             "icon": "terminal-outline",

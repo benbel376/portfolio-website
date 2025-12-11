@@ -113,6 +113,16 @@ class AiAssistantEndpoint {
             
         } catch (Exception $e) {
             error_log('AI Assistant Error: ' . $e->getMessage());
+            
+            // Handle rate limit error with user-friendly message
+            if ($e->getMessage() === 'RATE_LIMIT_EXCEEDED') {
+                return [
+                    'success' => true,
+                    'message' => 'I\'ve reached my daily conversation limit. The free tier allows 20 requests per day. Please try again tomorrow, or feel free to explore the portfolio using the navigation menu!',
+                    'navigate' => null
+                ];
+            }
+            
             return [
                 'success' => true,
                 'message' => 'I apologize, but I encountered an issue. Please try again.',
@@ -653,6 +663,11 @@ class AiAssistantEndpoint {
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+        
+        if ($httpCode === 429) {
+            error_log('Gemini API Rate Limit: ' . $response);
+            throw new Exception('RATE_LIMIT_EXCEEDED');
+        }
         
         if ($httpCode !== 200) {
             error_log('Gemini API Error: ' . $response);
