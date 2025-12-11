@@ -1,65 +1,132 @@
 <link rel="stylesheet" href="blocks/components/coding_stats/type_1/coding_stats_style_t1.css">
 <section class="coding-stats-component" data-nav-handler="handleCodingStatsNavigation">
-    <!-- Header Section -->
+    <!-- Header -->
     <div class="coding-stats__header">
-        <div class="coding-stats__title-section">
-            <div class="coding-stats__icon-wrapper">
-                <ion-icon name="code-slash-outline"></ion-icon>
-            </div>
-            <div class="coding-stats__title-content">
-                <h2 class="coding-stats__title">Coding Practice</h2>
-                <p class="coding-stats__subtitle">Problem solving and algorithmic skills</p>
-            </div>
+        <div class="coding-stats__header-icon">
+            <ion-icon name="code-slash-outline"></ion-icon>
+        </div>
+        <div class="coding-stats__header-text">
+            <h2 class="coding-stats__title"><!-- TITLE_PLACEHOLDER --></h2>
+            <p class="coding-stats__subtitle">Algorithmic problem solving & competitive programming</p>
         </div>
     </div>
 
-    <!-- Stats Cards Container -->
+    <!-- Main Content -->
     <div class="coding-stats__content">
-        <!-- Platform Card -->
-        <div class="coding-stats__platform-card" id="coding-stats-platform">
+        <!-- Left: Platform Card with Stats -->
+        <div class="coding-stats__main-card">
+            <!-- Platform Header -->
             <div class="coding-stats__platform-header">
-                <div class="coding-stats__platform-logo" id="coding-stats-logo">
-                    <!-- Platform logo will be inserted here -->
+                <div class="coding-stats__platform-badge">
+                    <ion-icon name="code-working-outline"></ion-icon>
                 </div>
                 <div class="coding-stats__platform-info">
                     <h3 class="coding-stats__platform-name" id="coding-stats-platform-name">LeetCode</h3>
                     <a class="coding-stats__profile-link" id="coding-stats-profile-link" href="#" target="_blank" rel="noopener noreferrer">
+                        <span id="coding-stats-username">@username</span>
                         <ion-icon name="open-outline"></ion-icon>
-                        <span>View Profile</span>
                     </a>
                 </div>
             </div>
-            
-            <!-- Total Solved -->
-            <div class="coding-stats__total-section">
-                <div class="coding-stats__total-number" id="coding-stats-total">0</div>
-                <div class="coding-stats__total-label">Problems Solved</div>
+
+            <!-- Big Number Display -->
+            <div class="coding-stats__hero-stat">
+                <div class="coding-stats__hero-number" id="coding-stats-total">0</div>
+                <div class="coding-stats__hero-label">Problems Solved</div>
             </div>
 
-            <!-- Difficulty Breakdown -->
-            <div class="coding-stats__breakdown" id="coding-stats-breakdown">
-                <!-- Difficulty bars will be dynamically loaded here -->
+            <!-- Difficulty Progress Rings -->
+            <div class="coding-stats__rings" id="coding-stats-rings">
+                <div class="coding-stats__ring coding-stats__ring--easy">
+                    <div class="coding-stats__ring-circle">
+                        <svg viewBox="0 0 36 36">
+                            <path class="coding-stats__ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="coding-stats__ring-fill coding-stats__ring-fill--easy" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <div class="coding-stats__ring-text">
+                            <span class="coding-stats__ring-count" id="easy-count">0</span>
+                        </div>
+                    </div>
+                    <span class="coding-stats__ring-label">Easy</span>
+                </div>
+                <div class="coding-stats__ring coding-stats__ring--medium">
+                    <div class="coding-stats__ring-circle">
+                        <svg viewBox="0 0 36 36">
+                            <path class="coding-stats__ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="coding-stats__ring-fill coding-stats__ring-fill--medium" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <div class="coding-stats__ring-text">
+                            <span class="coding-stats__ring-count" id="medium-count">0</span>
+                        </div>
+                    </div>
+                    <span class="coding-stats__ring-label">Medium</span>
+                </div>
+                <div class="coding-stats__ring coding-stats__ring--hard">
+                    <div class="coding-stats__ring-circle">
+                        <svg viewBox="0 0 36 36">
+                            <path class="coding-stats__ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="coding-stats__ring-fill coding-stats__ring-fill--hard" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <div class="coding-stats__ring-text">
+                            <span class="coding-stats__ring-count" id="hard-count">0</span>
+                        </div>
+                    </div>
+                    <span class="coding-stats__ring-label">Hard</span>
+                </div>
             </div>
         </div>
 
-        <!-- Additional Stats Grid -->
-        <div class="coding-stats__grid" id="coding-stats-grid">
-            <!-- Stats cards will be dynamically loaded here -->
-        </div>
+        <!-- Right: Stats & Badges -->
+        <div class="coding-stats__side">
+            <!-- Quick Stats -->
+            <div class="coding-stats__quick-stats" id="coding-stats-quick">
+                <div class="coding-stats__quick-item">
+                    <ion-icon name="checkmark-done-outline"></ion-icon>
+                    <div class="coding-stats__quick-data">
+                        <span class="coding-stats__quick-value" id="stat-acceptance">--</span>
+                        <span class="coding-stats__quick-label">Acceptance</span>
+                    </div>
+                </div>
+                <div class="coding-stats__quick-item">
+                    <ion-icon name="trophy-outline"></ion-icon>
+                    <div class="coding-stats__quick-data">
+                        <span class="coding-stats__quick-value" id="stat-ranking">--</span>
+                        <span class="coding-stats__quick-label">Global Rank</span>
+                    </div>
+                </div>
+                <div class="coding-stats__quick-item">
+                    <ion-icon name="flame-outline"></ion-icon>
+                    <div class="coding-stats__quick-data">
+                        <span class="coding-stats__quick-value" id="stat-streak">--</span>
+                        <span class="coding-stats__quick-label">Max Streak</span>
+                    </div>
+                </div>
+                <div class="coding-stats__quick-item">
+                    <ion-icon name="star-outline"></ion-icon>
+                    <div class="coding-stats__quick-data">
+                        <span class="coding-stats__quick-value" id="stat-contest">--</span>
+                        <span class="coding-stats__quick-label">Contest Rating</span>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Badges Section -->
-        <div class="coding-stats__badges-section" id="coding-stats-badges-section">
-            <h4 class="coding-stats__badges-title">Achievements</h4>
-            <div class="coding-stats__badges" id="coding-stats-badges">
-                <!-- Badges will be dynamically loaded here -->
+            <!-- Badges -->
+            <div class="coding-stats__badges-card" id="coding-stats-badges-card">
+                <h4 class="coding-stats__badges-title">
+                    <ion-icon name="ribbon-outline"></ion-icon>
+                    Achievements
+                </h4>
+                <div class="coding-stats__badges" id="coding-stats-badges">
+                    <!-- Badges rendered by JS -->
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Empty State -->
     <div class="coding-stats__empty" id="coding-stats-empty" style="display: none;">
-        <ion-icon name="code-slash-outline" aria-hidden="true"></ion-icon>
-        <p>No coding stats available to display.</p>
+        <ion-icon name="code-slash-outline"></ion-icon>
+        <p>No coding stats available</p>
     </div>
 </section>
 <script src="blocks/components/coding_stats/type_1/coding_stats_behavior_t1.js"></script>

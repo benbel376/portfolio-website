@@ -2,7 +2,6 @@
 
 /**
  * Coding Stats Component Loader - Type 1
- * Handles full, shell, and content loading modes
  */
 
 class CodingStatsLoaderT1 {
@@ -18,25 +17,18 @@ class CodingStatsLoaderT1 {
                 return $this->generateContent($componentData);
             case 'full':
             default:
-                return $this->generateFullComponent($id, $componentData, $navConfig, $componentMetadata);
+                return $this->generateFullComponent($id, $componentData, $navConfig);
         }
     }
     
-    /**
-     * Generate full component with data
-     */
-    private function generateFullComponent($id, $data, $navConfig, $componentMetadata) {
+    private function generateFullComponent($id, $data, $navConfig) {
         $template = file_get_contents(__DIR__ . '/coding_stats_structure_t1.html');
         
-        // Replace title placeholders if provided
-        if (!empty($data['title'])) {
-            $template = str_replace('>Coding Practice<', '>' . htmlspecialchars($data['title']) . '<', $template);
-        }
-        if (!empty($data['subtitle'])) {
-            $template = str_replace('>Problem solving and algorithmic skills<', '>' . htmlspecialchars($data['subtitle']) . '<', $template);
-        }
+        // Replace title
+        $title = $data['title'] ?? 'Coding Practice';
+        $template = str_replace('<!-- TITLE_PLACEHOLDER -->', htmlspecialchars($title), $template);
         
-        // Inject ID and navigation config
+        // Inject ID and nav config
         $defaultState = $navConfig['defaultState'] ?? 'visible';
         $stateClass = $defaultState === 'hidden' ? 'nav-hidden' : 'nav-visible';
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
@@ -48,7 +40,7 @@ class CodingStatsLoaderT1 {
             $template
         );
         
-        // Inject data script before closing section tag
+        // Inject data script
         $dataScript = $this->injectDataScript($data);
         $lastPos = strrpos($template, '</section>');
         if ($lastPos !== false) {
@@ -58,9 +50,6 @@ class CodingStatsLoaderT1 {
         return $template;
     }
     
-    /**
-     * Generate shell for dynamic loading
-     */
     private function generateShell($id, $navConfig, $componentMetadata) {
         $template = file_get_contents(__DIR__ . '/coding_stats_structure_t1.html');
         
@@ -80,37 +69,23 @@ class CodingStatsLoaderT1 {
         return $template;
     }
     
-    /**
-     * Generate content only (for API responses)
-     */
     private function generateContent($data) {
-        // For content-only mode, return the data script
         return $this->injectDataScript($data);
     }
     
-    /**
-     * Inject data script into component
-     */
     private function injectDataScript($data) {
         $jsonData = json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP);
         
         $script = '<script>';
-        $script .= 'console.log("Coding Stats PHP: Attempting to set data", ' . $jsonData . ');';
         $script .= 'window.codingStatsData = ' . $jsonData . ';';
         $script .= 'if (typeof window.setCodingStatsData === "function") {';
-        $script .= '    console.log("Coding Stats PHP: Setting data immediately");';
         $script .= '    window.setCodingStatsData(' . $jsonData . ');';
-        $script .= '} else {';
-        $script .= '    console.log("Coding Stats PHP: Data stored, waiting for behavior initialization");';
         $script .= '}';
         $script .= '</script>';
         
         return $script;
     }
     
-    /**
-     * Process navigation configuration
-     */
     private function processNavigationConfig($navigationConfig) {
         $defaultConfig = [
             'defaultState' => 'visible',
@@ -123,5 +98,3 @@ class CodingStatsLoaderT1 {
         return $config;
     }
 }
-
-?>

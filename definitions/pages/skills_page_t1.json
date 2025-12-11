@@ -911,28 +911,26 @@
                             "platforms": [
                                 {
                                     "name": "LeetCode",
-                                    "username": "benbel376",
-                                    "profileUrl": "https://leetcode.com/u/benbel376/",
-                                    "icon": "code-slash-outline",
+                                    "username": "codemaster_dev",
+                                    "profileUrl": "https://leetcode.com/u/codemaster_dev/",
                                     "stats": {
-                                        "totalSolved": 157,
-                                        "ranking": 458721,
-                                        "acceptanceRate": "67.8%",
-                                        "contestRating": null
+                                        "totalSolved": 423,
+                                        "ranking": 52847,
+                                        "acceptanceRate": "72.4%",
+                                        "contestRating": 1847,
+                                        "streak": 156
                                     },
                                     "problems": {
-                                        "easy": { "solved": 71, "total": 859 },
-                                        "medium": { "solved": 76, "total": 1802 },
-                                        "hard": { "solved": 10, "total": 802 }
+                                        "easy": { "solved": 168, "total": 859 },
+                                        "medium": { "solved": 198, "total": 1802 },
+                                        "hard": { "solved": 57, "total": 802 }
                                     },
                                     "badges": [
+                                        "Guardian Badge",
                                         "100 Days Badge 2024",
+                                        "Annual Badge 2023",
+                                        "Knight Badge",
                                         "50 Days Badge 2024"
-                                    ],
-                                    "recentActivity": [
-                                        { "problem": "Two Sum", "difficulty": "Easy", "date": "2024-12-10" },
-                                        { "problem": "Add Two Numbers", "difficulty": "Medium", "date": "2024-12-09" },
-                                        { "problem": "Longest Substring", "difficulty": "Medium", "date": "2024-12-08" }
                                     ]
                                 }
                             ]
