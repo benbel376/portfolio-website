@@ -180,27 +180,26 @@ function initializeNavigation() {
     const prevButton = document.getElementById('coding-stats-prev');
     const nextButton = document.getElementById('coding-stats-next');
     
-    if (prevButton) {
-        // Clone to remove old listeners
-        const newPrevButton = prevButton.cloneNode(true);
-        prevButton.parentNode.replaceChild(newPrevButton, prevButton);
-        newPrevButton.addEventListener('click', function() {
-            console.log('Coding Stats: Prev clicked');
+    // Only add listeners once
+    if (prevButton && !prevButton.hasAttribute('data-initialized')) {
+        prevButton.setAttribute('data-initialized', 'true');
+        prevButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Coding Stats: Prev clicked, going to', window.codingStatsCurrentSlide - 1);
             showSlide(window.codingStatsCurrentSlide - 1);
         });
     }
     
-    if (nextButton) {
-        // Clone to remove old listeners
-        const newNextButton = nextButton.cloneNode(true);
-        nextButton.parentNode.replaceChild(newNextButton, nextButton);
-        newNextButton.addEventListener('click', function() {
-            console.log('Coding Stats: Next clicked');
+    if (nextButton && !nextButton.hasAttribute('data-initialized')) {
+        nextButton.setAttribute('data-initialized', 'true');
+        nextButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Coding Stats: Next clicked, going to', window.codingStatsCurrentSlide + 1);
             showSlide(window.codingStatsCurrentSlide + 1);
         });
     }
     
-    console.log('Coding Stats: Navigation initialized');
+    console.log('Coding Stats: Navigation initialized, prev:', !!prevButton, 'next:', !!nextButton);
 }
 
 /**
