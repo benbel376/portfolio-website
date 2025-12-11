@@ -192,7 +192,7 @@ function renderPlatformSlide(platform, index) {
     return `
         <div class="coding-stats__slide ${index === 0 ? 'active' : ''}" data-index="${index}">
             <div class="coding-stats__platform-card">
-                <!-- Platform Header -->
+                <!-- Platform Header with Hero Stat -->
                 <div class="coding-stats__platform-header">
                     <div class="coding-stats__platform-logo" style="${logoStyle}">
                         ${logoContent}
@@ -201,23 +201,21 @@ function renderPlatformSlide(platform, index) {
                         <h3 class="coding-stats__platform-name">${escapeHtml(platform.name)}</h3>
                         ${platform.profileUrl ? `
                             <a class="coding-stats__profile-link" href="${escapeHtml(platform.profileUrl)}" target="_blank" rel="noopener noreferrer">
-                                <span>@${escapeHtml(platform.username || 'profile')}</span>
+                                @${escapeHtml(platform.username || 'profile')}
                                 <ion-icon name="open-outline"></ion-icon>
                             </a>
                         ` : ''}
                     </div>
-                </div>
-
-                <!-- Left: Main Stats -->
-                <div class="coding-stats__main-stats">
                     <div class="coding-stats__hero-stat">
                         <div class="coding-stats__hero-number">${escapeHtml(String(heroMetric.value))}</div>
                         <div class="coding-stats__hero-label">${escapeHtml(heroMetric.label)}</div>
                     </div>
-                    ${progressBarsHtml ? `<div class="coding-stats__progress-section">${progressBarsHtml}</div>` : ''}
                 </div>
 
-                <!-- Right: Metrics Grid -->
+                <!-- Progress Bars -->
+                ${progressBarsHtml ? `<div class="coding-stats__main-stats"><div class="coding-stats__progress-section">${progressBarsHtml}</div></div>` : ''}
+
+                <!-- Metrics Grid -->
                 <div class="coding-stats__metrics">
                     ${metricsHtml}
                 </div>

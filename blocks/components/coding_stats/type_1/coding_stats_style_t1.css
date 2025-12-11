@@ -15,15 +15,15 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
     margin-top: var(--spacing-xl);
 }
 
 .coding-stats__header-icon {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,20 +32,20 @@
 }
 
 .coding-stats__header-icon ion-icon {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
 }
 
 .coding-stats__title {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: 600;
     color: var(--text);
-    margin: 0 0 var(--spacing-xs) 0;
+    margin: 0 0 2px 0;
 }
 
 .coding-stats__subtitle {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--text);
-    opacity: 0.7;
+    opacity: 0.6;
     margin: 0;
 }
 
@@ -60,60 +60,51 @@
 .coding-stats__slides {
     position: relative;
     overflow: hidden;
-    min-height: 380px;
 }
 
 .coding-stats__slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    display: none;
     opacity: 0;
-    visibility: hidden;
-    transform: translateX(30px);
-    transition: all 0.4s ease;
+    transition: opacity 0.3s ease;
 }
 
 .coding-stats__slide.active {
-    position: relative;
+    display: block;
     opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
 }
 
 /* ========================================
-   PLATFORM CARD
+   PLATFORM CARD - COMPACT
    ======================================== */
 
 .coding-stats__platform-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
+    grid-template-columns: auto 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
 }
 
-/* Platform Header */
+/* Platform Header - Left Column */
 .coding-stats__platform-header {
-    grid-column: 1 / -1;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: var(--spacing-md);
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--border);
+    gap: var(--spacing-sm);
+    min-width: 100px;
 }
 
 .coding-stats__platform-logo {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-lg);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--text-2xl);
-    font-weight: 700;
+    font-size: var(--text-xl);
     color: #fff;
 }
 
@@ -121,28 +112,27 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
 }
 
 .coding-stats__platform-info {
-    flex: 1;
+    text-align: center;
 }
 
 .coding-stats__platform-name {
-    font-size: var(--text-xl);
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--text);
-    margin: 0 0 4px 0;
+    margin: 0 0 2px 0;
 }
 
 .coding-stats__profile-link {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    font-size: var(--text-sm);
+    gap: 2px;
+    font-size: var(--text-xs);
     color: var(--primary);
     text-decoration: none;
-    transition: opacity 0.2s ease;
 }
 
 .coding-stats__profile-link:hover {
@@ -150,48 +140,43 @@
 }
 
 .coding-stats__profile-link ion-icon {
-    font-size: 12px;
+    font-size: 10px;
 }
 
-/* Left Column - Main Stats */
-.coding-stats__main-stats {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
-}
-
+/* Hero Stat - Below Logo */
 .coding-stats__hero-stat {
     text-align: center;
-    padding: var(--spacing-lg) 0;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: var(--radius-lg);
-}
-
-.theme-dark .coding-stats__hero-stat {
-    background: rgba(255, 255, 255, 0.03);
+    padding: var(--spacing-sm) 0;
 }
 
 .coding-stats__hero-number {
-    font-size: 3.5rem;
+    font-size: var(--text-2xl);
     font-weight: 700;
     color: var(--primary);
     line-height: 1;
-    margin-bottom: var(--spacing-xs);
 }
 
 .coding-stats__hero-label {
-    font-size: var(--text-sm);
+    font-size: 10px;
     color: var(--text);
     opacity: 0.6;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+/* Main Stats - Middle Column */
+.coding-stats__main-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
 }
 
 /* Progress Bars */
 .coding-stats__progress-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
 }
 
 .coding-stats__progress-item {
@@ -201,16 +186,16 @@
 }
 
 .coding-stats__progress-label {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: 500;
-    min-width: 70px;
+    min-width: 55px;
     color: var(--text);
     opacity: 0.8;
 }
 
 .coding-stats__progress-bar {
     flex: 1;
-    height: 8px;
+    height: 6px;
     background: var(--border);
     border-radius: var(--radius-xl);
     overflow: hidden;
@@ -219,7 +204,7 @@
 .coding-stats__progress-fill {
     height: 100%;
     border-radius: var(--radius-xl);
-    transition: width 0.8s ease;
+    transition: width 0.6s ease;
 }
 
 .coding-stats__progress-fill--1 { background: linear-gradient(90deg, #00B8A3 0%, #00D4AA 100%); }
@@ -229,103 +214,99 @@
 .coding-stats__progress-fill--5 { background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%); }
 
 .coding-stats__progress-count {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--text);
-    opacity: 0.6;
-    min-width: 80px;
+    opacity: 0.5;
+    min-width: 60px;
     text-align: right;
 }
 
-/* Right Column - Metrics Grid */
+/* Metrics Grid - Right Column */
 .coding-stats__metrics {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
 }
 
 .coding-stats__metric {
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
     text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .coding-stats__metric:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.theme-dark .coding-stats__metric:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
 }
 
 .coding-stats__metric-icon {
-    width: 36px;
-    height: 36px;
-    margin: 0 auto var(--spacing-sm);
-    border-radius: var(--radius-md);
+    width: 28px;
+    height: 28px;
+    margin: 0 auto var(--spacing-xs);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(var(--primary-rgb, 255, 143, 0), 0.1);
+    background: rgba(255, 143, 0, 0.1);
     color: var(--primary);
 }
 
 .coding-stats__metric-icon ion-icon {
-    font-size: var(--text-lg);
+    font-size: var(--text-sm);
 }
 
 .coding-stats__metric-value {
-    font-size: var(--text-xl);
+    font-size: var(--text-base);
     font-weight: 600;
     color: var(--text);
-    margin-bottom: 2px;
+    line-height: 1.2;
 }
 
 .coding-stats__metric-label {
-    font-size: var(--text-xs);
+    font-size: 10px;
     color: var(--text);
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 /* Badges Row */
 .coding-stats__badges-row {
     grid-column: 1 / -1;
-    padding-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
     border-top: 1px solid var(--border);
 }
 
 .coding-stats__badges-title {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    font-size: var(--text-sm);
+    gap: var(--spacing-xs);
+    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--text);
-    margin: 0 0 var(--spacing-md) 0;
+    margin: 0 0 var(--spacing-sm) 0;
 }
 
 .coding-stats__badges-title ion-icon {
     color: var(--primary);
+    font-size: var(--text-sm);
 }
 
 .coding-stats__badges {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
 }
 
 .coding-stats__badge {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-xs) var(--spacing-md);
+    gap: 4px;
+    padding: 4px var(--spacing-sm);
     background: rgba(255, 161, 22, 0.1);
     border: 1px solid rgba(255, 161, 22, 0.2);
-    border-radius: var(--radius-xl);
-    font-size: var(--text-sm);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-xs);
     color: #FFA116;
 }
 
@@ -336,7 +317,7 @@
 }
 
 .coding-stats__badge ion-icon {
-    font-size: var(--text-sm);
+    font-size: 10px;
 }
 
 /* ========================================
@@ -348,12 +329,12 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-md);
 }
 
 .coding-stats__nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 1px solid var(--border);
     background: var(--card-bg);
@@ -365,7 +346,7 @@
     transition: all 0.2s ease;
 }
 
-.coding-stats__nav-btn:hover {
+.coding-stats__nav-btn:hover:not(:disabled) {
     background: var(--primary);
     border-color: var(--primary);
     color: #fff;
@@ -377,17 +358,17 @@
 }
 
 .coding-stats__nav-btn ion-icon {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
 }
 
 .coding-stats__dots {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
 }
 
 .coding-stats__dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--border);
     cursor: pointer;
@@ -401,8 +382,8 @@
 
 .coding-stats__dot.active {
     background: var(--primary);
-    width: 24px;
-    border-radius: var(--radius-xl);
+    width: 20px;
+    border-radius: var(--radius-lg);
 }
 
 /* ========================================
@@ -417,12 +398,13 @@
 }
 
 .coding-stats__empty ion-icon {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-md);
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
 }
 
 .coding-stats__empty p {
     margin: 0;
+    font-size: var(--text-sm);
 }
 
 /* ========================================
@@ -437,20 +419,30 @@
 
 @media (max-width: 768px) {
     .coding-stats-component {
-        padding: 0 var(--spacing-8);
+        padding: 0 var(--spacing-10);
     }
     
     .coding-stats__platform-card {
         grid-template-columns: 1fr;
-        padding: var(--spacing-lg);
+        gap: var(--spacing-md);
+    }
+    
+    .coding-stats__platform-header {
+        flex-direction: row;
+        justify-content: flex-start;
+        min-width: auto;
+    }
+    
+    .coding-stats__platform-info {
+        text-align: left;
+    }
+    
+    .coding-stats__hero-stat {
+        display: none;
     }
     
     .coding-stats__metrics {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .coding-stats__slides {
-        min-height: auto;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -468,17 +460,8 @@
         padding: var(--spacing-md);
     }
     
-    .coding-stats__hero-number {
-        font-size: 2.5rem;
-    }
-    
     .coding-stats__metrics {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--spacing-sm);
-    }
-    
-    .coding-stats__metric {
-        padding: var(--spacing-sm);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -492,32 +475,4 @@
 
 .coding-stats-component.nav-visible {
     display: block;
-}
-
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-
-@keyframes fadeSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.coding-stats__platform-card {
-    animation: fadeSlideIn 0.4s ease forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .coding-stats__slide,
-    .coding-stats__platform-card,
-    .coding-stats__progress-fill {
-        animation: none;
-        transition: none;
-    }
 }
