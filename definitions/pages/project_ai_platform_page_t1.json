@@ -59,6 +59,47 @@
         },
         {
           "type": "component",
+          "component": "stats_grid/type_1",
+          "id": "ai-platform-stats",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Project Impact",
+              "stats": [
+                {
+                  "value": "1.2M+",
+                  "label": "Customer Records Processed",
+                  "icon": "people-outline",
+                  "trend": 25
+                },
+                {
+                  "value": "99.9%",
+                  "label": "System Uptime",
+                  "icon": "checkmark-circle-outline"
+                },
+                {
+                  "value": "40%",
+                  "label": "Prediction Accuracy Gain",
+                  "icon": "trending-up-outline",
+                  "trend": 40
+                },
+                {
+                  "value": "<100ms",
+                  "label": "API Response Time",
+                  "icon": "flash-outline"
+                }
+              ]
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        },
+        {
+          "type": "component",
           "component": "code_display/type_1",
           "id": "ai-platform-code-1",
           "dynamic": false,

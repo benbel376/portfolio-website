@@ -1,0 +1,184 @@
+/* Stats Grid Component */
+
+.stats-grid-component {
+    font-family: var(--font-family-primary);
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--spacing-12);
+    margin-bottom: var(--spacing-10);
+}
+
+/* Header */
+.stats-grid__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-5);
+}
+
+.stats-grid__title-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.stats-grid__icon {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+}
+
+.stats-grid__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* Stats Grid */
+.stats-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-4);
+}
+
+/* Stat Card */
+.stats-grid__card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-5);
+    text-align: center;
+    transition: var(--transition-all-fast);
+}
+
+.stats-grid__card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Stat Icon */
+.stats-grid__card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+    margin: 0 auto var(--spacing-3);
+    background: var(--gradient-primary-alpha-10);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-primary);
+    font-size: var(--font-size-xl);
+}
+
+/* Stat Value */
+.stats-grid__card-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--spacing-1);
+}
+
+/* Stat Label */
+.stats-grid__card-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* Stat Trend */
+.stats-grid__card-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    margin-top: var(--spacing-2);
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-half) var(--spacing-2);
+    border-radius: var(--border-radius-full);
+}
+
+.stats-grid__card-trend--up {
+    color: var(--color-success);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.stats-grid__card-trend--down {
+    color: var(--color-error);
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.stats-grid__card-trend--neutral {
+    color: var(--color-text-tertiary);
+    background: var(--color-black-alpha-5);
+}
+
+/* Dark Theme */
+.theme-dark .stats-grid__card {
+    background: var(--color-surface);
+    border-color: var(--color-border-light);
+}
+
+.theme-dark .stats-grid__card:hover {
+    border-color: var(--color-primary);
+}
+
+.theme-dark .stats-grid__card-icon {
+    background: var(--color-white-alpha-10);
+}
+
+.theme-dark .stats-grid__card-trend--neutral {
+    background: var(--color-white-alpha-10);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .stats-grid-component {
+        padding: 0 var(--spacing-4);
+    }
+
+    .stats-grid__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-grid__card-value {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+    .stats-grid-component {
+        padding: 0 var(--spacing-3);
+    }
+
+    .stats-grid__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid__card {
+        padding: var(--spacing-4);
+    }
+
+    .stats-grid__card-icon {
+        width: var(--spacing-10);
+        height: var(--spacing-10);
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* Focus States */
+.stats-grid__card:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .stats-grid__card {
+        transition: none;
+    }
+
+    .stats-grid__card:hover {
+        transform: none;
+    }
+}

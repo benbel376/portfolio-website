@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Stats Grid Component Schema",
+    "description": "Schema for displaying key metrics/statistics in a grid layout",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Optional section title"
+        },
+        "stats": {
+            "type": "array",
+            "description": "Array of statistics to display",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "description": "The statistic value (e.g., '1.2M', '99.9%', '24/7')"
+                    },
+                    "label": {
+                        "type": "string",
+                        "description": "Label describing the statistic"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "Optional Ionicon name"
+                    },
+                    "trend": {
+                        "type": "number",
+                        "description": "Optional trend percentage (positive = up, negative = down)"
+                    }
+                },
+                "required": ["value", "label"]
+            }
+        }
+    },
+    "required": ["stats"],
+    "examples": [
+        {
+            "title": "Project Impact",
+            "stats": [
+                {
+                    "value": "1.2M",
+                    "label": "Records Processed",
+                    "icon": "server-outline",
+                    "trend": 25
+                },
+                {
+                    "value": "99.9%",
+                    "label": "Uptime",
+                    "icon": "checkmark-circle-outline"
+                },
+                {
+                    "value": "40%",
+                    "label": "Prediction Accuracy Improvement",
+                    "icon": "trending-up-outline",
+                    "trend": 40
+                },
+                {
+                    "value": "<100ms",
+                    "label": "Response Time",
+                    "icon": "flash-outline"
+                }
+            ]
+        }
+    ]
+}
