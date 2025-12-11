@@ -36,15 +36,15 @@ class CertificationsLoaderT1 {
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
-        $html = str_replace('<div class="certifications-component">',
-            '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '" data-init-hook="initializeCertifications"' . $styleAttr . '>',
+        $html = str_replace('<section class="certifications-component" data-nav-handler="handleCertificationsNavigation">',
+            '<section class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '" data-init-hook="initializeCertifications"' . $styleAttr . '>',
             $html);
         
         // Inject JavaScript data INSIDE the component container, before the last closing tag
         $dataScript = $this->injectDataScript($certificationsData);
-        $lastDivPos = strrpos($html, '</div>');
-        if ($lastDivPos !== false) {
-            $html = substr_replace($html, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($html, '</section>');
+        if ($lastPos !== false) {
+            $html = substr_replace($html, $dataScript . '</section>', $lastPos, 10);
         }
         
         return $html;
@@ -60,8 +60,8 @@ class CertificationsLoaderT1 {
         
         $template = file_get_contents(__DIR__ . '/certifications_structure_t1.html');
         
-        $html = str_replace('<div class="certifications-component">',
-            '<div class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '" data-init-hook="initializeCertifications"' . $styleAttr . $protectedAttr . ' data-dynamic="true" data-load-state="not-loaded" data-component-metadata="' . $metadataJson . '">',
+        $html = str_replace('<section class="certifications-component" data-nav-handler="handleCertificationsNavigation">',
+            '<section class="certifications-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCertificationsNavigation" data-nav-config="' . $navConfigJson . '" data-init-hook="initializeCertifications"' . $styleAttr . $protectedAttr . ' data-dynamic="true" data-load-state="not-loaded" data-component-metadata="' . $metadataJson . '">',
             $template);
         
         return $html;

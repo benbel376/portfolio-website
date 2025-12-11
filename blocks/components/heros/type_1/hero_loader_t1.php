@@ -52,8 +52,8 @@ class HeroLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
 
         $html = preg_replace(
-            '/<section\\s+class=\\"hero hero-profile\\"\\s+data-nav-handler=\\"handleHeroNavigation\\"\\s*>/i',
-            '<section class="hero hero-profile ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleHeroNavigation" data-nav-config="' . $navConfigJson . '">',
+            '/<section\\s+class=\\"hero-component hero-profile\\"\\s+data-nav-handler=\\"handleHeroNavigation\\"\\s*>/i',
+            '<section class="hero-component hero-profile ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleHeroNavigation" data-nav-config="' . $navConfigJson . '">',
             $html,
             1
         );

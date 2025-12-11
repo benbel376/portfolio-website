@@ -63,8 +63,8 @@ class ToolsLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
 
         $html = preg_replace(
-            '/<section\\s+class=\\"tools\\"\\s+data-nav-handler=\\"handleToolsNavigation\\"\\s*>/i',
-            '<section class="tools ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleToolsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+            '/<section\\s+class=\\"tools-component\\"\\s+data-nav-handler=\\"handleToolsNavigation\\"\\s*>/i',
+            '<section class="tools-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleToolsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $html,
             1
         );
@@ -96,8 +96,8 @@ class ToolsLoaderT1 {
         
         // Inject shell attributes
         $html = preg_replace(
-            '/<section\\s+class=\\"tools\\"\\s+data-nav-handler=\\"handleToolsNavigation\\"\\s*>/i',
-            '<section class="tools ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleToolsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeTools" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
+            '/<section\\s+class=\\"tools-component\\"\\s+data-nav-handler=\\"handleToolsNavigation\\"\\s*>/i',
+            '<section class="tools-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleToolsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeTools" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
             $template,
             1
         );
@@ -132,7 +132,7 @@ class ToolsLoaderT1 {
     }
     
     private function generateErrorPlaceholder() {
-        return '<section class="tools tools--error"><div class="tools__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load tools</p></div></section>';
+        return '<section class="tools-component tools-component--error"><div class="tools__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load tools</p></div></section>';
     }
 
     private function fillTemplate($template, $data) {

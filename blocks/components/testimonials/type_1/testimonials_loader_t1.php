@@ -54,15 +54,15 @@ class TestimonialsLoaderT1 {
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
-        $html = str_replace('<div class="testimonials-component" data-nav-handler="handleTestimonialsNavigation">',
-            '<div class="testimonials-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleTestimonialsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+        $html = str_replace('<section class="testimonials-component" data-nav-handler="handleTestimonialsNavigation">',
+            '<section class="testimonials-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleTestimonialsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $template);
         
         // Inject data script INSIDE container
         $dataScript = $this->injectDataScript($data);
-        $lastDivPos = strrpos($html, '</div>');
-        if ($lastDivPos !== false) {
-            $html = substr_replace($html, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($html, '</section>');
+        if ($lastPos !== false) {
+            $html = substr_replace($html, $dataScript . '</section>', $lastPos, 10);
         }
         
         return $html;
@@ -85,8 +85,8 @@ class TestimonialsLoaderT1 {
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         
         // Inject shell attributes
-        $html = str_replace('<div class="testimonials-component" data-nav-handler="handleTestimonialsNavigation">',
-            '<div class="testimonials-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleTestimonialsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeTestimonials" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
+        $html = str_replace('<section class="testimonials-component" data-nav-handler="handleTestimonialsNavigation">',
+            '<section class="testimonials-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleTestimonialsNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeTestimonials" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
             $template);
         
         return $html;

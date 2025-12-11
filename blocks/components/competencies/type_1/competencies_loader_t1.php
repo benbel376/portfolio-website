@@ -69,8 +69,8 @@ class CompetenciesLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
 
         $html = preg_replace(
-            '/<section\\s+class=\\"competencies\\"\\s+data-nav-handler=\\"handleCompetenciesNavigation\\"\\s*>/i',
-            '<section class="competencies ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCompetenciesNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+            '/<section\\s+class=\\"competencies-component\\"\\s+data-nav-handler=\\"handleCompetenciesNavigation\\"\\s*>/i',
+            '<section class="competencies-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCompetenciesNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $html,
             1
         );
@@ -102,8 +102,8 @@ class CompetenciesLoaderT1 {
         
         // Inject shell attributes
         $html = preg_replace(
-            '/<section\\s+class=\\"competencies\\"\\s+data-nav-handler=\\"handleCompetenciesNavigation\\"\\s*>/i',
-            '<section class="competencies ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCompetenciesNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeCompetencies" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
+            '/<section\\s+class=\\"competencies-component\\"\\s+data-nav-handler=\\"handleCompetenciesNavigation\\"\\s*>/i',
+            '<section class="competencies-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleCompetenciesNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeCompetencies" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
             $template,
             1
         );
@@ -139,7 +139,7 @@ class CompetenciesLoaderT1 {
     }
     
     private function generateErrorPlaceholder() {
-        return '<section class="competencies competencies--error"><div class="competencies__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load competencies</p></div></section>';
+        return '<section class="competencies-component competencies-component--error"><div class="competencies__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load competencies</p></div></section>';
     }
 
     private function fillTemplate($template, $data) {

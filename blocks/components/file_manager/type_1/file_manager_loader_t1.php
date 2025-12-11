@@ -14,8 +14,8 @@ class FileManagerLoaderT1 {
         
         // Inject ID and navigation config
         $html = str_replace(
-            '<div class="file-manager-component" data-nav-handler="handleFileManagerNavigation">',
-            '<div class="file-manager-component" 
+            '<section class="file-manager-component" data-nav-handler="handleFileManagerNavigation">',
+            '<section class="file-manager-component" 
                  id="' . htmlspecialchars($id) . '" 
                  data-nav-handler="handleFileManagerNavigation"
                  data-nav-config="' . $navConfigJson . '">',

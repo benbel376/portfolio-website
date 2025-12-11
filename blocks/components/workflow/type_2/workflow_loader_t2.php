@@ -63,8 +63,8 @@ class WorkflowLoaderT2 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
 
         $html = preg_replace(
-            '/<section\\s+class=\\"workflow\\"\\s+data-nav-handler=\\"handleWorkflowNavigation\\"\\s*>/i',
-            '<section class="workflow ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+            '/<section\\s+class=\\"workflow-component\\"\\s+data-nav-handler=\\"handleWorkflowNavigation\\"\\s*>/i',
+            '<section class="workflow-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $html,
             1
         );
@@ -92,8 +92,8 @@ class WorkflowLoaderT2 {
         
         // Inject shell attributes
         $html = preg_replace(
-            '/<section\\s+class=\\"workflow\\"\\s+data-nav-handler=\\"handleWorkflowNavigation\\"\\s*>/i',
-            '<section class="workflow ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeWorkflow" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
+            '/<section\\s+class=\\"workflow-component\\"\\s+data-nav-handler=\\"handleWorkflowNavigation\\"\\s*>/i',
+            '<section class="workflow-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleWorkflowNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . ' data-dynamic="true" data-load-state="not-loaded" data-init-hook="initializeWorkflow" data-component-metadata="' . $metadataJson . '"' . $protectedAttr . '>',
             $template,
             1
         );
@@ -136,7 +136,7 @@ class WorkflowLoaderT2 {
     }
     
     private function generateErrorPlaceholder() {
-        return '<section class="workflow workflow--error"><div class="workflow__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load workflow</p></div></section>';
+        return '<section class="workflow-component workflow-component--error"><div class="workflow__empty"><ion-icon name="alert-circle-outline"></ion-icon><p>Unable to load workflow</p></div></section>';
     }
 
     private function fillTemplate($template, $data) {

@@ -29,8 +29,8 @@ class ExperienceLoaderT1 {
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
-        $html = str_replace('<div class="experience-component">',
-            '<div class="experience-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleExperienceNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+        $html = str_replace('<section class="experience-component" data-nav-handler="handleExperienceNavigation">',
+            '<section class="experience-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleExperienceNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $template);
         
         // Inject JavaScript data
@@ -49,8 +49,8 @@ class ExperienceLoaderT1 {
         
         $template = file_get_contents(__DIR__ . '/experience_structure_t1.html');
         
-        $html = str_replace('<div class="experience-component">',
-            '<div class="experience-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleExperienceNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . $protectedAttr . ' data-metadata="' . $metadataJson . '">',
+        $html = str_replace('<section class="experience-component" data-nav-handler="handleExperienceNavigation">',
+            '<section class="experience-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleExperienceNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . $protectedAttr . ' data-metadata="' . $metadataJson . '">',
             $template);
         
         return $html;

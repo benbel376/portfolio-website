@@ -32,8 +32,8 @@ class ProjectsGridLoaderT1 {
         $styleAttr = $defaultState === 'hidden' ? ' style="display: none;"' : '';
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
-        $html = str_replace('<div class="projects-grid-component">',
-            '<div class="projects-grid-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectsGridNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
+        $html = str_replace('<section class="projects-grid-component" data-nav-handler="handleProjectsGridNavigation">',
+            '<section class="projects-grid-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectsGridNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . '>',
             $html);
         
         // Inject JavaScript data
@@ -52,8 +52,8 @@ class ProjectsGridLoaderT1 {
         
         $template = file_get_contents(__DIR__ . '/projects_grid_structure_t1.html');
         
-        $html = str_replace('<div class="projects-grid-component">',
-            '<div class="projects-grid-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectsGridNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . $protectedAttr . ' data-metadata="' . $metadataJson . '">',
+        $html = str_replace('<section class="projects-grid-component" data-nav-handler="handleProjectsGridNavigation">',
+            '<section class="projects-grid-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectsGridNavigation" data-nav-config="' . $navConfigJson . '"' . $styleAttr . $protectedAttr . ' data-metadata="' . $metadataJson . '">',
             $template);
         
         return $html;

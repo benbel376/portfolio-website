@@ -18,8 +18,8 @@ class ProjectDetailsLoader {
 
         // Inject component ID and navigation configuration
         $html = preg_replace(
-            '/<section\\s+class="project-details"\\s+data-nav-handler="handleProjectDetailsNavigation"\\s*>/i',
-            '<section class="project-details ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectDetailsNavigation" data-nav-config="' . $navConfigJson . '">',
+            '/<section\\s+class="project-details-component"\\s+data-nav-handler="handleProjectDetailsNavigation"\\s*>/i',
+            '<section class="project-details-component ' . $stateClass . '" id="' . htmlspecialchars($id) . '" data-nav-handler="handleProjectDetailsNavigation" data-nav-config="' . $navConfigJson . '">',
             $html,
             1
         );
