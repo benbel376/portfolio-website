@@ -1,6 +1,6 @@
 /* Side Bar Site - Main Styles */
 /* Import shared component variables from top_bar site (components depend on these) */
-@import url('../../../sites/top_bar/type_2/styles/top_bar_site_variables_style_t2.css');
+@import url('../../top_bar/type_2/styles/top_bar_site_variables_style_t2.css');
 /* Sidebar-specific overrides */
 @import url('styles/side_bar_site_variables_t1.css');
 @import url('styles/side_bar_site_resets_t1.css');
