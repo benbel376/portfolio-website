@@ -203,11 +203,12 @@ function setupNavigation(container) {
         prevBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Coding Stats: Prev clicked, current:', window.codingStatsCurrentSlide);
+            const currentContainer = document.querySelector('.coding-stats-component');
+            console.log('Coding Stats: Prev clicked, current:', window.codingStatsCurrentSlide, 'container:', !!currentContainer);
             const platforms = window.codingStatsData?.platforms || [];
             const newIndex = window.codingStatsCurrentSlide - 1;
-            if (newIndex >= 0) {
-                showSlide(window.codingStatsContainer, newIndex);
+            if (newIndex >= 0 && currentContainer) {
+                showSlide(currentContainer, newIndex);
             }
         };
     }
@@ -216,11 +217,12 @@ function setupNavigation(container) {
         nextBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Coding Stats: Next clicked, current:', window.codingStatsCurrentSlide);
+            const currentContainer = document.querySelector('.coding-stats-component');
+            console.log('Coding Stats: Next clicked, current:', window.codingStatsCurrentSlide, 'container:', !!currentContainer);
             const platforms = window.codingStatsData?.platforms || [];
             const newIndex = window.codingStatsCurrentSlide + 1;
-            if (newIndex < platforms.length) {
-                showSlide(window.codingStatsContainer, newIndex);
+            if (newIndex < platforms.length && currentContainer) {
+                showSlide(currentContainer, newIndex);
             }
         };
     }
@@ -229,9 +231,12 @@ function setupNavigation(container) {
         dotsContainer.onclick = function(e) {
             const dot = e.target.closest('.coding-stats__dot');
             if (dot) {
+                const currentContainer = document.querySelector('.coding-stats-component');
                 const index = parseInt(dot.dataset.index, 10);
-                console.log('Coding Stats: Dot clicked, index:', index);
-                showSlide(window.codingStatsContainer, index);
+                console.log('Coding Stats: Dot clicked, index:', index, 'container:', !!currentContainer);
+                if (currentContainer) {
+                    showSlide(currentContainer, index);
+                }
             }
         };
     }
