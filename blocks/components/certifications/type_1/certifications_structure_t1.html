@@ -11,14 +11,6 @@
                 <h2 class="certifications__title">Professional Certifications</h2>
                 <p class="certifications__subtitle">Industry-recognized credentials and achievements</p>
             </div>
-            <div class="certifications__header-navigation">
-                <button class="certifications__header-nav-button certifications__nav-prev" id="certifications-prev">
-                    <ion-icon name="chevron-back-outline"></ion-icon>
-                </button>
-                <button class="certifications__header-nav-button certifications__nav-next" id="certifications-next">
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                </button>
-            </div>
         </div>
     </div>
 
@@ -29,11 +21,17 @@
         </div>
     </div>
 
-    <!-- Pagination Controls -->
+    <!-- Pagination Controls with Arrows -->
     <div class="certifications__pagination-container">
+        <button class="certifications__pagination-arrow certifications__pagination-arrow--prev" id="certifications-prev">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
         <div class="certifications__pagination" id="certifications-pagination">
             <!-- Pagination dots will be dynamically loaded here -->
         </div>
+        <button class="certifications__pagination-arrow certifications__pagination-arrow--next" id="certifications-next">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
     </div>
 
     <!-- Empty State -->
