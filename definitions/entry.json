@@ -1,5 +1,5 @@
 {
-    "default_profile": "ml_mlops",
+    "default_profile": "sidebar",
     "profiles": {
         "ml_mlops": {
             "profile": "ml_mlops_t1.json",

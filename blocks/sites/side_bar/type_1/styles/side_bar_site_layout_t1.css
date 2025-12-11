@@ -1,5 +1,14 @@
 /* Side Bar Site - Layout */
 
+/* Global Card Style (shared with components) */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2em;
+}
+
 .site-container {
   display: flex;
   min-height: 100vh;
