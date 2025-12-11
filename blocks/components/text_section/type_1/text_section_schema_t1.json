@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Text Section Component Schema",
+    "description": "Schema for displaying rich text content sections with optional HTML support",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Section title displayed in the header",
+            "default": "Overview"
+        },
+        "icon": {
+            "type": "string",
+            "description": "Ionicon name for the header icon",
+            "default": "document-text-outline"
+        },
+        "content": {
+            "type": "string",
+            "description": "Text content (supports basic markdown: **bold**, *italic*, `code`)"
+        },
+        "html": {
+            "type": "boolean",
+            "description": "If true, content is rendered as raw HTML",
+            "default": false
+        }
+    },
+    "required": ["content"],
+    "examples": [
+        {
+            "title": "Project Overview",
+            "icon": "information-circle-outline",
+            "content": "This project demonstrates **advanced machine learning** techniques for customer analytics.\n\nThe system uses *neural networks* to identify patterns in customer behavior and generate actionable insights."
+        },
+        {
+            "title": "Technical Details",
+            "icon": "code-outline",
+            "content": "<h4>Architecture</h4><p>The system is built on a <strong>microservices architecture</strong> using Docker and Kubernetes.</p><ul><li>API Gateway</li><li>ML Service</li><li>Data Pipeline</li></ul>",
+            "html": true
+        }
+    ]
+}

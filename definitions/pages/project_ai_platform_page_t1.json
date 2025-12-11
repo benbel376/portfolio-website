@@ -40,6 +40,25 @@
         },
         {
           "type": "component",
+          "component": "text_section/type_1",
+          "id": "ai-platform-overview",
+          "dynamic": false,
+          "variant": "main",
+          "data": {
+            "main": {
+              "title": "Project Overview",
+              "icon": "information-circle-outline",
+              "content": "This project was developed to help businesses **understand their customers better** through advanced machine learning techniques.\n\nThe platform processes millions of customer interactions daily, identifying patterns that would be impossible to detect manually. Using *neural network embeddings*, we create rich representations of customer behavior that enable precise segmentation and accurate predictions.\n\nKey achievements include a `40% improvement` in customer retention predictions and a `25% increase` in marketing campaign effectiveness through better targeting."
+            }
+          },
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": ["visible", "hidden", "scrollTo"],
+            "protected": false
+          }
+        },
+        {
+          "type": "component",
           "component": "code_display/type_1",
           "id": "ai-platform-code-1",
           "dynamic": false,

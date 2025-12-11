@@ -1,0 +1,168 @@
+/* Text Section Component */
+
+.text-section-component {
+    font-family: var(--font-family-primary);
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--spacing-12);
+    margin-bottom: var(--spacing-10);
+}
+
+/* Header */
+.text-section__header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-5);
+}
+
+.text-section__icon {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+}
+
+.text-section__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* Content */
+.text-section__content {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-6);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Typography within content */
+.text-section__content h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-3) 0;
+}
+
+.text-section__content h5 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: var(--spacing-4) 0 var(--spacing-2) 0;
+}
+
+.text-section__content p {
+    margin: 0 0 var(--spacing-4) 0;
+}
+
+.text-section__content p:last-child {
+    margin-bottom: 0;
+}
+
+.text-section__content ul,
+.text-section__content ol {
+    margin: 0 0 var(--spacing-4) 0;
+    padding-left: var(--spacing-6);
+}
+
+.text-section__content li {
+    margin-bottom: var(--spacing-2);
+}
+
+.text-section__content li:last-child {
+    margin-bottom: 0;
+}
+
+.text-section__content strong {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.text-section__content em {
+    font-style: italic;
+}
+
+.text-section__content a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition-all-fast);
+}
+
+.text-section__content a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+.text-section__content code {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    background: var(--color-black-alpha-5);
+    padding: var(--spacing-half) var(--spacing-1);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-primary-dark);
+}
+
+.text-section__content blockquote {
+    margin: var(--spacing-4) 0;
+    padding: var(--spacing-4) var(--spacing-5);
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-black-alpha-3);
+    border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+    font-style: italic;
+    color: var(--color-text-secondary);
+}
+
+.text-section__content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Dark Theme */
+.theme-dark .text-section__content {
+    background: var(--color-surface);
+    border-color: var(--color-border-light);
+}
+
+.theme-dark .text-section__content code {
+    background: var(--color-white-alpha-10);
+    color: var(--color-primary-light);
+}
+
+.theme-dark .text-section__content blockquote {
+    background: var(--color-white-alpha-5);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .text-section-component {
+        padding: 0 var(--spacing-4);
+    }
+
+    .text-section__content {
+        padding: var(--spacing-5);
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+    .text-section-component {
+        padding: 0 var(--spacing-3);
+    }
+
+    .text-section__content {
+        padding: var(--spacing-4);
+        font-size: var(--font-size-sm);
+    }
+
+    .text-section__content h4 {
+        font-size: var(--font-size-base);
+    }
+}
+
+/* Focus States */
+.text-section__content a:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
