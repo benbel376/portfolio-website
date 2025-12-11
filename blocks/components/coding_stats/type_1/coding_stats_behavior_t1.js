@@ -93,10 +93,20 @@ function renderSlideshow() {
     });
     
     // Show first slide
-    showSlide(0);
+    console.log('CodingStats: About to call showSlide(0)');
+    try {
+        showSlide(0);
+    } catch (e) {
+        console.error('CodingStats: Error in showSlide:', e);
+    }
     
     // Render pagination dots
-    renderPagination();
+    console.log('CodingStats: About to call renderPagination');
+    try {
+        renderPagination();
+    } catch (e) {
+        console.error('CodingStats: Error in renderPagination:', e);
+    }
     
     console.log('CodingStats: Rendered', window.codingStatsData.length, 'slides successfully');
 }
@@ -302,4 +312,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded');
+console.log('CodingStats: Behavior loaded v2');
