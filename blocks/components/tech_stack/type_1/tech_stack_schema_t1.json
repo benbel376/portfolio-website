@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Tech Stack Component Schema",
+    "description": "Displays technology stack organized by categories",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Section title",
+            "default": "Technology Stack"
+        },
+        "categories": {
+            "type": "array",
+            "description": "Technology categories",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Category name (e.g., Frontend, Backend, DevOps)"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "Ionicon name for category",
+                        "default": "cube-outline"
+                    },
+                    "technologies": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Technology name"
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "description": "Optional icon URL/path"
+                                },
+                                "version": {
+                                    "type": "string",
+                                    "description": "Optional version number"
+                                }
+                            },
+                            "required": ["name"]
+                        }
+                    }
+                },
+                "required": ["name", "technologies"]
+            }
+        }
+    },
+    "required": ["categories"],
+    "examples": [
+        {
+            "title": "Technology Stack",
+            "categories": [
+                {
+                    "name": "Frontend",
+                    "icon": "desktop-outline",
+                    "technologies": [
+                        { "name": "React", "version": "18.2" },
+                        { "name": "TypeScript", "version": "5.0" }
+                    ]
+                },
+                {
+                    "name": "Backend",
+                    "icon": "server-outline",
+                    "technologies": [
+                        { "name": "Node.js", "version": "20" },
+                        { "name": "PostgreSQL", "version": "15" }
+                    ]
+                }
+            ]
+        }
+    ]
+}
