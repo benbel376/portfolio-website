@@ -199,8 +199,12 @@ function showSlide(index, containerOverride) {
     slides.forEach((slide, i) => {
         if (i === index) {
             slide.classList.add('active');
+            slide.style.display = 'flex';  // Force display
+            slide.style.opacity = '1';     // Force opacity
+            console.log('CodingStats: Activated slide', i, 'classes:', slide.className);
         } else {
             slide.classList.remove('active');
+            slide.style.display = 'none';
         }
     });
     
@@ -345,4 +349,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded v6');
+console.log('CodingStats: Behavior loaded v7');
