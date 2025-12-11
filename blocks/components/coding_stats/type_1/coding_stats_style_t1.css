@@ -53,6 +53,26 @@
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
     min-height: 140px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle dot pattern background */
+.coding-stats__slideshow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.theme-dark .coding-stats__slideshow::before {
+    opacity: 0.2;
 }
 
 /* Slide - Single row layout */
@@ -61,7 +81,9 @@
     opacity: 0;
     transition: opacity 0.3s ease;
     align-items: center;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
+    position: relative;
+    z-index: 1;
 }
 
 .coding-stats__slide.active {
@@ -165,7 +187,7 @@
 /* Stats Row */
 .coding-stats__slide-stats {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-2xl);
 }
 
 .coding-stats__stat {
