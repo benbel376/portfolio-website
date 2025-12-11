@@ -68,18 +68,10 @@ function renderProjectHero(component, data) {
         bannerImg.alt = data.title || 'Project Banner';
     }
 
-    // Category (left side)
+    // Category
     const category = component.querySelector('.project-hero__category');
     if (category) {
         category.textContent = data.category || 'Project';
-    }
-
-    // Status (right side)
-    const status = component.querySelector('.project-hero__status');
-    if (status) {
-        const statusText = data.status || 'Completed';
-        status.textContent = statusText;
-        status.setAttribute('data-status', statusText.toLowerCase().replace(/\s+/g, '-'));
     }
 
     // Title
@@ -101,6 +93,10 @@ function renderProjectHero(component, data) {
     // Info row - Duration
     const durationEl = component.querySelector('#project-hero-duration');
     if (durationEl) durationEl.textContent = data.duration || '-';
+
+    // Info row - Status
+    const statusEl = component.querySelector('#project-hero-status');
+    if (statusEl) statusEl.textContent = data.status || 'Completed';
 
     // Links in info row
     const demoLink = component.querySelector('#project-hero-demo');
