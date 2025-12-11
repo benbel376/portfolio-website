@@ -14,11 +14,11 @@
     }
     
     function applyTheme(theme) {
-        const html = document.documentElement;
+        // Apply to body (same as top_bar site)
         if (theme === 'dark') {
-            html.classList.add('theme-dark');
+            document.body.classList.add('theme-dark');
         } else {
-            html.classList.remove('theme-dark');
+            document.body.classList.remove('theme-dark');
         }
         updateThemeIcon(theme);
     }
@@ -31,8 +31,7 @@
     }
     
     function toggleTheme() {
-        const html = document.documentElement;
-        const isDark = html.classList.contains('theme-dark');
+        const isDark = document.body.classList.contains('theme-dark');
         const newTheme = isDark ? 'light' : 'dark';
         applyTheme(newTheme);
         setStoredTheme(newTheme);
