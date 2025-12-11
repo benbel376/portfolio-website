@@ -1,5 +1,17 @@
 /**
  * Text Section Component Behavior
+ * Pure text block with markdown support
+ * 
+ * Markdown syntax supported:
+ * - **bold** or __bold__
+ * - *italic* or _italic_
+ * - `inline code`
+ * - [link text](url)
+ * - {{highlight}}text{{/highlight}} for highlighted text
+ * - \n\n for paragraph breaks
+ * - \n for line breaks within paragraphs
+ * - > blockquote
+ * - - or * for bullet lists
  */
 
 window.textSectionData = window.textSectionData || {};
@@ -19,44 +31,65 @@ function setTextSectionData(componentId, data) {
 function renderTextSection(component, data) {
     if (!component || !data) return;
 
-    const title = data.title || 'Overview';
     const content = data.content || '';
-    const icon = data.icon || 'document-text-outline';
 
-    // Set icon
-    const iconEl = component.querySelector('.text-section__icon');
-    if (iconEl) iconEl.setAttribute('name', icon);
-
-    // Set title
-    const titleEl = component.querySelector('.text-section__title');
-    if (titleEl) titleEl.textContent = title;
-
-    // Set content (supports HTML)
+    // Set content (supports HTML or markdown)
     const contentEl = component.querySelector('.text-section__content');
     if (contentEl) {
-        contentEl.innerHTML = data.html ? data.content : formatTextContent(content);
+        contentEl.innerHTML = data.html ? content : formatTextContent(content);
     }
 }
 
 function formatTextContent(text) {
     if (!text) return '';
     
-    // Convert markdown-like syntax to HTML
-    let html = text
-        // Escape HTML first if not already HTML
+    // Split into blocks by double newlines
+    const blocks = text.split('\n\n').map(b => b.trim()).filter(b => b);
+    
+    let html = blocks.map(block => {
+        // Check for blockquote
+        if (block.startsWith('>')) {
+            const quoteText = block.replace(/^>\s*/gm, '');
+            return '<blockquote>' + formatInlineMarkdown(quoteText) + '</blockquote>';
+        }
+        
+        // Check for bullet list
+        if (block.match(/^[-*]\s/m)) {
+            const items = block.split('\n')
+                .filter(line => line.match(/^[-*]\s/))
+                .map(line => '<li>' + formatInlineMarkdown(line.replace(/^[-*]\s/, '')) + '</li>')
+                .join('');
+            return '<ul>' + items + '</ul>';
+        }
+        
+        // Regular paragraph - convert single newlines to <br>
+        const paraContent = block.split('\n').map(line => formatInlineMarkdown(line)).join('<br>');
+        return '<p>' + paraContent + '</p>';
+    }).join('');
+    
+    return html;
+}
+
+function formatInlineMarkdown(text) {
+    if (!text) return '';
+    
+    return text
+        // Escape HTML entities
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        // Bold
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        // Italic
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        // Inline code
-        .replace(/`(.*?)`/g, '<code>$1</code>')
-        // Line breaks to paragraphs
-        .split('\n\n').map(p => p.trim()).filter(p => p).map(p => `<p>${p}</p>`).join('');
-    
-    return html;
+        // Links: [text](url)
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        // Highlight: {{highlight}}text{{/highlight}}
+        .replace(/\{\{highlight\}\}(.*?)\{\{\/highlight\}\}/g, '<mark>$1</mark>')
+        // Bold: **text** or __text__
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+        // Italic: *text* or _text_
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+        .replace(/_([^_]+)_/g, '<em>$1</em>')
+        // Inline code: `text`
+        .replace(/`([^`]+)`/g, '<code>$1</code>');
 }
 
 function handleTextSectionNavigation(elementId, state, parameters = {}) {

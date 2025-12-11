@@ -1,39 +1,15 @@
-/* Text Section Component */
+/* Text Section Component - Pure text block without background */
 
 .text-section-component {
     font-family: var(--font-family-primary);
     max-width: var(--container-max-width, 1200px);
     margin: 0 auto;
     padding: 0 var(--spacing-12);
-    margin-bottom: var(--spacing-10);
+    margin-bottom: var(--spacing-6);
 }
 
-/* Header */
-.text-section__header {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    margin-bottom: var(--spacing-5);
-}
-
-.text-section__icon {
-    font-size: var(--font-size-xl);
-    color: var(--color-primary);
-}
-
-.text-section__title {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    margin: 0;
-}
-
-/* Content */
+/* Content - No background, just text */
 .text-section__content {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--border-radius-xl);
-    padding: var(--spacing-6);
     color: var(--color-text-secondary);
     font-size: var(--font-size-base);
     line-height: var(--line-height-relaxed);
@@ -119,12 +95,15 @@
     margin-bottom: 0;
 }
 
-/* Dark Theme */
-.theme-dark .text-section__content {
-    background: var(--color-surface);
-    border-color: var(--color-border-light);
+/* Highlight */
+.text-section__content mark {
+    background: var(--gradient-primary-alpha-20);
+    color: var(--color-text-primary);
+    padding: var(--spacing-half) var(--spacing-1);
+    border-radius: var(--border-radius-sm);
 }
 
+/* Dark Theme */
 .theme-dark .text-section__content code {
     background: var(--color-white-alpha-10);
     color: var(--color-primary-light);
@@ -139,10 +118,6 @@
     .text-section-component {
         padding: 0 var(--spacing-4);
     }
-
-    .text-section__content {
-        padding: var(--spacing-5);
-    }
 }
 
 /* Responsive - Mobile */
@@ -152,7 +127,6 @@
     }
 
     .text-section__content {
-        padding: var(--spacing-4);
         font-size: var(--font-size-sm);
     }
 

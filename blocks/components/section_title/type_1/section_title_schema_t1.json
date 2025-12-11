@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Section Title Component Schema",
+    "description": "Standalone section heading with optional icon and subtitle",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Main title text"
+        },
+        "subtitle": {
+            "type": "string",
+            "description": "Optional subtitle/description below the title"
+        },
+        "icon": {
+            "type": "string",
+            "description": "Optional Ionicon name displayed before the title"
+        },
+        "size": {
+            "type": "string",
+            "enum": ["sm", "md", "lg"],
+            "description": "Title size variant",
+            "default": "md"
+        }
+    },
+    "required": ["title"],
+    "examples": [
+        {
+            "title": "Project Overview",
+            "icon": "information-circle-outline"
+        },
+        {
+            "title": "Technical Architecture",
+            "subtitle": "How the system is built",
+            "icon": "code-outline",
+            "size": "lg"
+        },
+        {
+            "title": "Quick Note",
+            "size": "sm"
+        }
+    ]
+}

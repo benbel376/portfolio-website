@@ -1,41 +1,37 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Text Section Component Schema",
-    "description": "Schema for displaying rich text content sections with optional HTML support",
+    "description": "Pure text block component with markdown support. No title - use section_title component for headings.",
     "type": "object",
     "properties": {
-        "title": {
-            "type": "string",
-            "description": "Section title displayed in the header",
-            "default": "Overview"
-        },
-        "icon": {
-            "type": "string",
-            "description": "Ionicon name for the header icon",
-            "default": "document-text-outline"
-        },
         "content": {
             "type": "string",
-            "description": "Text content (supports basic markdown: **bold**, *italic*, `code`)"
+            "description": "Text content with markdown support. Syntax: **bold**, *italic*, `code`, [link](url), {{highlight}}text{{/highlight}}, > blockquote, - bullet list. Use \\n\\n for paragraph breaks, \\n for line breaks."
         },
         "html": {
             "type": "boolean",
-            "description": "If true, content is rendered as raw HTML",
+            "description": "If true, content is rendered as raw HTML instead of markdown",
             "default": false
         }
     },
     "required": ["content"],
+    "markdownSyntax": {
+        "bold": "**text** or __text__",
+        "italic": "*text* or _text_",
+        "code": "`text`",
+        "link": "[link text](url)",
+        "highlight": "{{highlight}}text{{/highlight}}",
+        "blockquote": "> quoted text",
+        "bulletList": "- item or * item",
+        "paragraphBreak": "\\n\\n (double newline)",
+        "lineBreak": "\\n (single newline)"
+    },
     "examples": [
         {
-            "title": "Project Overview",
-            "icon": "information-circle-outline",
-            "content": "This project demonstrates **advanced machine learning** techniques for customer analytics.\n\nThe system uses *neural networks* to identify patterns in customer behavior and generate actionable insights."
+            "content": "This project demonstrates **advanced machine learning** techniques.\n\nKey achievements:\n- 40% improvement in predictions\n- Real-time processing\n- `99.9%` uptime"
         },
         {
-            "title": "Technical Details",
-            "icon": "code-outline",
-            "content": "<h4>Architecture</h4><p>The system is built on a <strong>microservices architecture</strong> using Docker and Kubernetes.</p><ul><li>API Gateway</li><li>ML Service</li><li>Data Pipeline</li></ul>",
-            "html": true
+            "content": "Visit our [documentation](https://docs.example.com) for more details.\n\n> This is a blockquote for important notes.\n\nThe {{highlight}}highlighted text{{/highlight}} draws attention to key points."
         }
     ]
 }

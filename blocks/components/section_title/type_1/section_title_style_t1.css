@@ -1,0 +1,100 @@
+/* Section Title Component */
+
+.section-title-component {
+    font-family: var(--font-family-primary);
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--spacing-12);
+    margin-bottom: var(--spacing-4);
+}
+
+/* Title Wrapper */
+.section-title__wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+/* Icon */
+.section-title__icon {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.section-title__icon[name=""] {
+    display: none;
+}
+
+/* Title Text */
+.section-title__text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--line-height-tight);
+}
+
+/* Subtitle */
+.section-title__subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin: var(--spacing-1) 0 0 0;
+    padding-left: calc(var(--font-size-xl) + var(--spacing-2));
+}
+
+.section-title__subtitle:empty {
+    display: none;
+}
+
+/* Size Variants */
+.section-title-component.section-title--sm .section-title__icon {
+    font-size: var(--font-size-lg);
+}
+
+.section-title-component.section-title--sm .section-title__text {
+    font-size: var(--font-size-lg);
+}
+
+.section-title-component.section-title--lg .section-title__icon {
+    font-size: var(--font-size-2xl);
+}
+
+.section-title-component.section-title--lg .section-title__text {
+    font-size: var(--font-size-2xl);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .section-title-component {
+        padding: 0 var(--spacing-4);
+    }
+
+    .section-title__text {
+        font-size: var(--font-size-lg);
+    }
+
+    .section-title__subtitle {
+        padding-left: calc(var(--font-size-lg) + var(--spacing-2));
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+    .section-title-component {
+        padding: 0 var(--spacing-3);
+    }
+
+    .section-title__text {
+        font-size: var(--font-size-base);
+    }
+
+    .section-title__icon {
+        font-size: var(--font-size-lg);
+    }
+
+    .section-title__subtitle {
+        padding-left: 0;
+        font-size: var(--font-size-xs);
+    }
+}
