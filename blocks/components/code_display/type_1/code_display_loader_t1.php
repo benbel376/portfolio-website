@@ -49,10 +49,10 @@ class CodeDisplayLoaderT1 {
             $template
         );
 
-        // Inject data script before closing div
+        // Inject data script before closing section
         $dataScript = $this->generateDataScript($id, $data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
 
         return $template;
     }
@@ -67,8 +67,8 @@ class CodeDisplayLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="code-display-component"',
-            '<div class="code-display-component" 
+            '<section class="code-display-component"',
+            '<section class="code-display-component" 
                  id="' . htmlspecialchars($id) . '" 
                  data-nav-config="' . $navConfigJson . '"
                  data-dynamic="true"

@@ -34,8 +34,8 @@ class FeatureListLoaderT1 {
         $metadataJson = htmlspecialchars(json_encode($componentMetadata), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="feature-list-component"',
-            '<div class="feature-list-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+            '<section class="feature-list-component"',
+            '<section class="feature-list-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
                  data-nav-config=\'' . $navConfigJson . '\'
                  data-dynamic="true"
                  data-load-state="not-loaded"
@@ -57,16 +57,16 @@ class FeatureListLoaderT1 {
         $navConfigJson = htmlspecialchars(json_encode($navConfig), ENT_QUOTES, 'UTF-8');
         
         $template = str_replace(
-            '<div class="feature-list-component"',
-            '<div class="feature-list-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
+            '<section class="feature-list-component"',
+            '<section class="feature-list-component" id="' . htmlspecialchars($id, ENT_QUOTES, 'UTF-8') . '" 
                  data-nav-config=\'' . $navConfigJson . '\'',
             $template
         );
         
-        // Inject data script before closing div
+        // Inject data script before closing section
         $dataScript = $this->injectDataScript($id, $data);
-        $lastDivPos = strrpos($template, '</div>');
-        $template = substr_replace($template, $dataScript . '</div>', $lastDivPos, 6);
+        $lastPos = strrpos($template, '</section>');
+        $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
         
         return $template;
     }
