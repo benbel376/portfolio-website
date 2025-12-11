@@ -6,7 +6,6 @@
 // Global state
 window.codingStatsData = window.codingStatsData || null;
 window.codingStatsCurrentSlide = window.codingStatsCurrentSlide || 0;
-window.codingStatsContainer = window.codingStatsContainer || null;
 
 /**
  * Initialize the coding stats component
@@ -19,15 +18,12 @@ function initializeCodingStats(componentElement) {
         console.error('Coding Stats: Container not found');
         return;
     }
-    
-    // Store container reference globally
-    window.codingStatsContainer = container;
 
     if (window.codingStatsData && window.codingStatsData.platforms && window.codingStatsData.platforms.length > 0) {
-        renderCodingStats(window.codingStatsData, container);
-        setupNavigation(container);
+        renderCodingStats(window.codingStatsData);
+        initializeNavigation();
     } else {
-        showEmptyState(container);
+        showEmptyState();
     }
 }
 
@@ -39,27 +35,25 @@ function setCodingStatsData(data) {
     window.codingStatsData = data;
     window.codingStatsCurrentSlide = 0;
     
-    const container = document.querySelector('.coding-stats-component');
-    if (container) {
-        window.codingStatsContainer = container;
-        renderCodingStats(data, container);
-        setupNavigation(container);
-    }
+    renderCodingStats(data);
+    initializeNavigation();
 }
 
 /**
  * Render all platform slides
  */
-function renderCodingStats(data, container) {
+function renderCodingStats(data) {
+    const container = document.querySelector('.coding-stats-component');
+    if (!container) return;
+    
     if (!data || !data.platforms || data.platforms.length === 0) {
-        showEmptyState(container);
+        showEmptyState();
         return;
     }
 
     const emptyState = container.querySelector('#coding-stats-empty');
     const slideshow = container.querySelector('.coding-stats__slideshow');
     const slidesContainer = container.querySelector('#coding-stats-slides');
-    const dotsContainer = container.querySelector('#coding-stats-dots');
     
     if (emptyState) emptyState.style.display = 'none';
     if (slideshow) slideshow.style.display = 'block';
@@ -71,34 +65,23 @@ function renderCodingStats(data, container) {
         ).join('');
     }
 
-    // Render dots (only if more than 1 platform)
-    if (dotsContainer) {
-        if (data.platforms.length > 1) {
-            dotsContainer.innerHTML = data.platforms.map((_, index) => 
-                `<div class="coding-stats__dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`
-            ).join('');
-        } else {
-            dotsContainer.innerHTML = '';
-        }
-    }
+    // Render pagination dots
+    renderPagination();
 
-    // Show/hide nav buttons based on platform count
+    // Show/hide nav based on platform count
     const nav = container.querySelector('.coding-stats__nav');
     if (nav) {
         nav.style.display = data.platforms.length > 1 ? 'flex' : 'none';
     }
 
     // Show first slide
-    showSlide(container, 0);
-    
-    // Animate progress bars after a short delay
-    setTimeout(() => animateProgressBars(container), 300);
+    showSlide(0);
 
     console.log('Coding Stats: Rendered', data.platforms.length, 'platforms');
 }
 
 /**
- * Render a single platform slide - FULLY GENERIC
+ * Render a single platform slide
  */
 function renderPlatformSlide(platform, index) {
     const logoStyle = platform.color ? `background: ${platform.color};` : 'background: linear-gradient(135deg, #FFA116 0%, #FFB800 100%);';
@@ -106,10 +89,9 @@ function renderPlatformSlide(platform, index) {
         ? `<img src="${escapeHtml(platform.logo)}" alt="${escapeHtml(platform.name)}">`
         : `<ion-icon name="${platform.icon || 'code-working-outline'}"></ion-icon>`;
 
-    // Hero stat - fully configurable
     const heroMetric = platform.heroMetric || { value: '--', label: 'Score' };
 
-    // Progress bars - ONLY from progressBars array (no hardcoded easy/medium/hard)
+    // Progress bars
     let progressBarsHtml = '';
     if (platform.progressBars && platform.progressBars.length > 0) {
         progressBarsHtml = platform.progressBars.map((bar, i) => {
@@ -127,7 +109,7 @@ function renderPlatformSlide(platform, index) {
         }).join('');
     }
 
-    // Metrics grid - ONLY from metrics array (no hardcoded fallbacks)
+    // Metrics
     let metricsHtml = '';
     if (platform.metrics && platform.metrics.length > 0) {
         metricsHtml = platform.metrics.map(metric => `
@@ -141,7 +123,7 @@ function renderPlatformSlide(platform, index) {
         `).join('');
     }
 
-    // Badges - optional
+    // Badges
     let badgesHtml = '';
     if (platform.badges && platform.badges.length > 0) {
         badgesHtml = `
@@ -163,7 +145,7 @@ function renderPlatformSlide(platform, index) {
     }
 
     return `
-        <div class="coding-stats__slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+        <div class="coding-stats__slide" data-index="${index}">
             <div class="coding-stats__platform-card">
                 <div class="coding-stats__platform-header">
                     <div class="coding-stats__platform-logo" style="${logoStyle}">
@@ -192,71 +174,72 @@ function renderPlatformSlide(platform, index) {
 }
 
 /**
- * Setup navigation controls using direct onclick
+ * Initialize navigation controls
  */
-function setupNavigation(container) {
-    const prevBtn = container.querySelector('#coding-stats-prev');
-    const nextBtn = container.querySelector('#coding-stats-next');
-    const dotsContainer = container.querySelector('#coding-stats-dots');
-
-    if (prevBtn) {
-        prevBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const currentContainer = document.querySelector('.coding-stats-component');
-            console.log('Coding Stats: Prev clicked, current:', window.codingStatsCurrentSlide, 'container:', !!currentContainer);
-            const platforms = window.codingStatsData?.platforms || [];
-            const newIndex = window.codingStatsCurrentSlide - 1;
-            if (newIndex >= 0 && currentContainer) {
-                showSlide(currentContainer, newIndex);
-            }
-        };
+function initializeNavigation() {
+    const prevButton = document.getElementById('coding-stats-prev');
+    const nextButton = document.getElementById('coding-stats-next');
+    
+    if (prevButton) {
+        // Clone to remove old listeners
+        const newPrevButton = prevButton.cloneNode(true);
+        prevButton.parentNode.replaceChild(newPrevButton, prevButton);
+        newPrevButton.addEventListener('click', function() {
+            console.log('Coding Stats: Prev clicked');
+            showSlide(window.codingStatsCurrentSlide - 1);
+        });
     }
-
-    if (nextBtn) {
-        nextBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const currentContainer = document.querySelector('.coding-stats-component');
-            console.log('Coding Stats: Next clicked, current:', window.codingStatsCurrentSlide, 'container:', !!currentContainer);
-            const platforms = window.codingStatsData?.platforms || [];
-            const newIndex = window.codingStatsCurrentSlide + 1;
-            if (newIndex < platforms.length && currentContainer) {
-                showSlide(currentContainer, newIndex);
-            }
-        };
+    
+    if (nextButton) {
+        // Clone to remove old listeners
+        const newNextButton = nextButton.cloneNode(true);
+        nextButton.parentNode.replaceChild(newNextButton, nextButton);
+        newNextButton.addEventListener('click', function() {
+            console.log('Coding Stats: Next clicked');
+            showSlide(window.codingStatsCurrentSlide + 1);
+        });
     }
+    
+    console.log('Coding Stats: Navigation initialized');
+}
 
-    if (dotsContainer) {
-        dotsContainer.onclick = function(e) {
-            const dot = e.target.closest('.coding-stats__dot');
-            if (dot) {
-                const currentContainer = document.querySelector('.coding-stats-component');
-                const index = parseInt(dot.dataset.index, 10);
-                console.log('Coding Stats: Dot clicked, index:', index, 'container:', !!currentContainer);
-                if (currentContainer) {
-                    showSlide(currentContainer, index);
-                }
-            }
-        };
-    }
-
-    updateNavButtons(container);
-    console.log('Coding Stats: Navigation setup complete');
+/**
+ * Render pagination dots
+ */
+function renderPagination() {
+    const paginationContainer = document.getElementById('coding-stats-dots');
+    if (!paginationContainer || !window.codingStatsData?.platforms) return;
+    
+    paginationContainer.innerHTML = '';
+    
+    window.codingStatsData.platforms.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'coding-stats__dot';
+        dot.setAttribute('data-index', index);
+        dot.addEventListener('click', function() {
+            console.log('Coding Stats: Dot clicked', index);
+            showSlide(index);
+        });
+        paginationContainer.appendChild(dot);
+    });
 }
 
 /**
  * Show specific slide
  */
-function showSlide(container, index) {
-    if (!container) container = window.codingStatsContainer;
-    if (!container) return;
+function showSlide(index) {
+    const platforms = window.codingStatsData?.platforms || [];
     
-    const slides = container.querySelectorAll('.coding-stats__slide');
-    const dots = container.querySelectorAll('.coding-stats__dot');
+    // Bounds check
+    if (index < 0) index = 0;
+    if (index >= platforms.length) index = platforms.length - 1;
     
-    console.log('Coding Stats: Showing slide', index, 'of', slides.length);
+    console.log('Coding Stats: Showing slide', index, 'of', platforms.length);
     
+    const slides = document.querySelectorAll('.coding-stats__slide');
+    const dots = document.querySelectorAll('.coding-stats__dot');
+    
+    // Update slides
     slides.forEach((slide, i) => {
         if (i === index) {
             slide.classList.add('active');
@@ -265,6 +248,7 @@ function showSlide(container, index) {
         }
     });
     
+    // Update dots
     dots.forEach((dot, i) => {
         if (i === index) {
             dot.classList.add('active');
@@ -274,22 +258,19 @@ function showSlide(container, index) {
     });
     
     window.codingStatsCurrentSlide = index;
-    updateNavButtons(container);
+    updateNavigationButtons();
     
-    // Animate progress bars for this slide
-    setTimeout(() => animateProgressBars(container), 100);
+    // Animate progress bars
+    setTimeout(animateProgressBars, 100);
 }
 
 /**
- * Update nav button states
+ * Update navigation buttons
  */
-function updateNavButtons(container) {
-    if (!container) container = window.codingStatsContainer;
-    if (!container) return;
-    
+function updateNavigationButtons() {
     const platforms = window.codingStatsData?.platforms || [];
-    const prevBtn = container.querySelector('#coding-stats-prev');
-    const nextBtn = container.querySelector('#coding-stats-next');
+    const prevBtn = document.getElementById('coding-stats-prev');
+    const nextBtn = document.getElementById('coding-stats-next');
     
     if (prevBtn) prevBtn.disabled = window.codingStatsCurrentSlide === 0;
     if (nextBtn) nextBtn.disabled = window.codingStatsCurrentSlide >= platforms.length - 1;
@@ -298,11 +279,8 @@ function updateNavButtons(container) {
 /**
  * Animate progress bars
  */
-function animateProgressBars(container) {
-    if (!container) container = window.codingStatsContainer;
-    if (!container) return;
-    
-    const activeSlide = container.querySelector('.coding-stats__slide.active');
+function animateProgressBars() {
+    const activeSlide = document.querySelector('.coding-stats__slide.active');
     if (!activeSlide) return;
     
     const fills = activeSlide.querySelectorAll('.coding-stats__progress-fill');
@@ -315,7 +293,8 @@ function animateProgressBars(container) {
 /**
  * Show empty state
  */
-function showEmptyState(container) {
+function showEmptyState() {
+    const container = document.querySelector('.coding-stats-component');
     if (!container) return;
     const emptyState = container.querySelector('#coding-stats-empty');
     const slideshow = container.querySelector('.coding-stats__slideshow');
@@ -334,7 +313,7 @@ function escapeHtml(text) {
 }
 
 /**
- * Navigation handler
+ * Navigation handler for GlobalNavigator
  */
 function handleCodingStatsNavigation(elementId, state, parameters = {}) {
     const element = document.getElementById(elementId);
