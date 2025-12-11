@@ -1,5 +1,5 @@
 /* Side Bar Site - Main Styles */
-@import url('blocks/sites/side_bar/type_1/styles/side_bar_site_variables_t1.css');
-@import url('blocks/sites/side_bar/type_1/styles/side_bar_site_resets_t1.css');
-@import url('blocks/sites/side_bar/type_1/styles/side_bar_site_layout_t1.css');
-@import url('blocks/sites/side_bar/type_1/styles/side_bar_site_navigation_t1.css');
+@import url('styles/side_bar_site_variables_t1.css');
+@import url('styles/side_bar_site_resets_t1.css');
+@import url('styles/side_bar_site_layout_t1.css');
+@import url('styles/side_bar_site_navigation_t1.css');
