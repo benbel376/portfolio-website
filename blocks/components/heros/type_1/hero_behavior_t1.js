@@ -1,4 +1,4 @@
-export function handleHeroNavigation(elementId, state) {
+function handleHeroNavigation(elementId, state) {
     const el = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
     if (!el) return false;
     switch (state) {

@@ -403,14 +403,14 @@ class CompetenciesBehavior {
   }
 
   show() {
-    const competencies = document.querySelector('.competencies');
+    const competencies = document.querySelector('.competencies-component');
     if (competencies) {
       competencies.style.display = 'block';
     }
   }
 
   hide() {
-    const competencies = document.querySelector('.competencies');
+    const competencies = document.querySelector('.competencies-component');
     if (competencies) {
       competencies.style.display = 'none';
     }

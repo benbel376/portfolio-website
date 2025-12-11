@@ -257,14 +257,14 @@ class ToolsBehavior {
   }
 
   show() {
-    const tools = document.querySelector('.tools');
+    const tools = document.querySelector('.tools-component');
     if (tools) {
       tools.style.display = 'block';
     }
   }
 
   hide() {
-    const tools = document.querySelector('.tools');
+    const tools = document.querySelector('.tools-component');
     if (tools) {
       tools.style.display = 'none';
     }

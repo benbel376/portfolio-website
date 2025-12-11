@@ -5,7 +5,7 @@
     
     function initializeProjectDetails() {
         console.log('Project Details: Initializing component...');
-        console.log('Project Details: Component element found:', !!document.querySelector('.project-details'));
+        console.log('Project Details: Component element found:', !!document.querySelector('.project-details-component'));
         setupEventListeners();
     }
 
