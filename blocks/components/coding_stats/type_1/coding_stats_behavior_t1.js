@@ -159,7 +159,10 @@ function createSlide(platform, index) {
 }
 
 function showSlide(index, containerOverride) {
+    console.log('CodingStats: showSlide ENTERED, index:', index, 'containerOverride:', !!containerOverride);
+    
     const container = containerOverride || window.codingStatsContainer || document.getElementById('coding-stats-slide-container');
+    console.log('CodingStats: showSlide container:', !!container);
     
     if (!container) {
         console.log('CodingStats: showSlide - container not found');
@@ -330,4 +333,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded v4');
+console.log('CodingStats: Behavior loaded v5');
