@@ -1,8 +1,8 @@
 /* Coding Stats Component - Type 1 */
 
 .coding-stats-component {
-    padding: var(--spacing-lg) var(--spacing-xl);
-    max-width: 1200px;
+    padding: 0 var(--spacing-12);
+    max-width: var(--container-max-width, 1200px);
     margin: 0 auto;
     font-family: var(--font-primary);
 }
@@ -361,6 +361,12 @@
 /* ========================================
    RESPONSIVE
    ======================================== */
+
+@media (max-width: 1024px) {
+    .coding-stats-component {
+        padding: 0 var(--spacing-10);
+    }
+}
 
 @media (max-width: 900px) {
     .coding-stats__content {

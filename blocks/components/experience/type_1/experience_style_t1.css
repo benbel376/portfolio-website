@@ -753,7 +753,7 @@
 
 @media (max-width: 1024px) {
   .experience-component {
-    padding: 0 var(--spacing-6);
+    padding: 0 var(--spacing-10);
   }
   
   .experience-card__title-row {

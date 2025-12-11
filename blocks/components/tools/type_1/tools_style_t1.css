@@ -643,8 +643,8 @@
 
 /* Responsive design */
 @media (max-width: 1024px) {
-  .tools__container {
-    padding: 0 var(--spacing-6);
+  .tools {
+    padding: 0 var(--spacing-10);
   }
 }
 

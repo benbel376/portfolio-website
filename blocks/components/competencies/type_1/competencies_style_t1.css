@@ -10,6 +10,7 @@
 
 .competencies__container {
   width: 100%;
+  padding: 0;
 }
 
 /* Main Header Section */
@@ -444,22 +445,14 @@
 
 /* Responsive design */
 @media (max-width: 1024px) {
-  .competencies {
-    padding: 0 var(--spacing-6);
-  }
-  
-  .competencies__container {
-    padding: 0 var(--spacing-6);
+  .competencies-component {
+    padding: 0 var(--spacing-10);
   }
 }
 
 @media (max-width: 768px) {
-  .competencies {
+  .competencies-component {
     padding: 0 var(--spacing-10);
-  }
-  
-  .competencies__container {
-    padding: 0 var(--spacing-4);
   }
   
   .competencies__main-header {
@@ -754,7 +747,7 @@
 }
 
 @media (max-width: 480px) {
-  .competencies {
+  .competencies-component {
     padding: 0 var(--spacing-8);
   }
   
