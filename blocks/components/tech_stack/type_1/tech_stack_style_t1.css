@@ -1,4 +1,4 @@
-/* Tech Stack Component - Clean two-column list design */
+/* Tech Stack Component - Compact inline tags */
 
 .tech-stack-component {
     font-family: var(--font-family-primary);
@@ -12,13 +12,8 @@
 .tech-stack__header {
     display: flex;
     align-items: center;
-    margin-bottom: var(--spacing-5);
-}
-
-.tech-stack__title-section {
-    display: flex;
-    align-items: center;
     gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
 }
 
 .tech-stack__icon {
@@ -33,126 +28,110 @@
     margin: 0;
 }
 
-/* Categories - Two column grid */
+/* Categories - Compact rows */
 .tech-stack__categories {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-6);
-}
-
-/* Category */
-.tech-stack__category {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-3);
 }
 
-.tech-stack__category-header {
+/* Category Row */
+.tech-stack__category {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+}
+
+/* Category Label */
+.tech-stack__category-label {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
-    padding-bottom: var(--spacing-2);
-    border-bottom: 2px solid var(--color-primary);
+    gap: var(--spacing-1);
+    min-width: 120px;
+    flex-shrink: 0;
+    padding-top: var(--spacing-1);
 }
 
 .tech-stack__category-icon {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     color: var(--color-primary);
 }
 
 .tech-stack__category-name {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     margin: 0;
 }
 
-/* Technologies List */
+/* Technologies - Inline tags */
 .tech-stack__techs {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: var(--spacing-2);
+    flex: 1;
 }
 
-/* Tech Item - Simple list item with icon bullet */
+/* Tech Tag */
 .tech-stack__tech {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: var(--spacing-3);
-    padding: var(--spacing-2) 0;
+    gap: var(--spacing-1);
+    padding: var(--spacing-1) var(--spacing-3);
+    background: var(--color-black-alpha-5);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
     transition: var(--transition-all-fast);
 }
 
 .tech-stack__tech:hover {
-    padding-left: var(--spacing-2);
-}
-
-/* Icon as bullet */
-.tech-stack__tech-bullet {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--spacing-5);
-    height: var(--spacing-5);
-    color: var(--color-primary);
-    font-size: var(--font-size-sm);
-    flex-shrink: 0;
-}
-
-.tech-stack__tech-icon {
-    width: var(--spacing-5);
-    height: var(--spacing-5);
-    object-fit: contain;
-    flex-shrink: 0;
+    background: var(--gradient-primary-alpha-10);
+    color: var(--color-primary-dark);
 }
 
 .tech-stack__tech-name {
-    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
 }
 
 .tech-stack__tech-version {
     font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
-    margin-left: var(--spacing-1);
 }
 
 /* Dark Theme */
-.theme-dark .tech-stack__category-header {
-    border-bottom-color: var(--color-primary);
+.theme-dark .tech-stack__tech {
+    background: var(--color-white-alpha-10);
 }
 
-/* Responsive - Tablet */
+.theme-dark .tech-stack__tech:hover {
+    background: var(--color-white-alpha-20);
+    color: var(--color-primary-light);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .tech-stack-component {
         padding: 0 var(--spacing-4);
     }
 
-    .tech-stack__categories {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-5);
+    .tech-stack__category {
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    .tech-stack__category-label {
+        min-width: auto;
     }
 }
 
-/* Responsive - Mobile */
 @media (max-width: 480px) {
     .tech-stack-component {
         padding: 0 var(--spacing-3);
     }
 
-    .tech-stack__tech-name {
-        font-size: var(--font-size-xs);
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
     .tech-stack__tech {
-        transition: none;
-    }
-
-    .tech-stack__tech:hover {
-        padding-left: 0;
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-1) var(--spacing-2);
     }
 }

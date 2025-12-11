@@ -26,24 +26,20 @@ function renderTechStack(component, data) {
     const titleEl = component.querySelector('.tech-stack__title');
     if (titleEl) titleEl.textContent = title;
 
-    // Render categories as clean two-column list
+    // Render categories as compact rows with inline tags
     const container = component.querySelector('.tech-stack__categories');
     if (container) {
         container.innerHTML = categories.map(category => `
             <div class="tech-stack__category">
-                <div class="tech-stack__category-header">
+                <div class="tech-stack__category-label">
                     <ion-icon name="${category.icon || 'cube-outline'}" class="tech-stack__category-icon"></ion-icon>
-                    <h4 class="tech-stack__category-name">${escapeHtml(category.name)}</h4>
+                    <span class="tech-stack__category-name">${escapeHtml(category.name)}</span>
                 </div>
                 <div class="tech-stack__techs">
                     ${(category.technologies || []).map(tech => `
-                        <div class="tech-stack__tech">
-                            ${tech.icon 
-                                ? `<img src="${tech.icon}" alt="${escapeHtml(tech.name)}" class="tech-stack__tech-icon" />`
-                                : `<span class="tech-stack__tech-bullet"><ion-icon name="checkmark-outline"></ion-icon></span>`
-                            }
-                            <span class="tech-stack__tech-name">${escapeHtml(tech.name)}${tech.version ? `<span class="tech-stack__tech-version">${escapeHtml(tech.version)}</span>` : ''}</span>
-                        </div>
+                        <span class="tech-stack__tech">
+                            <span class="tech-stack__tech-name">${escapeHtml(tech.name)}</span>${tech.version ? `<span class="tech-stack__tech-version">${escapeHtml(tech.version)}</span>` : ''}
+                        </span>
                     `).join('')}
                 </div>
             </div>
