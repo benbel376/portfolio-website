@@ -5,15 +5,28 @@
 
 window.codingStatsData = window.codingStatsData || [];
 window.codingStatsCurrentSlide = 0;
+window.codingStatsContainer = null;
 
 function initializeCodingStats(componentElement) {
     console.log('CodingStats: Initializing...');
     
-    const slideContainer = document.getElementById('coding-stats-slide-container');
+    // Find container within this component or globally
+    let slideContainer;
+    if (componentElement) {
+        slideContainer = componentElement.querySelector('#coding-stats-slide-container') ||
+                        componentElement.querySelector('.coding-stats__slide-container');
+    }
+    if (!slideContainer) {
+        slideContainer = document.getElementById('coding-stats-slide-container');
+    }
+    
     if (!slideContainer) {
         console.error('CodingStats: Slide container not found');
         return;
     }
+    
+    // Store reference for later use
+    window.codingStatsContainer = slideContainer;
     
     // Check for pending data from PHP
     if (window.codingStatsDataPending) {
@@ -57,15 +70,19 @@ function setCodingStatsData(data) {
     
     window.codingStatsCurrentSlide = 0;
     
-    const slideContainer = document.getElementById('coding-stats-slide-container');
-    if (slideContainer) {
+    // Find container if not already set
+    if (!window.codingStatsContainer) {
+        window.codingStatsContainer = document.getElementById('coding-stats-slide-container');
+    }
+    
+    if (window.codingStatsContainer) {
         renderSlideshow();
         initializeNavigation();
     }
 }
 
 function renderSlideshow() {
-    const slideContainer = document.getElementById('coding-stats-slide-container');
+    const slideContainer = window.codingStatsContainer || document.getElementById('coding-stats-slide-container');
     const emptyState = document.getElementById('coding-stats-empty');
     const paginationContainer = document.querySelector('.coding-stats__pagination-container');
     
@@ -92,21 +109,12 @@ function renderSlideshow() {
         slideContainer.appendChild(slide);
     });
     
-    // Show first slide
-    console.log('CodingStats: About to call showSlide(0)');
-    try {
-        showSlide(0);
-    } catch (e) {
-        console.error('CodingStats: Error in showSlide:', e);
-    }
+    // Show first slide - pass container directly
+    console.log('CodingStats: Calling showSlide(0), container children:', slideContainer.children.length);
+    showSlide(0, slideContainer);
     
     // Render pagination dots
-    console.log('CodingStats: About to call renderPagination');
-    try {
-        renderPagination();
-    } catch (e) {
-        console.error('CodingStats: Error in renderPagination:', e);
-    }
+    renderPagination();
     
     console.log('CodingStats: Rendered', window.codingStatsData.length, 'slides successfully');
 }
@@ -150,8 +158,9 @@ function createSlide(platform, index) {
     return slide;
 }
 
-function showSlide(index) {
-    const container = document.getElementById('coding-stats-slide-container');
+function showSlide(index, containerOverride) {
+    const container = containerOverride || window.codingStatsContainer || document.getElementById('coding-stats-slide-container');
+    
     if (!container) {
         console.log('CodingStats: showSlide - container not found');
         return;
@@ -269,7 +278,7 @@ function updateNavigationButtons() {
 }
 
 function showEmptyState() {
-    const slideContainer = document.getElementById('coding-stats-slide-container');
+    const slideContainer = window.codingStatsContainer || document.getElementById('coding-stats-slide-container');
     const emptyState = document.getElementById('coding-stats-empty');
     const pagination = document.querySelector('.coding-stats__pagination-container');
     
@@ -321,4 +330,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeCodingStats, 100);
 });
 
-console.log('CodingStats: Behavior loaded v3');
+console.log('CodingStats: Behavior loaded v4');
