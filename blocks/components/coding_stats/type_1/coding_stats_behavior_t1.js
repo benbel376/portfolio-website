@@ -145,7 +145,7 @@ function renderPlatformSlide(platform, index) {
     }
 
     return `
-        <div class="coding-stats__slide" data-index="${index}">
+        <div class="coding-stats__slide ${index === 0 ? 'active' : ''}" data-index="${index}">
             <div class="coding-stats__platform-card">
                 <div class="coding-stats__platform-header">
                     <div class="coding-stats__platform-logo" style="${logoStyle}">
