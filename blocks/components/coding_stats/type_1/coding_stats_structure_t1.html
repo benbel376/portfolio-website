@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="blocks/components/coding_stats/type_1/coding_stats_style_t1.css">
 <section class="coding-stats-component" data-nav-handler="handleCodingStatsNavigation">
-    <!-- Header -->
     <div class="coding-stats__header">
         <div class="coding-stats__header-icon">
             <ion-icon name="trophy-outline"></ion-icon>
@@ -13,26 +12,24 @@
 
     <!-- Slideshow Container -->
     <div class="coding-stats__slideshow">
-        <!-- Platform Slides -->
-        <div class="coding-stats__slides" id="coding-stats-slides">
+        <div class="coding-stats__slide-container" id="coding-stats-slide-container">
             <!-- Slides rendered by JS -->
-        </div>
-
-        <!-- Navigation -->
-        <div class="coding-stats__nav">
-            <button class="coding-stats__nav-btn coding-stats__nav-btn--prev" id="coding-stats-prev" aria-label="Previous platform">
-                <ion-icon name="chevron-back-outline"></ion-icon>
-            </button>
-            <div class="coding-stats__dots" id="coding-stats-dots">
-                <!-- Dots rendered by JS -->
-            </div>
-            <button class="coding-stats__nav-btn coding-stats__nav-btn--next" id="coding-stats-next" aria-label="Next platform">
-                <ion-icon name="chevron-forward-outline"></ion-icon>
-            </button>
         </div>
     </div>
 
-    <!-- Empty State -->
+    <!-- Pagination Controls -->
+    <div class="coding-stats__pagination-container">
+        <button class="coding-stats__pagination-arrow" id="coding-stats-prev">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <div class="coding-stats__pagination" id="coding-stats-pagination">
+            <!-- Dots rendered by JS -->
+        </div>
+        <button class="coding-stats__pagination-arrow" id="coding-stats-next">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+    </div>
+
     <div class="coding-stats__empty" id="coding-stats-empty" style="display: none;">
         <ion-icon name="code-slash-outline"></ion-icon>
         <p>No coding stats available</p>
