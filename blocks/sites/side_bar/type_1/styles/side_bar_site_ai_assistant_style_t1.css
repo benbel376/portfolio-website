@@ -1,0 +1,442 @@
+/* AI Assistant Component - Type 1 Styles */
+
+/* ========================================
+ * COMPONENT CONTAINER
+ * ======================================== */
+
+.ai-assistant-component {
+    position: fixed;
+    bottom: var(--spacing-lg, 24px);
+    right: var(--spacing-lg, 24px);
+    left: auto;
+    z-index: 1000;
+    font-family: var(--font-primary, 'Poppins', sans-serif);
+}
+
+/* ========================================
+ * FLOATING TOGGLE BUTTON
+ * ======================================== */
+
+.ai-assistant__toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 80%, black) 100%);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1001;
+}
+
+.ai-assistant__toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+.ai-assistant__toggle:active {
+    transform: scale(0.98);
+}
+
+.ai-assistant__toggle-icon {
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.ai-assistant__toggle-icon--close {
+    position: absolute;
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+/* Toggle open state */
+.ai-assistant-component.open .ai-assistant__toggle-icon:not(.ai-assistant__toggle-icon--close) {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+.ai-assistant-component.open .ai-assistant__toggle-icon--close {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* ========================================
+ * CHAT PANEL
+ * ======================================== */
+
+.ai-assistant__panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 48px);
+    height: 500px;
+    max-height: calc(100vh - 150px);
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border, #e0e0e0);
+    border-radius: var(--radius-xl, 16px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.ai-assistant-component.open .ai-assistant__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* ========================================
+ * PANEL HEADER
+ * ======================================== */
+
+.ai-assistant__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md, 16px);
+    background: linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 85%, black) 100%);
+    color: #fff;
+}
+
+.ai-assistant__header-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 8px);
+}
+
+.ai-assistant__header-icon {
+    font-size: 20px;
+}
+
+.ai-assistant__title {
+    font-size: var(--text-base, 16px);
+    font-weight: 600;
+    margin: 0;
+}
+
+.ai-assistant__header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 4px);
+}
+
+.ai-assistant__clear,
+.ai-assistant__close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ai-assistant__clear:hover,
+.ai-assistant__close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.ai-assistant__clear ion-icon,
+.ai-assistant__close ion-icon {
+    font-size: 18px;
+}
+
+.ai-assistant__clear ion-icon {
+    font-size: 16px;
+}
+
+/* ========================================
+ * MESSAGES CONTAINER
+ * ======================================== */
+
+.ai-assistant__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md, 16px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 8px);
+    background: var(--bg, #f5f5f5);
+}
+
+/* Scrollbar styling */
+.ai-assistant__messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-assistant__messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ai-assistant__messages::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+/* ========================================
+ * MESSAGE BUBBLES
+ * ======================================== */
+
+.ai-assistant__message {
+    max-width: 85%;
+    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
+    border-radius: var(--radius-lg, 12px);
+    font-size: var(--text-sm, 14px);
+    line-height: 1.5;
+    animation: messageSlideIn 0.3s ease;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* User message */
+.ai-assistant__message--user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 85%, black) 100%);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+/* Assistant message */
+.ai-assistant__message--assistant {
+    align-self: flex-start;
+    background: var(--card-bg, #ffffff);
+    color: var(--text, #1a1a1a);
+    border: 1px solid var(--border, #e0e0e0);
+    border-bottom-left-radius: 4px;
+}
+
+.ai-assistant__message--assistant ul {
+    margin: var(--spacing-xs, 4px) 0;
+    padding-left: var(--spacing-md, 16px);
+}
+
+.ai-assistant__message--assistant li {
+    margin: 2px 0;
+}
+
+.ai-assistant__message--assistant strong {
+    font-weight: 600;
+}
+
+/* Navigation link in message */
+.ai-assistant__nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: var(--spacing-xs, 4px);
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-sm, 6px);
+    color: var(--primary);
+    font-size: var(--text-xs, 12px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.ai-assistant__nav-link:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Typing indicator */
+.ai-assistant__typing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border, #e0e0e0);
+    border-radius: var(--radius-lg, 12px);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+}
+
+.ai-assistant__typing-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--text, #1a1a1a);
+    opacity: 0.4;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.ai-assistant__typing-dot:nth-child(1) { animation-delay: 0s; }
+.ai-assistant__typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.ai-assistant__typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+}
+
+/* ========================================
+ * INPUT AREA
+ * ======================================== */
+
+.ai-assistant__input-area {
+    padding: var(--spacing-md, 16px);
+    background: var(--card-bg, #ffffff);
+    border-top: 1px solid var(--border, #e0e0e0);
+}
+
+.ai-assistant__form {
+    display: flex;
+    gap: var(--spacing-sm, 8px);
+}
+
+.ai-assistant__input {
+    flex: 1;
+    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
+    border: 1px solid var(--border, #e0e0e0);
+    border-radius: var(--radius-lg, 12px);
+    background: var(--bg, #f5f5f5);
+    color: var(--text, #1a1a1a);
+    font-size: var(--text-sm, 14px);
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.ai-assistant__input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+}
+
+.ai-assistant__input::placeholder {
+    color: var(--text);
+    opacity: 0.5;
+}
+
+.ai-assistant__send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 85%, black) 100%);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ai-assistant__send:hover {
+    transform: scale(1.05);
+}
+
+.ai-assistant__send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ai-assistant__send ion-icon {
+    font-size: 18px;
+}
+
+.ai-assistant__disclaimer {
+    margin: var(--spacing-xs, 4px) 0 0 0;
+    font-size: 10px;
+    color: var(--text);
+    opacity: 0.5;
+    text-align: center;
+}
+
+/* ========================================
+ * DARK THEME
+ * ======================================== */
+
+.theme-dark .ai-assistant__messages {
+    background: var(--bg, #181a1b);
+}
+
+.theme-dark .ai-assistant__messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .ai-assistant__message--assistant {
+    background: var(--card-bg, #202124);
+    border-color: var(--border, #333333);
+}
+
+.theme-dark .ai-assistant__nav-link {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .ai-assistant__nav-link:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .ai-assistant__typing {
+    background: var(--card-bg, #202124);
+    border-color: var(--border, #333333);
+}
+
+.theme-dark .ai-assistant__input {
+    background: var(--bg, #181a1b);
+    border-color: var(--border, #333333);
+}
+
+/* ========================================
+ * MOBILE RESPONSIVE
+ * ======================================== */
+
+@media (max-width: 480px) {
+    .ai-assistant-component {
+        bottom: var(--spacing-md, 16px);
+        right: var(--spacing-md, 16px);
+    }
+
+    .ai-assistant__panel {
+        width: calc(100vw - 32px);
+        height: calc(100vh - 120px);
+        bottom: 65px;
+        right: -8px;
+    }
+
+    .ai-assistant__toggle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .ai-assistant__toggle-icon {
+        font-size: 22px;
+    }
+}
+
+/* ========================================
+ * NAVIGATION STATES
+ * ======================================== */
+
+.ai-assistant-component.nav-hidden {
+    display: none;
+}
+
+.ai-assistant-component.nav-visible {
+    display: block;
+}

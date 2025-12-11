@@ -117,6 +117,7 @@ try {
         'dynamic_content' => 'endpoints/dynamic_content_t1.php',
         'security' => 'endpoints/security_t1.php',
         'file_manager' => 'endpoints/file_manager_t1.php',
+        'ai_assistant' => 'endpoints/ai_assistant_t1.php',
         // Legacy aliases for backward compatibility
         'definition_management' => 'endpoints/file_manager_t1.php',
         'media_management' => 'endpoints/file_manager_t1.php',

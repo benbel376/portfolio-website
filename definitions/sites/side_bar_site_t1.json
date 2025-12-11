@@ -4,6 +4,16 @@
         "title": "Portfolio",
         "logo": "definitions/media/profile/avatar.png"
     },
+    "aiAssistant": {
+        "enabled": true,
+        "provider": "gemini",
+        "apiKey": "AIzaSyAnx_S003GFmhJICjA27ssG9v8gxMxw04o",
+        "model": "gemini-2.5-flash",
+        "maxTokens": 1024,
+        "title": "Portfolio Assistant",
+        "placeholder": "Ask me anything about this portfolio...",
+        "welcomeMessage": "Hi! I'm here to help you explore this portfolio. Ask me about skills, projects, experience, or anything else!"
+    },
     "backgrounds": {
         "light": {
             "body": "definitions/media/backgrounds/general_background_light_v1.png",

@@ -37,6 +37,18 @@ class CompetenciesBehavior {
       });
     });
 
+    // List pagination arrows
+    const listPrevBtn = document.getElementById('competencies-list-prev');
+    const listNextBtn = document.getElementById('competencies-list-next');
+    
+    if (listPrevBtn) {
+      listPrevBtn.addEventListener('click', () => this.previousPage());
+    }
+    
+    if (listNextBtn) {
+      listNextBtn.addEventListener('click', () => this.nextPage());
+    }
+
     // Slideshow controls
     const prevBtn = document.querySelector('#competencies-prev-btn .competencies__slideshow-btn');
     const nextBtn = document.querySelector('#competencies-next-btn .competencies__slideshow-btn');
@@ -219,14 +231,43 @@ class CompetenciesBehavior {
     return skillDiv;
   }
 
+  previousPage() {
+    if (this.state.currentPage > 0) {
+      this.state.currentPage--;
+      this.renderCurrentPage();
+      this.renderPagination();
+    }
+  }
+
+  nextPage() {
+    const skills = this.state.allSkills[this.state.currentCategory] || [];
+    const totalPages = Math.ceil(skills.length / this.state.itemsPerPage);
+    if (this.state.currentPage < totalPages - 1) {
+      this.state.currentPage++;
+      this.renderCurrentPage();
+      this.renderPagination();
+    }
+  }
+
   renderPagination() {
     const dotsContainer = document.getElementById('competencies-dots');
+    const prevBtn = document.getElementById('competencies-list-prev');
+    const nextBtn = document.getElementById('competencies-list-next');
+    
     if (!dotsContainer || !this.state.allSkills[this.state.currentCategory]) {
       return;
     }
 
     const skills = this.state.allSkills[this.state.currentCategory];
     const totalPages = Math.ceil(skills.length / this.state.itemsPerPage);
+    
+    // Update arrow button states
+    if (prevBtn) {
+      prevBtn.disabled = this.state.currentPage === 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = this.state.currentPage >= totalPages - 1;
+    }
     
     dotsContainer.innerHTML = '';
 

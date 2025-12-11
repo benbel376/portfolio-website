@@ -99,13 +99,13 @@
                                     "skills": [
                                         {
                                             "title": "AWS Architecture",
-                                            "description": "EC2, S3, Lambda, SageMaker, and comprehensive cloud solution design",
+                                            "description": "S3, EC2, EKS, API Gateway, Lambda, Kinesis Firehose, and comprehensive cloud solutions",
                                             "icon": "cloud-done-outline",
                                             "type": "cloud"
                                         },
                                         {
-                                            "title": "Azure Services",
-                                            "description": "Azure ML, AKS, Functions, and enterprise cloud implementations",
+                                            "title": "GCP Services",
+                                            "description": "Vertex AI, BigQuery, Cloud VMs, and enterprise ML implementations",
                                             "icon": "cloud-upload-outline",
                                             "type": "cloud"
                                         },
@@ -152,8 +152,8 @@
                                     "icon": "server-outline",
                                     "skills": [
                                         {
-                                            "title": "ETL Pipeline Design",
-                                            "description": "Scalable data processing workflows using Apache Spark, Airflow, and cloud services",
+                                            "title": "ELT/ETL Pipeline Design",
+                                            "description": "End-to-end pipelines using Airflow, DBT, MinIO, S3, BigQuery, and Spark",
                                             "icon": "shuffle-outline",
                                             "type": "data"
                                         },
@@ -165,7 +165,7 @@
                                         },
                                         {
                                             "title": "Stream Processing",
-                                            "description": "Real-time data processing with Kafka, Kinesis, and event streaming",
+                                            "description": "Real-time data processing with Kinesis Firehose, streaming ETL, and event-driven architectures",
                                             "icon": "pulse-outline",
                                             "type": "data"
                                         },
@@ -329,38 +329,26 @@
                                             ]
                                         },
                                         {
-                                            "name": "R",
-                                            "description": "Statistical analysis and data visualization",
-                                            "icon": "stats-chart-outline",
+                                            "name": "Go",
+                                            "description": "High-performance backend services and system tools",
+                                            "icon": "code-working-outline",
                                             "category": "programming",
                                             "projects": [
                                                 {
-                                                    "name": "Statistical Modeling",
-                                                    "description": "Built predictive models for customer behavior analysis"
+                                                    "name": "Backend Services",
+                                                    "description": "Built high-performance backend services and CLI tools"
                                                 }
                                             ]
                                         },
                                         {
-                                            "name": "Scala",
-                                            "description": "Big data processing with Apache Spark",
-                                            "icon": "code-outline",
+                                            "name": "React",
+                                            "description": "Frontend development for dashboards and web applications",
+                                            "icon": "logo-react",
                                             "category": "programming",
                                             "projects": [
                                                 {
-                                                    "name": "Spark ETL Pipeline",
-                                                    "description": "Developed large-scale data processing pipeline using Scala and Spark"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "Java",
-                                            "description": "Enterprise applications and microservices",
-                                            "icon": "logo-java",
-                                            "category": "programming",
-                                            "projects": [
-                                                {
-                                                    "name": "Spring Boot Services",
-                                                    "description": "Built enterprise microservices using Spring Boot and Spring Cloud"
+                                                    "name": "ML Dashboards",
+                                                    "description": "Built interactive monitoring dashboards for ML pipelines"
                                                 }
                                             ]
                                         },
@@ -483,13 +471,49 @@
                                         },
                                         {
                                             "name": "MLflow",
-                                            "description": "ML experiment tracking and model lifecycle management",
+                                            "description": "ML experiment tracking, model registry, and lifecycle management",
                                             "icon": "git-branch-outline",
                                             "category": "ml",
                                             "projects": [
                                                 {
                                                     "name": "Model Registry",
-                                                    "description": "Implemented centralized model versioning and deployment system"
+                                                    "description": "Implemented centralized model versioning cutting deployment from 2 weeks to 1 week"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "LangChain",
+                                            "description": "LLM orchestration, RAG pipelines, and multi-agent systems",
+                                            "icon": "link-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Multi-Agent Chatbots",
+                                                    "description": "Built no-code platform for deploying multi-agent researcher chatbots"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Hugging Face",
+                                            "description": "Transformer models, fine-tuning, and NLP pipelines",
+                                            "icon": "happy-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Creative Classifier",
+                                                    "description": "Fine-tuned RoBERTa for creative classification with 92% accuracy"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "OpenCV",
+                                            "description": "Computer vision and image processing",
+                                            "icon": "eye-outline",
+                                            "category": "ml",
+                                            "projects": [
+                                                {
+                                                    "name": "Visual Extraction",
+                                                    "description": "Built visual/text extraction pipeline for creative classification"
                                                 }
                                             ]
                                         }
@@ -500,17 +524,45 @@
                                     "tools": [
                                         {
                                             "name": "AWS",
-                                            "description": "Comprehensive cloud services and infrastructure management",
+                                            "description": "S3, EC2, EKS, API Gateway, Lambda, Kinesis Firehose, Cognito",
                                             "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
                                             "category": "cloud",
                                             "projects": [
                                                 {
-                                                    "name": "Serverless ML Pipeline",
-                                                    "description": "Built end-to-end ML pipeline using Lambda, SageMaker, and S3"
+                                                    "name": "ML Pipeline on EKS",
+                                                    "description": "Built end-to-end ML pipeline using EKS, API Gateway, Lambda, and Cognito"
                                                 },
                                                 {
-                                                    "name": "Auto-scaling Infrastructure",
-                                                    "description": "Designed cost-optimized infrastructure with auto-scaling groups"
+                                                    "name": "Cloud Cost Optimization",
+                                                    "description": "Reduced cloud costs by 50% through serverless transitions"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "GCP",
+                                            "description": "Vertex AI, BigQuery, Cloud VMs for ML deployment",
+                                            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Creative Classifier Deployment",
+                                                    "description": "Deployed fine-tuned models on Vertex AI with 92% accuracy"
+                                                },
+                                                {
+                                                    "name": "BigQuery Data Warehouse",
+                                                    "description": "Built data marts powering audience segmentation dashboards"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Airflow",
+                                            "description": "Workflow orchestration for ML and data pipelines",
+                                            "icon": "git-network-outline",
+                                            "category": "cloud",
+                                            "projects": [
+                                                {
+                                                    "name": "Automated ML Pipeline",
+                                                    "description": "Orchestrated training & inference pipelines cutting deployment from 2 weeks to 1 week"
                                                 }
                                             ]
                                         },
@@ -688,14 +740,38 @@
                                             ]
                                         },
                                         {
-                                            "name": "Snowflake",
-                                            "description": "Cloud data warehouse for analytics workloads",
-                                            "icon": "snow-outline",
+                                            "name": "BigQuery",
+                                            "description": "Cloud data warehouse for analytics and ML workloads",
+                                            "icon": "analytics-outline",
                                             "category": "database",
                                             "projects": [
                                                 {
-                                                    "name": "Data Warehouse Migration",
-                                                    "description": "Migrated legacy data warehouse to Snowflake with 50% cost reduction"
+                                                    "name": "Data Warehouse",
+                                                    "description": "Built subject-area data marts powering audience segmentation"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "MinIO",
+                                            "description": "S3-compatible object storage for data lakes",
+                                            "icon": "cube-outline",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Data Lake",
+                                                    "description": "Used MinIO as staging storage for ELT pipelines"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "DBT",
+                                            "description": "Data transformation and modeling in warehouses",
+                                            "icon": "construct-outline",
+                                            "category": "database",
+                                            "projects": [
+                                                {
+                                                    "name": "Data Transformation",
+                                                    "description": "Built transformation layers for analytics data marts"
                                                 }
                                             ]
                                         }
@@ -720,38 +796,38 @@
                             "title": "How I Work",
                             "scenarios": [
                                 {
-                                    "title": "ML/AI Projects",
-                                    "description": "End-to-end machine learning workflow from problem definition to production deployment and monitoring.",
+                                    "title": "MLOps Pipeline",
+                                    "description": "End-to-end automated ML pipeline from data to production with CI/CD, versioning, and observability.",
                                     "steps": [
                                         {
-                                            "title": "Problem Definition",
-                                            "description": "Understanding business objectives, defining success metrics, and identifying data requirements.",
-                                            "icon": "analytics-outline",
-                                            "tools": ["Jira", "Confluence", "Jupyter", "Miro"]
-                                        },
-                                        {
-                                            "title": "Data Engineering",
-                                            "description": "Data collection, preprocessing, feature engineering, and pipeline creation.",
+                                            "title": "Data Pipeline",
+                                            "description": "ELT/ETL pipelines with staging storage, transformation, and data marts for ML.",
                                             "icon": "server-outline",
-                                            "tools": ["Python", "Pandas", "Apache Spark", "SQL"]
+                                            "tools": ["Airflow", "MinIO", "DBT", "BigQuery"]
                                         },
                                         {
                                             "title": "Model Development",
-                                            "description": "Algorithm selection, model training, hyperparameter tuning, and validation.",
+                                            "description": "Training pipelines with experiment tracking, hyperparameter tuning, and validation.",
                                             "icon": "brain-outline",
-                                            "tools": ["TensorFlow", "PyTorch", "Scikit-learn", "MLflow"]
+                                            "tools": ["TensorFlow", "PyTorch", "Scikit-learn", "Spark"]
                                         },
                                         {
-                                            "title": "Model Deployment",
-                                            "description": "Production deployment, API creation, monitoring, and scaling infrastructure.",
+                                            "title": "Model Registry",
+                                            "description": "Version control, model artifacts, and automated promotion workflows.",
+                                            "icon": "git-branch-outline",
+                                            "tools": ["MLflow", "Docker", "GitHub Actions"]
+                                        },
+                                        {
+                                            "title": "Deployment",
+                                            "description": "Containerized deployment on Kubernetes/EKS with API Gateway and auth services.",
                                             "icon": "rocket-outline",
-                                            "tools": ["Docker", "Kubernetes", "AWS", "FastAPI"]
+                                            "tools": ["Docker", "EKS", "Vertex AI", "Lambda"]
                                         },
                                         {
-                                            "title": "Monitoring & Optimization",
-                                            "description": "Performance tracking, model retraining, A/B testing, and continuous improvement.",
+                                            "title": "Observability",
+                                            "description": "Performance dashboards, model drift detection, and automated retraining triggers.",
                                             "icon": "pulse-outline",
-                                            "tools": ["Prometheus", "Grafana", "MLflow", "A/B Testing"]
+                                            "tools": ["MLflow", "Superset", "Prometheus", "Grafana"]
                                         }
                                     ]
                                 },
@@ -792,38 +868,38 @@
                                     ]
                                 },
                                 {
-                                    "title": "Data Analytics Projects",
-                                    "description": "Data-driven insights generation from raw data collection to actionable business recommendations.",
+                                    "title": "Data Analytics",
+                                    "description": "End-to-end analytics from data collection to automated dashboards and business insights.",
                                     "steps": [
                                         {
-                                            "title": "Business Understanding",
-                                            "description": "Stakeholder interviews, KPI definition, and analytics requirements gathering.",
-                                            "icon": "people-outline",
-                                            "tools": ["Slack", "Confluence", "Business KPIs", "Interviews"]
-                                        },
-                                        {
                                             "title": "Data Collection",
-                                            "description": "Data source identification, extraction, validation, and quality assessment.",
+                                            "description": "Streaming and batch data ingestion from multiple sources into data lake.",
                                             "icon": "download-outline",
-                                            "tools": ["SQL", "APIs", "Web Scraping", "Data Validation"]
+                                            "tools": ["Kinesis Firehose", "S3", "MinIO", "APIs"]
                                         },
                                         {
-                                            "title": "Analysis & Modeling",
-                                            "description": "Statistical analysis, trend identification, predictive modeling, and insights generation.",
+                                            "title": "Data Transformation",
+                                            "description": "ELT pipelines building subject-area data marts for analytics.",
+                                            "icon": "shuffle-outline",
+                                            "tools": ["Airflow", "DBT", "SQL", "BigQuery"]
+                                        },
+                                        {
+                                            "title": "Analysis & Segmentation",
+                                            "description": "Customer segmentation, behavioral clustering, and predictive modeling.",
                                             "icon": "stats-chart-outline",
-                                            "tools": ["Python", "R", "Jupyter", "Statistical Tests"]
+                                            "tools": ["Python", "Scikit-learn", "K-means", "XGBoost"]
                                         },
                                         {
                                             "title": "Visualization",
-                                            "description": "Dashboard creation, report generation, and interactive visualization development.",
+                                            "description": "Automated dashboards and reporting for business stakeholders.",
                                             "icon": "bar-chart-outline",
-                                            "tools": ["Tableau", "Power BI", "D3.js", "Plotly"]
+                                            "tools": ["Superset", "Redash", "Grafana", "Plotly"]
                                         },
                                         {
-                                            "title": "Implementation",
-                                            "description": "Automated reporting, stakeholder training, and ongoing analytics support.",
-                                            "icon": "settings-outline",
-                                            "tools": ["Automation", "Training", "Documentation", "Support"]
+                                            "title": "Impact Measurement",
+                                            "description": "KPI tracking, A/B testing, and measuring business impact of insights.",
+                                            "icon": "trending-up-outline",
+                                            "tools": ["CTR Analysis", "Cost Metrics", "ROI Tracking"]
                                         }
                                     ]
                                 }

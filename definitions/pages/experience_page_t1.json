@@ -25,79 +25,74 @@
               "description": "My journey through various roles in machine learning and software development",
               "experiences": [
                 {
-                  "jobTitle": "Senior ML Engineer",
-                  "companyName": "TechCorp Solutions",
-                  "location": "San Francisco, CA",
-                  "dates": "2022 - Present",
-                  "startDate": "2022-01-01",
+                  "jobTitle": "Data Scientist / MLOps",
+                  "companyName": "Ozoneproject",
+                  "location": "London, England",
+                  "dates": "Dec 2024 - Present",
+                  "startDate": "2024-12-01",
                   "endDate": null,
                   "type": "Full-time",
-                  "description": "Lead machine learning initiatives for enterprise clients, focusing on predictive analytics and automated decision systems. Built and deployed ML pipelines serving millions of users daily.",
+                  "description": "Designing ML pipelines for Audience & Brand Safety models, building creative classifiers, and implementing audience segmentation systems that boost campaign performance.",
                   "responsibilities": [
-                    "Designed and implemented ML infrastructure serving 10M+ daily requests",
-                    "Reduced model inference latency by 60% through optimization techniques",
-                    "Led a team of 5 engineers in developing real-time recommendation systems",
-                    "Established MLOps practices reducing deployment time from weeks to hours"
+                    "Automated ML pipeline using Airflow, MLflow, Docker - cut deployment from 2 weeks to 1 week",
+                    "Built creative classifier with OpenCV + Tesseract OCR and fine-tuned RoBERTa/EfficientNet - 92% accuracy",
+                    "Implemented two-tower model for audience segmentation on TensorFlow/Spark - boosted CTR by 23%",
+                    "Orchestrated ELT pipelines with Airflow, MinIO, BigQuery, and Superset dashboards"
                   ],
-                  "tags": [
-                    "Python",
-                    "TensorFlow",
-                    "Kubernetes",
-                    "AWS",
-                    "Docker",
-                    "Apache Kafka"
-                  ],
-                  "logoIcon": "code-working-outline"
-                },
-                {
-                  "jobTitle": "ML Engineer",
-                  "companyName": "DataFlow Analytics",
-                  "location": "Remote",
-                  "dates": "2020 - 2022",
-                  "startDate": "2020-03-01",
-                  "endDate": "2022-01-01",
-                  "type": "Full-time",
-                  "description": "Developed machine learning models for customer behavior analysis and fraud detection. Collaborated with cross-functional teams to integrate ML solutions into production systems.",
-                  "responsibilities": [
-                    "Built fraud detection system reducing false positives by 40%",
-                    "Implemented A/B testing framework for ML model evaluation",
-                    "Created data pipeline processing 1TB+ daily transaction data",
-                    "Improved customer segmentation accuracy by 35% using ensemble methods"
-                  ],
-                  "tags": [
-                    "Python",
-                    "Scikit-learn",
-                    "PostgreSQL",
-                    "Apache Spark",
-                    "Jenkins",
-                    "Git"
-                  ],
+                  "tags": ["Airflow", "MLflow", "Docker", "Vertex AI", "TensorFlow", "Spark", "BigQuery", "Superset"],
                   "logoIcon": "analytics-outline"
                 },
                 {
-                  "jobTitle": "Data Scientist",
-                  "companyName": "StartupXYZ",
-                  "location": "New York, NY",
-                  "dates": "2018 - 2020",
-                  "startDate": "2018-06-01",
-                  "endDate": "2020-03-01",
+                  "jobTitle": "AI Engineer",
+                  "companyName": "RizzBuzz",
+                  "location": "Remote",
+                  "dates": "Aug 2024 - Nov 2024",
+                  "startDate": "2024-08-01",
+                  "endDate": "2024-11-01",
                   "type": "Full-time",
-                  "description": "Analyzed large datasets to derive business insights and built predictive models for customer acquisition and retention. Worked closely with product teams to implement data-driven features.",
+                  "description": "Built no-code platform for multi-agent researcher chatbots using LangChain, SerpAPI, and SQL Agents.",
                   "responsibilities": [
-                    "Developed customer lifetime value prediction model improving retention by 25%",
-                    "Created automated reporting system saving 20 hours/week of manual work",
-                    "Built recommendation engine increasing user engagement by 30%",
-                    "Established data governance practices and documentation standards"
+                    "Built no-code platform for designing multi-agent chatbots with personal LLM API keys",
+                    "Orchestrated workflows with LangChain, SerpAPI for external info, SQL Agent for internal data",
+                    "Developed monitoring system and Superset dashboard for agent activity tracking",
+                    "Implemented MinIO data lake and PostgreSQL data mart with Airflow scheduled updates"
                   ],
-                  "tags": [
-                    "Python",
-                    "R",
-                    "SQL",
-                    "Tableau",
-                    "AWS",
-                    "Pandas",
-                    "NumPy"
+                  "tags": ["LangChain", "FastAPI", "PostgreSQL", "MinIO", "Airflow", "Superset"],
+                  "logoIcon": "chatbubbles-outline"
+                },
+                {
+                  "jobTitle": "AI and MLOps Engineer",
+                  "companyName": "Adludio",
+                  "location": "London, England",
+                  "dates": "Sep 2022 - Aug 2024",
+                  "startDate": "2022-09-01",
+                  "endDate": "2024-08-01",
+                  "type": "Full-time",
+                  "description": "Designed end-to-end ML pipelines, optimized cloud infrastructure achieving 50% cost reduction, and built ETL pipelines for streaming ad interaction data.",
+                  "responsibilities": [
+                    "Designed ML pipeline for Lorenzo Project using MLflow, EKS, API Gateway + Lambda, Cognito",
+                    "Optimized cloud infrastructure - reduced costs by 50% through serverless transitions",
+                    "Built ETL pipeline for ad tracking with Autoscaling EC2, Amazon Firehose, S3",
+                    "Created CI/CD pipelines and dev environments for DS team on EC2"
                   ],
+                  "tags": ["AWS", "EKS", "MLflow", "Lambda", "Firehose", "S3", "Docker", "Kubernetes"],
+                  "logoIcon": "cloud-outline"
+                },
+                {
+                  "jobTitle": "Data Analyst",
+                  "companyName": "EthioTelecom",
+                  "location": "Addis Ababa, Ethiopia",
+                  "dates": "Nov 2020 - Sep 2022",
+                  "startDate": "2020-11-01",
+                  "endDate": "2022-09-01",
+                  "type": "Full-time",
+                  "description": "Automated data workflows, built predictive maintenance models, and developed customer segmentation systems.",
+                  "responsibilities": [
+                    "Designed Python + SQL pipelines for ETL and visualization - reduced manual reporting significantly",
+                    "Developed ML model (scikit-learn, XGBoost) reducing network downtime by 3.5%",
+                    "Built K-means clustering model uncovering 3 high-value customer segments"
+                  ],
+                  "tags": ["Python", "SQL", "Scikit-learn", "XGBoost", "K-means", "Data Visualization"],
                   "logoIcon": "bar-chart-outline"
                 }
               ]

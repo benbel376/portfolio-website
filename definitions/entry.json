@@ -1,15 +1,15 @@
 {
-    "default_profile": "ml_mlops",
-    "default_site": "side_bar",
-    "profiles": {
-        "ml_mlops": {
-            "profile": "ml_mlops_t1.json",
-            "builder": "builder_t1.php",
-            "description": "ML/MLOps focused portfolio content"
-        }
-    },
-    "sites": {
-        "top_bar": "top_bar_site_t2.json",
-        "side_bar": "side_bar_site_t1.json"
+  "default_profile": "ml_mlops",
+  "default_site": "side_bar",
+  "profiles": {
+    "ml_mlops": {
+      "profile": "ml_mlops_t1.json",
+      "builder": "builder_t1.php",
+      "description": "ML/MLOps focused portfolio content"
     }
+  },
+  "sites": {
+    "top_bar": "top_bar_site_t2.json",
+    "side_bar": "side_bar_site_t1.json"
+  }
 }

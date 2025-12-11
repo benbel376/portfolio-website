@@ -3,8 +3,8 @@
  * Handles navigation and data population
  */
 
-// Global state
-window.projectHeroData = window.projectHeroData || null;
+// Global state - keyed by component ID to support multiple instances
+window.projectHeroDataMap = window.projectHeroDataMap || {};
 
 /**
  * Initialize the Project Hero component
@@ -21,9 +21,10 @@ function initializeProjectHero(componentElement) {
     // Setup back button
     setupBackButton(component);
 
-    // Render data if available
-    if (window.projectHeroData) {
-        renderProjectHero(component, window.projectHeroData);
+    // Render data if available for this specific component
+    const componentId = component.id;
+    if (componentId && window.projectHeroDataMap[componentId]) {
+        renderProjectHero(component, window.projectHeroDataMap[componentId]);
     }
 }
 
@@ -44,12 +45,17 @@ function setupBackButton(component) {
 
 /**
  * Set project hero data from PHP loader
+ * @param {string} componentId - The ID of the specific component instance
+ * @param {object} data - The hero data
  */
-function setProjectHeroData(data) {
-    console.log('Project Hero: Setting data:', data);
-    window.projectHeroData = data;
+function setProjectHeroData(componentId, data) {
+    console.log('Project Hero: Setting data for', componentId, ':', data);
+    
+    // Store data keyed by component ID
+    window.projectHeroDataMap[componentId] = data;
 
-    const component = document.querySelector('.project-hero-component');
+    // Find the specific component by ID and render
+    const component = document.getElementById(componentId);
     if (component) {
         renderProjectHero(component, data);
     }

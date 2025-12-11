@@ -17,7 +17,7 @@ class ProjectHeroLoaderT1 {
             case 'shell':
                 return $this->generateShell($id, $navConfig, $componentMetadata);
             case 'content':
-                return $this->generateContent($data);
+                return $this->generateContent($id, $data);
             case 'full':
             default:
                 return $this->generateFullComponent($id, $navConfig, $data);
@@ -50,7 +50,7 @@ class ProjectHeroLoaderT1 {
         );
 
         // Inject data script before closing section
-        $dataScript = $this->generateDataScript($data);
+        $dataScript = $this->generateDataScript($id, $data);
         $lastPos = strrpos($template, '</section>');
         $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
 
@@ -84,8 +84,9 @@ class ProjectHeroLoaderT1 {
 
     /**
      * Generate content only (for API responses)
+     * Note: Content mode needs ID passed separately or extracted from metadata
      */
-    private function generateContent($data) {
+    private function generateContent($id, $data) {
         $template = file_get_contents(__DIR__ . '/project_hero_structure_t1.html');
         
         // Remove link and script tags for content-only mode
@@ -93,7 +94,7 @@ class ProjectHeroLoaderT1 {
         $template = preg_replace('/<script[^>]*>.*?<\/script>/s', '', $template);
         
         // Inject data script
-        $dataScript = $this->generateDataScript($data);
+        $dataScript = $this->generateDataScript($id, $data);
         $lastPos = strrpos($template, '</section>');
         $template = substr_replace($template, $dataScript . '</section>', $lastPos, 10);
 
@@ -103,23 +104,26 @@ class ProjectHeroLoaderT1 {
     /**
      * Generate data injection script
      */
-    private function generateDataScript($data) {
+    private function generateDataScript($id, $data) {
         if (empty($data)) {
             return '';
         }
 
         $jsonData = json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+        $safeId = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
         
         $script = '<script>';
         $script .= '(function() {';
+        $script .= 'var componentId = "' . $safeId . '";';
         $script .= 'var data = ' . $jsonData . ';';
         $script .= 'if (typeof window.setProjectHeroData === "function") {';
-        $script .= '    window.setProjectHeroData(data);';
+        $script .= '    window.setProjectHeroData(componentId, data);';
         $script .= '} else {';
-        $script .= '    window.projectHeroData = data;';
+        $script .= '    window.projectHeroDataMap = window.projectHeroDataMap || {};';
+        $script .= '    window.projectHeroDataMap[componentId] = data;';
         $script .= '    setTimeout(function() {';
         $script .= '        if (typeof window.setProjectHeroData === "function") {';
-        $script .= '            window.setProjectHeroData(data);';
+        $script .= '            window.setProjectHeroData(componentId, data);';
         $script .= '        }';
         $script .= '    }, 100);';
         $script .= '}';

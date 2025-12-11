@@ -22,7 +22,7 @@
 						"main": {
 							"name": "Biniyam Belayneh",
 							"title": "AI and MLOps Engineer",
-							"description": "Experienced ML Engineer specializing in developing and deploying machine learning solutions. Strong background in data analysis and model optimization.",
+							"description": "Building reliable ML platforms and pipelines on AWS & GCP. Shipping models to production with CI/CD, observability, and measurable impact.",
 							"image": "definitions/media/profile/avatar.png",
 							"backdrop": {
 								"light": "definitions/media/backgrounds/hero_backdrop_light.png",
@@ -56,11 +56,11 @@
 						"main": {
 							"decorationImage": "definitions/media/misc/summary_profile.gif",
 							"highlightIcon": "rocket-outline",
-							"highlightTitle": "AI & MLOps Team Lead",
-							"highlightSubtitle": "Building end-to-end machine learning systems from development to deployment with scalability, security, and efficiency at the core.",
+							"highlightTitle": "AI/ML Engineer | MLOps Specialist",
+							"highlightSubtitle": "40% cloud cost reduction • 1-week automated releases • +23% CTR via audience modeling • 92% classification accuracy • 3.5% downtime reduction",
 							"paragraphs": [
-								"As the <strong>AI and MLOps team lead</strong> at Adludio, I spearheaded the development of end-to-end machine learning systems, automating data processing, model training, and deployment pipelines. I bring expertise in cloud computing, CI/CD, and scalable architectures, ensuring robust, versioned models that drive reliable production.",
-								"Additionally, I design streamlined UI systems for monitoring real-time performance, security, and cost metrics, empowering teams with actionable insights. From development to deployment, I focus on delivering machine learning solutions that are efficient, secure, and scale-ready."
+								"AI/ML Engineer focused on <strong>MLOps</strong>: I build reliable, compliant, and cost-efficient ML platforms and pipelines on <strong>AWS and GCP</strong> using MLflow, Airflow, Docker, Kubernetes/EKS, Spark and Vertex AI. I ship models to production with CI/CD, model registry/versioning, and observability, enabling faster releases and safer rollouts.",
+								"I also build end-to-end streaming and batch processing ELT/ETL pipelines working with S3, RDS, Postgres, Kinesis Firehose, DBT, BigQuery, and more. <strong>Delivered measurable impact:</strong> 40% cloud cost reduction, 1-week automated releases (from 2 weeks), +23% CTR via audience modeling, 92% creative classification accuracy, and 3.5% downtime reduction."
 							],
 							"expertise": [
 								{ "icon": "server-outline", "title": "ML Infrastructure", "description": "Scalable ML pipelines with end-to-end automation" },

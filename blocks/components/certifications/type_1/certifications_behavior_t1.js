@@ -5,7 +5,8 @@
 
 // Global certifications data storage (avoid conflicts with multiple script loads)
 window.certificationsData = window.certificationsData || [];
-window.currentSlideIndex = window.currentSlideIndex || 0;
+window.certificationsCurrentSlideIndex = window.certificationsCurrentSlideIndex || 0;
+window.certificationsInitialized = window.certificationsInitialized || false;
 
 /**
  * Initialize the certifications slideshow component
@@ -33,6 +34,15 @@ function initializeCertifications(componentElement) {
     console.log('Certifications: Slide container found:', !!slideContainer);
     console.log('Certifications: Pre-loaded data available:', window.certificationsData?.length || 0);
     
+    // Check if already rendered - don't re-render if slides exist
+    const existingSlides = slideContainer.querySelectorAll('.certifications__slide');
+    if (existingSlides.length > 0) {
+        console.log('Certifications: Already rendered, skipping re-render');
+        // Just ensure current slide is shown
+        showSlide(window.certificationsCurrentSlideIndex);
+        return;
+    }
+    
     // Check if we have data to render (check global data that PHP may have set)
     if (window.certificationsData && window.certificationsData.length > 0) {
         console.log('Certifications: Rendering with existing data:', window.certificationsData.length, 'items');
@@ -42,8 +52,11 @@ function initializeCertifications(componentElement) {
         showEmptyState();
     }
     
-    // Initialize navigation
-    initializeNavigation();
+    // Initialize navigation only once
+    if (!window.certificationsInitialized) {
+        initializeNavigation();
+        window.certificationsInitialized = true;
+    }
 }
 
 /**
@@ -52,12 +65,16 @@ function initializeCertifications(componentElement) {
 function setCertificationsData(data) {
     console.log('Certifications: Setting certifications data:', data);
     window.certificationsData = data || [];
-    window.currentSlideIndex = 0;
+    window.certificationsCurrentSlideIndex = 0;
     
     // If component is already initialized, render the data
     const slideContainer = document.getElementById('certifications-slide-container');
     if (slideContainer) {
-        renderCertificationsSlideshow();
+        // Only render if no slides exist yet
+        const existingSlides = slideContainer.querySelectorAll('.certifications__slide');
+        if (existingSlides.length === 0) {
+            renderCertificationsSlideshow();
+        }
     }
 }
 
@@ -162,7 +179,7 @@ function showSlide(index) {
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
     
-    window.window.currentSlideIndex = index;
+    window.certificationsCurrentSlideIndex = index;
     
     // Hide all slides
     slides.forEach(slide => {
@@ -189,29 +206,38 @@ function initializeNavigation() {
     const nextButton = document.getElementById('certifications-next');
     
     if (prevButton) {
-        prevButton.addEventListener('click', () => {
-            showSlide(window.currentSlideIndex - 1);
+        // Remove existing listeners by cloning
+        const newPrevButton = prevButton.cloneNode(true);
+        prevButton.parentNode.replaceChild(newPrevButton, prevButton);
+        newPrevButton.addEventListener('click', () => {
+            showSlide(window.certificationsCurrentSlideIndex - 1);
         });
     }
     
     if (nextButton) {
-        nextButton.addEventListener('click', () => {
-            showSlide(window.currentSlideIndex + 1);
+        // Remove existing listeners by cloning
+        const newNextButton = nextButton.cloneNode(true);
+        nextButton.parentNode.replaceChild(newNextButton, nextButton);
+        newNextButton.addEventListener('click', () => {
+            showSlide(window.certificationsCurrentSlideIndex + 1);
         });
     }
     
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (document.activeElement && document.activeElement.closest('.certifications-component')) {
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                showSlide(window.currentSlideIndex - 1);
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                showSlide(window.currentSlideIndex + 1);
+    // Keyboard navigation (only add once)
+    if (!window.certificationsKeyboardInitialized) {
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement && document.activeElement.closest('.certifications-component')) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    showSlide(window.certificationsCurrentSlideIndex - 1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    showSlide(window.certificationsCurrentSlideIndex + 1);
+                }
             }
-        }
-    });
+        });
+        window.certificationsKeyboardInitialized = true;
+    }
 }
 
 /**
@@ -247,7 +273,7 @@ function updatePagination() {
     const dots = document.querySelectorAll('.certifications__pagination-dot');
     
     dots.forEach((dot, index) => {
-        if (index === window.currentSlideIndex) {
+        if (index === window.certificationsCurrentSlideIndex) {
             dot.classList.add('active');
         } else {
             dot.classList.remove('active');
@@ -265,8 +291,8 @@ function updateNavigationButtons() {
     if (!prevButton || !nextButton) return;
     
     // Enable/disable buttons based on current position
-    prevButton.disabled = window.currentSlideIndex === 0;
-    nextButton.disabled = window.currentSlideIndex === window.certificationsData.length - 1;
+    prevButton.disabled = window.certificationsCurrentSlideIndex === 0;
+    nextButton.disabled = window.certificationsCurrentSlideIndex === window.certificationsData.length - 1;
 }
 
 /**
@@ -324,7 +350,7 @@ function escapeHtml(text) {
 function startAutoAdvance(interval = 8000) {
     return setInterval(() => {
         if (window.certificationsData.length > 1) {
-            showSlide(window.currentSlideIndex + 1);
+            showSlide(window.certificationsCurrentSlideIndex + 1);
         }
     }, interval);
 }
@@ -338,7 +364,7 @@ function resetCertificationsAnimations() {
         slide.classList.remove('active');
     });
     
-    window.currentSlideIndex = 0;
+    window.certificationsCurrentSlideIndex = 0;
     if (slides.length > 0) {
         showSlide(0);
     }
