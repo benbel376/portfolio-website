@@ -12,6 +12,9 @@ window.codingStatsCurrentSlide = 0;
 function setCodingStatsData(data) {
     console.log('CodingStats v9: setCodingStatsData');
     
+    // Store full data for background config
+    window.codingStatsFullData = data;
+    
     // Extract platforms array
     if (data && data.platforms) {
         window.codingStatsData = data.platforms;
@@ -23,6 +26,34 @@ function setCodingStatsData(data) {
     
     window.codingStatsCurrentSlide = 0;
     renderCodingStats();
+    applyBackground();
+}
+
+/**
+ * Apply background image from JSON config
+ */
+function applyBackground() {
+    const slideshow = document.querySelector('.coding-stats__slideshow');
+    if (!slideshow || !window.codingStatsFullData) return;
+    
+    const data = window.codingStatsFullData;
+    const isDark = document.body.classList.contains('theme-dark');
+    
+    // Get background from JSON config
+    let bgImage = null;
+    if (isDark && data.backgroundDark) {
+        bgImage = data.backgroundDark;
+    } else if (!isDark && data.backgroundLight) {
+        bgImage = data.backgroundLight;
+    } else if (data.background) {
+        bgImage = data.background;
+    }
+    
+    if (bgImage) {
+        slideshow.style.backgroundImage = `url('${bgImage}')`;
+    }
+    
+    console.log('CodingStats v9: Applied background', bgImage);
 }
 
 /**
@@ -190,8 +221,19 @@ function handleCodingStatsNavigation(elementId, state) {
 window.setCodingStatsData = setCodingStatsData;
 window.initializeCodingStats = initializeCodingStats;
 window.handleCodingStatsNavigation = handleCodingStatsNavigation;
+window.applyBackground = applyBackground;
 
 // Auto-init
 document.addEventListener('DOMContentLoaded', () => setTimeout(initializeCodingStats, 100));
+
+// Listen for theme changes to update background
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+            applyBackground();
+        }
+    });
+});
+observer.observe(document.body, { attributes: true });
 
 console.log('CodingStats v9: Script loaded');

@@ -48,20 +48,33 @@
 
 /* Slideshow Container */
 .coding-stats__slideshow {
-    background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
     min-height: 140px;
     position: relative;
     overflow: hidden;
-    background-image: url('../../../../definitions/media/backgrounds/code_stats_background.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
-.theme-dark .coding-stats__slideshow {
-    background-image: url('../../../../definitions/media/backgrounds/code_stats_background_black.jpg');
+/* Light theme overlay - higher opacity for better text readability */
+.coding-stats__slideshow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.88);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Dark theme overlay - higher opacity for dark mode */
+.theme-dark .coding-stats__slideshow::before {
+    background: rgba(0, 0, 0, 0.82);
 }
 
 /* Slide - Single row layout */

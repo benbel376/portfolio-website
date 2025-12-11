@@ -782,6 +782,8 @@
                     "data": {
                         "main": {
                             "title": "Coding Practice",
+                            "backgroundLight": "definitions/media/backgrounds/code_stats_background.jpg",
+                            "backgroundDark": "definitions/media/backgrounds/code_stats_background_black.jpg",
                             "platforms": [
                                 {
                                     "name": "LeetCode",
