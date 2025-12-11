@@ -11,14 +11,6 @@
         <p class="testimonials__subtitle">What colleagues and clients say about me</p>
       </div>
     </div>
-    <div class="testimonials__header-controls">
-      <button class="testimonials__nav-btn testimonials__prev" id="testimonials-prev" aria-label="Previous testimonial">
-        <ion-icon name="chevron-back-outline"></ion-icon>
-      </button>
-      <button class="testimonials__nav-btn testimonials__next" id="testimonials-next" aria-label="Next testimonial">
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-      </button>
-    </div>
   </div>
 
   <!-- Testimonials Slideshow -->
@@ -27,11 +19,17 @@
       <!-- Testimonial slides will be dynamically loaded here -->
     </div>
     
-    <!-- Indicators Only -->
+    <!-- Navigation with Indicators -->
     <div class="testimonials__controls">
+      <button class="testimonials__pagination-arrow testimonials__pagination-arrow--prev" id="testimonials-prev" aria-label="Previous testimonial">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
       <div class="testimonials__indicators" id="testimonials-indicators">
         <!-- Indicators will be dynamically generated -->
       </div>
+      <button class="testimonials__pagination-arrow testimonials__pagination-arrow--next" id="testimonials-next" aria-label="Next testimonial">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
     </div>
   </div>
 
