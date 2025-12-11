@@ -372,9 +372,15 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .coding-stats-component {
-        padding: var(--spacing-md);
+        padding: 0 var(--spacing-10);
+    }
+}
+
+@media (max-width: 480px) {
+    .coding-stats-component {
+        padding: 0 var(--spacing-8);
     }
     
     .coding-stats__header {

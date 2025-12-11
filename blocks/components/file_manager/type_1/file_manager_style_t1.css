@@ -1103,7 +1103,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .file-manager-component {
-    padding: 0 var(--spacing-4);
+    padding: 0 var(--spacing-10);
   }
   
   .file-manager__header {

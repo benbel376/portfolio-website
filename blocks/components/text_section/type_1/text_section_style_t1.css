@@ -123,7 +123,7 @@
 /* Responsive - Mobile */
 @media (max-width: 480px) {
     .text-section-component {
-        padding: 0 var(--spacing-6);
+        padding: 0 var(--spacing-8);
     }
 
     .text-section__content {
