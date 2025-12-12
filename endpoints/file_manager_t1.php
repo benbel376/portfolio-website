@@ -211,19 +211,27 @@ try {
 // ============================================================================
 
 /**
- * Validate path is within definitions folder
+ * Validate path is within allowed folders
+ * - definitions/ : full access (list, read, write)
+ * - blocks/ : read-only access (for schema validation)
  */
-function validatePath($path) {
-    if (strpos($path, 'definitions') !== 0) {
-        return false;
-    }
+function validatePath($path, $allowBlocks = false) {
+    // Check for path traversal
     if (strpos($path, '..') !== false) {
         return false;
     }
+    // Validate characters
     if (!preg_match('#^[a-zA-Z0-9_\-/\.]+$#', $path)) {
         return false;
     }
-    return true;
+    // Check allowed folders
+    if (strpos($path, 'definitions') === 0) {
+        return true;
+    }
+    if ($allowBlocks && strpos($path, 'blocks') === 0) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -273,9 +281,10 @@ function buildTreeNode($fullPath, $relativePath) {
 
 /**
  * List files in a directory
+ * Allows blocks/ for schema discovery (read-only)
  */
 function listFiles($path) {
-    if (!validatePath($path)) {
+    if (!validatePath($path, true)) {
         throw new Exception('Invalid path');
     }
     
@@ -312,9 +321,10 @@ function listFiles($path) {
 
 /**
  * Read file content
+ * Allows blocks/ for schema reading (read-only)
  */
 function readFileContent($path) {
-    if (!validatePath($path)) {
+    if (!validatePath($path, true)) {
         throw new Exception('Invalid file path');
     }
     
