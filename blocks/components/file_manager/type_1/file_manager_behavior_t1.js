@@ -1025,7 +1025,7 @@ function validateDataAgainstSchema(data, schema) {
 }
 
 /**
- * Validate page definition structure
+ * Validate page definition structure (recursive)
  */
 function validatePageDefinition(data) {
     const errors = [];
@@ -1035,15 +1035,39 @@ function validatePageDefinition(data) {
     } else if (!Array.isArray(data.objects)) {
         errors.push('"objects" must be an array');
     } else {
-        data.objects.forEach((obj, i) => {
-            if (!obj.type) errors.push(`objects[${i}]: missing "type"`);
-            if (!obj.component) errors.push(`objects[${i}]: missing "component"`);
-            if (!obj.id) errors.push(`objects[${i}]: missing "id"`);
-        });
+        validateObjectsRecursive(data.objects, 'objects', errors);
     }
     
     if (errors.length === 0) return { valid: true, message: 'Valid page definition! ✓' };
     return { valid: false, message: errors.slice(0, 3).join('; ') };
+}
+
+/**
+ * Recursively validate objects array
+ */
+function validateObjectsRecursive(objects, path, errors) {
+    objects.forEach((obj, i) => {
+        const objPath = `${path}[${i}]`;
+        
+        // Required fields for all objects
+        if (!obj.type) errors.push(`${objPath}: missing "type"`);
+        if (!obj.component) errors.push(`${objPath}: missing "component"`);
+        if (!obj.id) errors.push(`${objPath}: missing "id"`);
+        
+        // Container-specific validation
+        if (obj.type === 'container') {
+            if (obj.objects && Array.isArray(obj.objects)) {
+                validateObjectsRecursive(obj.objects, `${objPath}.objects`, errors);
+            }
+        }
+        
+        // Component-specific validation
+        if (obj.type === 'component') {
+            if (!obj.variant && !obj.data) {
+                errors.push(`${objPath}: needs "variant" or "data"`);
+            }
+        }
+    });
 }
 
 /**
