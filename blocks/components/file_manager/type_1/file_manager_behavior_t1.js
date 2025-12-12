@@ -902,18 +902,171 @@ function formatJSON() {
 }
 
 /**
- * Validate JSON in editor
+ * Validate JSON in editor - syntax + schema validation
  */
-function validateJSON() {
+async function validateJSON() {
     const textarea = document.getElementById('fm-editor-textarea');
     if (!textarea) return;
     
+    const filePath = window.fileManagerState.currentEditingFile;
+    
+    // Step 1: Basic JSON syntax validation
+    let parsed;
     try {
-        JSON.parse(textarea.value);
-        showValidation('success', 'Valid JSON!');
+        parsed = JSON.parse(textarea.value);
     } catch (error) {
-        showValidation('error', 'Invalid JSON: ' + error.message);
+        showValidation('error', 'Invalid JSON syntax: ' + error.message);
+        return;
     }
+    
+    // Step 2: Schema validation based on file type
+    const schemaResult = await validateAgainstSchema(parsed, filePath);
+    
+    if (schemaResult.valid) {
+        showValidation('success', schemaResult.message || 'Valid JSON!');
+    } else {
+        showValidation('warning', schemaResult.message);
+    }
+}
+
+/**
+ * Validate JSON against appropriate schema based on file path
+ */
+async function validateAgainstSchema(data, filePath) {
+    if (!filePath) return { valid: true, message: 'Valid JSON!' };
+    
+    // Determine file type and validate accordingly
+    if (filePath.includes('definitions/pages/')) {
+        return validatePageDefinition(data);
+    } else if (filePath.includes('definitions/sites/')) {
+        return validateSiteDefinition(data);
+    } else if (filePath.includes('definitions/profiles/')) {
+        return validateProfileDefinition(data);
+    } else if (filePath.includes('blocks/components/')) {
+        // Try to load schema from same folder
+        const pathParts = filePath.split('/');
+        const componentFolder = pathParts.slice(0, -1).join('/');
+        const schemaPath = await findComponentSchema(componentFolder);
+        if (schemaPath) {
+            return await validateWithSchema(data, schemaPath);
+        }
+    }
+    
+    return { valid: true, message: 'Valid JSON! (No schema available)' };
+}
+
+/**
+ * Find component schema file in folder
+ */
+async function findComponentSchema(folderPath) {
+    try {
+        const response = await fetch('api.php?endpoint=file_manager&action=list', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: folderPath })
+        });
+        const data = await response.json();
+        
+        if (data.success && data.files) {
+            const schemaFile = data.files.find(f => f.name.includes('schema') && f.extension === 'json');
+            if (schemaFile) return schemaFile.path;
+        }
+    } catch (e) {
+        console.log('Could not find schema:', e);
+    }
+    return null;
+}
+
+/**
+ * Validate data against a schema file
+ */
+async function validateWithSchema(data, schemaPath) {
+    try {
+        const response = await fetch('api.php?endpoint=file_manager&action=read', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: schemaPath })
+        });
+        const result = await response.json();
+        
+        if (!result.success) return { valid: true, message: 'Valid JSON!' };
+        
+        const schema = JSON.parse(result.content);
+        const errors = validateDataAgainstSchema(data, schema);
+        
+        if (errors.length === 0) {
+            return { valid: true, message: 'Valid JSON! Schema passed ✓' };
+        }
+        return { valid: false, message: 'Schema: ' + errors.slice(0, 2).join('; ') };
+    } catch (e) {
+        return { valid: true, message: 'Valid JSON!' };
+    }
+}
+
+/**
+ * Validate data against schema fields
+ */
+function validateDataAgainstSchema(data, schema) {
+    const errors = [];
+    if (!schema.fields) return errors;
+    
+    for (const [fieldName, fieldDef] of Object.entries(schema.fields)) {
+        if (fieldDef.required && data[fieldName] === undefined) {
+            errors.push(`Missing: ${fieldName}`);
+        }
+        if (data[fieldName] !== undefined && fieldDef.type) {
+            const actualType = Array.isArray(data[fieldName]) ? 'array' : typeof data[fieldName];
+            if (fieldDef.type !== actualType) {
+                errors.push(`${fieldName}: expected ${fieldDef.type}`);
+            }
+        }
+    }
+    return errors;
+}
+
+/**
+ * Validate page definition structure
+ */
+function validatePageDefinition(data) {
+    const errors = [];
+    
+    if (!data.objects) {
+        errors.push('Missing "objects" array');
+    } else if (!Array.isArray(data.objects)) {
+        errors.push('"objects" must be an array');
+    } else {
+        data.objects.forEach((obj, i) => {
+            if (!obj.type) errors.push(`objects[${i}]: missing "type"`);
+            if (!obj.component) errors.push(`objects[${i}]: missing "component"`);
+            if (!obj.id) errors.push(`objects[${i}]: missing "id"`);
+        });
+    }
+    
+    if (errors.length === 0) return { valid: true, message: 'Valid page definition! ✓' };
+    return { valid: false, message: errors.slice(0, 3).join('; ') };
+}
+
+/**
+ * Validate site definition structure
+ */
+function validateSiteDefinition(data) {
+    const errors = [];
+    if (!data.type) errors.push('Missing "type" field');
+    
+    if (errors.length === 0) return { valid: true, message: 'Valid site definition! ✓' };
+    return { valid: false, message: errors.join('; ') };
+}
+
+/**
+ * Validate profile definition structure
+ */
+function validateProfileDefinition(data) {
+    const errors = [];
+    if (!data.site) errors.push('Missing "site" field');
+    if (!data.pages || !Array.isArray(data.pages)) errors.push('Missing "pages" array');
+    
+    if (errors.length === 0) return { valid: true, message: 'Valid profile definition! ✓' };
+    return { valid: false, message: errors.join('; ') };
 }
 
 /**

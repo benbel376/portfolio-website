@@ -1,145 +1,145 @@
 {
-    "type": "top_bar/type_2",
-    "branding": {
-        "title": "Portfolio"
+  "type": "top_bar/type_2",
+  "branding": {
+    "title": "Portfolio"
+  },
+  "aiAssistant": {
+    "enabled": true,
+    "provider": "gemini",
+    "apiKey": "AIzaSyBPdIWmDcxLjVOB6HuDTLJN-NiFyi6Tckg",
+    "model": "gemini-2.5-flash",
+    "maxTokens": 1024,
+    "title": "Portfolio Assistant",
+    "placeholder": "Ask me anything about this portfolio...",
+    "welcomeMessage": "Hi! I'm here to help you explore this portfolio. Ask me about skills, projects, experience, or anything else!"
+  },
+  "backgrounds": {
+    "light": {
+      "body": "definitions/media/backgrounds/general_background_light_v1.png",
+      "container": "definitions/media/backgrounds/general_background_bubbles_v1.avif"
     },
-    "aiAssistant": {
-        "enabled": true,
-        "provider": "gemini",
-        "apiKey": "AIzaSyAnx_S003GFmhJICjA27ssG9v8gxMxw04o",
-        "model": "gemini-2.5-flash",
-        "maxTokens": 1024,
-        "title": "Portfolio Assistant",
-        "placeholder": "Ask me anything about this portfolio...",
-        "welcomeMessage": "Hi! I'm here to help you explore this portfolio. Ask me about skills, projects, experience, or anything else!"
-    },
-    "backgrounds": {
-        "light": {
-            "body": "definitions/media/backgrounds/general_background_light_v1.png",
-            "container": "definitions/media/backgrounds/general_background_bubbles_v1.avif"
-        },
-        "dark": {
-            "body": "definitions/media/backgrounds/general_background_dark_v1.png",
-            "container": "definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg"
-        }
-    },
-    "theme": {
-        "light": {
-            "colors": {
-                "bg": "#f5f5f5",
-                "text": "#1a1a1a",
-                "primary": "#FF8F00",
-                "border": "#e0e0e0",
-                "nav-bg": "#ffffff",
-                "site-container-bg": "#ffffffee",
-                "card-bg": "#ffffff",
-                "card-border": "#eeeeee",
-                "error": "#dc3545",
-                "success": "#28a745",
-                "accent": "#f59e0b"
-            },
-            "fonts": {
-                "primary": "'Poppins', sans-serif",
-                "secondary": "'Inter', sans-serif",
-                "mono": "'Geist Mono', monospace"
-            },
-            "custom": {}
-        },
-        "dark": {
-            "colors": {
-                "bg": "#181a1b",
-                "text": "#e6e6e6",
-                "primary": "#FFB74D",
-                "border": "#333333",
-                "site-container-bg": "rgba(32, 33, 36, 0.95)",
-                "card-bg": "#202124",
-                "card-border": "#333333",
-                "error": "#ff6b6b",
-                "success": "#51fa7b",
-                "accent": "#fbbf24"
-            },
-            "fonts": {},
-            "custom": {}
-        },
-        "shared": {
-            "spacing": {
-                "xs": "4px",
-                "sm": "8px",
-                "md": "16px",
-                "lg": "24px",
-                "xl": "32px"
-            },
-            "radius": {
-                "sm": "6px",
-                "md": "8px",
-                "lg": "12px",
-                "xl": "16px"
-            },
-            "text-size": {
-                "xs": "12px",
-                "sm": "14px",
-                "base": "16px",
-                "lg": "18px",
-                "xl": "20px",
-                "2xl": "24px"
-            },
-            "custom": {
-                "size-badge-lg": "12rem",
-                "size-badge-md": "8rem",
-                "size-badge-sm": "5rem",
-                "size-badge-xs": "4rem"
-            }
-        }
-    },
-    "navigation": {
-        "defaultNavigation": {
-            "hash": "summary-main-container",
-            "description": "Default navigation on first load"
-        },
-        "tabs": [
-            {
-                "label": "About",
-                "target": "summary-main-container",
-                "tabId": "about",
-                "state": "visible",
-                "parameters": {
-                    "transition": "fade"
-                }
-            },
-            {
-                "label": "Skills",
-                "target": "skills-main-container",
-                "tabId": "skills", 
-                "state": "visible",
-                "parameters": {
-                    "transition": "slide"
-                }
-            },
-            {
-                "label": "Projects",
-                "target": "projects-main-container",
-                "tabId": "projects",
-                "state": "visible"
-            },
-            {
-                "label": "Experience",
-                "target": "experience-main-container",
-                "tabId": "experience",
-                "state": "visible"
-            },
-            {
-                "label": "Education",
-                "target": "education-main-container",
-                "tabId": "education",
-                "state": "visible"
-            },
-            {
-                "label": "Admin",
-                "target": "admin-main-container",
-                "tabId": "admin",
-                "state": "visible",
-                "protected": true
-            }
-        ]
+    "dark": {
+      "body": "definitions/media/backgrounds/general_background_dark_v1.png",
+      "container": "definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg"
     }
-} 
+  },
+  "theme": {
+    "light": {
+      "colors": {
+        "bg": "#f5f5f5",
+        "text": "#1a1a1a",
+        "primary": "#FF8F00",
+        "border": "#e0e0e0",
+        "nav-bg": "#ffffff",
+        "site-container-bg": "#ffffffee",
+        "card-bg": "#ffffff",
+        "card-border": "#eeeeee",
+        "error": "#dc3545",
+        "success": "#28a745",
+        "accent": "#f59e0b"
+      },
+      "fonts": {
+        "primary": "'Poppins', sans-serif",
+        "secondary": "'Inter', sans-serif",
+        "mono": "'Geist Mono', monospace"
+      },
+      "custom": {}
+    },
+    "dark": {
+      "colors": {
+        "bg": "#181a1b",
+        "text": "#e6e6e6",
+        "primary": "#FFB74D",
+        "border": "#333333",
+        "site-container-bg": "rgba(32, 33, 36, 0.95)",
+        "card-bg": "#202124",
+        "card-border": "#333333",
+        "error": "#ff6b6b",
+        "success": "#51fa7b",
+        "accent": "#fbbf24"
+      },
+      "fonts": {},
+      "custom": {}
+    },
+    "shared": {
+      "spacing": {
+        "xs": "4px",
+        "sm": "8px",
+        "md": "16px",
+        "lg": "24px",
+        "xl": "32px"
+      },
+      "radius": {
+        "sm": "6px",
+        "md": "8px",
+        "lg": "12px",
+        "xl": "16px"
+      },
+      "text-size": {
+        "xs": "12px",
+        "sm": "14px",
+        "base": "16px",
+        "lg": "18px",
+        "xl": "20px",
+        "2xl": "24px"
+      },
+      "custom": {
+        "size-badge-lg": "12rem",
+        "size-badge-md": "8rem",
+        "size-badge-sm": "5rem",
+        "size-badge-xs": "4rem"
+      }
+    }
+  },
+  "navigation": {
+    "defaultNavigation": {
+      "hash": "summary-main-container",
+      "description": "Default navigation on first load"
+    },
+    "tabs": [
+      {
+        "label": "About",
+        "target": "summary-main-container",
+        "tabId": "about",
+        "state": "visible",
+        "parameters": {
+          "transition": "fade"
+        }
+      },
+      {
+        "label": "Skills",
+        "target": "skills-main-container",
+        "tabId": "skills",
+        "state": "visible",
+        "parameters": {
+          "transition": "slide"
+        }
+      },
+      {
+        "label": "Projects",
+        "target": "projects-main-container",
+        "tabId": "projects",
+        "state": "visible"
+      },
+      {
+        "label": "Experience",
+        "target": "experience-main-container",
+        "tabId": "experience",
+        "state": "visible"
+      },
+      {
+        "label": "Education",
+        "target": "education-main-container",
+        "tabId": "education",
+        "state": "visible"
+      },
+      {
+        "label": "Admin",
+        "target": "admin-main-container",
+        "tabId": "admin",
+        "state": "visible",
+        "protected": true
+      }
+    ]
+  }
+}

@@ -1233,3 +1233,39 @@
 .theme-dark .file-manager__editor-textarea::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-500);
 }
+
+
+/* Validation Messages */
+.file-manager__validation {
+  display: none;
+  padding: var(--spacing-3) var(--spacing-4);
+  margin: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.file-manager__validation.success {
+  display: block;
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--success, #28a745);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.file-manager__validation.error {
+  display: block;
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--error, #dc3545);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.file-manager__validation.warning {
+  display: block;
+  background: rgba(255, 193, 7, 0.1);
+  color: #856404;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.theme-dark .file-manager__validation.warning {
+  color: #ffc107;
+}
