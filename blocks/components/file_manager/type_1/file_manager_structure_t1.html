@@ -99,73 +99,75 @@
         </div>
     </div>
 
-    <!-- Editor Panel (slides in from right) -->
+    <!-- Editor Panel (modal style) -->
     <div class="file-manager__editor-panel" id="fm-editor-panel">
-        <!-- Editor Header -->
-        <div class="file-manager__editor-header">
-            <button class="file-manager__back-btn" id="fm-editor-back">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-                <span>Back</span>
-            </button>
-            <div class="file-manager__editor-title-section">
-                <ion-icon name="document-text-outline" id="fm-editor-icon"></ion-icon>
-                <h3 class="file-manager__editor-title" id="fm-editor-title">Untitled</h3>
-            </div>
-            <div class="file-manager__editor-actions">
-                <button class="file-manager__editor-btn" id="fm-editor-format" title="Format JSON">
-                    <ion-icon name="code-slash-outline"></ion-icon>
+        <div class="file-manager__editor-container">
+            <!-- Editor Header -->
+            <div class="file-manager__editor-header">
+                <button class="file-manager__back-btn" id="fm-editor-back">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                    <span>Back</span>
                 </button>
-                <button class="file-manager__editor-btn" id="fm-editor-validate" title="Validate">
-                    <ion-icon name="checkmark-circle-outline"></ion-icon>
-                </button>
-            </div>
-        </div>
-
-        <!-- Editor Content -->
-        <div class="file-manager__editor-body">
-            <!-- JSON Editor -->
-            <div class="file-manager__json-editor" id="fm-json-editor">
-                <div class="file-manager__editor-gutter" id="fm-editor-gutter"></div>
-                <textarea class="file-manager__editor-textarea" id="fm-editor-textarea" spellcheck="false"></textarea>
+                <div class="file-manager__editor-title-section">
+                    <ion-icon name="document-text-outline" id="fm-editor-icon"></ion-icon>
+                    <h3 class="file-manager__editor-title" id="fm-editor-title">Untitled</h3>
+                </div>
+                <div class="file-manager__editor-actions">
+                    <button class="file-manager__editor-btn" id="fm-editor-format" title="Format JSON">
+                        <ion-icon name="code-slash-outline"></ion-icon>
+                    </button>
+                    <button class="file-manager__editor-btn" id="fm-editor-validate" title="Validate">
+                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                    </button>
+                </div>
             </div>
 
-            <!-- Media Preview -->
-            <div class="file-manager__media-preview" id="fm-media-preview" style="display: none;">
-                <img id="fm-preview-image" style="display: none;" />
-                <video id="fm-preview-video" controls style="display: none;"></video>
-                <div class="file-manager__pdf-preview" id="fm-preview-pdf" style="display: none;">
-                    <iframe id="fm-pdf-iframe" class="file-manager__pdf-iframe"></iframe>
-                    <div class="file-manager__pdf-actions">
-                        <a id="fm-pdf-download" class="file-manager__download-btn" download>
-                            <ion-icon name="download-outline"></ion-icon>
-                            Download PDF
-                        </a>
-                        <a id="fm-pdf-open" class="file-manager__download-btn file-manager__download-btn--secondary" target="_blank">
-                            <ion-icon name="open-outline"></ion-icon>
-                            Open in New Tab
-                        </a>
+            <!-- Editor Content -->
+            <div class="file-manager__editor-body">
+                <!-- JSON Editor -->
+                <div class="file-manager__json-editor" id="fm-json-editor">
+                    <div class="file-manager__editor-gutter" id="fm-editor-gutter"></div>
+                    <textarea class="file-manager__editor-textarea" id="fm-editor-textarea" spellcheck="false"></textarea>
+                </div>
+
+                <!-- Media Preview -->
+                <div class="file-manager__media-preview" id="fm-media-preview" style="display: none;">
+                    <img id="fm-preview-image" style="display: none;" />
+                    <video id="fm-preview-video" controls style="display: none;"></video>
+                    <div class="file-manager__pdf-preview" id="fm-preview-pdf" style="display: none;">
+                        <iframe id="fm-pdf-iframe" class="file-manager__pdf-iframe"></iframe>
+                        <div class="file-manager__pdf-actions">
+                            <a id="fm-pdf-download" class="file-manager__download-btn" download>
+                                <ion-icon name="download-outline"></ion-icon>
+                                Download PDF
+                            </a>
+                            <a id="fm-pdf-open" class="file-manager__download-btn file-manager__download-btn--secondary" target="_blank">
+                                <ion-icon name="open-outline"></ion-icon>
+                                Open in New Tab
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Validation Messages -->
-        <div class="file-manager__validation" id="fm-validation"></div>
+            <!-- Validation Messages -->
+            <div class="file-manager__validation" id="fm-validation"></div>
 
-        <!-- Editor Footer -->
-        <div class="file-manager__editor-footer">
-            <div class="file-manager__editor-info">
-                <span id="fm-editor-line-info">Ln 1, Col 1</span>
-                <span id="fm-editor-file-type">JSON</span>
-            </div>
-            <div class="file-manager__editor-buttons">
-                <button class="file-manager__btn file-manager__btn--secondary" id="fm-editor-cancel">
-                    Cancel
-                </button>
-                <button class="file-manager__btn file-manager__btn--primary" id="fm-editor-save">
-                    <ion-icon name="save-outline"></ion-icon>
-                    <span>Save</span>
-                </button>
+            <!-- Editor Footer -->
+            <div class="file-manager__editor-footer">
+                <div class="file-manager__editor-info">
+                    <span id="fm-editor-line-info">Ln 1, Col 1</span>
+                    <span id="fm-editor-file-type">JSON</span>
+                </div>
+                <div class="file-manager__editor-buttons">
+                    <button class="file-manager__btn file-manager__btn--secondary" id="fm-editor-cancel">
+                        Cancel
+                    </button>
+                    <button class="file-manager__btn file-manager__btn--primary" id="fm-editor-save">
+                        <ion-icon name="save-outline"></ion-icon>
+                        <span>Save</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

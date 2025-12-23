@@ -1,126 +1,168 @@
 {
-	"objects": [
-		{
-			"type": "container",
-			"component": "vertical/type_1",
-			"id": "summary-main-container",
-			"dynamic": false,
-			"parentTab": "about",
-			"navigation": {
-				"defaultState": "hidden",
-				"allowedStates": ["visible", "hidden", "scrollTo"],
-				"protected": false
-			},
-			"objects": [
-				
-				{
-					"type": "component",
-					"component": "heros/type_1",
-					"id": "profile-hero",
-					"dynamic": false,
-					"data": {
-						"main": {
-							"name": "Biniyam Belayneh",
-							"title": "AI and MLOps Engineer",
-							"description": "Building reliable ML platforms and pipelines on AWS & GCP. Shipping models to production with CI/CD, observability, and measurable impact.",
-							"image": "definitions/media/profile/avatar.png",
-							"backdrop": {
-								"light": "definitions/media/backgrounds/hero_backdrop_light.png",
-								"dark": "definitions/media/backgrounds/hero_backdrop_dark.png"
-							},
-							"social": [
-								{ "type": "email", "label": "Email", "href": "mailto:biniyambelayneh376@gmail.com" },
-								{ "type": "phone", "label": "Phone", "href": "tel:+251939890540" },
-								{ "type": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/biniyam-belayneh-demisse-42909617a" },
-								{ "type": "github", "label": "GitHub", "href": "https://github.com/benbel376" }
-							],
-							"cvDownload": {
-								"href": "definitions/media/profile/Biniyam_Belayneh_CV.pdf",
-								"filename": "Biniyam_Belayneh_CV.pdf"
-							}
-						}
-					},
-					"variant": "main",
-					"navigation": {
-						"defaultState": "visible",
-						"allowedStates": ["visible", "hidden", "scrollTo"],
-						"protected": false
-					}
-				},
-				{
-					"type": "component",
-					"component": "summaries/type_1",
-					"id": "profile-summary",
-					"dynamic": false,
-					"data": {
-						"main": {
-							"decorationImage": "definitions/media/misc/summary_profile.gif",
-							"highlightIcon": "rocket-outline",
-							"highlightTitle": "AI/ML Engineer | MLOps Specialist",
-							"highlightSubtitle": "40% cloud cost reduction • 1-week automated releases • +23% CTR via audience modeling • 92% classification accuracy • 3.5% downtime reduction",
-							"paragraphs": [
-								"AI/ML Engineer focused on <strong>MLOps</strong>: I build reliable, compliant, and cost-efficient ML platforms and pipelines on <strong>AWS and GCP</strong> using MLflow, Airflow, Docker, Kubernetes/EKS, Spark and Vertex AI. I ship models to production with CI/CD, model registry/versioning, and observability, enabling faster releases and safer rollouts.",
-								"I also build end-to-end streaming and batch processing ELT/ETL pipelines working with S3, RDS, Postgres, Kinesis Firehose, DBT, BigQuery, and more. <strong>Delivered measurable impact:</strong> 40% cloud cost reduction, 1-week automated releases (from 2 weeks), +23% CTR via audience modeling, 92% creative classification accuracy, and 3.5% downtime reduction."
-							],
-							"expertise": [
-								{ "icon": "server-outline", "title": "ML Infrastructure", "description": "Scalable ML pipelines with end-to-end automation" },
-								{ "icon": "cloud-outline", "title": "Cloud Architecture", "description": "Secure, cost-effective cloud solutions for ML" },
-								{ "icon": "analytics-outline", "title": "Performance Analytics", "description": "Real-time monitoring with actionable insights" }
-							]
-						}
-					},
-					"variant": "main",
-					"navigation": {
-						"defaultState": "visible",
-						"allowedStates": ["visible", "hidden"],
-						"protected": false
-					}
-				},
-				{
-					"type": "component",
-					"component": "testimonials/type_1",
-					"id": "profile-testimonials",
-					"dynamic": false,
-					"data": {
-						"main": [
-							{
-								"name": "Sarah Johnson",
-								"title": "Senior Data Scientist",
-								"company": "TechCorp Solutions",
-								"quote": "Working with Biniyam was exceptional. His expertise in MLOps and ability to streamline complex machine learning workflows significantly improved our deployment efficiency. He delivered scalable solutions that exceeded our expectations.",
-								"avatar": "https://via.placeholder.com/80x80/4CAF50/FFFFFF?text=SJ"
-							},
-							{
-								"name": "Michael Chen",
-								"title": "Engineering Manager",
-								"company": "DataFlow Systems",
-								"quote": "Biniyam's technical leadership and deep understanding of cloud architecture transformed our ML infrastructure. His attention to detail and commitment to best practices made our collaboration highly successful.",
-								"avatar": "https://via.placeholder.com/80x80/2196F3/FFFFFF?text=MC"
-							},
-							{
-								"name": "Dr. Emily Rodriguez",
-								"title": "Head of AI Research",
-								"company": "Innovation Labs",
-								"quote": "Biniyam demonstrated remarkable problem-solving skills and innovative thinking. His ability to bridge the gap between research and production deployment is truly impressive. A valuable team member.",
-								"avatar": "https://via.placeholder.com/80x80/FF9800/FFFFFF?text=ER"
-							},
-							{
-								"name": "Alex Thompson",
-								"title": "CTO",
-								"company": "StartupTech Inc",
-								"quote": "The ML pipeline architecture that Biniyam designed for us has been running flawlessly for months. His expertise in automation and monitoring saved us countless hours and significantly reduced our operational costs.",
-								"avatar": "https://via.placeholder.com/80x80/9C27B0/FFFFFF?text=AT"
-							}
-						]
-					},
-					"variant": "main",
-					"navigation": {
-						"defaultState": "visible",
-						"allowedStates": ["visible", "hidden", "scrollTo"],
-						"protected": false
-					}
-				}
-			]
-		}
-	]
+  "objects": [
+    {
+      "type": "container",
+      "component": "vertical/type_1",
+      "id": "summary-main-container",
+      "dynamic": false,
+      "parentTab": "about",
+      "navigation": {
+        "defaultState": "hidden",
+        "allowedStates": [
+          "visible",
+          "hidden",
+          "scrollTo"
+        ],
+        "protected": false
+      },
+      "objects": [
+        {
+          "type": "component",
+          "component": "heros/type_1",
+          "id": "profile-hero",
+          "dynamic": false,
+          "data": {
+            "main": {
+              "name": "Biniyam Belayneh",
+              "title": "AI Engineer",
+              "description": "Building reliable ML platforms and pipelines on AWS & GCP. Shipping models to production with CI/CD, observability, and measurable impact.",
+              "image": "definitions/media/profile/avatar.png",
+              "backdrop": {
+                "light": "definitions/media/backgrounds/hero_backdrop_light.png",
+                "dark": "definitions/media/backgrounds/hero_backdrop_dark.png"
+              },
+              "social": [
+                {
+                  "type": "email",
+                  "label": "Email",
+                  "href": "mailto:biniyambelayneh376@gmail.com"
+                },
+                {
+                  "type": "phone",
+                  "label": "Phone",
+                  "href": "tel:+251939890540"
+                },
+                {
+                  "type": "linkedin",
+                  "label": "LinkedIn",
+                  "href": "https://www.linkedin.com/in/biniyam-belayneh-demisse-42909617a"
+                },
+                {
+                  "type": "github",
+                  "label": "GitHub",
+                  "href": "https://github.com/benbel376"
+                }
+              ],
+              "cvDownload": {
+                "href": "definitions/media/profile/Biniyam_Belayneh_CV.pdf",
+                "filename": "Biniyam_Belayneh_CV.pdf"
+              }
+            }
+          },
+          "variant": "main",
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": [
+              "visible",
+              "hidden",
+              "scrollTo"
+            ],
+            "protected": false
+          }
+        },
+        {
+          "type": "component",
+          "component": "summaries/type_1",
+          "id": "profile-summary",
+          "dynamic": false,
+          "data": {
+            "main": {
+              "decorationImage": "definitions/media/misc/summary_profile.gif",
+              "highlightIcon": "rocket-outline",
+              "highlightTitle": "AI/ML Engineer | MLOps Specialist",
+              "highlightSubtitle": "40% cloud cost reduction • 1-week automated releases • +23% CTR via audience modeling • 92% classification accuracy • 3.5% downtime reduction",
+              "paragraphs": [
+                "AI/ML Engineer focused on <strong>MLOps</strong>: I build reliable, compliant, and cost-efficient ML platforms and pipelines on <strong>AWS and GCP</strong> using MLflow, Airflow, Docker, Kubernetes/EKS, Spark and Vertex AI. I ship models to production with CI/CD, model registry/versioning, and observability, enabling faster releases and safer rollouts.",
+                "I also build end-to-end streaming and batch processing ELT/ETL pipelines working with S3, RDS, Postgres, Kinesis Firehose, DBT, BigQuery, and more. <strong>Delivered measurable impact:</strong> 40% cloud cost reduction, 1-week automated releases (from 2 weeks), +23% CTR via audience modeling, 92% creative classification accuracy, and 3.5% downtime reduction."
+              ],
+              "expertise": [
+                {
+                  "icon": "server-outline",
+                  "title": "ML Infrastructure",
+                  "description": "Scalable ML pipelines with end-to-end automation"
+                },
+                {
+                  "icon": "cloud-outline",
+                  "title": "Cloud Architecture",
+                  "description": "Secure, cost-effective cloud solutions for ML"
+                },
+                {
+                  "icon": "analytics-outline",
+                  "title": "Performance Analytics",
+                  "description": "Real-time monitoring with actionable insights"
+                }
+              ]
+            }
+          },
+          "variant": "main",
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": [
+              "visible",
+              "hidden"
+            ],
+            "protected": false
+          }
+        },
+        {
+          "type": "component",
+          "component": "testimonials/type_1",
+          "id": "profile-testimonials",
+          "dynamic": false,
+          "data": {
+            "main": [
+              {
+                "name": "Sarah Johnson",
+                "title": "Senior Data Scientist",
+                "company": "TechCorp Solutions",
+                "quote": "Working with Biniyam was exceptional. His expertise in MLOps and ability to streamline complex machine learning workflows significantly improved our deployment efficiency. He delivered scalable solutions that exceeded our expectations.",
+                "avatar": "https://via.placeholder.com/80x80/4CAF50/FFFFFF?text=SJ"
+              },
+              {
+                "name": "Michael Chen",
+                "title": "Engineering Manager",
+                "company": "DataFlow Systems",
+                "quote": "Biniyam's technical leadership and deep understanding of cloud architecture transformed our ML infrastructure. His attention to detail and commitment to best practices made our collaboration highly successful.",
+                "avatar": "https://via.placeholder.com/80x80/2196F3/FFFFFF?text=MC"
+              },
+              {
+                "name": "Dr. Emily Rodriguez",
+                "title": "Head of AI Research",
+                "company": "Innovation Labs",
+                "quote": "Biniyam demonstrated remarkable problem-solving skills and innovative thinking. His ability to bridge the gap between research and production deployment is truly impressive. A valuable team member.",
+                "avatar": "https://via.placeholder.com/80x80/FF9800/FFFFFF?text=ER"
+              },
+              {
+                "name": "Alex Thompson",
+                "title": "CTO",
+                "company": "StartupTech Inc",
+                "quote": "The ML pipeline architecture that Biniyam designed for us has been running flawlessly for months. His expertise in automation and monitoring saved us countless hours and significantly reduced our operational costs.",
+                "avatar": "https://via.placeholder.com/80x80/9C27B0/FFFFFF?text=AT"
+              }
+            ]
+          },
+          "variant": "main",
+          "navigation": {
+            "defaultState": "visible",
+            "allowedStates": [
+              "visible",
+              "hidden",
+              "scrollTo"
+            ],
+            "protected": false
+          }
+        }
+      ]
+    }
+  ]
 }

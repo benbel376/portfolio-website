@@ -1,20 +1,20 @@
 {
-    "site": "top_bar_site_t2.json",
-    "pages": [
-        "summary_page_t1.json",
-        "skills_page_t1.json",
-        "projects_page_t1.json",
-        "experience_page_t1.json",
-        "education_page_t1.json",
-        "control_page_t1.json",
-        "project_ai_platform_page_t1.json",
-        "project_ecommerce_page_t1.json",
-        "project_chat_app_page_t1.json",
-        "project_api_gateway_page_t1.json",
-        "project_cloud_automation_page_t1.json",
-        "project_iot_dashboard_page_t1.json",
-        "project_portfolio_framework_page_t1.json",
-        "project_blockchain_page_t1.json",
-        "project_stock_predictor_page_t1.json"
-    ]
+  "site": "top_bar_site_t2.json",
+  "pages": [
+    "summary_page_t1.json",
+    "skills_page_t1.json",
+    "projects_page_t1.json",
+    "experience_page_t1.json",
+    "education_page_t1.json",
+    "control_page_t1.json",
+    "project_ai_platform_page_t1.json",
+    "project_ecommerce_page_t1.json",
+    "project_chat_app_page_t1.json",
+    "project_api_gateway_page_t1.json",
+    "project_cloud_automation_page_t1.json",
+    "project_iot_dashboard_page_t1.json",
+    "project_portfolio_framework_page_t1.json",
+    "project_blockchain_page_t1.json",
+    "project_stock_predictor_page_t1.json"
+  ]
 }

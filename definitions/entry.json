@@ -1,6 +1,6 @@
 {
   "default_profile": "ml_mlops",
-  "default_site": "top_bar",
+  "default_site": "side_bar",
   "profiles": {
     "ml_mlops": {
       "profile": "ml_mlops_t1.json",

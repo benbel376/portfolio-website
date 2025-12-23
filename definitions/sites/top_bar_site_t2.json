@@ -6,7 +6,7 @@
   "aiAssistant": {
     "enabled": true,
     "provider": "gemini",
-    "apiKey": "AIzaSyBPdIWmDcxLjVOB6HuDTLJN-NiFyi6Tckg",
+    "apiKey": "AIzaSyDLBF1TINHF7xB1wnpjWiFbBf3BySZJ8Z0",
     "model": "gemini-2.5-flash",
     "maxTokens": 1024,
     "title": "Portfolio Assistant",

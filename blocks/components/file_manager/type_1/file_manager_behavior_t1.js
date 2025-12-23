@@ -95,6 +95,16 @@ function setupEventListeners(component) {
     if (editorFormat) editorFormat.addEventListener('click', formatJSON);
     if (editorValidate) editorValidate.addEventListener('click', validateJSON);
     
+    // Close editor when clicking backdrop
+    const editorPanel = component.querySelector('#fm-editor-panel');
+    if (editorPanel) {
+        editorPanel.addEventListener('click', (e) => {
+            if (e.target === editorPanel) {
+                closeEditor();
+            }
+        });
+    }
+    
     // Editor textarea
     const textarea = component.querySelector('#fm-editor-textarea');
     if (textarea) {
