@@ -53,8 +53,8 @@ class HeroLoaderT1 {
         $heroBackdropStyles .= '}';
         $heroBackdropStyles .= '</style>';
         
-        // Insert the style tag at the beginning of the section
-        $html = preg_replace('/<section([^>]*)>/i', '<section$1>' . $heroBackdropStyles, $html, 1);
+        // Insert the style tag BEFORE the section element
+        $html = $heroBackdropStyles . $html;
 
         // Provide CSS variables for images on the element style (from JSON data)
         $cssVars = '--avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
