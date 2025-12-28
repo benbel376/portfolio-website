@@ -45,10 +45,19 @@ class HeroLoaderT1 {
             1
         );
 
+        // Inject global hero backdrop styles at the beginning of the component
+        $heroBackdropStyles = '<style id="hero-backdrop-styles">';
+        $heroBackdropStyles .= ':root {';
+        $heroBackdropStyles .= '--hero-backdrop-light: url(' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');';
+        $heroBackdropStyles .= '--hero-backdrop-dark: url(' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');';
+        $heroBackdropStyles .= '}';
+        $heroBackdropStyles .= '</style>';
+        
+        // Insert the style tag at the beginning of the section
+        $html = preg_replace('/<section([^>]*)>/i', '<section$1>' . $heroBackdropStyles, $html, 1);
+
         // Provide CSS variables for images on the element style (from JSON data)
-        $cssVars = '--hero-backdrop-light: url(' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --hero-backdrop-dark: url(' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
+        $cssVars = '--avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
                  . ' --avatar-image-dark: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');';
         $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);
 

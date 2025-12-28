@@ -70,6 +70,12 @@ class TopBarSiteLoader {
         $style .= '--body-bg-light: url("' . $basePath . '/' . htmlspecialchars($lightBody) . '");';
         $style .= '--site-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkContainer) . '");';
         $style .= '--body-bg-dark: url("' . $basePath . '/' . htmlspecialchars($darkBody) . '");';
+        $style .= '--site-container-bg-image: var(--site-bg-light);';
+        $style .= '--body-bg-image: var(--body-bg-light);';
+        $style .= '}';
+        $style .= '.theme-dark {';
+        $style .= '--site-container-bg-image: var(--site-bg-dark);';
+        $style .= '--body-bg-image: var(--body-bg-dark);';
         $style .= '}';
         $style .= '</style>';
         
