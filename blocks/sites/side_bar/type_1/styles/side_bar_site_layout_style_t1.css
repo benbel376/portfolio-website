@@ -314,6 +314,7 @@
     opacity: 0.5;
     pointer-events: none;
     border-radius: 0 16px 16px 0;
+    min-height: inherit;
 }
 
 /* Ensure content is above the background */
