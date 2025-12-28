@@ -46,10 +46,11 @@ class HeroLoaderT1 {
         );
 
         // Provide CSS variables for images on the element style (from JSON data)
-        $cssVars = '--avatar-image-light: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --avatar-image-dark: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --hero-backdrop-light: url(' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --hero-backdrop-dark: url(' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');';
+        // Use absolute paths from website root to avoid CSS relative path issues
+        $cssVars = '--avatar-image-light: url(/' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
+                 . ' --avatar-image-dark: url(/' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
+                 . ' --hero-backdrop-light: url(/' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');'
+                 . ' --hero-backdrop-dark: url(/' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');';
         
         // DEBUG: Log the CSS variables being injected
         error_log("HERO LOADER DEBUG: Injecting CSS variables: " . $cssVars);

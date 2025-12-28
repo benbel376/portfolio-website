@@ -63,18 +63,18 @@ class TopBarSiteLoader {
         
         // Generate background div that covers the entire page
         $backgroundDiv = '<div class="site-background-layer" style="';
-        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -10; pointer-events: none;';
+        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; pointer-events: none;';
         $backgroundDiv .= 'background-image: url(' . htmlspecialchars($lightContainer) . ');';
         $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
-        $backgroundDiv .= 'opacity: 0.5;';
+        $backgroundDiv .= 'opacity: 0.8;';
         $backgroundDiv .= '"></div>';
         
         // Add dark theme background div
         $backgroundDiv .= '<div class="site-background-layer-dark" style="';
-        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -10; pointer-events: none;';
+        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; pointer-events: none;';
         $backgroundDiv .= 'background-image: url(' . htmlspecialchars($darkContainer) . ');';
         $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
-        $backgroundDiv .= 'opacity: 0.3; display: none;';
+        $backgroundDiv .= 'opacity: 0.6; display: none;';
         $backgroundDiv .= '"></div>';
         
         // Add JavaScript to toggle background based on theme
