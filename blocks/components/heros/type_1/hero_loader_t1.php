@@ -26,23 +26,10 @@ class HeroLoaderT1 {
     private function generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $backdrop, $social, $cvDownload) {
         $template = file_get_contents(__DIR__ . '/hero_structure_t1.html');
         
-        // Process image paths - add base path for relative URLs
-        $basePath = '/website/react/portfolio3/portfolio-website/';
-        
+        // Use relative paths directly from JSON data - no base path manipulation needed
         $imagePath = $image;
-        if (strpos($imagePath, '/') !== 0 && strpos($imagePath, 'http') !== 0) {
-            $imagePath = $basePath . $imagePath;
-        }
-        
         $backdropLight = $backdrop['light'] ?? 'definitions/media/backgrounds/hero_backdrop_light.png';
         $backdropDark = $backdrop['dark'] ?? 'definitions/media/backgrounds/hero_backdrop_dark.png';
-        
-        if (strpos($backdropLight, '/') !== 0 && strpos($backdropLight, 'http') !== 0) {
-            $backdropLight = $basePath . $backdropLight;
-        }
-        if (strpos($backdropDark, '/') !== 0 && strpos($backdropDark, 'http') !== 0) {
-            $backdropDark = $basePath . $backdropDark;
-        }
         
         $html = $this->fillTemplate($template, $name, $headline, $description, $imagePath, $social, $cvDownload);
 
