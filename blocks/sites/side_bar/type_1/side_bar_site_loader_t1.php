@@ -29,6 +29,10 @@ class SideBarSiteLoader {
         $backgroundStyles = $this->generateBackgroundStyles($backgrounds);
         $html = str_replace('<!-- BACKGROUND_STYLES_PLACEHOLDER -->', $backgroundStyles, $html);
         
+        // Inject actual background div for proper full-page coverage
+        $backgroundDiv = $this->generateBackgroundDiv($backgrounds);
+        $html = str_replace('<div class="site-container sidebar-layout"', $backgroundDiv . '<div class="site-container sidebar-layout"', $html);
+        
         // Inject theme CSS variables from JSON config
         $themeStyles = $this->generateThemeStyles($theme);
         $html = str_replace('<!-- THEME_OVERRIDE_PLACEHOLDER -->', $themeStyles, $html);
@@ -76,6 +80,55 @@ class SideBarSiteLoader {
         }
         
         return $tabsHtml;
+    }
+    
+    private function generateBackgroundDiv($backgrounds) {
+        $defaults = [
+            'light' => [
+                'body' => 'definitions/media/backgrounds/general_background_light_v1.png',
+                'container' => 'definitions/media/backgrounds/general_background_bubbles_v1.avif'
+            ],
+            'dark' => [
+                'body' => 'definitions/media/backgrounds/general_background_dark_v1.png',
+                'container' => 'definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg'
+            ]
+        ];
+        
+        // Merge with provided backgrounds
+        $lightContainer = $backgrounds['light']['container'] ?? $defaults['light']['container'];
+        $darkContainer = $backgrounds['dark']['container'] ?? $defaults['dark']['container'];
+        
+        // Generate background div that covers the entire page
+        $backgroundDiv = '<div class="site-background-layer" style="';
+        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -10; pointer-events: none;';
+        $backgroundDiv .= 'background-image: url(' . htmlspecialchars($lightContainer) . ');';
+        $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
+        $backgroundDiv .= 'opacity: 0.5;';
+        $backgroundDiv .= '"></div>';
+        
+        // Add dark theme background div
+        $backgroundDiv .= '<div class="site-background-layer-dark" style="';
+        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -10; pointer-events: none;';
+        $backgroundDiv .= 'background-image: url(' . htmlspecialchars($darkContainer) . ');';
+        $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
+        $backgroundDiv .= 'opacity: 0.3; display: none;';
+        $backgroundDiv .= '"></div>';
+        
+        // Add JavaScript to toggle background based on theme
+        $backgroundDiv .= '<script>';
+        $backgroundDiv .= 'function updateSiteBackground() {';
+        $backgroundDiv .= '  const isDark = document.documentElement.classList.contains("theme-dark");';
+        $backgroundDiv .= '  const lightBg = document.querySelector(".site-background-layer");';
+        $backgroundDiv .= '  const darkBg = document.querySelector(".site-background-layer-dark");';
+        $backgroundDiv .= '  if (lightBg) lightBg.style.display = isDark ? "none" : "block";';
+        $backgroundDiv .= '  if (darkBg) darkBg.style.display = isDark ? "block" : "none";';
+        $backgroundDiv .= '}';
+        $backgroundDiv .= 'document.addEventListener("DOMContentLoaded", updateSiteBackground);';
+        $backgroundDiv .= 'const observer = new MutationObserver(updateSiteBackground);';
+        $backgroundDiv .= 'observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });';
+        $backgroundDiv .= '</script>';
+        
+        return $backgroundDiv;
     }
     
     private function generateBackgroundStyles($backgrounds) {

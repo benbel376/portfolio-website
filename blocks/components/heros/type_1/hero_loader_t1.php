@@ -50,6 +50,12 @@ class HeroLoaderT1 {
                  . ' --avatar-image-dark: url(' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
                  . ' --hero-backdrop-light: url(' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');'
                  . ' --hero-backdrop-dark: url(' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');';
+        
+        // DEBUG: Log the CSS variables being injected
+        error_log("HERO LOADER DEBUG: Injecting CSS variables: " . $cssVars);
+        error_log("HERO LOADER DEBUG: Backdrop light: " . $backdropLight);
+        error_log("HERO LOADER DEBUG: Backdrop dark: " . $backdropDark);
+        
         $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);
 
         return $html;

@@ -299,32 +299,9 @@
     overflow-x: hidden;
 }
 
-/* Background image for main content */
-.sidebar-layout .main-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: var(--site-container-bg-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.5;
-    pointer-events: none;
-    border-radius: 0 16px 16px 0;
-    min-height: inherit;
-}
-
 /* Ensure content is above the background */
 .sidebar-layout .main-content > * {
     position: relative;
-}
-
-/* Dark theme background */
-.theme-dark .sidebar-layout .main-content::before {
-    opacity: 0.3;
 }
 
 

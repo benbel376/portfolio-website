@@ -77,32 +77,6 @@
     z-index: 0;
 }
 
-.site-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: var(--site-container-bg-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.5;
-    border-radius: inherit;
-    z-index: -1;
-    pointer-events: none;
-    min-height: inherit;
-}
-
-
-/* Dark theme background with different opacity */
-
-.theme-dark .site-container::before {
-    opacity: 0.3;
-    /* Reduced opacity for dark theme to maintain readability */
-}
-
 
 /* Visually Hidden Utility */
 
