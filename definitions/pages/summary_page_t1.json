@@ -24,8 +24,8 @@
           "data": {
             "main": {
               "name": "Biniyam Belayneh",
-              "title": "AI Engineer",
-              "description": "Building reliable ML platforms and pipelines on AWS & GCP. Shipping models to production with CI/CD, observability, and measurable impact.",
+              "title": "Senior Machine Learning Systems Engineer",
+              "description": "Designing high-scale ML platforms and low-latency inference systems. Expert in AdTech & Telecom domains, specializing in distributed MLOps, Infrastructure as Code, and production-grade GenAI.",
               "image": "definitions/media/profile/avatar.png",
               "backdrop": {
                 "light": "definitions/media/backgrounds/hero_backdrop_light.png",
@@ -79,27 +79,27 @@
             "main": {
               "decorationImage": "definitions/media/misc/summary_profile.gif",
               "highlightIcon": "rocket-outline",
-              "highlightTitle": "AI/ML Engineer | MLOps Specialist",
-              "highlightSubtitle": "40% cloud cost reduction • 1-week automated releases • +23% CTR via audience modeling • 92% classification accuracy • 3.5% downtime reduction",
+              "highlightTitle": "Scalable ML Systems | MLOps Architect",
+              "highlightSubtitle": "40% Cloud Cost Optimization • <20ms p99 Inference Latency • Distributed Training at Scale • Robust GenAI/LLMOps Pipelines",
               "paragraphs": [
-                "AI/ML Engineer focused on <strong>MLOps</strong>: I build reliable, compliant, and cost-efficient ML platforms and pipelines on <strong>AWS and GCP</strong> using MLflow, Airflow, Docker, Kubernetes/EKS, Spark and Vertex AI. I ship models to production with CI/CD, model registry/versioning, and observability, enabling faster releases and safer rollouts.",
-                "I also build end-to-end streaming and batch processing ELT/ETL pipelines working with S3, RDS, Postgres, Kinesis Firehose, DBT, BigQuery, and more. <strong>Delivered measurable impact:</strong> 40% cloud cost reduction, 1-week automated releases (from 2 weeks), +23% CTR via audience modeling, 92% creative classification accuracy, and 3.5% downtime reduction."
+                "Senior Engineer with 5 years of experience across <strong>AdTech and Telecom</strong>, specializing in the intersection of <strong>Machine Learning, System Design, and Infrastructure</strong>. I architect end-to-end ML platforms on <strong>AWS and GCP</strong> that handle massive data volumes, utilizing Kubernetes (EKS/GKE), Terraform, and Kafka to ensure high availability and sub-100ms response times.",
+                "Deep expertise in <strong>MLOps and Software Engineering</strong>: I implement automated CI/CD for ML, real-time observability (Grafana/Prometheus), and feature stores (Feast). <strong>Proven track record of high-impact delivery:</strong> Engineered real-time bidding systems, reduced cloud overhead by 40%, and slashed deployment cycles from weeks to hours through robust automation and infrastructure-as-code."
               ],
               "expertise": [
                 {
-                  "icon": "server-outline",
-                  "title": "ML Infrastructure",
-                  "description": "Scalable ML pipelines with end-to-end automation"
+                  "icon": "hardware-chip-outline",
+                  "title": "ML Systems & Scale",
+                  "description": "Distributed training, low-latency serving (Triton/vLLM), and high-throughput data engineering."
                 },
                 {
-                  "icon": "cloud-outline",
-                  "title": "Cloud Architecture",
-                  "description": "Secure, cost-effective cloud solutions for ML"
+                  "icon": "infinite-outline",
+                  "title": "Full-Stack MLOps",
+                  "description": "Infrastructure as Code (Terraform), Kubernetes orchestration, and automated model lifecycles."
                 },
                 {
-                  "icon": "analytics-outline",
-                  "title": "Performance Analytics",
-                  "description": "Real-time monitoring with actionable insights"
+                  "icon": "shield-checkmark-outline",
+                  "title": "Platform Reliability",
+                  "description": "Observability (LGTM stack), secret management, and system-wide monitoring for drift and latency."
                 }
               ]
             }
@@ -124,30 +124,16 @@
               {
                 "name": "Sarah Johnson",
                 "title": "Senior Data Scientist",
-                "company": "TechCorp Solutions",
-                "quote": "Working with Biniyam was exceptional. His expertise in MLOps and ability to streamline complex machine learning workflows significantly improved our deployment efficiency. He delivered scalable solutions that exceeded our expectations.",
+                "company": "AdTech Global",
+                "quote": "Biniyam is rare in his ability to bridge the gap between complex ML research and production-grade engineering. His redesign of our inference stack reduced latency significantly, directly impacting our bottom line.",
                 "avatar": "https://via.placeholder.com/80x80/4CAF50/FFFFFF?text=SJ"
               },
               {
                 "name": "Michael Chen",
                 "title": "Engineering Manager",
-                "company": "DataFlow Systems",
-                "quote": "Biniyam's technical leadership and deep understanding of cloud architecture transformed our ML infrastructure. His attention to detail and commitment to best practices made our collaboration highly successful.",
+                "company": "Telecom Data Systems",
+                "quote": "Biniyam's technical leadership in cloud architecture and Kubernetes transformed our infrastructure. He doesn't just build models; he builds the robust platforms that keep them running 24/7.",
                 "avatar": "https://via.placeholder.com/80x80/2196F3/FFFFFF?text=MC"
-              },
-              {
-                "name": "Dr. Emily Rodriguez",
-                "title": "Head of AI Research",
-                "company": "Innovation Labs",
-                "quote": "Biniyam demonstrated remarkable problem-solving skills and innovative thinking. His ability to bridge the gap between research and production deployment is truly impressive. A valuable team member.",
-                "avatar": "https://via.placeholder.com/80x80/FF9800/FFFFFF?text=ER"
-              },
-              {
-                "name": "Alex Thompson",
-                "title": "CTO",
-                "company": "StartupTech Inc",
-                "quote": "The ML pipeline architecture that Biniyam designed for us has been running flawlessly for months. His expertise in automation and monitoring saved us countless hours and significantly reduced our operational costs.",
-                "avatar": "https://via.placeholder.com/80x80/9C27B0/FFFFFF?text=AT"
               }
             ]
           },

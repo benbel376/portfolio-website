@@ -92,6 +92,7 @@
     border-radius: inherit;
     z-index: -1;
     pointer-events: none;
+    min-height: inherit;
 }
 
 

@@ -16,7 +16,7 @@
   },
   "backgrounds": {
     "light": {
-      "body": "definitions/media/backgrounds/general_background_light_v1.png",
+      "body": "definitions/media/backgrounds/general_background_light_v2.jpeg",
       "container": "definitions/media/backgrounds/general_background_bubbles_v1.avif",
       "sidebar": "definitions/media/backgrounds/sidebar_background.jpg"
     },
