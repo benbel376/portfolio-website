@@ -51,14 +51,10 @@
 	background-size: cover;
 	background-position: center;
 	z-index: 0;
-	/* DEBUG: Add a fallback background color to see if the pseudo-element is working */
-	background-color: rgba(255, 0, 0, 0.1);
 }
 
 .theme-dark .hero-component.hero-profile::before {
 	background-image: var(--hero-backdrop-dark);
-	/* DEBUG: Different color for dark theme */
-	background-color: rgba(0, 0, 255, 0.1);
 }
 
 /* Overlay that fades from semi-transparent to opaque left to right */

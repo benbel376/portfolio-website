@@ -357,7 +357,6 @@
 	transition: var(--transition-all-slow, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
 	position: relative;
 	overflow: hidden;
-	height: 260px;
 }
 .summary-component__expertise-item.card::before {
 	content: '';

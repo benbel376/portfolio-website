@@ -76,6 +76,14 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
+    z-index: 1;
+    /* Create stacking context for background layers */
+    isolation: isolate;
+}
+
+/* Dark theme sidebar container */
+.theme-dark .site-container.sidebar-layout {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Remove the background pseudo-element for sidebar layout */

@@ -31,7 +31,15 @@ class SideBarSiteLoader {
         
         // Inject actual background div for proper full-page coverage
         $backgroundDiv = $this->generateBackgroundDiv($backgrounds);
-        $html = str_replace('<div class="site-container sidebar-layout"', $backgroundDiv . '<div class="site-container sidebar-layout"', $html);
+        
+        // Inject background divs INSIDE the site container, right after the opening tag
+        $siteContainerPos = strpos($html, '<div class="site-container sidebar-layout"');
+        if ($siteContainerPos !== false) {
+            $closingTagPos = strpos($html, '>', $siteContainerPos);
+            if ($closingTagPos !== false) {
+                $html = substr_replace($html, '>' . $backgroundDiv, $closingTagPos, 1);
+            }
+        }
         
         // Inject theme CSS variables from JSON config
         $themeStyles = $this->generateThemeStyles($theme);
@@ -98,34 +106,85 @@ class SideBarSiteLoader {
         $lightContainer = $backgrounds['light']['container'] ?? $defaults['light']['container'];
         $darkContainer = $backgrounds['dark']['container'] ?? $defaults['dark']['container'];
         
-        // Generate background div that covers the entire page
+        // Generate background div that covers the entire scrollable content in sidebar layout
+        // Position it to cover the main-content area which is the scrollable container
         $backgroundDiv = '<div class="site-background-layer" style="';
-        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; pointer-events: none;';
+        $backgroundDiv .= 'position: absolute; top: 0; left: var(--sidebar-width, 280px); right: 0; bottom: 0; z-index: -999; pointer-events: none;';
         $backgroundDiv .= 'background-image: url(' . htmlspecialchars($lightContainer) . ');';
         $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
-        $backgroundDiv .= 'opacity: 0.8;';
+        $backgroundDiv .= 'opacity: 0.8; width: auto; height: 100%; border-radius: 0 16px 16px 0;';
         $backgroundDiv .= '"></div>';
         
         // Add dark theme background div
         $backgroundDiv .= '<div class="site-background-layer-dark" style="';
-        $backgroundDiv .= 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; pointer-events: none;';
+        $backgroundDiv .= 'position: absolute; top: 0; left: var(--sidebar-width, 280px); right: 0; bottom: 0; z-index: -999; pointer-events: none;';
         $backgroundDiv .= 'background-image: url(' . htmlspecialchars($darkContainer) . ');';
         $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
-        $backgroundDiv .= 'opacity: 0.6; display: none;';
+        $backgroundDiv .= 'opacity: 0.6; display: none; width: auto; height: 100%; border-radius: 0 16px 16px 0;';
         $backgroundDiv .= '"></div>';
         
-        // Add JavaScript to toggle background based on theme
+        // Add JavaScript for both theme switching and height adjustment
         $backgroundDiv .= '<script>';
-        $backgroundDiv .= 'function updateSiteBackground() {';
-        $backgroundDiv .= '  const isDark = document.documentElement.classList.contains("theme-dark");';
+        $backgroundDiv .= 'function updateSidebarBackgrounds() {';
+        $backgroundDiv .= '  const html = document.documentElement;';
+        $backgroundDiv .= '  const isDark = html.classList.contains("theme-dark");';
         $backgroundDiv .= '  const lightBg = document.querySelector(".site-background-layer");';
         $backgroundDiv .= '  const darkBg = document.querySelector(".site-background-layer-dark");';
-        $backgroundDiv .= '  if (lightBg) lightBg.style.display = isDark ? "none" : "block";';
-        $backgroundDiv .= '  if (darkBg) darkBg.style.display = isDark ? "block" : "none";';
+        $backgroundDiv .= '  const mainContent = document.querySelector(".main-content");';
+        $backgroundDiv .= '  const siteContainer = document.querySelector(".site-container.sidebar-layout");';
+        $backgroundDiv .= '  ';
+        $backgroundDiv .= '  if (lightBg && darkBg) {';
+        $backgroundDiv .= '    if (isDark) {';
+        $backgroundDiv .= '      lightBg.style.display = "none";';
+        $backgroundDiv .= '      darkBg.style.display = "block";';
+        $backgroundDiv .= '    } else {';
+        $backgroundDiv .= '      lightBg.style.display = "block";';
+        $backgroundDiv .= '      darkBg.style.display = "none";';
+        $backgroundDiv .= '    }';
+        $backgroundDiv .= '    ';
+        $backgroundDiv .= '    // Update height to cover all scrollable content';
+        $backgroundDiv .= '    if (mainContent) {';
+        $backgroundDiv .= '      const contentHeight = Math.max(mainContent.scrollHeight, window.innerHeight);';
+        $backgroundDiv .= '      lightBg.style.height = contentHeight + "px";';
+        $backgroundDiv .= '      darkBg.style.height = contentHeight + "px";';
+        $backgroundDiv .= '    }';
+        $backgroundDiv .= '    ';
+        $backgroundDiv .= '    // Fix site container background color for themes';
+        $backgroundDiv .= '    if (siteContainer) {';
+        $backgroundDiv .= '      siteContainer.style.backgroundColor = "var(--bg)";';
+        $backgroundDiv .= '    }';
+        $backgroundDiv .= '  }';
         $backgroundDiv .= '}';
-        $backgroundDiv .= 'document.addEventListener("DOMContentLoaded", updateSiteBackground);';
-        $backgroundDiv .= 'const observer = new MutationObserver(updateSiteBackground);';
-        $backgroundDiv .= 'observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });';
+        $backgroundDiv .= '';
+        $backgroundDiv .= '// Initial setup';
+        $backgroundDiv .= 'document.addEventListener("DOMContentLoaded", function() {';
+        $backgroundDiv .= '  setTimeout(updateSidebarBackgrounds, 100);';
+        $backgroundDiv .= '});';
+        $backgroundDiv .= '';
+        $backgroundDiv .= '// Listen for theme changes';
+        $backgroundDiv .= 'const observer = new MutationObserver(function(mutations) {';
+        $backgroundDiv .= '  mutations.forEach(function(mutation) {';
+        $backgroundDiv .= '    if (mutation.type === "attributes" && mutation.attributeName === "class") {';
+        $backgroundDiv .= '      updateSidebarBackgrounds();';
+        $backgroundDiv .= '    }';
+        $backgroundDiv .= '  });';
+        $backgroundDiv .= '});';
+        $backgroundDiv .= '';
+        $backgroundDiv .= 'observer.observe(document.documentElement, {';
+        $backgroundDiv .= '  attributes: true,';
+        $backgroundDiv .= '  attributeFilter: ["class"]';
+        $backgroundDiv .= '});';
+        $backgroundDiv .= '';
+        $backgroundDiv .= '// Handle resize and load events';
+        $backgroundDiv .= 'window.addEventListener("resize", updateSidebarBackgrounds);';
+        $backgroundDiv .= 'window.addEventListener("load", updateSidebarBackgrounds);';
+        $backgroundDiv .= '';
+        $backgroundDiv .= '// Handle scroll events to update background height dynamically';
+        $backgroundDiv .= 'if (document.querySelector(".main-content")) {';
+        $backgroundDiv .= '  document.querySelector(".main-content").addEventListener("scroll", function() {';
+        $backgroundDiv .= '    setTimeout(updateSidebarBackgrounds, 50);';
+        $backgroundDiv .= '  });';
+        $backgroundDiv .= '}';
         $backgroundDiv .= '</script>';
         
         return $backgroundDiv;

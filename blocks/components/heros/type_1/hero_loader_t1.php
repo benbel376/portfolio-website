@@ -45,19 +45,22 @@ class HeroLoaderT1 {
             1
         );
 
-        // Provide CSS variables for images on the element style (from JSON data)
-        // Use absolute paths from website root to avoid CSS relative path issues
-        $cssVars = '--avatar-image-light: url(/' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --avatar-image-dark: url(/' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --hero-backdrop-light: url(/' . htmlspecialchars($backdropLight, ENT_QUOTES, 'UTF-8') . ');'
-                 . ' --hero-backdrop-dark: url(/' . htmlspecialchars($backdropDark, ENT_QUOTES, 'UTF-8') . ');';
+        // Instead of CSS variables, inject background images directly into the pseudo-elements
+        // This avoids CSS path resolution issues
+        $backgroundStyles = '<style>';
+        $backgroundStyles .= '#' . htmlspecialchars($id) . '::before {';
+        $backgroundStyles .= 'background-image: url("' . htmlspecialchars($backdropLight) . '") !important;';
+        $backgroundStyles .= '}';
+        $backgroundStyles .= '.theme-dark #' . htmlspecialchars($id) . '::before {';
+        $backgroundStyles .= 'background-image: url("' . htmlspecialchars($backdropDark) . '") !important;';
+        $backgroundStyles .= '}';
+        $backgroundStyles .= '</style>';
         
-        // DEBUG: Log the CSS variables being injected
-        error_log("HERO LOADER DEBUG: Injecting CSS variables: " . $cssVars);
-        error_log("HERO LOADER DEBUG: Backdrop light: " . $backdropLight);
-        error_log("HERO LOADER DEBUG: Backdrop dark: " . $backdropDark);
-        
-        $html = preg_replace('/<section([^>]*)>/i', '<section$1 style="' . $cssVars . '">', $html, 1);
+        // Inject the style tag right before the closing section tag
+        $lastSectionPos = strrpos($html, '</section>');
+        if ($lastSectionPos !== false) {
+            $html = substr_replace($html, $backgroundStyles . '</section>', $lastSectionPos, 10);
+        }
 
         return $html;
     }

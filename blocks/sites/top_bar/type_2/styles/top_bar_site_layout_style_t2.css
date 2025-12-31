@@ -64,7 +64,7 @@
 .site-container {
     max-width: 980px;
     margin: 0 auto;
-    background-color: transparent;
+    background-color: var(--bg);
     position: relative;
     border-radius: 22px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -73,8 +73,16 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    position: relative;
-    z-index: 0;
+    z-index: 1;
+    /* Ensure container expands with content */
+    height: auto;
+    /* Create stacking context for background layers */
+    isolation: isolate;
+}
+
+/* Dark theme site container */
+.theme-dark .site-container {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 
