@@ -61,8 +61,16 @@ class SummaryLoaderT1 {
 		$expertise = $data['expertise'] ?? [];
 		$decorationImage = $data['decorationImage'] ?? 'definitions/media/misc/summary_profile.gif';
 
+		// Generate web-relative path for decoration image
+		$basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+		if (!empty($basePath) && $basePath !== '/') {
+			$decorationImageUrl = $basePath . '/' . ltrim($decorationImage, '/');
+		} else {
+			$decorationImageUrl = '/' . ltrim($decorationImage, '/');
+		}
+
 		// Replace decoration image
-		$template = str_replace('<!-- DECORATION_IMAGE -->', htmlspecialchars($decorationImage), $template);
+		$template = str_replace('<!-- DECORATION_IMAGE -->', htmlspecialchars($decorationImageUrl), $template);
 
 		// Replace highlight section
 		$template = str_replace('<!-- HIGHLIGHT_ICON_NAME -->', htmlspecialchars($highlightIcon), $template);

@@ -26,10 +26,20 @@ class HeroLoaderT1 {
     private function generateFullComponent($id, $navConfig, $name, $headline, $description, $image, $backdrop, $social, $cvDownload) {
         $template = file_get_contents(__DIR__ . '/hero_structure_t1.html');
         
-        // Use relative paths directly from JSON data - no base path manipulation needed
+        // Generate web-relative paths that work on any deployment
+        $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
         $imagePath = $image;
         $backdropLight = $backdrop['light'] ?? 'definitions/media/backgrounds/hero_backdrop_light.png';
         $backdropDark = $backdrop['dark'] ?? 'definitions/media/backgrounds/hero_backdrop_dark.png';
+        
+        // Ensure paths are web-relative
+        if (!empty($basePath) && $basePath !== '/') {
+            $backdropLightUrl = $basePath . '/' . ltrim($backdropLight, '/');
+            $backdropDarkUrl = $basePath . '/' . ltrim($backdropDark, '/');
+        } else {
+            $backdropLightUrl = '/' . ltrim($backdropLight, '/');
+            $backdropDarkUrl = '/' . ltrim($backdropDark, '/');
+        }
         
         $html = $this->fillTemplate($template, $name, $headline, $description, $imagePath, $social, $cvDownload);
 
@@ -45,14 +55,13 @@ class HeroLoaderT1 {
             1
         );
 
-        // Instead of CSS variables, inject background images directly into the pseudo-elements
-        // This avoids CSS path resolution issues
+        // Inject background images with proper web-relative URLs
         $backgroundStyles = '<style>';
         $backgroundStyles .= '#' . htmlspecialchars($id) . '::before {';
-        $backgroundStyles .= 'background-image: url("' . htmlspecialchars($backdropLight) . '") !important;';
+        $backgroundStyles .= 'background-image: url("' . htmlspecialchars($backdropLightUrl) . '") !important;';
         $backgroundStyles .= '}';
         $backgroundStyles .= '.theme-dark #' . htmlspecialchars($id) . '::before {';
-        $backgroundStyles .= 'background-image: url("' . htmlspecialchars($backdropDark) . '") !important;';
+        $backgroundStyles .= 'background-image: url("' . htmlspecialchars($backdropDarkUrl) . '") !important;';
         $backgroundStyles .= '}';
         $backgroundStyles .= '</style>';
         
@@ -66,12 +75,32 @@ class HeroLoaderT1 {
     }
 
     private function fillTemplate($template, $name, $headline, $description, $image, $social, $cvDownload) {
+        // Generate web-relative path for avatar image
+        $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+        if (!empty($basePath) && $basePath !== '/') {
+            $imageUrl = $basePath . '/' . ltrim($image, '/');
+        } else {
+            $imageUrl = '/' . ltrim($image, '/');
+        }
+        
+        // Generate web-relative path for CV download
+        $cvHref = $cvDownload['href'] ?? '#';
+        if ($cvHref !== '#' && !preg_match('/^https?:\/\//', $cvHref)) {
+            if (!empty($basePath) && $basePath !== '/') {
+                $cvUrl = $basePath . '/' . ltrim($cvHref, '/');
+            } else {
+                $cvUrl = '/' . ltrim($cvHref, '/');
+            }
+        } else {
+            $cvUrl = $cvHref; // Keep external URLs or # as-is
+        }
+        
         $html = str_replace('<!-- NAME_PLACEHOLDER -->', htmlspecialchars($name), $template);
         $html = str_replace('<!-- TITLE_PLACEHOLDER -->', htmlspecialchars($headline), $html);
         $html = str_replace('<!-- DESCRIPTION_PLACEHOLDER -->', nl2br(htmlspecialchars($description)), $html);
-        $html = str_replace('<!-- IMAGE_SRC_PLACEHOLDER -->', htmlspecialchars($image), $html);
+        $html = str_replace('<!-- IMAGE_SRC_PLACEHOLDER -->', htmlspecialchars($imageUrl), $html);
         $html = str_replace('<!-- SOCIAL_PLACEHOLDER -->', $this->renderSocial($social), $html);
-        $html = str_replace('<!-- CV_DOWNLOAD_HREF -->', htmlspecialchars($cvDownload['href'] ?? '#'), $html);
+        $html = str_replace('<!-- CV_DOWNLOAD_HREF -->', htmlspecialchars($cvUrl), $html);
         $html = str_replace('<!-- CV_DOWNLOAD_FILENAME -->', htmlspecialchars($cvDownload['filename'] ?? 'CV.pdf'), $html);
         return $html;
     }
