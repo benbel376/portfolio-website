@@ -1,6 +1,7 @@
 // Theme toggle logic for dark/light mode - Type 2
 
 function setThemeClass(theme) {
+    document.documentElement.classList.toggle('theme-dark', theme === 'dark');
     document.body.classList.toggle('theme-dark', theme === 'dark');
     updateThemeIcon(theme);
 }
@@ -18,8 +19,8 @@ function applyTheme(theme) {
 }
 
 function toggleTheme() {
-    // Check if .theme-dark is currently applied to body
-    const isDarkMode = document.body.classList.contains('theme-dark');
+    // Check if .theme-dark is currently applied to documentElement
+    const isDarkMode = document.documentElement.classList.contains('theme-dark');
     const nextTheme = isDarkMode ? 'light' : 'dark';
     applyTheme(nextTheme);
 }
@@ -30,8 +31,14 @@ console.log('Theme toggle function loaded and exported to window.toggleTheme');
 
 function updateThemeIcon(theme) {
     const icon = document.getElementById('themeToggleIcon');
-    if (!icon) return;
-    icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    const mobileIcon = document.getElementById('mobileThemeIcon');
+    
+    if (icon) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+    if (mobileIcon) {
+        mobileIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
 }
 
 function initTheme() {

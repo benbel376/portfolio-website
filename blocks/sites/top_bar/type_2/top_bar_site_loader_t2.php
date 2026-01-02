@@ -70,73 +70,33 @@ class TopBarSiteLoader {
         $darkContainer = $backgrounds['dark']['container'] ?? $defaults['dark']['container'];
         
         // Generate background div that covers the entire scrollable content
-        // Use absolute positioning within the site container with very low z-index
+        // Use CSS variables for theme-aware backgrounds
         $backgroundDiv = '<div class="site-background-layer" style="';
         $backgroundDiv .= 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -999; pointer-events: none;';
-        $backgroundDiv .= 'background-image: url(' . htmlspecialchars($lightContainer) . ');';
+        $backgroundDiv .= 'background-image: var(--site-container-bg-image, url(' . htmlspecialchars($lightContainer) . '));';
         $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
         $backgroundDiv .= 'opacity: 0.8; min-height: 100%; width: 100%; border-radius: 22px;';
         $backgroundDiv .= '"></div>';
         
-        // Add dark theme background div
-        $backgroundDiv .= '<div class="site-background-layer-dark" style="';
-        $backgroundDiv .= 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -999; pointer-events: none;';
-        $backgroundDiv .= 'background-image: url(' . htmlspecialchars($darkContainer) . ');';
-        $backgroundDiv .= 'background-size: cover; background-position: center; background-repeat: no-repeat;';
-        $backgroundDiv .= 'opacity: 0.6; display: none; min-height: 100%; width: 100%; border-radius: 22px;';
-        $backgroundDiv .= '"></div>';
-        
-        // Add JavaScript for both theme switching and height adjustment
+        // Add JavaScript for height adjustment only (theme switching now handled by CSS)
         $backgroundDiv .= '<script>';
         $backgroundDiv .= 'function updateTopBarBackgrounds() {';
-        $backgroundDiv .= '  const html = document.documentElement;';
-        $backgroundDiv .= '  const isDark = html.classList.contains("theme-dark");';
-        $backgroundDiv .= '  const lightBg = document.querySelector(".site-background-layer");';
-        $backgroundDiv .= '  const darkBg = document.querySelector(".site-background-layer-dark");';
         $backgroundDiv .= '  const siteContainer = document.querySelector(".site-container");';
+        $backgroundDiv .= '  const backgroundLayer = document.querySelector(".site-background-layer");';
         $backgroundDiv .= '  ';
-        $backgroundDiv .= '  if (lightBg && darkBg) {';
-        $backgroundDiv .= '    if (isDark) {';
-        $backgroundDiv .= '      lightBg.style.display = "none";';
-        $backgroundDiv .= '      darkBg.style.display = "block";';
-        $backgroundDiv .= '    } else {';
-        $backgroundDiv .= '      lightBg.style.display = "block";';
-        $backgroundDiv .= '      darkBg.style.display = "none";';
-        $backgroundDiv .= '    }';
-        $backgroundDiv .= '    ';
+        $backgroundDiv .= '  if (backgroundLayer && siteContainer) {';
         $backgroundDiv .= '    // Update height to cover all content';
-        $backgroundDiv .= '    if (siteContainer) {';
-        $backgroundDiv .= '      const contentHeight = Math.max(siteContainer.scrollHeight, window.innerHeight);';
-        $backgroundDiv .= '      lightBg.style.height = contentHeight + "px";';
-        $backgroundDiv .= '      darkBg.style.height = contentHeight + "px";';
-        $backgroundDiv .= '      ';
-        $backgroundDiv .= '      // Fix site container background color for themes';
-        $backgroundDiv .= '      if (isDark) {';
-        $backgroundDiv .= '        siteContainer.style.backgroundColor = "var(--bg)";';
-        $backgroundDiv .= '      } else {';
-        $backgroundDiv .= '        siteContainer.style.backgroundColor = "var(--bg)";';
-        $backgroundDiv .= '      }';
-        $backgroundDiv .= '    }';
+        $backgroundDiv .= '    const contentHeight = Math.max(siteContainer.scrollHeight, window.innerHeight);';
+        $backgroundDiv .= '    backgroundLayer.style.height = contentHeight + "px";';
+        $backgroundDiv .= '    ';
+        $backgroundDiv .= '    // Ensure site container background color matches theme';
+        $backgroundDiv .= '    siteContainer.style.backgroundColor = "var(--bg)";';
         $backgroundDiv .= '  }';
         $backgroundDiv .= '}';
         $backgroundDiv .= '';
         $backgroundDiv .= '// Initial setup';
         $backgroundDiv .= 'document.addEventListener("DOMContentLoaded", function() {';
         $backgroundDiv .= '  setTimeout(updateTopBarBackgrounds, 100);';
-        $backgroundDiv .= '});';
-        $backgroundDiv .= '';
-        $backgroundDiv .= '// Listen for theme changes';
-        $backgroundDiv .= 'const observer = new MutationObserver(function(mutations) {';
-        $backgroundDiv .= '  mutations.forEach(function(mutation) {';
-        $backgroundDiv .= '    if (mutation.type === "attributes" && mutation.attributeName === "class") {';
-        $backgroundDiv .= '      updateTopBarBackgrounds();';
-        $backgroundDiv .= '    }';
-        $backgroundDiv .= '  });';
-        $backgroundDiv .= '});';
-        $backgroundDiv .= '';
-        $backgroundDiv .= 'observer.observe(document.documentElement, {';
-        $backgroundDiv .= '  attributes: true,';
-        $backgroundDiv .= '  attributeFilter: ["class"]';
         $backgroundDiv .= '});';
         $backgroundDiv .= '';
         $backgroundDiv .= '// Handle resize and load events';

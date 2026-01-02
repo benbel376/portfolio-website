@@ -818,7 +818,9 @@
     --transition-1: 0.25s ease;
     --transition-2: 0.5s ease-in-out;
     /* Body Background Image - Light Theme */
-    --body-bg-image: var(--body-bg-light);
+    --body-bg-image: var(--body-bg-light, url('../../../../definitions/media/backgrounds/general_background_light_v1.png'));
+    /* Site Container Background Image - Light Theme */
+    --site-container-bg-image: var(--site-bg-light, url('../../../../definitions/media/backgrounds/general_background_bubbles_v1.avif'));
     --hero-name-text-color: var(--primary);
     /* Avatar image is now handled by the hero component itself */
     /* Responsive Layout Spacing */
@@ -883,7 +885,9 @@
     /* Shadows for dark theme */
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
     /* Body Background Image - Dark Theme */
-    --body-bg-image: var(--body-bg-dark);
+    --body-bg-image: var(--body-bg-dark, url('../../../../definitions/media/backgrounds/general_background_dark_v1.png'));
+    /* Site Container Background Image - Dark Theme */
+    --site-container-bg-image: var(--site-bg-dark, url('../../../../definitions/media/backgrounds/general_background_bubbles_dark_v1.jpg'));
     --hero-name-text-color: var(--orange-yellow-crayola);
     /* Hero name specifically yellow in dark mode */
     /* Avatar image is now handled by the hero component itself */
