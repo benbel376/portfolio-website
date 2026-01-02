@@ -375,7 +375,7 @@
     padding: 0 var(--spacing-md, 16px);
     align-items: center;
     justify-content: space-between;
-    z-index: 99;
+    z-index: 1098;
 }
 
 .mobile-menu-toggle {
@@ -402,23 +402,8 @@
     font-weight: 600;
     margin: 0;
     color: var(--text);
-}
-
-.mobile-actions {
-    display: flex;
-    gap: var(--spacing-sm, 8px);
-}
-
-.mobile-action-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+    flex: 1;
+    text-align: center;
 }
 
 /* ========================================
@@ -429,7 +414,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
+    z-index: 1099;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -458,10 +443,15 @@
     
     .sidebar-nav {
         position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--sidebar-width);
         transform: translateX(-100%);
         height: 100vh;
         max-height: 100vh;
         border-radius: 0;
+        z-index: 1100;
+        transition: transform 0.3s ease;
     }
     
     .sidebar-nav.open {

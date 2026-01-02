@@ -31,7 +31,7 @@ console.log('Theme toggle function loaded and exported to window.toggleTheme');
 
 function updateThemeIcon(theme) {
     const icon = document.getElementById('themeToggleIcon');
-    const mobileIcon = document.getElementById('mobileThemeIcon');
+    const mobileIcon = document.getElementById('mobileThemeToggleIcon');
     
     if (icon) {
         icon.textContent = theme === 'dark' ? '☀️' : '🌙';

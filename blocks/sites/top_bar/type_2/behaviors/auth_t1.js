@@ -43,10 +43,15 @@
         }
 
         setupUiBindings() {
-            // Auth button
+            // Auth buttons (desktop and mobile)
             const authBtn = document.getElementById('siteAuthBtn');
+            const mobileAuthBtn = document.getElementById('mobileAuthBtn');
+            
             if (authBtn) {
                 authBtn.addEventListener('click', () => this.handleSiteAuthClick());
+            }
+            if (mobileAuthBtn) {
+                mobileAuthBtn.addEventListener('click', () => this.handleSiteAuthClick());
             }
 
             // Modal events
@@ -71,12 +76,22 @@
 
             // React on auth changes to update UI
             this.onChange((authed) => {
-                // Toggle button state
+                // Toggle desktop button state
                 const btn = document.getElementById('siteAuthBtn');
                 if (btn) {
                     btn.classList.toggle('authenticated', authed);
                     const icon = btn.querySelector('.site-auth-icon');
                     if (icon) icon.setAttribute('name', authed ? 'log-out-outline' : 'log-in-outline');
+                }
+
+                // Toggle mobile button state
+                const mobileBtn = document.getElementById('mobileAuthBtn');
+                if (mobileBtn) {
+                    mobileBtn.classList.toggle('authenticated', authed);
+                    const mobileIcon = mobileBtn.querySelector('.site-auth-icon');
+                    if (mobileIcon) mobileIcon.setAttribute('name', authed ? 'log-out-outline' : 'log-in-outline');
+                    const mobileText = mobileBtn.querySelector('span:not(.site-auth-icon)');
+                    if (mobileText) mobileText.textContent = authed ? 'Logout' : 'Login';
                 }
 
                 // Hide/show protected nav links

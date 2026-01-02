@@ -66,8 +66,21 @@
   </button>
   <ul class="nav-links-list">
     <!-- NAVIGATION_TABS_PLACEHOLDER -->
+    <!-- Mobile-only action buttons (hidden on desktop) -->
+    <li class="mobile-only-actions">
+      <button id="mobileAuthBtn" onclick="handleSiteAuthClick()" aria-label="Site authentication" class="mobile-nav-action-btn">
+        <ion-icon name="log-in-outline" class="site-auth-icon"></ion-icon>
+        <span>Login</span>
+      </button>
+    </li>
+    <li class="mobile-only-actions">
+      <button id="mobileThemeToggleBtn" onclick="window.toggleTheme()" aria-label="Toggle dark/light theme" class="mobile-nav-action-btn">
+        <span id="mobileThemeToggleIcon">🌙</span>
+        <span>Theme</span>
+      </button>
+    </li>
   </ul>
-  <div class="theme-toggle-wrapper">
+  <div class="theme-toggle-wrapper desktop-only">
     <button id="siteAuthBtn" onclick="handleSiteAuthClick()" aria-label="Site authentication" class="nav-action-btn">
       <ion-icon name="log-in-outline" class="site-auth-icon"></ion-icon>
     </button>

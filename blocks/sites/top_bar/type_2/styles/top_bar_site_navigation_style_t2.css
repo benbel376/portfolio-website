@@ -203,6 +203,12 @@
     .mobile-menu-toggle {
         display: flex !important;
     }
+    
+    /* Hide desktop action buttons on mobile */
+    .theme-toggle-wrapper.desktop-only {
+        display: none !important;
+    }
+    
     .main-nav ul.nav-links-list {
         visibility: hidden;
         opacity: 0;
@@ -277,12 +283,58 @@
     .theme-dark .main-nav ul.nav-links-list li a.active {
         background-color: rgba(255, 255, 255, 0.1);
     }
+    
+    /* Show mobile action buttons only in dropdown */
+    .mobile-only-actions {
+        display: block !important;
+    }
+    
+    .mobile-nav-action-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.75em;
+        width: 100%;
+        padding: 1em 1.5em;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        justify-content: flex-start;
+    }
+    
+    .mobile-nav-action-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: var(--text);
+    }
+    
+    .theme-dark .mobile-nav-action-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-nav-action-btn ion-icon {
+        font-size: 1.2em;
+    }
 }
 
 @media (min-width: 769px) {
     .mobile-menu-toggle {
         display: none !important;
     }
+    
+    /* Hide mobile action buttons on desktop */
+    .mobile-only-actions {
+        display: none !important;
+    }
+    
+    /* Show desktop action buttons */
+    .theme-toggle-wrapper.desktop-only {
+        display: flex !important;
+    }
+    
     .main-nav ul.nav-links-list {
         visibility: visible !important;
         opacity: 1 !important;

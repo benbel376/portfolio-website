@@ -592,6 +592,7 @@ Inner ring - sized relative to avatar
 }
 
 .theme-dark .hero__description { 
+  display: none;
   color: var(--color-text-secondary); 
 }
 
